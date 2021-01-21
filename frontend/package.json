@@ -3,23 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_ENV=development node server.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint ."
   },
   "dependencies": {
+    "http-proxy-middleware": "^1.0.6",
     "next": "10.0.5",
     "react": "17.0.1",
     "react-dom": "17.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "express": "^4.17.1"
   }
 }
