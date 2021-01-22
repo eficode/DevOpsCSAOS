@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { sequelize, Answer } = require('./models')
-
+const port = process.env.PORT || 5000
 const app = express()
 app.use(express.json())
 
@@ -39,8 +39,8 @@ app.get('/api/answers/:uuid', async (req,res) => {
     }
 })
 
-app.listen({ port: 5000}, async () => {
-    console.log('Server up on http://localhost:5000')
+app.listen({ port: port}, async () => {
+    console.log(`'Server up on http://localhost:${port}`)
     await sequelize.authenticate()
     console.log('Database connected')
 })
