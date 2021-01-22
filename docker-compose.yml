@@ -1,0 +1,28 @@
+version: '3'
+
+services: 
+  frontend:
+    image: frontend
+    build: ./frontend
+    ports: 
+      - 3000:3000
+  backend:
+    image: backend
+    build: ./backendv2
+    ports: 
+      - 5000:5000
+    env_file: 
+      - ./backendv2/.env
+    depends_on: 
+      - db
+  db:
+    image: postgres
+    restart: unless-stopped
+    container_name: db_container
+    env_file: 
+      - ./backendv2/.env
+    volumes:
+      - database:/var/lib/postgresql/data
+
+volumes:
+  database:
