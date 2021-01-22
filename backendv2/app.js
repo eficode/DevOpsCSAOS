@@ -2,8 +2,12 @@ const express = require('express')
 
 const { sequelize, Answer } = require('./models')
 const port = process.env.PORT || 5000
+const path = require('path')
+
 const app = express()
 app.use(express.json())
+app.use(express.static(path.join(__dirname, '../frontend/out')));
+
 
 app.post('/api/answers', async(req, res) => {
     const {first, second, third} = req.body
@@ -38,6 +42,11 @@ app.get('/api/answers/:uuid', async (req,res) => {
         return res.status(500).json({ error: 'That uuid does not exist' })
     }
 })
+
+app.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname, '../frontend/out/index.html'));
+  });
+
 
 app.listen({ port: port}, async () => {
     console.log(`'Server up on http://localhost:${port}`)
