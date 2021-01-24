@@ -19,7 +19,7 @@ To start the client:
 ```bash
 cd packages/frontend
 npm ci
-npm start
+npm run dev
 ```
 
 Then open [http://localhost:3000/](http://localhost:3000/) to see the app.<br>
