@@ -13,9 +13,9 @@ jobs:
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
-      - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
+      - uses: akhileshns/heroku-deploy@v3.8.9 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "ohtu-staging" #Must be unique in Heroku
+          heroku_app_name: "ohtu-staging" 
           heroku_email: "ossi.j.lehtonen@helsinki.fi"
           usedocker: true
