@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    if: github.ref != 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -13,9 +14,17 @@ jobs:
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
+      - name: Test image building
+        run: docker build . -t image-test-build
+
+  deploy_to_staging:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
       - uses: akhileshns/heroku-deploy@v3.8.9 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "ohtu-staging" 
-          heroku_email: "ossi.j.lehtonen@helsinki.fi"
+          heroku_app_name: "ohtu-csaos-staging" 
+          heroku_email: ${{secrets.PROJECT_EMAIL}}
           usedocker: true
+
