@@ -12,4 +12,5 @@ RUN npm install -g sequelize-cli
 
 EXPOSE 5000
 
-CMD ["/bin/bash"]
+ENTRYPOINT ["npm"]
+CMD ["run","dev"]
