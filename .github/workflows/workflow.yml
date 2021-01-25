@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
         run: docker build . -t image-test-build
 
   deploy_to_staging:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: akhileshns/heroku-deploy@v3.8.9 
