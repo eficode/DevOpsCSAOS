@@ -9,11 +9,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run backend tests
-        working-directory: ./backendv2
+        working-directory: ./backend
         run: npm install && npm test
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
+      - name: Run backend lint
+        working-directory: ./backend
+        run: npm run lint
+      - name: Run frontend lint
+        working-directory: ./frontend
+        run: npm run lint
       - name: Test image building
         run: docker build . -t image-test-build
 

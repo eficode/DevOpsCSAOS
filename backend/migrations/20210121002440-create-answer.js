@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: async (queryInterface, DataTypes) => {
     await queryInterface.createTable('answers', {
@@ -7,7 +5,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       uuid: {
         type: DataTypes.UUID,
@@ -15,27 +13,27 @@ module.exports = {
       },
       first: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       second: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       third: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: DataTypes.DATE
-      }
+        type: DataTypes.DATE,
+      },
     });
   },
-  down: async (queryInterface, DataTypes) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('answers');
-  }
+  },
 };
