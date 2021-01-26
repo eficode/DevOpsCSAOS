@@ -1,5 +1,5 @@
 // add theme colors for the app here
-export const colors = {
+const colors = {
   blueDianne: '#1E3944',
   brandyPunch: '#DD7F2F',
   easternBlue: '#148AB3',
@@ -7,3 +7,5 @@ export const colors = {
   gold: '#FFD700',
   amber: '#FFC200',
 };
+
+export default colors;
