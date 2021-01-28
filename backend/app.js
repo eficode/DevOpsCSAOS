@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend/out')));
 
-//list all questions
+// list all questions
 app.get('/api/questions', async (req, res) => {
   try {
     const questions = await Question.findAll();
@@ -18,7 +18,7 @@ app.get('/api/questions', async (req, res) => {
     return res.status(500).json({ error: 'Unable to fetch answers' });
   }
 });
-//list all categories
+// list all categories
 app.get('/api/categories', async (req, res) => {
   try {
     const categories = await Category.findAll();
@@ -28,7 +28,7 @@ app.get('/api/categories', async (req, res) => {
   }
 });
 
-//get question by id
+// get question by id
 app.get('/api/question/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -41,7 +41,7 @@ app.get('/api/question/:id', async (req, res) => {
   }
 });
 
-//get all questions in category
+// get all questions in category
 app.get('/api/category/:CategoryId', async (req, res) => {
   const { CategoryId } = req.params;
   try {
