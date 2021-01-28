@@ -9,7 +9,6 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend/out')));
 
-
 app.get('/api/questions', async (req, res) => {
   try {
     const questions = await Question.findAll();
@@ -39,7 +38,6 @@ app.get('/api/questions/:CategoryId', async (req, res) => {
     return res.status(500).json({ error: 'That uuid does not exist' });
   }
 });
-
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/out/index.html'));
