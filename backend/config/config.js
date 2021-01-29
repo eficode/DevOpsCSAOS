@@ -16,6 +16,7 @@ module.exports = {
     database: 'test_db',
     host: DB_HOST,
     dialect: 'postgres',
+    logging: false,
   },
   production: {
     use_env_variable: 'DATABASE_URL',
