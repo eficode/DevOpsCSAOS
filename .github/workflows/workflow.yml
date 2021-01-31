@@ -32,6 +32,7 @@ jobs:
           DB_PASS: postgres
           DB_USER: postgres
           PGPASSWORD: postgres
+          NODE_ENV: test
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
