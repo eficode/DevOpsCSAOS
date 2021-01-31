@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import ContentWrapper from '../../../components/contentWrapper';
+import Button from '../../../components/button';
 
 const exampleData = { id: 0, text: 'Oletko kaurainen', weight: 3 };
 
@@ -94,6 +95,8 @@ const Question = () => {
           onClick={() => setSelectedValue(1)}
         />
       </OptionsWrapper>
+      <Button onClick={() => console.log('(display next q)')} type="submit">Submit button</Button>
+      <Button onClick={() => console.log('(display next q)')} type="button">Random button</Button>
     </ContentWrapper>
   );
 };
