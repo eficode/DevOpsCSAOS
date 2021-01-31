@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node app.js",
     "dev": "cross-env NODE_ENV=development sequelize-cli db:migrate && nodemon app.js",
-    "test": "NODE_ENV=test npx sequelize-cli db:drop && npx sequelize db:create && cross-env NODE_ENV=test jest --verbose --runInBand --detectOpenHandles --forceExit",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --detectOpenHandles --forceExit",
     "lint": "eslint .",
     "reset-test-db": "export NODE_ENV=test && (dropdb test_db || true) && createdb test_db && npx sequelize-cli db:migrate",
     "create-dev-db": "export NODE_ENV=development && createdb dev_db && npx sequelize-cli db:migrate"
