@@ -2,24 +2,13 @@
 import React from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
-import Link from 'next/link'
+import Link from 'next/link';
+
+import ContentWrapper from '../components/contentWrapper';
 
 const Header = styled.header``;
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 15rem;
-
-  button {
-    padding: 1rem 1.5rem;
-    background-color: ${({ theme }) => theme.colors.easternBlue};
-  }
 `;
 
 const Main = styled.main`
@@ -30,6 +19,11 @@ const Main = styled.main`
     text-align: center;
     line-height: 1.6;
     padding: 0.5rem;
+  }
+
+  button {
+    padding: 1rem 1.5rem;
+    background-color: ${({ theme }) => theme.colors.easternBlue};
   }
 `;
 
@@ -50,11 +44,11 @@ const Home = () => (
           voluptates, aperiam tenetur laudantium officiis quidem in harum recusandae suscipit quo dignissimos dolorum!
           Aspernatur, quidem blanditiis? Tempora quam sunt perspiciatis itaque, a culpa nulla, voluptatibus qui ex aut
           pariatur ut minus numquam eos dolor non totam ducimus, tempore est at temporibus repellat! Natus libero
-          delectus dignissimos. 
+          delectus dignissimos.
         </p>
       </Main>
 
-      <button>
+      <button type="button">
         <Link href="/survey/question/0" passHref>
           <span>Get started</span>
         </Link>
