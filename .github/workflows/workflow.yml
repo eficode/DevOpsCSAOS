@@ -28,7 +28,7 @@ jobs:
         working-directory: ./backend
         run: npm install && npm test
         env:
-          DB_HOST: postgresql://localhost:5432/test_db
+          DB_HOST: postgresql://localhost:5432
           DB_PASS: postgres
           DB_USER: postgres
       - name: Run frontend tests
