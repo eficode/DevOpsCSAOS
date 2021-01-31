@@ -4,7 +4,7 @@ const questions = require('./questions.json')
 const { sequelize, Question, Category } = require('../models')
 
 const initDatabase = async () => {
-//  await sequelize.sync()
+  await sequelize.sync({ force: true })
 
   categories.forEach(async (category) => {
     await Category.create(category)

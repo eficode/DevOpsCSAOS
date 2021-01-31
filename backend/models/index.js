@@ -41,12 +41,10 @@ Object.keys(db).forEach((modelName) => {
 })
 
 Object.keys(db).forEach((modelName) => {
-  console.log('current: ', modelName)
   db[modelName]
     .sync()
     .then(() => {})
     .catch((err) => {
-      console.log('HERE WE ARE')
       console.log(err)
     })
 })
