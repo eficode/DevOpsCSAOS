@@ -9,6 +9,7 @@
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand --detectOpenHandles --forceExit",
     "lint": "eslint .",
     "sequalize:migrate": "npx sequelize-cli db:migrate",
+    "createdbs": "createdb test_db && createdb dev_db && createdb prod_db",
     "reset-test-db": "export NODE_ENV=test && (dropdb test_db || true) && createdb test_db && npx sequelize-cli db:migrate",
     "create-dev-db": "export NODE_ENV=development && createdb dev_db && npx sequelize-cli db:migrate"
   },
