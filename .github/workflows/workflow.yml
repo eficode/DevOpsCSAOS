@@ -26,11 +26,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run backend tests
         working-directory: ./backend
-        run: npm install && npm run createdbs && npm run sequalize:migrate && npm test
+        run: npm install && createdb -h localhost -p 5432 -U postgres dev_db && createdb -h localhost -p 5432 -U postgres prod_db &&  npm run sequalize:migrate && npm test
         env:
           DB_HOST: localhost
           DB_PASS: postgres
           DB_USER: postgres
+          PGPASSWORD: postgres
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
