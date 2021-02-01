@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, '../frontend/out')));
 // list all questions
 app.get('/api/questions', async (req, res) => {
   try {
-    const questions = await Question.findAll();
+    const questions = await Question.findAll({ include: [{ model: Category, attributes: ['name'] }] });
     return res.json(questions);
   } catch (e) {
     return res.status(500).json({ error: 'Unable to fetch answers' });
