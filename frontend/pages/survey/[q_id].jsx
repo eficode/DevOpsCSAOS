@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -54,14 +54,15 @@ const Option = ({ label, selected, onClick }) => {
   );
 };
 
-const Question = () => {
+const Question = (props) => {
   const [selectedValue, setSelectedValue] = useState(0);
   const router = useRouter();
   const questionId = router.query.q_id;
   console.log('💩 ~ file: [Question].js ~ line 5 ~ router', router);
   console.log(selectedValue);
 
-  const nextQuestionUrl = `/survey/${Number(questionId)+1}`;
+  const nextQuestionUrl = `/survey/${Number(questionId) + 1}`;
+  console.log(props);
 
   return (
     <ContentWrapper>
@@ -72,7 +73,7 @@ const Question = () => {
         {questionId}
         /1
       </span>
-      <QuestionTitle>{exampleData.text}</QuestionTitle>
+      <QuestionTitle>moi</QuestionTitle>
       <OptionsWrapper>
         <Option
           label="Strongly agree"
@@ -103,7 +104,8 @@ const Question = () => {
       <Button type="button">
         <Link href={nextQuestionUrl} passHref>
           <span>Next</span>
-        </Link></Button>
+        </Link>
+      </Button>
     </ContentWrapper>
   );
 };

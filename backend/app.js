@@ -55,7 +55,7 @@ app.get('/api/category/:CategoryId', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/out/index.html'));
+  res.sendFile(path.join(__dirname, '../frontend/pages/survey/index.html'));
 });
 
 app.listen({ port }, async () => {

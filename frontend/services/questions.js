@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const baseUrl = '/api/questions'
+const baseUrl = '/api/questions';
 
 const getAll = async () => {
-  const response = await axios.get(baseUrl)
-  return response.data
-}
+  const response = await axios.get(baseUrl);
+  return response.data;
+};
 
 export default { getAll }
