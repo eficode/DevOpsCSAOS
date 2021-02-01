@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import styled from 'styled-components';
 
-import ContentWrapper from '../../../components/contentWrapper';
-import Button from '../../../components/button';
+import ContentWrapper from '../../components/contentWrapper';
+import Button from '../../components/button';
 
 const exampleData = { id: 0, text: 'Oletko kaurainen', weight: 3 };
 
@@ -25,6 +26,7 @@ const QuestionTitle = styled.h2`
 
 const NotSelectedOption = styled.button`
   background-color: ${({ theme }) => theme.colors.gold};
+  border-radius: 3px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.amber};
@@ -32,6 +34,7 @@ const NotSelectedOption = styled.button`
 `;
 
 const SelectedOption = styled.button`
+  border-radius: 3px;
   background-color: ${({ theme }) => theme.colors.brandyPunch};
 `;
 
@@ -54,9 +57,11 @@ const Option = ({ label, selected, onClick }) => {
 const Question = () => {
   const [selectedValue, setSelectedValue] = useState(0);
   const router = useRouter();
-  const questionId = router.query.Question;
+  const questionId = router.query.q_id;
   console.log('💩 ~ file: [Question].js ~ line 5 ~ router', router);
   console.log(selectedValue);
+
+  const nextQuestionUrl = `/survey/${Number(questionId)+1}`;
 
   return (
     <ContentWrapper>
@@ -95,8 +100,10 @@ const Question = () => {
           onClick={() => setSelectedValue(1)}
         />
       </OptionsWrapper>
-      <Button onClick={() => console.log('(display next q)')} type="submit">Submit button</Button>
-      <Button onClick={() => console.log('(display next q)')} type="button">Random button</Button>
+      <Button type="button">
+        <Link href={nextQuestionUrl} passHref>
+          <span>Next</span>
+        </Link></Button>
     </ContentWrapper>
   );
 };

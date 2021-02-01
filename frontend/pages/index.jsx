@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 import ContentWrapper from '../components/contentWrapper';
+import Button from '../components/button';
 
 const Header = styled.header``;
 const Heading = styled.h1`
@@ -48,11 +49,11 @@ const Home = () => (
         </p>
       </Main>
 
-      <button type="button">
-        <Link href="/survey/question/0" passHref>
+      <Button type="button">
+        <Link href="/survey/0" passHref>
           <span>Get started</span>
         </Link>
-      </button>
+      </Button>
     </ContentWrapper>
 
     {/* <footer>Footer</footer> */}
