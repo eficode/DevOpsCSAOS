@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import ContentWrapper from '../../components/contentWrapper';
 import Button from '../../components/button';
+import Option from '../../components/option';
 import getAll from '../../services/questions';
 
 const OptionsWrapper = styled.div`
@@ -24,36 +25,6 @@ const Heading = styled.h3`
 const QuestionTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
 `;
-
-const NotSelectedOption = styled.button`
-  background-color: ${({ theme }) => theme.colors.gold};
-  border-radius: 3px;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.amber};
-  }
-`;
-
-const SelectedOption = styled.button`
-  border-radius: 3px;
-  background-color: ${({ theme }) => theme.colors.brandyPunch};
-`;
-
-const Option = ({ label, selected, onClick }) => {
-  if (selected) {
-    return (
-      <SelectedOption onClick={onClick}>
-        {label}
-      </SelectedOption>
-    );
-  }
-
-  return (
-    <NotSelectedOption onClick={onClick}>
-      {label}
-    </NotSelectedOption>
-  );
-};
 
 export async function getStaticPaths() {
   const questions = await getAll();
