@@ -21,9 +21,9 @@ module.exports = {
         allowNull: false,
         type: DataTypes.DATE,
       },
-    });
+    })
   },
   down: async (queryInterface, DataTypes) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Users')
   },
-};
+}

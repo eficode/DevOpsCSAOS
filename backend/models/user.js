@@ -1,6 +1,4 @@
-const {
-  Model,
-} = require('sequelize');
+const { Model } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -11,31 +9,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Answer }) {
       // define association here
-      this.hasMany(Answer, { foreignKey: 'userId' });
+      this.hasMany(Answer, { foreignKey: 'userId' })
     }
 
     toJSON() {
-      return { ...this.get(), id: undefined };
+      // eslint-disable-next-line node/no-unsupported-features/es-syntax
+      return { ...this.get(), id: undefined }
     }
   }
-  User.init({
-    uuid: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'User must have an email' },
-        notEmpty: { msg: 'Email can\'t be empty' },
-        isEmail: { msg: 'Provided info must be a valid email address' },
+  User.init(
+    {
+      uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
       },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'User must have an email' },
+          notEmpty: { msg: "Email can't be empty" },
+          isEmail: { msg: 'Provided info must be a valid email address' },
+        },
+      },
+      organizationID: DataTypes.STRING,
     },
-    organizationID: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
-  return User;
-};
+    {
+      sequelize,
+      modelName: 'User',
+    }
+  )
+  return User
+}

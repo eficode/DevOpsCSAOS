@@ -1,4 +1,4 @@
-const { Model } = require('sequelize');
+const { Model } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
   class Category extends Model {
@@ -8,31 +8,35 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     // eslint-disable-next-line no-unused-vars
-    static associate( models ) {
+    static associate(models) {
       // define association here
-      this.hasMany(models.Question, { foreignKey: 'categoryId' });
+      this.hasMany(models.Question, { foreignKey: 'categoryId' })
     }
 
     toJSON() {
-      return { ...this.get(), id: undefined };
+      // eslint-disable-next-line node/no-unsupported-features/es-syntax
+      return { ...this.get(), id: undefined }
     }
   }
-  Category.init({
-    uuid: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'Category must have a name' },
-        notEmpty: { msg: 'Category name can\'t be empty' },
+  Category.init(
+    {
+      uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Category must have a name' },
+          notEmpty: { msg: "Category name can't be empty" },
+        },
       },
     },
-  }, {
-    sequelize,
-    modelName: 'Category',
-  });
-  return Category;
-};
+    {
+      sequelize,
+      modelName: 'Category',
+    }
+  )
+  return Category
+}
