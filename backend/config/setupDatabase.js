@@ -4,15 +4,10 @@ const questions = require('./questions.json')
 const { sequelize, Question, Category } = require('../models')
 
 const initDatabase = async () => {
-  // await sequelize.sync({ force: true })
+  await sequelize.sync({ force: true })
+  await Category.bulkCreate(categories)
 
-  // categories.forEach(async (category) => {
-  //   await Category.create(category)
-  // })
-
-  // questions.forEach(async (question) => {
-  //   await Question.create(question)
-  // })
+  await Question.bulkCreate(questions)
 }
 
 module.exports = { initDatabase }

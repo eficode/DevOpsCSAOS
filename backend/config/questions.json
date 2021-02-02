@@ -1,22 +1,26 @@
 [
     {
+        "id": 1,
         "text": "Oletko ruisleipä?",
         "weight": 0.8,
-        "CategoryId": 1
+        "categoryId": 1
     },
     {
+        "id": 2,
         "text": "Oletko kauraleipä?",
         "weight": 0.5,
-        "CategoryId": 1
+        "categoryId": 1
     },
     {
+        "id": 3,
         "text": "Pullaleipä on parasta?",
         "weight": 0.8,
-        "CategoryId": 2
+        "categoryId": 2
     },
     {
+        "id": 4,
         "text": "Täysjyväleipä on parasta?",
         "weight": 0.5,
-        "CategoryId": 2
+        "categoryId": 2
     }
 ]

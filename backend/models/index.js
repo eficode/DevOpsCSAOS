@@ -17,7 +17,7 @@ if (config.use_env_variable) {
     config.database,
     config.username,
     config.password,
-    config
+    config,
   )
 }
 
@@ -40,14 +40,6 @@ Object.keys(db).forEach((modelName) => {
   }
 })
 
-Object.keys(db).forEach((modelName) => {
-  db[modelName]
-    .sync()
-    .then(() => {})
-    .catch((err) => {
-      console.log(err)
-    })
-})
 
 db.sequelize = sequelize
 
