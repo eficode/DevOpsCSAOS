@@ -8,10 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     // eslint-disable-next-line no-unused-vars
-    static associate({ Question }) {
+    static associate( models ) {
       // define association here
-      Category.hasMany(Question);
-      this.hasMany(Question, { foreignKey: 'categoryId' });
+      this.hasMany(models.Question, { foreignKey: 'categoryId' });
     }
 
     toJSON() {
