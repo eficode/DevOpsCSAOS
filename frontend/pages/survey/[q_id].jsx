@@ -66,10 +66,8 @@ const Question = ({ questions }) => {
       <span>Get results!</span>
     </Button>
   ) : (
-    <Button type="button">
-      <Link href={nextQuestionUrl} passHref>
-        <span>Next</span>
-      </Link>
+    <Button type="button" onClick={() => router.push(nextQuestionUrl)}>
+      <span>Next</span>
     </Button>
   );
 

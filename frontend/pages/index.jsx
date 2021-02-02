@@ -3,6 +3,7 @@ import React from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import ContentWrapper from '../components/contentWrapper';
 import Button from '../components/button';
@@ -28,36 +29,39 @@ const Main = styled.main`
   }
 `;
 
-const Home = () => (
-  <>
-    <Head>
-      <title>DevOps Capability Survey</title>
-    </Head>
-    <ContentWrapper>
-      <Header>
-        <Heading>DevOps Assessment Tool</Heading>
-      </Header>
-      <Main>
-        <p>Welcome!</p>
-        <p>Test yout DevOps capabilities here.</p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, animi repellat quaerat beatae autem
-          voluptates, aperiam tenetur laudantium officiis quidem in harum recusandae suscipit quo dignissimos dolorum!
-          Aspernatur, quidem blanditiis? Tempora quam sunt perspiciatis itaque, a culpa nulla, voluptatibus qui ex aut
-          pariatur ut minus numquam eos dolor non totam ducimus, tempore est at temporibus repellat! Natus libero
-          delectus dignissimos.
-        </p>
-      </Main>
+const Home = () => {
+  const router = useRouter();
+  return (
+    <>
+      <Head>
+        <title>DevOps Capability Survey</title>
+      </Head>
+      <ContentWrapper>
+        <Header>
+          <Heading>DevOps Assessment Tool</Heading>
+        </Header>
+        <Main>
+          <p>Welcome!</p>
+          <p>Test yout DevOps capabilities here.</p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, animi repellat quaerat beatae autem
+            voluptates, aperiam tenetur laudantium officiis quidem in harum recusandae suscipit quo dignissimos dolorum!
+            Aspernatur, quidem blanditiis? Tempora quam sunt perspiciatis itaque, a culpa nulla, voluptatibus qui ex aut
+            pariatur ut minus numquam eos dolor non totam ducimus, tempore est at temporibus repellat! Natus libero
+            delectus dignissimos.
+          </p>
+        </Main>
 
-      <Button type="button">
-        <Link href="/survey/1" passHref>
-          <span>Get started</span>
-        </Link>
-      </Button>
-    </ContentWrapper>
+        <Button type="button" onClick={() => router.push('/survey/1')}>
+          <Link href="/survey/1" passHref>
+            <span>Get started</span>
+          </Link>
+        </Button>
+      </ContentWrapper>
 
-    {/* <footer>Footer</footer> */}
-  </>
-);
+      {/* <footer>Footer</footer> */}
+    </>
+  );
+};
 
 export default Home;
