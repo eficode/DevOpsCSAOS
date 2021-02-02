@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
           isEmail: { msg: 'Provided info must be a valid email address' },
         },
       },
-      organizationID: DataTypes.STRING,
+      organizationId: DataTypes.STRING,
     },
     {
       sequelize,
