@@ -1,17 +1,18 @@
 /* eslint-disable max-len */
-import React from 'react';
-import Head from 'next/head';
-import styled from 'styled-components';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import React from 'react'
+import Head from 'next/head'
+import styled from 'styled-components'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-import ContentWrapper from '../components/contentWrapper';
-import Button from '../components/button';
+import ContentWrapper from '../components/contentWrapper'
+import Button from '../components/button'
+import getAll from '../services/questions'
 
-const Header = styled.header``;
+const Header = styled.header``
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
-`;
+`
 
 const Main = styled.main`
   padding: 5rem;
@@ -27,10 +28,9 @@ const Main = styled.main`
     padding: 1rem 1.5rem;
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
-`;
+`
 
 const Home = () => {
-  const router = useRouter();
   return (
     <>
       <Head>
@@ -41,27 +41,18 @@ const Home = () => {
           <Heading>DevOps Assessment Tool</Heading>
         </Header>
         <Main>
-          <p>Welcome!</p>
-          <p>Test yout DevOps capabilities here.</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, animi repellat quaerat beatae autem
-            voluptates, aperiam tenetur laudantium officiis quidem in harum recusandae suscipit quo dignissimos dolorum!
-            Aspernatur, quidem blanditiis? Tempora quam sunt perspiciatis itaque, a culpa nulla, voluptatibus qui ex aut
-            pariatur ut minus numquam eos dolor non totam ducimus, tempore est at temporibus repellat! Natus libero
-            delectus dignissimos.
-          </p>
+          <h1>Welcome!</h1>
+          <p>Test your DevOps capabilities here.</p>
         </Main>
 
-        <Button type="button" onClick={() => router.push('/survey/1')}>
-          <Link href="/survey/1" passHref>
-            <span>Get started</span>
-          </Link>
-        </Button>
+        <Link href="/survey/questions/1" passHref>
+          <span>Get started</span>
+        </Link>
       </ContentWrapper>
 
       {/* <footer>Footer</footer> */}
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
