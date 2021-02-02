@@ -1,9 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { sequelize, Category, Question } = require('./models');
-const { initDatabase } = require('./config/setupDatabase');
-
-const port = process.env.PORT || 5000;
+const { Category, Question } = require('./models');
 
 const app = express();
 app.use(express.json());
@@ -15,7 +12,8 @@ app.get('/api/questions', async (req, res) => {
     const questions = await Question.findAll();
     return res.json(questions);
   } catch (e) {
-    return res.status(500).json({ error: 'Unable to fetch answers' });
+    console.log(e)
+    return res.status(500).json({ error: 'Unable to fetch questions' });
   }
 });
 // list all categories
@@ -58,11 +56,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/out/index.html'));
 });
 
-app.listen({ port }, async () => {
-  console.log(`'Server up on http://localhost:${port}`);
-  await sequelize.authenticate();
-  await initDatabase();
-  console.log('Database connected');
-});
+
 
 module.exports = app;
