@@ -10,4 +10,4 @@ COPY backend/package*.json ./backend/
 RUN cd backend && npm install
 COPY . .
 
-CMD ["node", "./backend/app.js"]
+CMD ["node", "./backend/server.js"]

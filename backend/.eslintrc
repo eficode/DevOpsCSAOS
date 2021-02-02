@@ -1,8 +1,15 @@
 {
-  "extends": "airbnb",
+  "extends": ["airbnb", "prettier", "plugin:node/recommended"],
+  "plugins": ["prettier"],
   "ignorePatterns": ["./migrations/*"],
   "rules": {
     "no-console": "off",
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "no-unused-vars": "warn",
+    "func-names": "off",
+    "no-process-exit": "off",
+    "object-shorthand": "off",
+    "class-methods-use-this": "off"
   }
 }
