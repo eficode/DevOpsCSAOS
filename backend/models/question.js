@@ -1,4 +1,4 @@
-const { Model } = require('sequelize');
+const { Model } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
   class Question extends Model {
@@ -7,18 +7,52 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Category }) {
+    static associate({ Category, Answer }) {
       // define association here
-      Question.belongsTo(Category, { foreingKey: 'CategoryId' });
+      this.belongsTo(Category, { foreignKey: 'categoryId' })
+      this.hasMany(Answer, { foreignKey: 'questionId' })
+    }
+
+    toJSON() {
+      // eslint-disable-next-line node/no-unsupported-features/es-syntax
+      return { ...this.get(), id: undefined }
     }
   }
-  Question.init({
-    text: DataTypes.STRING,
-    weight: DataTypes.FLOAT,
-    CategoryId: DataTypes.INTEGER,
-  }, {
-    sequelize,
-    modelName: 'Question',
-  });
-  return Question;
-};
+  Question.init(
+    {
+      uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      text: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Question must have text' },
+          notEmpty: { msg: "Question text can't be empty" },
+        },
+      },
+      weight: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Question must have weight for scoring' },
+          notEmpty: { msg: "Question scoring can't be empty" },
+        },
+      },
+      categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Question must have categoryId' },
+          notEmpty: { msg: "Question categoryId can't be empty" },
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: 'Question',
+    }
+  )
+  return Question
+}

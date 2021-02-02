@@ -6,11 +6,35 @@ jobs:
   build:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v2
       - name: Run backend tests
         working-directory: ./backend
-        run: npm install && npm test
+        # install dependencies and create the necessary databases before running tests
+        run: npm install && createdb -h localhost -p 5432 -U postgres dev_db && createdb -h localhost -p 5432 -U postgres prod_db && npm test
+        env:
+          DB_HOST: localhost
+          DB_PASS: postgres
+          DB_USER: postgres
+          # createdb requires a password that has to be supplied as environment variable
+          PGPASSWORD: postgres
+          NODE_ENV: test
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
@@ -28,10 +52,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.8.9 
+      - uses: akhileshns/heroku-deploy@v3.8.9
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "ohtu-csaos-staging" 
+          heroku_app_name: 'ohtu-csaos-staging'
           heroku_email: ${{secrets.PROJECT_EMAIL}}
           usedocker: true
-
