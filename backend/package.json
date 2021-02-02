@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node app.js",
-    "dev": "cross-env NODE_ENV=development sequelize-cli db:migrate && nodemon app.js",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env NODE_ENV=development npx sequelize-cli db:migrate && nodemon server.js",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --detectOpenHandles --forceExit",
     "lint": "eslint .",
     "reset-test-db": "export NODE_ENV=test && (dropdb test_db || true) && createdb test_db && npx sequelize-cli db:migrate",
     "create-dev-db": "export NODE_ENV=development && createdb dev_db && npx sequelize-cli db:migrate"
@@ -22,13 +22,18 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "eslint": "^7.18.0",
+    "eslint": "^7.19.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "jest": "^26.6.3",
     "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
     "supertest": "^6.1.1"
   }
 }

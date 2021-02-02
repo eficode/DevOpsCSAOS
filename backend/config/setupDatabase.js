@@ -1,18 +1,14 @@
-const categories = require('./categories.json');
+const categories = require('./categories.json')
+const questions = require('./questions.json')
+const users = require('./users.json')
 
-const questions = require('./questions.json');
-const { sequelize, Question, Category } = require('../models');
+const { sequelize, Question, Category, User } = require('../models')
 
 const initDatabase = async () => {
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ force: true })
+  await Category.bulkCreate(categories)
+  await User.bulkCreate(users)
+  await Question.bulkCreate(questions)
+}
 
-  categories.forEach(async (category) => {
-    await Category.create(category);
-  });
-
-  questions.forEach(async (question) => {
-    await Question.create(question);
-  });
-};
-
-module.exports = { initDatabase };
+module.exports = { initDatabase }
