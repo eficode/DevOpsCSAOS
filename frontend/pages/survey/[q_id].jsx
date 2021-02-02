@@ -1,19 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
 
 import ContentWrapper from '../../components/contentWrapper';
 import Button from '../../components/button';
-
-const exampleData = { id: 0, text: 'Oletko kaurainen', weight: 3 };
+import getAll from '../../services/questions';
 
 const OptionsWrapper = styled.div`
   display: grid;
   grid-template-columns: 100px 100px 100px;
-  grid-template-rows: 60px 60px 60px; 
+  grid-template-rows: 60px 60px; 
   column-gap: 10px;
   row-gap: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const Heading = styled.h3`
@@ -54,15 +55,52 @@ const Option = ({ label, selected, onClick }) => {
   );
 };
 
-const Question = (props) => {
+export async function getStaticPaths() {
+  const questions = await getAll();
+  const ids = questions.map((q) => q.id);
+
+  const paths = ids.map((id) => (
+    {
+      params: {
+        q_id: String(id),
+      },
+    }
+  ));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps() {
+  const questions = await getAll();
+  return {
+    props: {
+      questions,
+    },
+  };
+}
+
+const Question = ({ questions }) => {
   const [selectedValue, setSelectedValue] = useState(0);
   const router = useRouter();
-  const questionId = router.query.q_id;
-  console.log('💩 ~ file: [Question].js ~ line 5 ~ router', router);
-  console.log(selectedValue);
 
-  const nextQuestionUrl = `/survey/${Number(questionId) + 1}`;
-  console.log(props);
+  const questionId = Number(router.query.q_id);
+  const nextQuestionUrl = `/survey/${questionId + 1}`;
+  const isLast = questionId === questions.length;
+
+  const Buttons = isLast ? (
+    <Button type="submit" onClick={() => console.log('saving!')}>
+      <span>Get results!</span>
+    </Button>
+  ) : (
+    <Button type="button">
+      <Link href={nextQuestionUrl} passHref>
+        <span>Next</span>
+      </Link>
+    </Button>
+  );
 
   return (
     <ContentWrapper>
@@ -71,9 +109,10 @@ const Question = (props) => {
         Question
         {' '}
         {questionId}
-        /1
+        /
+        {questions.length}
       </span>
-      <QuestionTitle>moi</QuestionTitle>
+      <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
       <OptionsWrapper>
         <Option
           label="Strongly agree"
@@ -101,11 +140,7 @@ const Question = (props) => {
           onClick={() => setSelectedValue(1)}
         />
       </OptionsWrapper>
-      <Button type="button">
-        <Link href={nextQuestionUrl} passHref>
-          <span>Next</span>
-        </Link>
-      </Button>
+      {Buttons}
     </ContentWrapper>
   );
 };

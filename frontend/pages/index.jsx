@@ -50,7 +50,7 @@ const Home = () => (
       </Main>
 
       <Button type="button">
-        <Link href="/survey/0" passHref>
+        <Link href="/survey/1" passHref>
           <span>Get started</span>
         </Link>
       </Button>
