@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
-import ContentWrapper from '../../../components/shared/ContentWrapper'
-import Option from '../../../components/option'
-import getAll from '../../../services/questions'
 import Link from 'next/link'
+import { ContentWrapper } from '../../../components/shared/ContentWrapper'
+import Option from '../../../components/option'
+import { getAll } from '../../../services/questions'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -31,7 +31,7 @@ const Question = ({ questions }) => {
 
   const questionId = Number(router.query.questionId)
   const nextQuestionHref = `/survey/questions/${questionId + 1}`
-  const resultsPageHref = `/survey/result`
+  const resultsPageHref = '/survey/result'
   const isFinalQuestion = questionId === questions.length
 
   return (
@@ -39,7 +39,11 @@ const Question = ({ questions }) => {
       <Heading>DevOps Assessment Tool</Heading>
       <span>
         {' '}
-        Question {questionId}/{questions.length}{' '}
+        Question
+        {questionId}
+        /
+        {questions.length}
+        {' '}
       </span>
       <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
       <OptionsWrapper>
@@ -79,10 +83,9 @@ const Question = ({ questions }) => {
 }
 
 export async function getServerSideProps() {
-  // fetch all pre-defined questions
   const questions = await getAll()
   return {
-    props: { questions }, // will be passed to the page component as props
+    props: { questions },
   }
 }
 

@@ -3,7 +3,7 @@ import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
-import ContentWrapper from '../components/shared/ContentWrapper'
+import { ContentWrapper } from '../components/shared/ContentWrapper'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -28,24 +28,22 @@ const Main = styled.main`
   }
 `
 
-const Home = () => {
-  return (
-    <>
-      <Head>
-        <title>DevOps Capability Survey</title>
-      </Head>
-      <ContentWrapper>
-        <Heading>DevOps Assessment Tool</Heading>
-        <Main>
-          <h2>Welcome!</h2>
-          <p>Test your DevOps capabilities here.</p>
-          <Link href="/survey/questions/1" passHref>
-            Get started
-          </Link>
-        </Main>
-      </ContentWrapper>
-    </>
-  )
-}
+const Home = () => (
+  <>
+    <Head>
+      <title>DevOps Capability Survey</title>
+    </Head>
+    <ContentWrapper>
+      <Heading>DevOps Assessment Tool</Heading>
+      <Main>
+        <h2>Welcome!</h2>
+        <p>Test your DevOps capabilities here.</p>
+        <Link href="/survey/questions/1" passHref>
+          Get started
+        </Link>
+      </Main>
+    </ContentWrapper>
+  </>
+)
 
 export default Home
