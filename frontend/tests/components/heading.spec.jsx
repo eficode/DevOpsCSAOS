@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { mount } from 'enzyme';
-import Heading from './heading';
+import Heading from '../../components/heading';
 
 /** @test {Heading Component} */
 describe('Heading Component', () => {
