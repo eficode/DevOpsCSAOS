@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import { render } from 'enzyme'
+import { render, shallow } from 'enzyme'
 import { useRouter } from 'next/router'
 import * as nextRouter from 'next/router';
 
@@ -30,8 +30,44 @@ const questions = [
 
 nextRouter.useRouter = jest.fn();
 
-describe('Question', () => {
-  it('Question is rendered', () => {
+describe('Question rendering', () => {
+  useRouter.mockImplementation(() => ({
+    route: '/survey/questions/1',
+    pathname: 'survey/questions/1',
+    query: { questionId: '1' },
+    asPath: '',
+  }))
+
+  it('Component is rendered', () => {
+    const component = render(
+      <ThemeWrapper>
+        <Question questions={questions} />
+      </ThemeWrapper>,
+    )
+    expect(component.text()).toContain('DevOps Assessment Tool')
+  })
+
+  it('The question whose id is in route is rendered', () => {
+    const component = render(
+      <ThemeWrapper>
+        <Question questions={questions} />
+      </ThemeWrapper>,
+    )
+    expect(component.text()).toContain('Oletko ruisleipä?')
+  })
+
+  it('The right "Question q_id/survey_length" params are rendered', () => {
+    const component = render(
+      <ThemeWrapper>
+        <Question questions={questions} />
+      </ThemeWrapper>,
+    )
+    expect(component.text()).toContain('Question 1/2')
+  })
+})
+
+describe('Survey navigation', () => {
+  it('Not last question renders link with text Next', () => {
     useRouter.mockImplementationOnce(() => ({
       route: '/survey/questions/1',
       pathname: 'survey/questions/1',
@@ -44,6 +80,63 @@ describe('Question', () => {
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-    expect(component.text()).toContain('DevOps Assessment Tool')
+
+    expect(component.find('a').text()).toContain('Next')
+  })
+
+  it('Last question renders link with text Get results', () => {
+    useRouter.mockImplementationOnce(() => ({
+      route: '/survey/questions/2',
+      pathname: 'survey/questions/2',
+      query: { questionId: '2' },
+      asPath: '',
+    }))
+
+    const component = render(
+      <ThemeWrapper>
+        <Question questions={questions} />
+      </ThemeWrapper>,
+    )
+
+    expect(component.find('a').text()).toContain('Get results')
+  })
+
+  it.only('Clicking next button renders next question', () => {
+    useRouter.mockImplementationOnce(() => ({
+      route: '/survey/questions/1',
+      pathname: 'survey/questions/1',
+      query: { questionId: '1' },
+      asPath: '',
+    }))
+
+    /*
+    HOX SEURAAVA:
+    click ei saatu vielä toimimaan :((
+    -> render():lla ei ole olemassa simulate-funktiota, shallow:lla on
+    -> shallow ilmeisesti renderöi vain ylimmän komponentin eli
+    alla componen sisältää pelkän themewrapperin
+    -> toisaalta question ei renderaa ilman theme wrappia koska ei löydä themea
+      eli vaatinee opiskelua. koitin tehdä myös react testing librarylla joka oli
+      full stackissa mutta sekään ei jostain syystä toimi samalla tavalla kuin
+      fs matskussa.
+
+      ps it.only on hyvä ajaa vain tämän testin.
+    const question = shallow(
+      <Question questions={questions} />,
+    )
+    const component = shallow(
+      <ThemeWrapper>
+        {question}
+      </ThemeWrapper>,
+    )
+
+    question.debug()
+    const mockHandler = jest.fn()
+    const link = question.find('a')
+    link.simulate('click')
+
+    //expect(mockHandler.mock.calls).toHaveLength(1)
+    expect(component.getBytext()).toContain('Maistuisiko laskiaispulla?')
+    */
   })
 })

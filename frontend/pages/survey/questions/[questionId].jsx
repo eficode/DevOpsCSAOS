@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import Link from 'next/link'
 import { ContentWrapper } from '../../../components/shared/ContentWrapper'
+import Button from '../../../components/button'
 import Option from '../../../components/option'
 import { getAll } from '../../../services/questions'
 
@@ -28,8 +29,6 @@ const QuestionTitle = styled.h2`
 const Question = ({ questions }) => {
   const [selectedValue, setSelectedValue] = useState(0)
   const router = useRouter()
-  console.log(router)
-  console.log(questions)
 
   const questionId = Number(router.query.questionId)
   const nextQuestionHref = `/survey/questions/${questionId + 1}`
@@ -41,8 +40,7 @@ const Question = ({ questions }) => {
       <Heading>DevOps Assessment Tool</Heading>
       <span>
         {' '}
-        Question
-        {questionId}
+        Question {questionId}
         /
         {questions.length}
         {' '}
@@ -76,9 +74,17 @@ const Question = ({ questions }) => {
         />
       </OptionsWrapper>
       {!isFinalQuestion ? (
-        <Link href={nextQuestionHref}>Next Question</Link>
+        <Link href={nextQuestionHref}>
+          <Button type="button">
+            Next Question
+          </Button>
+        </Link>
       ) : (
-        <Link href={resultsPageHref}>Get results!</Link>
+        <Link href={resultsPageHref}>
+          <Button type="submit">
+            Get results!
+          </Button>
+        </Link>
       )}
     </ContentWrapper>
   )
