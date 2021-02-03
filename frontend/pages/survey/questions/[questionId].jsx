@@ -82,10 +82,27 @@ const Question = ({ questions }) => {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
+  // fetch all pre-defined questions
   const questions = await getAll()
   return {
     props: { questions },
+  }
+}
+
+export async function getStaticPaths() {
+  const questions = await getAll()
+  const ids = questions.map((_, index) => index + 1)
+
+  const paths = ids.map((id) => ({
+    params: {
+      questionId: String(id),
+    },
+  }))
+
+  return {
+    paths,
+    fallback: false,
   }
 }
 
