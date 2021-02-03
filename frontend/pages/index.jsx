@@ -54,8 +54,6 @@ const Home = (props) => {
           <span>Get started</span>
         </Link>
       </ContentWrapper>
-
-      {/* <footer>Footer</footer> */}
     </>
   )
 }

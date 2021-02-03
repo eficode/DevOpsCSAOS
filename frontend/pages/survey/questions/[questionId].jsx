@@ -32,7 +32,7 @@ const Question = () => {
   const questions = useStore((state) => state.questions)
 
   const questionId = Number(router.query.questionId)
-  const nextQuestionUrl = `/survey/${questionId + 1}`
+  const nextQuestionUrl = `/survey/questions/${questionId + 1}`
   const isLast = questionId === questions.length
 
   const Buttons = isLast ? (
