@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import GlobalStyles from '../styles/global';
-import theme from '../styles/theme';
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+import GlobalStyles from '../styles/global'
+import theme from '../styles/theme'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </ThemeProvider>
     </>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

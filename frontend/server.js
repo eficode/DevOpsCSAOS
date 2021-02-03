@@ -20,19 +20,22 @@ const apiPaths = {
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
-app.prepare().then(() => {
-  const server = express();
+app
+  .prepare()
+  .then(() => {
+    const server = express();
 
-  if (isDevelopment) {
-    server.use('/api', createProxyMiddleware(apiPaths['/api']));
-  }
+    if (isDevelopment) {
+      server.use('/api', createProxyMiddleware(apiPaths['/api']));
+    }
 
-  server.all('*', (req, res) => handle(req, res));
+    server.all('*', (req, res) => handle(req, res));
 
-  server.listen(port, (err) => {
-    if (err) throw err;
-    console.log(`> Ready on http://localhost:${port}`);
+    server.listen(port, (err) => {
+      if (err) throw err;
+      console.log(`> Ready on http://localhost:${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log('Error:::::', err);
   });
-}).catch((err) => {
-  console.log('Error:::::', err);
-});
