@@ -1,13 +1,12 @@
 /* eslint-disable max-len */
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import ContentWrapper from '../components/contentWrapper'
-import Button from '../components/button'
 import getAll from '../services/questions'
+import { useStore } from '../store'
 
 const Header = styled.header``
 const Heading = styled.h1`
@@ -30,7 +29,13 @@ const Main = styled.main`
   }
 `
 
-const Home = () => {
+const Home = (props) => {
+  const { questions } = props
+  useEffect(() => {
+    // set the questions to state to make them available throughout client
+    useStore.setState({ questions })
+  }, [])
+
   return (
     <>
       <Head>
@@ -53,6 +58,14 @@ const Home = () => {
       {/* <footer>Footer</footer> */}
     </>
   )
+}
+
+export async function getStaticProps() {
+  // fetch all pre-defined questions
+  const questions = await getAll()
+  return {
+    props: { questions }, // will be passed to the page component as props
+  }
 }
 
 export default Home
