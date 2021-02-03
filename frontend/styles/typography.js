@@ -10,10 +10,10 @@ export const fontSizes = [
   '2.25rem',
   '3rem',
   '4rem',
-]
+];
 
 export const fonts = {
   sourceSerifPro: '"Source Serif Pro", "sans-serif";',
-}
+};
 
-export const lineHeights = [null, 1, 1.25, 1.5, 1.8]
+export const lineHeights = [null, 1, 1.25, 1.5, 1.8];

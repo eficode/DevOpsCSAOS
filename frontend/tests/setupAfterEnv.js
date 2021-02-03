@@ -1,3 +1,3 @@
-const Adapter = require('@wojtekmaj/enzyme-adapter-react-17')
+const Adapter = require('@wojtekmaj/enzyme-adapter-react-17');
 
-require('enzyme').configure({ adapter: new Adapter() })
+require('enzyme').configure({ adapter: new Adapter() });

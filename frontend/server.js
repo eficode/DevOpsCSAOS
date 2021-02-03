@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-const express = require('express')
-const next = require('next')
-const { createProxyMiddleware } = require('http-proxy-middleware')
+const express = require('express');
+const next = require('next');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const port = process.env.PORT || 3000
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
+const port = process.env.PORT || 3000;
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
 const apiPaths = {
   '/api': {
@@ -16,26 +16,26 @@ const apiPaths = {
     },
     changeOrigin: true,
   },
-}
+};
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 app
   .prepare()
   .then(() => {
-    const server = express()
+    const server = express();
 
     if (isDevelopment) {
-      server.use('/api', createProxyMiddleware(apiPaths['/api']))
+      server.use('/api', createProxyMiddleware(apiPaths['/api']));
     }
 
-    server.all('*', (req, res) => handle(req, res))
+    server.all('*', (req, res) => handle(req, res));
 
     server.listen(port, (err) => {
-      if (err) throw err
-      console.log(`> Ready on http://localhost:${port}`)
-    })
+      if (err) throw err;
+      console.log(`> Ready on http://localhost:${port}`);
+    });
   })
   .catch((err) => {
-    console.log('Error:::::', err)
-  })
+    console.log('Error:::::', err);
+  });
