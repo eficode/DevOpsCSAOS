@@ -3,7 +3,7 @@ import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
-import ContentWrapper from '../components/shared/contentWrapper'
+import ContentWrapper from '../components/shared/ContentWrapper'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
