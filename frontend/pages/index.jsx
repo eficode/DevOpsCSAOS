@@ -1,12 +1,10 @@
 /* eslint-disable max-len */
-import React, { useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
 
 import ContentWrapper from '../components/contentWrapper'
-import getAll from '../services/questions'
-import { useStore } from '../store'
 
 const Header = styled.header``
 const Heading = styled.h1`
@@ -29,13 +27,7 @@ const Main = styled.main`
   }
 `
 
-const Home = (props) => {
-  const { questions } = props
-  useEffect(() => {
-    // set the questions to state to make them available throughout client
-    useStore.setState({ questions })
-  }, [])
-
+const Home = () => {
   return (
     <>
       <Head>
@@ -51,19 +43,11 @@ const Home = (props) => {
         </Main>
 
         <Link href="/survey/questions/1" passHref>
-          <span>Get started</span>
+          Get started
         </Link>
       </ContentWrapper>
     </>
   )
-}
-
-export async function getStaticProps() {
-  // fetch all pre-defined questions
-  const questions = await getAll()
-  return {
-    props: { questions }, // will be passed to the page component as props
-  }
 }
 
 export default Home

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import ContentWrapper from '../../../components/contentWrapper'
 import Button from '../../../components/button'
 import Option from '../../../components/option'
-import { useStore } from '../../../store'
+import getAll from '../../../services/questions'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -25,11 +25,17 @@ const QuestionTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
 `
 
-const Question = () => {
+export async function getServerSideProps() {
+  // fetch all pre-defined questions
+  const questions = await getAll()
+  return {
+    props: { questions }, // will be passed to the page component as props
+  }
+}
+
+const Question = ({ questions }) => {
   const [selectedValue, setSelectedValue] = useState(0)
   const router = useRouter()
-
-  const questions = useStore((state) => state.questions)
 
   const questionId = Number(router.query.questionId)
   const nextQuestionUrl = `/survey/questions/${questionId + 1}`
@@ -37,11 +43,11 @@ const Question = () => {
 
   const Buttons = isLast ? (
     <Button type="submit" onClick={() => console.log('saving!')}>
-      <span>Get results!</span>
+      Get results!
     </Button>
   ) : (
     <Button type="button" onClick={() => router.push(nextQuestionUrl)}>
-      <span>Next</span>
+      Next
     </Button>
   )
 
