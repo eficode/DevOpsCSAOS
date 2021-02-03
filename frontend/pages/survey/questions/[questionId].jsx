@@ -6,6 +6,7 @@ import ContentWrapper from '../../../components/contentWrapper'
 import Button from '../../../components/button'
 import Option from '../../../components/option'
 import getAll from '../../../services/questions'
+import Link from 'next/link'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -25,31 +26,13 @@ const QuestionTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
 `
 
-export async function getServerSideProps() {
-  // fetch all pre-defined questions
-  const questions = await getAll()
-  return {
-    props: { questions }, // will be passed to the page component as props
-  }
-}
-
 const Question = ({ questions }) => {
   const [selectedValue, setSelectedValue] = useState(0)
   const router = useRouter()
 
   const questionId = Number(router.query.questionId)
-  const nextQuestionUrl = `/survey/questions/${questionId + 1}`
-  const isLast = questionId === questions.length
-
-  const Buttons = isLast ? (
-    <Button type="submit" onClick={() => console.log('saving!')}>
-      Get results!
-    </Button>
-  ) : (
-    <Button type="button" onClick={() => router.push(nextQuestionUrl)}>
-      Next
-    </Button>
-  )
+  const nextQuestionHref = `/survey/questions/${questionId + 1}`
+  const isFinalQuestion = questionId === questions.length
 
   return (
     <ContentWrapper>
@@ -86,9 +69,23 @@ const Question = ({ questions }) => {
           onClick={() => setSelectedValue(1)}
         />
       </OptionsWrapper>
-      {Buttons}
+      {!isFinalQuestion ? (
+        <Link href={nextQuestionHref}>Next Question</Link>
+      ) : (
+        <Button type="submit" onClick={() => console.log('saving!')}>
+          Get results!
+        </Button>
+      )}
     </ContentWrapper>
   )
+}
+
+export async function getServerSideProps() {
+  // fetch all pre-defined questions
+  const questions = await getAll()
+  return {
+    props: { questions }, // will be passed to the page component as props
+  }
 }
 
 export default Question
