@@ -2,6 +2,8 @@
   "extends": "airbnb",
   "rules": {
     "no-console": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "import/prefer-default-export": "off",
+    "no-unused-vars": "warn"
   }
 }
