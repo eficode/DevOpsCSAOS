@@ -6,6 +6,6 @@ const colors = {
   cararra: '#F0F0EC',
   gold: '#FFD700',
   amber: '#FFC200',
-};
+}
 
-export default colors;
+export default colors
