@@ -28,6 +28,8 @@ const QuestionTitle = styled.h2`
 const Question = ({ questions }) => {
   const [selectedValue, setSelectedValue] = useState(0)
   const router = useRouter()
+  console.log(router)
+  console.log(questions)
 
   const questionId = Number(router.query.questionId)
   const nextQuestionHref = `/survey/questions/${questionId + 1}`
