@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
-import ContentWrapper from '../../../components/contentWrapper'
+import ContentWrapper from '../../../components/shared/contentWrapper'
 import Button from '../../../components/button'
 import Option from '../../../components/option'
 import getAll from '../../../services/questions'
@@ -32,6 +32,7 @@ const Question = ({ questions }) => {
 
   const questionId = Number(router.query.questionId)
   const nextQuestionHref = `/survey/questions/${questionId + 1}`
+  const resultsPageHref = `/survey/result`
   const isFinalQuestion = questionId === questions.length
 
   return (
@@ -72,9 +73,7 @@ const Question = ({ questions }) => {
       {!isFinalQuestion ? (
         <Link href={nextQuestionHref}>Next Question</Link>
       ) : (
-        <Button type="submit" onClick={() => console.log('saving!')}>
-          Get results!
-        </Button>
+        <Link href={resultsPageHref}>Get results!</Link>
       )}
     </ContentWrapper>
   )

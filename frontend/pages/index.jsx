@@ -3,10 +3,8 @@ import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
+import ContentWrapper from '../components/shared/contentWrapper'
 
-import ContentWrapper from '../components/contentWrapper'
-
-const Header = styled.header``
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
 `
@@ -14,6 +12,9 @@ const Heading = styled.h1`
 const Main = styled.main`
   padding: 5rem;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   p {
     text-align: center;
@@ -34,17 +35,14 @@ const Home = () => {
         <title>DevOps Capability Survey</title>
       </Head>
       <ContentWrapper>
-        <Header>
-          <Heading>DevOps Assessment Tool</Heading>
-        </Header>
+        <Heading>DevOps Assessment Tool</Heading>
         <Main>
-          <h1>Welcome!</h1>
+          <h2>Welcome!</h2>
           <p>Test your DevOps capabilities here.</p>
+          <Link href="/survey/questions/1" passHref>
+            Get started
+          </Link>
         </Main>
-
-        <Link href="/survey/questions/1" passHref>
-          Get started
-        </Link>
       </ContentWrapper>
     </>
   )

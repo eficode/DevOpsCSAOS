@@ -3,7 +3,6 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
 
-const Header = styled.header``
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
 `
@@ -41,20 +40,13 @@ const Result = styled.div`
 const Home = () => (
   <>
     <Head>
-      <title>DevOps Capability Survey</title>
+      <title>DevOps Capability Survey Results</title>
     </Head>
     <ContentWrapper>
-      <Main>
-        <p>
-          <b>DevOps Assessment Tool</b>
-        </p>
-      </Main>
-      <Header>
-        <Heading>Your Results</Heading>
-      </Header>
+      <Heading>DevOps Assessment Tool</Heading>
+      <Heading as="h2">Your Results</Heading>
       <Main>
         <p>Olet ruisleipä</p>
-
         <button>
           <Link href="#" passHref>
             <label>Contact us</label>
@@ -62,8 +54,6 @@ const Home = () => (
         </button>
       </Main>
     </ContentWrapper>
-
-    {/* <footer>Footer</footer> */}
   </>
 )
 
