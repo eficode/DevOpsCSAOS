@@ -4,39 +4,48 @@ const { User, Answer, Question } = require('../models')
 answersRouter.post('/', async (req, res) => {
   const { email, answers } = req.body
   const allQuestions = await Question.findAll()
-  const results = []
+
   let maxResult = 0
   let userResult = 0
-  if (email !== null) {
+
+  if (email !== undefined) {
     try {
       const user = await User.create({ email })
-      
+      const answersToQuestions = answers.map((answer) => ({
+        // eslint-disable-next-line node/no-unsupported-features/es-syntax
+        ...answer,
+        userId: user.id,
+      }))
 
-      await answers.map(async (answer) => {
-        const { dataValues: newAnswer } = await Answer.create({
-          userId: user.id,
-          questionId: answer.questionId,
-          value: answer.value,
-        })
+      await Answer.bulkCreate(answersToQuestions)
+
+      await answers.forEach((answer) => {
         const { dataValues: question } = allQuestions.find(
-          (quest) => quest.id === newAnswer.questionId
+          (quest) => quest.id === answer.questionId
         )
-        
-        userResult += question.weight * newAnswer.value
-        console.log(userResult)
+        userResult += question.weight * answer.value
         maxResult += question.weight * 5
-        const answerResult = question.weight * newAnswer.value
-
-        results.push(answerResult)
       })
 
+      return res.status(200).json({ result: `${userResult}/${maxResult}` })
+    } catch (err) {
+      return res.status(500).json(err)
+    }
+  } else {
+    try {
+      await answers.forEach((answer) => {
+        const { dataValues: question } = allQuestions.find(
+          (quest) => quest.id === answer.questionId
+        )
+        userResult += question.weight * answer.value
+        maxResult += question.weight * 5
+      })
 
       return res.status(200).json({ result: `${userResult}/${maxResult}` })
     } catch (err) {
       return res.status(500).json(err)
     }
   }
-  return res.status(200)
 })
 
 answersRouter.get('/', async (req, res) => {
