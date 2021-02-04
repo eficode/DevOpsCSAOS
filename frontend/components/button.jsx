@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.colors.easternBlue};
@@ -23,7 +23,7 @@ const StyledButton = styled.button`
     background-color: gray;
     `}
   }
-`;
+`
 
 const Button = ({ children, type, onClick }) => {
   if (type === 'button') {
@@ -34,7 +34,7 @@ const Button = ({ children, type, onClick }) => {
       >
         {children}
       </StyledButton>
-    );
+    )
   }
 
   if (type === 'submit') {
@@ -45,11 +45,11 @@ const Button = ({ children, type, onClick }) => {
       >
         {children}
       </StyledButton>
-    );
+    )
   }
 
-  console.warn('custom button only has button and submit types');
-  return (<></>);
-};
+  console.warn('custom button only has button and submit types')
+  return (<></>)
+}
 
-export default Button;
+export default Button

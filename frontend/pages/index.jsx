@@ -39,7 +39,7 @@ const Home = () => (
       <Main>
         <h2>Welcome!</h2>
         <p>Test your DevOps capabilities here.</p>
-        <Link href="/survey/questions/1" passHref>
+        <Link href="/survey/contact" passHref>
           <Button type="button">
             Get started
           </Button>

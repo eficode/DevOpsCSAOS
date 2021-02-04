@@ -1,7 +1,7 @@
-import breakpoints from './breakpoints';
-import colors from './colors';
-import space from './space';
-import { fontSizes, fonts, lineHeights } from './typography';
+import breakpoints from './breakpoints'
+import colors from './colors'
+import space from './space'
+import { fontSizes, fonts, lineHeights } from './typography'
 
 const theme = {
   breakpoints,
@@ -10,6 +10,6 @@ const theme = {
   fontSizes,
   fonts,
   lineHeights,
-};
+}
 
-export default theme;
+export default theme

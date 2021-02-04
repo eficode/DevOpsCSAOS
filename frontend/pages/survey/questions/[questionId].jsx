@@ -74,13 +74,13 @@ const Question = ({ questions }) => {
         />
       </OptionsWrapper>
       {!isFinalQuestion ? (
-        <Link href={nextQuestionHref}>
+        <Link href={nextQuestionHref} passHref>
           <Button type="button">
             Next Question
           </Button>
         </Link>
       ) : (
-        <Link href={resultsPageHref}>
+        <Link href={resultsPageHref} passHref>
           <Button type="submit">
             Get results!
           </Button>
