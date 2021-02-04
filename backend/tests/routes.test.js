@@ -12,22 +12,22 @@ beforeAll(async () => {
 describe('GET /api/questions', () => {
   it('has four questions', async (done) => {
     const response = await request(app).get('/api/questions')
-    expect(response.body).toHaveLength(4)
+    expect(response.body).toHaveLength(10)
     done()
   })
 })
 
-describe('GET /api/questions/:uuid', () => {
+describe('GET /api/questions/:id', () => {
   it('Returns correct data with valid id', async (done) => {
     const response = await request(app).get(
       '/api/questions/a4d65e0b-b2c3-426d-91f3-86c2e92bcfcb'
     )
     expect(response.status).toBe(200)
+
     const question = response.body
 
     expect(question.text).toBe('Oletko ruisleipä?')
     expect(question.weight).toBe(0.8)
-    expect(question.categoryId).toBe(1)
     done()
   })
 
@@ -46,7 +46,7 @@ describe('GET /api/categories', () => {
     const response = await request(app).get('/api/categories')
     expect(response.status).toBe(200)
     const categories = response.body
-    expect(categories.length).toBe(2)
+    expect(categories.length).toBe(4)
 
     categories.forEach((category) => {
       expect(category.name).not.toBe(undefined)
@@ -57,14 +57,21 @@ describe('GET /api/categories', () => {
 
 describe('GET /api/categories/:categoryId', () => {
   it('Returns all questions from category', async (done) => {
-    const response = await request(app).get('/api/categories/1')
+    const resp = await request(app).get('/api/categories/')
+    const categories = resp.body
+    console.log(categories)
+    const response = await request(app).get(
+      `/api/categories/${categories[0].id}`
+    )
     expect(response.status).toBe(200)
     expect(response.body).toHaveLength(2)
     done()
   })
 
   it('Returns empty list with non-existing category', async (done) => {
-    const response = await request(app).get('/api/categories/97778')
+    const response = await request(app).get(
+      '/api/categories/a4d65e0b-b2c3-426d-91f3-86c2e92bcfcb'
+    )
     expect(response.status).toBe(200)
     expect(response.body).toHaveLength(0)
     done()
@@ -79,7 +86,7 @@ describe('POST /api/users', () => {
     const newUser = response.body
     const user = await User.findOne({
       where: {
-        uuid: newUser.uuid,
+        id: newUser.id,
       },
     })
     expect(user.dataValues).not.toBe(undefined)

@@ -5,11 +5,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER,
-      },
-      uuid: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
       },
       text: {
         type: DataTypes.STRING,

@@ -12,17 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(Category, { foreignKey: 'categoryId' })
       this.hasMany(Answer, { foreignKey: 'questionId' })
     }
-
-    toJSON() {
-      // eslint-disable-next-line node/no-unsupported-features/es-syntax
-      return { ...this.get(), id: undefined }
-    }
   }
   Question.init(
     {
-      uuid: {
+      id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
       },
       text: {
         type: DataTypes.STRING,
@@ -41,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         validate: {
           notNull: { msg: 'Question must have categoryId' },
