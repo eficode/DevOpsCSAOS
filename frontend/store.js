@@ -6,9 +6,9 @@ This is a general store for our local state
 
 const initialQuestions = [];
 
-const store = (set, get) => ({
+const store = (set) => ({
   questions: initialQuestions,
-  setQuestions: (questions) => set((state) => ({ questions })),
+  setQuestions: (questions) => set(() => ({ questions })),
 });
 // a callback function which returns an object
 // describing state
