@@ -3,6 +3,7 @@
         "format": "prettier --write '**/*.js'"
     },
     "dependencies": {
+        "axios": "^0.21.1",
         "prettier": "^2.2.1"
     }
 }

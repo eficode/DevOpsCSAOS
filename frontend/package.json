@@ -7,15 +7,19 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "enzyme": "^3.11.0",
     "http-proxy-middleware": "^1.0.6",
     "next": "10.0.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "zustand": "^3.3.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.12.11",
@@ -25,7 +29,6 @@
     "babel-jest": "^26.6.3",
     "babel-plugin-styled-components": "^1.12.0",
     "cross-env": "^7.0.3",
-    "enzyme": "^3.11.0",
     "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",

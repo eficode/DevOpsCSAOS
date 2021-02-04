@@ -12,15 +12,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <link
-            rel="preload"
-            href="/fonts/source-serif-pro-v10-latin-regular.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
