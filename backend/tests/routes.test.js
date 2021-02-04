@@ -17,10 +17,10 @@ describe('GET /api/questions', () => {
   })
 })
 
-describe('GET /api/question/:uuid', () => {
+describe('GET /api/questions/:uuid', () => {
   it('Returns correct data with valid id', async (done) => {
     const response = await request(app).get(
-      '/api/question/a4d65e0b-b2c3-426d-91f3-86c2e92bcfcb'
+      '/api/questions/a4d65e0b-b2c3-426d-91f3-86c2e92bcfcb'
     )
     expect(response.status).toBe(200)
     const question = response.body
@@ -33,7 +33,7 @@ describe('GET /api/question/:uuid', () => {
 
   it('Returns correct error message with invalid id', async (done) => {
     const response = await request(app).get(
-      '/api/question/a4d65e0b-b2c3-426d-91f3-86c2e92bcfcr'
+      '/api/questions/a4d65e0b-b2c3-426d-91f3-86c2e92bcfcr'
     )
     expect(response.status).toBe(500)
     expect(response.error.text).toBe('That uuid does not exist')
@@ -55,16 +55,16 @@ describe('GET /api/categories', () => {
   })
 })
 
-describe('GET /api/category/:categoryId', () => {
+describe('GET /api/categories/:categoryId', () => {
   it('Returns all questions from category', async (done) => {
-    const response = await request(app).get('/api/category/1')
+    const response = await request(app).get('/api/categories/1')
     expect(response.status).toBe(200)
     expect(response.body).toHaveLength(2)
     done()
   })
 
   it('Returns empty list with non-existing category', async (done) => {
-    const response = await request(app).get('/api/category/97778')
+    const response = await request(app).get('/api/categories/97778')
     expect(response.status).toBe(200)
     expect(response.body).toHaveLength(0)
     done()
@@ -84,6 +84,16 @@ describe('POST /api/users', () => {
     })
     expect(user.dataValues).not.toBe(undefined)
     expect(user.dataValues.email).toBe('test@gmail.com')
+    done()
+  })
+
+  it('Doesnt create user with invalid email', async (done) => {
+    const userData = { email: 'testgmail.com' }
+    const response = await request(app).post('/api/users').send(userData)
+    expect(response.status).toBe(500)
+
+    expect(response.body.errors[0].type).toBe('Validation error')
+
     done()
   })
 })
