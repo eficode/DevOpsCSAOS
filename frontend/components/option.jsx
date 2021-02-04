@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const NotSelectedOption = styled.button`
   background-color: ${({ theme }) => theme.colors.gold};
   border-radius: 3px;
+  border-width: 0px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.amber};

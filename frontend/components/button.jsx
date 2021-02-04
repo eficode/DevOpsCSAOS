@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.easternBlue};
+  background-color: ${({ theme }) => theme.colors.blueDianne};
   color: white;
   font-family: inherit;
   font-weight: bold;
@@ -11,16 +11,17 @@ const StyledButton = styled.button`
   padding-left: 20px;
   padding-right: 20px;
   border-radius: 5px;
+  border-width: 0px;
   margin: 10px;
 
   ${({ type }) => type === 'submit' && `
-    background-color: gray;
+    background-color: ${({ theme }) => theme.colors.blueDianne};
   `}
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.blueDianne};
+    background-color: ${({ theme }) => theme.colors.easternBlue};
     ${({ type }) => type === 'button' && `
-    background-color: gray;
+    background-color: ${({ theme }) => theme.colors.blueDianne};
     `}
   }
 `

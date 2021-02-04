@@ -6,6 +6,7 @@ const colors = {
   cararra: '#F0F0EC',
   gold: '#FFD700',
   amber: '#FFC200',
+  whiteSmoke: '#F5F5F5',
 }
 
 export default colors
