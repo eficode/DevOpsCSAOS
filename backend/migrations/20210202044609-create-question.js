@@ -1,9 +1,11 @@
+const sequelize = require('sequelize')
+
 module.exports = {
   up: async (queryInterface, DataTypes) => {
     await queryInterface.createTable('Questions', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        default: sequelize.fn('uuid_generate_v4'),
         primaryKey: true,
         type: DataTypes.UUID,
       },
