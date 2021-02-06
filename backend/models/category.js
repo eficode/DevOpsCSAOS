@@ -12,8 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(models.Question, { foreignKey: 'categoryId' })
     }
-
-    
   }
   Category.init(
     {

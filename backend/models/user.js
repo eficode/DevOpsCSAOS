@@ -11,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(Answer, { foreignKey: 'userId' })
     }
-// eslint-disable-next-line prettier/prettier
-
-    
+    // eslint-disable-next-line prettier/prettier
   }
   User.init(
     {
