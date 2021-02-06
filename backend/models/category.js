@@ -12,17 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(models.Question, { foreignKey: 'categoryId' })
     }
-
-    toJSON() {
-      // eslint-disable-next-line node/no-unsupported-features/es-syntax
-      return { ...this.get(), id: undefined }
-    }
   }
   Category.init(
     {
-      uuid: {
+      id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
       },
       name: {
         type: DataTypes.STRING,

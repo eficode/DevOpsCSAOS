@@ -1,11 +1,18 @@
 [
-    {
-      "uuid": "ece8e9d0-653b-11eb-ae93-0242ac130002",
-      "id": 1,
-      "name": "Jauhot"
-    },
-    {
-      "id": 2,
-      "name": "Tuote"
-    }
+  {
+    "id": "ece8e9d0-653b-11eb-ae93-0242ac130002",
+    "name": "Jauhot"
+  },
+  {
+    "id": "faf6a13e-66d5-11eb-ae93-0242ac130002",
+    "name": "Tuote"
+  },
+  {
+    "id": "faf6a1fc-66d5-11eb-ae93-0242ac130002",
+    "name": "Maidot"
+  },
+  {
+    "id": "faf6a4ae-66d5-11eb-ae93-0242ac130002",
+    "name": "Keksit"
+  }
 ]

@@ -1,23 +1,62 @@
 [
-    {
-        "uuid": "a4d65e0b-b2c3-426d-91f3-86c2e92bcfcb",
-        "text": "Oletko ruisleipä?",
-        "weight": 0.8,
-        "categoryId": 1
-    },
-    {
-        "text": "Oletko kauraleipä?",
-        "weight": 0.5,
-        "categoryId": 1
-    },
-    {
-        "text": "Pullaleipä on parasta?",
-        "weight": 0.8,
-        "categoryId": 2
-    },
-    {
-        "text": "Täysjyväleipä on parasta?",
-        "weight": 0.5,
-        "categoryId": 2
-    }
+  {
+    "id": "a4d65e0b-b2c3-426d-91f3-86c2e92bcfcb",
+    "text": "Oletko ruisleipä?",
+    "weight": 0.8,
+    "categoryId": "ece8e9d0-653b-11eb-ae93-0242ac130002"
+  },
+  {
+    "id": "dbfd2098-f95b-4d82-946a-c8c0dcf10423",
+    "text": "Oletko kauraleipä?",
+    "weight": 0.5,
+    "categoryId": "ece8e9d0-653b-11eb-ae93-0242ac130002"
+  },
+  {
+    "id": "1675ec77-5a78-4318-a414-2545d9f068e3",
+    "text": "Pullaleipä on parasta?",
+    "weight": 0.8,
+    "categoryId": "faf6a13e-66d5-11eb-ae93-0242ac130002"
+  },
+  {
+    "id": "deea43fc-06ba-4aed-bc0d-fea0991aa05f",
+    "text": "Täyshyväleipä on parasta?",
+    "weight": 0.5,
+    "categoryId": "faf6a13e-66d5-11eb-ae93-0242ac130002"
+  },
+  {
+    "id": "faf69b1c-66d5-11eb-ae93-0242ac130002",
+    "text": "Lehmänmaito on parasta?",
+    "weight": 0.1,
+    "categoryId": "faf6a1fc-66d5-11eb-ae93-0242ac130002"
+  },
+  {
+    "id": "f9f3e2b1-3ed3-46df-8c9c-4cef635697fa",
+    "text": "Maitokaakao on parasta?",
+    "weight": 0.2,
+    "categoryId": "faf6a1fc-66d5-11eb-ae93-0242ac130002"
+  },
+  {
+    "id": "59431e74-0ae6-4def-a87b-4fae82514187",
+    "text": "Kauramaito on parasta?",
+    "weight": 0.4,
+    "categoryId": "faf6a1fc-66d5-11eb-ae93-0242ac130002"
+  },
+  {
+    "id": "6eb134f0-65fa-44bc-baad-14f0eeb0d743",
+    "text": "Oletko kaurakeksi?",
+    "weight": 0.5,
+    "categoryId": "faf6a4ae-66d5-11eb-ae93-0242ac130002"
+  },
+  {
+    "id": "7da6e20b-53e7-4efa-92d3-ef88f0ec1169",
+    "text": "Oletko täytekeksi?",
+    "weight": 0.5,
+    "categoryId": "faf6a4ae-66d5-11eb-ae93-0242ac130002"
+  },
+  {
+    "id": "d254d70b-f26b-44f6-a48b-44b3435e0a26",
+    "text": "Oletko suklaakeksi?",
+    "weight": 0.2,
+    "categoryId": "faf6a4ae-66d5-11eb-ae93-0242ac130002"
+  }
 ]

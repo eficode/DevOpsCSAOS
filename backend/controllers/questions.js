@@ -13,11 +13,11 @@ questionsRouter.get('/', async (req, res) => {
   }
 })
 
-questionsRouter.get('/:uuid', async (req, res) => {
-  const { uuid } = req.params
+questionsRouter.get('/:id', async (req, res) => {
+  const { id } = req.params
   try {
     const question = await Question.findOne({
-      where: { uuid },
+      where: { id },
     })
     return res.json(question)
   } catch (e) {

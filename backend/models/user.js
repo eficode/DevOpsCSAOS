@@ -11,21 +11,19 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(Answer, { foreignKey: 'userId' })
     }
-
-    toJSON() {
-      // eslint-disable-next-line node/no-unsupported-features/es-syntax
-      return { ...this.get(), id: undefined }
-    }
+    // eslint-disable-next-line prettier/prettier
   }
   User.init(
     {
-      uuid: {
+      id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
         validate: {
           notNull: { msg: 'User must have an email' },
           notEmpty: { msg: "Email can't be empty" },

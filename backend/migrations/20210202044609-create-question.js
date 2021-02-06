@@ -1,15 +1,13 @@
+const sequelize = require('sequelize')
+
 module.exports = {
   up: async (queryInterface, DataTypes) => {
     await queryInterface.createTable('Questions', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        default: sequelize.fn('uuid_generate_v4'),
         primaryKey: true,
-        type: DataTypes.INTEGER,
-      },
-      uuid: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
       },
       text: {
         type: DataTypes.STRING,
@@ -33,6 +31,7 @@ module.exports = {
       },
     })
   },
+  // eslint-disable-next-line no-unused-vars
   down: async (queryInterface, DataTypes) => {
     await queryInterface.dropTable('Questions')
   },

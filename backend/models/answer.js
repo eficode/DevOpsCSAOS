@@ -12,20 +12,16 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(User, { foreignKey: 'userId' })
       this.belongsTo(Question, { foreignKey: 'questionId' })
     }
-
-    toJSON() {
-      // eslint-disable-next-line node/no-unsupported-features/es-syntax
-      return { ...this.get(), id: undefined }
-    }
   }
   Answer.init(
     {
-      uuid: {
+      id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
       },
       userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         validate: {
           notNull: { msg: 'Answer must have UserId' },
@@ -33,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       questionId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         validate: {
           notNull: { msg: 'Answer must have QuestionId' },
@@ -44,6 +40,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
+          min: 1,
+          max: 5,
           notNull: { msg: 'Answer must have a value' },
           notEmpty: { msg: "Answer value can't be empty" },
         },
