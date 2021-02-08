@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { ContentWrapper } from '../../components/shared/ContentWrapper'
 import Button from '../../components/button'
-import { create } from '../../services/users'
+import { useStore } from '../../store'
 
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne}
@@ -38,12 +38,19 @@ const ContactForm = () => {
     setEmail(event.target.value)
   }
 
+  const saveEmail = (event) => {
+    event.preventDefault()
+    useStore((state) => state.setEmail(email))
+    const savedEmail = useStore((state) => state.email)
+    console.log(savedEmail)
+  }
+
   return (
     <ContentWrapper>
       <Heading>DevOps Assessment Tool</Heading>
       <FormTitle>Add your contact details to get started</FormTitle>
-      <DetailsForm>
-        <DetailsInput type="email" id="email" name="email" value="Business email" />
+      <DetailsForm onSubmit={saveEmail}>
+        <DetailsInput type="email" id="email" name="email" value={email} onChange={handleEmailChange} />
       </DetailsForm>
       <Link href={firstQuestionHref} passHref>
         <Button type="submit">
