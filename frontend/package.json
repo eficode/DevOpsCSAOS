@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development node server.js",
     "build": "next build && next export",
+    "build:hybrid": "next build",
     "start": "next start",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
