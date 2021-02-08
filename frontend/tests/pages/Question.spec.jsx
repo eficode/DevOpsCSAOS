@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import { render, mount } from 'enzyme'
+import '@testing-library/jest-dom/extend-expect'
+import { render } from '@testing-library/react'
 import { useRouter } from 'next/router'
 import * as nextRouter from 'next/router';
 
@@ -38,13 +39,15 @@ describe('Question rendering', () => {
     asPath: '',
   }))
 
-  it('Component is rendered', () => {
+  it.only('Component is rendered', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-    expect(component.text()).toContain('DevOps Assessment Tool')
+    expect(component.container).toHaveTextContent(
+      'DevOps Assessment Tool'
+    )
   })
 
   it('The question whose id is in route is rendered', () => {

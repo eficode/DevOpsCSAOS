@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, {useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { useStore } from '../../../store'
 
 import Link from 'next/link'
 import { ContentWrapper } from '../../../components/shared/ContentWrapper'
@@ -27,13 +28,25 @@ const QuestionTitle = styled.h2`
 `
 
 const Question = ({ questions }) => {
-  const [selectedValue, setSelectedValue] = useState(0)
   const router = useRouter()
+  const store = useStore()
+  console.log(store)
 
   const questionId = Number(router.query.questionId)
   const nextQuestionHref = `/survey/questions/${questionId + 1}`
   const resultsPageHref = '/survey/result'
   const isFinalQuestion = questionId === questions.length
+
+  const updateSelections = (value) => {
+    console.log('updating...')
+    const newSelections = store.selections
+    newSelections[questionId - 1] = value
+    store.setSelections(newSelections)
+  }
+
+  useEffect(() => {
+    store.setQuestions(questions)
+  }, [])
 
   return (
     <ContentWrapper>
@@ -49,28 +62,28 @@ const Question = ({ questions }) => {
       <OptionsWrapper>
         <Option
           label="Strongly agree"
-          selected={selectedValue === 5}
-          onClick={() => setSelectedValue(5)}
+          selected={store.selections[questionId - 1] === 5}
+          onClick={() => updateSelections(5)}
         />
         <Option
           label="Agree"
-          selected={selectedValue === 4}
-          onClick={() => setSelectedValue(4)}
+          selected={store.selections[questionId - 1] === 4}
+          onClick={() => updateSelections(4)}
         />
         <Option
           label="Neutral"
-          selected={selectedValue === 3}
-          onClick={() => setSelectedValue(3)}
+          selected={store.selections[questionId - 1] === 3}
+          onClick={() => updateSelections(3)}
         />
         <Option
           label="Disagree"
-          selected={selectedValue === 2}
-          onClick={() => setSelectedValue(2)}
+          selected={store.selections[questionId - 1] === 2}
+          onClick={() => updateSelections(2)}
         />
         <Option
           label="Strongly disagree"
-          selected={selectedValue === 1}
-          onClick={() => setSelectedValue(1)}
+          selected={store.selections[questionId - 1] === 1}
+          onClick={() => updateSelections(1)}
         />
       </OptionsWrapper>
       {!isFinalQuestion ? (

@@ -14,15 +14,8 @@ const StyledButton = styled.button`
   border-width: 0px;
   margin: 10px;
 
-  ${({ type }) => type === 'submit' && `
-    background-color: ${({ theme }) => theme.colors.blueDianne};
-  `}
-
   &:hover {
     background-color: ${({ theme }) => theme.colors.easternBlue};
-    ${({ type }) => type === 'button' && `
-    background-color: ${({ theme }) => theme.colors.blueDianne};
-    `}
   }
 `
 
