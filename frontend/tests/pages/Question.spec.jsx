@@ -45,6 +45,7 @@ describe('Question rendering', () => {
         <Question questions={questions} />
       </ThemeWrapper>,
     )
+
     expect(component.text()).toContain(
       'DevOps Assessment Tool'
     )
