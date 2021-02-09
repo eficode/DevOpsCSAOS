@@ -22,11 +22,6 @@ const Main = styled.main`
     line-height: 1.6;
     padding: 0.5rem;
   }
-
-  button {
-    padding: 1rem 1.5rem;
-    background-color: ${({ theme }) => theme.colors.easternBlue};
-  }
 `
 
 const Home = () => (
@@ -39,12 +34,12 @@ const Home = () => (
       <Main>
         <h2>Welcome!</h2>
         <p>Test your DevOps capabilities here.</p>
-        <Link href="/survey/questions/1" passHref>
-          <Button type="button">
-            Get started
-          </Button>
-        </Link>
       </Main>
+      <Link href="/survey/contact" passHref>
+        <Button type="button">
+          Get started
+        </Button>
+      </Link>
     </ContentWrapper>
   </>
 )

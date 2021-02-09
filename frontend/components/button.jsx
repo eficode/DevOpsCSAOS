@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 const StyledButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.easternBlue};
+  background-color: ${({ theme }) => theme.colors.blueDianne};
   color: white;
   font-family: inherit;
   font-weight: bold;
@@ -11,19 +11,13 @@ const StyledButton = styled.button`
   padding-left: 20px;
   padding-right: 20px;
   border-radius: 5px;
+  border-width: 0px;
   margin: 10px;
 
-  ${({ type }) => type === 'submit' && `
-    background-color: gray;
-  `}
-
   &:hover {
-    background-color: ${({ theme }) => theme.colors.blueDianne};
-    ${({ type }) => type === 'button' && `
-    background-color: gray;
-    `}
+    background-color: ${({ theme }) => theme.colors.easternBlue};
   }
-`;
+`
 
 const Button = ({ children, type, onClick }) => {
   if (type === 'button') {
@@ -34,7 +28,7 @@ const Button = ({ children, type, onClick }) => {
       >
         {children}
       </StyledButton>
-    );
+    )
   }
 
   if (type === 'submit') {
@@ -45,11 +39,11 @@ const Button = ({ children, type, onClick }) => {
       >
         {children}
       </StyledButton>
-    );
+    )
   }
 
-  console.warn('custom button only has button and submit types');
-  return (<></>);
-};
+  console.warn('custom button only has button and submit types')
+  return (<></>)
+}
 
-export default Button;
+export default Button

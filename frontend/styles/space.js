@@ -10,6 +10,6 @@ const space = [
   '20rem',
   '24rem',
   '32rem',
-];
+]
 
-export default space;
+export default space
