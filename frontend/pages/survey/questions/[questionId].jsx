@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
@@ -31,14 +31,18 @@ const Question = ({ questions }) => {
   const router = useRouter()
   const store = useStore()
 
+  const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
+
   const questionId = Number(router.query.questionId)
   const nextQuestionHref = `/survey/questions/${questionId + 1}`
-  const resultsPageHref = '/survey/result'
+  const summaryPageHref = '/survey/questions/summary'
   const isFinalQuestion = questionId === questions.length
 
-  const updateSelections = (value) => {
-    const newSelections = store.selections
-    newSelections[questionId - 1] = value
+  const updateSelections = (pointValue) => {
+    const newSelections = [...store.selections]
+    // update point value of question being answered
+    newSelections[questionId - 1] = pointValue
+    // update state
     store.setSelections(newSelections)
   }
 
@@ -47,57 +51,37 @@ const Question = ({ questions }) => {
   }, [])
 
   return (
-    <ContentWrapper>
+    <>
       <Heading>DevOps Assessment Tool</Heading>
       <span>
         {' '}
-        Question {questionId}
-        /
-        {questions.length}
-        {' '}
+        Question {questionId}/{questions.length}{' '}
       </span>
       <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
       <OptionsWrapper>
-        <Option
-          label="Strongly agree"
-          selected={store.selections[questionId - 1] === 5}
-          onClick={() => updateSelections(5)}
-        />
-        <Option
-          label="Agree"
-          selected={store.selections[questionId - 1] === 4}
-          onClick={() => updateSelections(4)}
-        />
-        <Option
-          label="Neutral"
-          selected={store.selections[questionId - 1] === 3}
-          onClick={() => updateSelections(3)}
-        />
-        <Option
-          label="Disagree"
-          selected={store.selections[questionId - 1] === 2}
-          onClick={() => updateSelections(2)}
-        />
-        <Option
-          label="Strongly disagree"
-          selected={store.selections[questionId - 1] === 1}
-          onClick={() => updateSelections(1)}
-        />
+        {Object.keys(optionsToPointsMap).map((optionLabel) => {
+          const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
+          return (
+            <Option
+              label={optionLabel}
+              selected={
+                store.selections[questionId - 1] === pointsAssociatedWithOption
+              }
+              onClick={() => updateSelections(pointsAssociatedWithOption)}
+            />
+          )
+        })}
       </OptionsWrapper>
       {!isFinalQuestion ? (
         <Link href={nextQuestionHref} passHref>
-          <Button type="button">
-            Next Question
-          </Button>
+          <Button type="button">Next Question</Button>
         </Link>
       ) : (
-        <Link href={resultsPageHref} passHref>
-          <Button type="submit">
-            Get results!
-          </Button>
+        <Link href={summaryPageHref} passHref>
+          <Button type="submit">Go to answer summary</Button>
         </Link>
       )}
-    </ContentWrapper>
+    </>
   )
 }
 
