@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
+import Button from '../../components/button'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -47,11 +48,11 @@ const Home = () => (
       <Heading as="h2">Your Results</Heading>
       <Main>
         <p>Olet ruisleipä</p>
-        <button>
-          <Link href="#" passHref>
-            <label>Contact us</label>
-          </Link>
-        </button>
+        <Link href="/survey/result">
+          <Button type="submit">
+            Contact !
+          </Button>
+        </Link>
       </Main>
     </ContentWrapper>
   </>
