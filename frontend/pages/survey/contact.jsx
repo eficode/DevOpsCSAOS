@@ -8,11 +8,11 @@ import Button from '../../components/button'
 import { useStore } from '../../store'
 
 const Heading = styled.h3`
-  color: ${({ theme }) => theme.colors.blueDianne}
+  color: ${({ theme }) => theme.colors.blueDianne};
 `
 
 const FormTitle = styled.h2`
-  color: ${({ theme }) => theme.colors.blueDianne}
+  color: ${({ theme }) => theme.colors.blueDianne};
 `
 
 const DetailsForm = styled.form`
@@ -44,18 +44,22 @@ const ContactForm = () => {
   }
 
   return (
-    <ContentWrapper>
+    <>
       <Heading>DevOps Assessment Tool</Heading>
       <FormTitle>Add your contact details to get started</FormTitle>
       <DetailsForm onSubmit={updateEmail(email)}>
-        <DetailsInput type="email" id="email" name="email" value={email} onChange={handleEmailChange} />
+        <DetailsInput
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={handleEmailChange}
+        />
       </DetailsForm>
       <Link href={firstQuestionHref} passHref>
-        <Button type="submit">
-          Next
-        </Button>
+        <Button type="submit">Next</Button>
       </Link>
-    </ContentWrapper>
+    </>
   )
 }
 

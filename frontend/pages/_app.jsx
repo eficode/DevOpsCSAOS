@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
+import { ContentWrapper } from '../components/shared/ContentWrapper'
 import GlobalStyles from '../styles/global'
 import theme from '../styles/theme'
 
@@ -10,7 +11,9 @@ function MyApp({ Component, pageProps }) {
     <>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <ContentWrapper>
+          <Component {...pageProps} />
+        </ContentWrapper>
       </ThemeProvider>
     </>
   )

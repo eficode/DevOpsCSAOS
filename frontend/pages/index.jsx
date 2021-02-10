@@ -3,7 +3,6 @@ import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
-import { ContentWrapper } from '../components/shared/ContentWrapper'
 import Button from '../components/button'
 
 const Heading = styled.h1`
@@ -29,18 +28,16 @@ const Home = () => (
     <Head>
       <title>DevOps Capability Survey</title>
     </Head>
-    <ContentWrapper>
+    <>
       <Heading>DevOps Assessment Tool</Heading>
       <Main>
         <h2>Welcome!</h2>
         <p>Test your DevOps capabilities here.</p>
       </Main>
       <Link href="/survey/contact" passHref>
-        <Button type="button">
-          Get started
-        </Button>
+        <Button type="button">Get started</Button>
       </Link>
-    </ContentWrapper>
+    </>
   </>
 )
 
