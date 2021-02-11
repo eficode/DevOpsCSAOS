@@ -2,9 +2,10 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import Link from 'next/link'
+
 import { ContentWrapper } from '../components/shared/ContentWrapper'
-import Button from '../components/button'
+import Link from '../components/link'
+import ProgressBar from '../components/progressBar'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -29,16 +30,16 @@ const Home = () => (
     <Head>
       <title>DevOps Capability Survey</title>
     </Head>
+    
     <ContentWrapper>
+    <ProgressBar/>
       <Heading>DevOps Assessment Tool</Heading>
       <Main>
         <h2>Welcome!</h2>
         <p>Test your DevOps capabilities here.</p>
       </Main>
-      <Link href="/survey/contact" passHref>
-        <Button type="button">
+      <Link href='/survey/contact' type='primary'>
           Get started
-        </Button>
       </Link>
     </ContentWrapper>
   </>

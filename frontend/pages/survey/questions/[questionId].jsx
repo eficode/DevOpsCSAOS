@@ -3,11 +3,12 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
 
-import Link from 'next/link'
 import { ContentWrapper } from '../../../components/shared/ContentWrapper'
 import Button from '../../../components/button'
 import Option from '../../../components/option'
 import { getAll } from '../../../services/questions'
+import NavigationButtons from '../../../components/navigationButtons'
+import ProgressBar from '../../../components/progressBar'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -32,10 +33,10 @@ const Question = ({ questions }) => {
   const store = useStore()
 
   const questionId = Number(router.query.questionId)
-  const nextQuestionHref = `/survey/questions/${questionId + 1}`
-  const resultsPageHref = '/survey/result'
   const isFinalQuestion = questionId === questions.length
 
+  const resultsPageHref = '/survey/result'
+  
   const updateSelections = (value) => {
     const newSelections = store.selections
     newSelections[questionId - 1] = value
@@ -48,6 +49,7 @@ const Question = ({ questions }) => {
 
   return (
     <ContentWrapper>
+      <ProgressBar />
       <Heading>DevOps Assessment Tool</Heading>
       <span>
         {' '}
@@ -84,19 +86,12 @@ const Question = ({ questions }) => {
           onClick={() => updateSelections(1)}
         />
       </OptionsWrapper>
-      {!isFinalQuestion ? (
-        <Link href={nextQuestionHref} passHref>
-          <Button type="button">
-            Next Question
-          </Button>
-        </Link>
-      ) : (
-        <Link href={resultsPageHref} passHref>
-          <Button type="submit">
-            Get results!
-          </Button>
-        </Link>
-      )}
+      <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
+      {isFinalQuestion &&
+        <Button type="submit" onClick={() => router.push(resultsPageHref)}>
+          Get results!
+        </Button>
+      }
     </ContentWrapper>
   )
 }

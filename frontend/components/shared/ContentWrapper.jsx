@@ -5,6 +5,12 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 15rem;
+  background-color: white;
+  margin: 0 auto;
+  width: 60%;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  padding: 3rem;
 `
 export default ContentWrapper
