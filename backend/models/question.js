@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: { msg: "Question scoring can't be empty" },
         },
       },
+      correctAnswer: {
+        type: DataTypes.ENUM('agree', 'disagree'),
+        defaultValue: 'agree',
+      },
       categoryId: {
         type: DataTypes.UUID,
         allowNull: false,

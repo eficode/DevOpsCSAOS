@@ -1,7 +1,7 @@
-const categories = require('./categories.json')
-const questions = require('./questions.json')
-const users = require('./users.json')
-const answers = require('./answers.json')
+const categories = require('./initialData/categories.json')
+const questions = require('./initialData/questions.json')
+const users = require('./initialData/users.json')
+const answers = require('./initialData/answers.json')
 
 const { sequelize, Question, Category, User, Answer } = require('../models')
 
