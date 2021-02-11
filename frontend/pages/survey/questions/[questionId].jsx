@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { useStore } from '../../../store'
 
 import Link from 'next/link'
-import { ContentWrapper } from '../../../components/shared/ContentWrapper'
 import Button from '../../../components/button'
 import Option from '../../../components/option'
 import { getAll } from '../../../services/questions'
