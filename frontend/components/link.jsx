@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Link from 'next/router'
+import Link from 'next/link'
 
 const linkStyle = `
   font-family: inherit;
@@ -16,7 +16,7 @@ const linkStyle = `
   margin: 10px;
 `
 
-const StyledPrimaryOrSubmitButton = styled.a`
+const StyledPrimaryLink = styled.div`
   background-color: ${({ theme }) => theme.colors.blueDianne};
   color: white;
 
@@ -27,7 +27,7 @@ const StyledPrimaryOrSubmitButton = styled.a`
   ${linkStyle}
 `
 
-const StyledSecondaryButton = styled.a`
+const StyledSecondaryLink = styled.div`
   background-color: ${({ theme }) => theme.colors.cararra};
   color: ${({ theme }) => theme.colors.nevada};
 
@@ -41,40 +41,25 @@ const StyledSecondaryButton = styled.a`
 const StyledLink = ({ children, type, href}) => {
   if (type === 'primary') {
     return (
-        <StyledPrimaryOrSubmitButton
-        type="button"
-        href={href}
-      >
-        {children}
-      </StyledPrimaryOrSubmitButton>
-      
+      <Link href={href}>
+        <StyledPrimaryLink >
+            {children}
+          </StyledPrimaryLink>
+      </Link>    
     )
   }
 
   if (type === 'secondary') {
     return (
-      <StyledSecondaryButton
-        type="button"
-        href={href}
-      >
-        {children}
-      </StyledSecondaryButton>
-      
+      <Link href={href}>
+        <StyledSecondaryLink>
+            {children}
+          </StyledSecondaryLink>
+      </Link>     
     )
   }
 
-  if (type === 'submit') {
-    return (
-      <StyledPrimaryOrSubmitButton
-        type="submit"
-        onClick={onClick}
-      >
-        {children}
-      </StyledPrimaryOrSubmitButton>
-    )
-  }
-
-  console.warn('custom button only has primary, secondary and submit types')
+  console.warn('custom link only has primary and secondary types')
   return (<></>)
 }
 

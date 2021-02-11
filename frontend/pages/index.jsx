@@ -2,9 +2,9 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import Link from 'next/link'
+
 import { ContentWrapper } from '../components/shared/ContentWrapper'
-import Button from '../components/link'
+import Link from '../components/link'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -35,10 +35,8 @@ const Home = () => (
         <h2>Welcome!</h2>
         <p>Test your DevOps capabilities here.</p>
       </Main>
-      <Link href="/survey/contact" passHref>
-        <Button type="primary">
+      <Link href='/survey/contact' type='primary'>
           Get started
-        </Button>
       </Link>
     </ContentWrapper>
   </>
