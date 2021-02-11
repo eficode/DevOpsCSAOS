@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import { ContentWrapper } from '../components/shared/ContentWrapper'
 import Link from '../components/link'
+import ProgressBar from '../components/progressBar'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -29,7 +30,9 @@ const Home = () => (
     <Head>
       <title>DevOps Capability Survey</title>
     </Head>
+    
     <ContentWrapper>
+    <ProgressBar/>
       <Heading>DevOps Assessment Tool</Heading>
       <Main>
         <h2>Welcome!</h2>

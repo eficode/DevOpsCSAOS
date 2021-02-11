@@ -6,7 +6,11 @@ export const ContentWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
-  margin: 15rem;
+  margin: 0 auto;
+  width: 60%;
+  position: absolute;
+  top: 20%;
+  left: 20%;
   padding: 3rem;
 `
 export default ContentWrapper

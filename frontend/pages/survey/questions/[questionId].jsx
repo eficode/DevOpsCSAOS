@@ -8,6 +8,7 @@ import Button from '../../../components/button'
 import Option from '../../../components/option'
 import { getAll } from '../../../services/questions'
 import NavigationButtons from '../../../components/navigationButtons'
+import ProgressBar from '../../../components/progressBar'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -48,6 +49,7 @@ const Question = ({ questions }) => {
 
   return (
     <ContentWrapper>
+      <ProgressBar />
       <Heading>DevOps Assessment Tool</Heading>
       <span>
         {' '}
