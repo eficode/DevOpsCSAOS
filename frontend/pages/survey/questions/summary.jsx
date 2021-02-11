@@ -35,7 +35,7 @@ const Summary = () => {
         }
 
         return (
-          <QuestionAnswerWrapper>
+          <QuestionAnswerWrapper key={question.id}>
             <span>Question: {question.text}</span>
             <br />
             <span>You {answerToQuestion}</span>
