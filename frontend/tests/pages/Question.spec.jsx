@@ -108,12 +108,12 @@ describe('Selecting option', () => {
     )
 
     const initialState = useStore.getState()
-    expect(initialState.selections[1]).toBe(0)
+    expect(initialState.selections[1]).toBe(-1)
   
     const button = component.find('button[children="Agree"]')
     button.simulate('click')
   
     const stateAfterClick = useStore.getState()
-    expect(stateAfterClick.selections[1]).toBe(4)
+    expect(stateAfterClick.selections[1]).toBe(3)
   })
 })
