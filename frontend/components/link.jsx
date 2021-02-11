@@ -1,9 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import Link from 'next/router'
 
-const buttonStyle = `
+const linkStyle = `
   font-family: inherit;
   font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 20px;
@@ -13,7 +16,7 @@ const buttonStyle = `
   margin: 10px;
 `
 
-const StyledPrimaryOrSubmitButton = styled.button`
+const StyledPrimaryOrSubmitButton = styled.a`
   background-color: ${({ theme }) => theme.colors.blueDianne};
   color: white;
 
@@ -21,10 +24,10 @@ const StyledPrimaryOrSubmitButton = styled.button`
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
 
-  ${buttonStyle}
+  ${linkStyle}
 `
 
-const StyledSecondaryButton = styled.button`
+const StyledSecondaryButton = styled.a`
   background-color: ${({ theme }) => theme.colors.cararra};
   color: ${({ theme }) => theme.colors.nevada};
 
@@ -32,18 +35,19 @@ const StyledSecondaryButton = styled.button`
     background-color: ${({ theme }) => theme.colors.silver};
   }
 
-  ${buttonStyle}
+  ${linkStyle}
 `
 
-const Button = ({ children, type, onClick }) => {
+const StyledLink = ({ children, type, href}) => {
   if (type === 'primary') {
     return (
-      <StyledPrimaryOrSubmitButton
+        <StyledPrimaryOrSubmitButton
         type="button"
-        onClick={onClick}
+        href={href}
       >
         {children}
       </StyledPrimaryOrSubmitButton>
+      
     )
   }
 
@@ -51,10 +55,11 @@ const Button = ({ children, type, onClick }) => {
     return (
       <StyledSecondaryButton
         type="button"
-        onClick={onClick}
+        href={href}
       >
         {children}
       </StyledSecondaryButton>
+      
     )
   }
 
@@ -73,4 +78,4 @@ const Button = ({ children, type, onClick }) => {
   return (<></>)
 }
 
-export default Button
+export default StyledLink

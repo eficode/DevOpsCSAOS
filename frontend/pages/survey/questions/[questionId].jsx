@@ -5,7 +5,7 @@ import { useStore } from '../../../store'
 
 import Link from 'next/link'
 import { ContentWrapper } from '../../../components/shared/ContentWrapper'
-import Button from '../../../components/button'
+import Button from '../../../components/link'
 import Option from '../../../components/option'
 import { getAll } from '../../../services/questions'
 import NavigationButtons from '../../../components/navigationButtons'

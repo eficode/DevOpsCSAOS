@@ -1,10 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import Link from 'next/link'
+import StyledLink from './link'
 
-import Button from '../components/button'
-
-const NavButtonWrapper = styled.div`
+const NavWrapper = styled.nav`
   display: flex;
   flex-direction: row;
 `
@@ -17,22 +15,18 @@ const NavigationButtons = ({ currentQuestionId, surveyLength }) => {
   const isLastQuestion = currentQuestionId === surveyLength
 
   return (
-    <NavButtonWrapper>
+    <NavWrapper>
       {!isFirstQuestion && 
-        <Link href={prevQUrl} passHref>
-          <Button type="secondary">
-            Back
-          </Button>
-        </Link>
+        <StyledLink href={prevQUrl} passHref type="secondary">
+          Back
+        </StyledLink>
       }
       {!isLastQuestion && 
-        <Link href={nextQUrl} passHref>
-          <Button type="primary">
-            Next
-          </Button>
-        </Link>
+        <StyledLink href={nextQUrl} passHref type="primary">
+          Next
+        </StyledLink>
       }
-    </NavButtonWrapper>
+    </NavWrapper>
   )
 }
 
