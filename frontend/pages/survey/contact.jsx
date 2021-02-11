@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
-import Link from 'next/link'
 import { ContentWrapper } from '../../components/shared/ContentWrapper'
 import Button from '../../components/button'
 import { useStore } from '../../store'
@@ -17,6 +16,8 @@ const FormTitle = styled.h2`
 
 const DetailsForm = styled.form`
   display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 const DetailsInput = styled.input`
@@ -30,10 +31,9 @@ const DetailsInput = styled.input`
 
 const ContactForm = () => {
   const [emailInput, setEmailInput] = useState('')
+  const router = useRouter()
   const store = useStore()
   const firstQuestionHref = '/survey/questions/1'
-
-  const router = useRouter()
 
   const handleEmailChange = (event) => {
     event.preventDefault()
@@ -50,7 +50,7 @@ const ContactForm = () => {
     <ContentWrapper>
       <Heading>DevOps Assessment Tool</Heading>
       <FormTitle>Add your contact details to get started</FormTitle>
-      <DetailsForm onSubmit={updateEmail} id="detailsForm" method="POST">
+      <DetailsForm onSubmit={updateEmail}>
         <DetailsInput type="email" id="email" name="email" value={emailInput} onChange={handleEmailChange} required />
         <Button type="submit">Begin</Button>
       </DetailsForm>
