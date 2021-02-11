@@ -43,19 +43,17 @@ describe('Question rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
-    expect(component.text()).toContain(
-      'DevOps Assessment Tool'
-    )
+    expect(component.text()).toContain('DevOps Assessment Tool')
   })
 
   it('The question whose id is in route is rendered', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
     expect(component.text()).toContain('Oletko ruisleipä?')
   })
@@ -64,10 +62,10 @@ describe('Question rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
     expect(component.text()).toContain('Question 1/2')
-  })  
+  })
 })
 
 describe('Navigation button conditional rendering', () => {
@@ -75,13 +73,13 @@ describe('Navigation button conditional rendering', () => {
     const component = mount(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
     expect(component.text().includes('Next')).toBe(true)
   })
 
-  it('Last question renders link with text Get results', () => {
+  it('Last question renders link with correct link label', () => {
     useRouter.mockImplementation(() => ({
       route: '/survey/questions/2',
       pathname: 'survey/questions/2',
@@ -92,10 +90,10 @@ describe('Navigation button conditional rendering', () => {
     const component = mount(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
-    expect(component.text().includes('Get results')).toBe(true)
+    expect(component.text().includes('Go to answer summary')).toBe(true)
   })
 })
 
@@ -104,15 +102,15 @@ describe('Selecting option', () => {
     const component = mount(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
     const initialState = useStore.getState()
     expect(initialState.selections[1]).toBe(0)
-  
+
     const button = component.find('button[children="Agree"]')
     button.simulate('click')
-  
+
     const stateAfterClick = useStore.getState()
     expect(stateAfterClick.selections[1]).toBe(4)
   })
