@@ -36,7 +36,7 @@ const Home = () => (
         <p>Test your DevOps capabilities here.</p>
       </Main>
       <Link href="/survey/contact" passHref>
-        <Button type="button">
+        <Button type="primary">
           Get started
         </Button>
       </Link>

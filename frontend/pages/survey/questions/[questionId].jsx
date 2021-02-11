@@ -35,7 +35,6 @@ const Question = ({ questions }) => {
   const questionId = Number(router.query.questionId)
   const isFinalQuestion = questionId === questions.length
 
-  const currentPageHref = `/survey/questions/${questionId }`
   const resultsPageHref = '/survey/result'
   
   const updateSelections = (value) => {
