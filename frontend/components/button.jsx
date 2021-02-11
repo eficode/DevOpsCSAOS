@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.blueDianne};
-  color: white;
+const buttonStyle = `
   font-family: inherit;
   font-weight: bold;
   padding-top: 10px;
@@ -13,36 +11,65 @@ const StyledButton = styled.button`
   border-radius: 5px;
   border-width: 0px;
   margin: 10px;
+`
+
+const StyledPrimaryOrSubmitButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.blueDianne};
+  color: white;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
+
+  ${buttonStyle}
+`
+
+const StyledSecondaryButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.cararra};
+  color: ${({ theme }) => theme.colors.nevada};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.silver};
+  }
+
+  ${buttonStyle}
 `
 
 const Button = ({ children, type, onClick }) => {
-  if (type === 'button') {
+  if (type === 'primary') {
     return (
-      <StyledButton
+      <StyledPrimaryOrSubmitButton
         type="button"
         onClick={onClick}
       >
         {children}
-      </StyledButton>
+      </StyledPrimaryOrSubmitButton>
+    )
+  }
+
+  if (type === 'secondary') {
+    return (
+      <StyledSecondaryButton
+        type="button"
+        onClick={onClick}
+      >
+        {children}
+      </StyledSecondaryButton>
     )
   }
 
   if (type === 'submit') {
     return (
-      <StyledButton
+      <StyledPrimaryOrSubmitButton
         type="submit"
         onClick={onClick}
       >
         {children}
-      </StyledButton>
+      </StyledPrimaryOrSubmitButton>
     )
   }
 
-  console.warn('custom button only has button and submit types')
+  console.warn('custom button only has primary, secondary and submit types')
   return (<></>)
 }
 
