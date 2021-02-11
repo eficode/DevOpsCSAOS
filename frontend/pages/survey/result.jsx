@@ -1,20 +1,15 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+
 import Link from 'next/link'
+import { ContentWrapper } from '../../components/shared/ContentWrapper'
+import Button from '../../components/button'
+import Results from '../../components/results'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
 `
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 15rem;
-`
-
 const Main = styled.main`
   padding: 5rem;
   background-color: #fff;
@@ -30,13 +25,6 @@ const Main = styled.main`
   }
 `
 
-const Result = styled.div`
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.colors.yellow};
-  width: size;
-`
-
 const Home = () => (
   <>
     <Head>
@@ -46,6 +34,7 @@ const Home = () => (
       <Heading>DevOps Assessment Tool</Heading>
       <Heading as="h2">Your Results</Heading>
       <Main>
+        <Results />
         <p>Olet ruisleipä</p>
         <button>
           <Link href="#" passHref>
