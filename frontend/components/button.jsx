@@ -4,8 +4,15 @@ import styled from 'styled-components'
 const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.colors.blueDianne};
   color: white;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.easternBlue};
+  }
+
   font-family: inherit;
   font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 20px;
@@ -13,32 +20,22 @@ const StyledButton = styled.button`
   border-radius: 5px;
   border-width: 0px;
   margin: 10px;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.easternBlue};
-  }
 `
 
-const Button = ({ children, type, onClick }) => {
+const Button = ({ children, type, onClick}) => {
   if (type === 'button') {
     return (
-      <StyledButton
-        type="button"
-        onClick={onClick}
-      >
+      <StyledButton onClick={onClick} type="button">
         {children}
-      </StyledButton>
+      </StyledButton>  
     )
   }
 
   if (type === 'submit') {
     return (
-      <StyledButton
-        type="submit"
-        onClick={onClick}
-      >
+      <StyledButton onClick={onClick} type="submit">
         {children}
-      </StyledButton>
+      </StyledButton>  
     )
   }
 
