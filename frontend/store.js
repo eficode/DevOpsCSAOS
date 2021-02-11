@@ -20,7 +20,7 @@ const store = (set) => ({
   })),
   setEmail: (newEmail) => set(() => ({ email: newEmail })),
   setSelections: (newSelections) => set(() => ({ selections: newSelections })),
-  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results}))
+  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
 });
 // a callback function which returns an object
 // describing state
