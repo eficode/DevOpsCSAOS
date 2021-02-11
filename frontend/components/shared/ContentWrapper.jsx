@@ -5,6 +5,8 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 15rem;
+  background-color: white;
+  margin: 15rem;
+  padding: 3rem;
 `
 export default ContentWrapper

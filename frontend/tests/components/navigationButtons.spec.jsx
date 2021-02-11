@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import { mount, render } from 'enzyme'
+import { mount } from 'enzyme'
 import NavigationButtons from '../../components/navigationButtons'
 import ThemeWrapper from '../testutils/themeWrapper'
 
