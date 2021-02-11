@@ -19,12 +19,13 @@ const StyledButton = styled.button`
   }
 `
 
-const Button = ({ children, type, onClick }) => {
+const Button = React.forwardRef(({ children, type, onClick }, ref) => {
   if (type === 'button') {
     return (
       <StyledButton
         type="button"
         onClick={onClick}
+        ref={ref}
       >
         {children}
       </StyledButton>
@@ -36,6 +37,7 @@ const Button = ({ children, type, onClick }) => {
       <StyledButton
         type="submit"
         onClick={onClick}
+        ref={ref}
       >
         {children}
       </StyledButton>
@@ -44,6 +46,6 @@ const Button = ({ children, type, onClick }) => {
 
   console.warn('custom button only has button and submit types')
   return (<></>)
-}
+})
 
 export default Button

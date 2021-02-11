@@ -30,7 +30,6 @@ const DetailsInput = styled.input`
 
 const ContactForm = () => {
   const [email, setEmail] = useState('')
-  const router = useRouter()
   const store = useStore()
   const firstQuestionHref = '/survey/questions/1'
 
@@ -41,20 +40,21 @@ const ContactForm = () => {
 
   const updateEmail = (value) => {
     store.email = value
+    console.log(store)
   }
 
   return (
     <ContentWrapper>
       <Heading>DevOps Assessment Tool</Heading>
       <FormTitle>Add your contact details to get started</FormTitle>
-      <DetailsForm onSubmit={updateEmail(email)}>
-        <DetailsInput type="email" id="email" name="email" value={email} onChange={handleEmailChange} />
+      <DetailsForm onSubmit={updateEmail(email)} id="detailsForm" method="POST" action={firstQuestionHref}>
+        <DetailsInput type="email" id="email" name="email" value={email} onChange={handleEmailChange} required />
+        <Link href={firstQuestionHref} passHref>
+          <Button type="submit" form="detailsForm">
+            Next
+          </Button>
+        </Link>
       </DetailsForm>
-      <Link href={firstQuestionHref} passHref>
-        <Button type="submit">
-          Next
-        </Button>
-      </Link>
     </ContentWrapper>
   )
 }
