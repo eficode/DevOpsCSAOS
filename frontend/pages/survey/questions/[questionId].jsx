@@ -3,10 +3,12 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
 
+
 import { ContentWrapper } from '../../../components/shared/ContentWrapper'
 import Button from '../../../components/button'
 import Option from '../../../components/option'
 import { getAll } from '../../../services/questions'
+import { sendAnswers } from '../../../services/answers'
 import NavigationButtons from '../../../components/navigationButtons'
 import ProgressBar from '../../../components/progressBar'
 
@@ -36,9 +38,40 @@ const Question = ({ questions }) => {
   const isFinalQuestion = questionId === questions.length
 
   const resultsPageHref = '/survey/result'
-  
+
+  const checkAllQuestionsAnswered = () => {
+    let allAnswered = true
+    store.selections.forEach(selection => {
+      
+      if (selection === -1) {
+        allAnswered = false
+      }
+    })
+
+    return allAnswered
+  }
+  const handleSubmit = async () => {
+    const allAnswered = checkAllQuestionsAnswered()
+
+    if (!allAnswered) {
+      return
+    }
+    const answersForBackend = questions.map((question, index) => {
+      return {
+        questionId: question.id,
+        value: store.selections[index]
+      }
+    })
+
+    const email = store.email === '' ? undefined : store.email
+
+    const { results } = await sendAnswers(email, answersForBackend)
+    
+    store.setResultsPerCategory(results)
+    router.push(resultsPageHref)
+  }
   const updateSelections = (value) => {
-    const newSelections = store.selections
+    const newSelections = [...store.selections]
     newSelections[questionId - 1] = value
     store.setSelections(newSelections)
   }
@@ -62,33 +95,33 @@ const Question = ({ questions }) => {
       <OptionsWrapper>
         <Option
           label="Strongly agree"
-          selected={store.selections[questionId - 1] === 5}
-          onClick={() => updateSelections(5)}
-        />
-        <Option
-          label="Agree"
           selected={store.selections[questionId - 1] === 4}
           onClick={() => updateSelections(4)}
         />
         <Option
-          label="Neutral"
+          label="Agree"
           selected={store.selections[questionId - 1] === 3}
           onClick={() => updateSelections(3)}
         />
         <Option
-          label="Disagree"
+          label="Neutral"
           selected={store.selections[questionId - 1] === 2}
           onClick={() => updateSelections(2)}
         />
         <Option
-          label="Strongly disagree"
+          label="Disagree"
           selected={store.selections[questionId - 1] === 1}
           onClick={() => updateSelections(1)}
+        />
+        <Option
+          label="Strongly disagree"
+          selected={store.selections[questionId - 1] === 0}
+          onClick={() => updateSelections(0)}
         />
       </OptionsWrapper>
       <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
       {isFinalQuestion &&
-        <Button type="submit" onClick={() => router.push(resultsPageHref)}>
+        <Button type="submit" onClick={() => handleSubmit()}>
           Get results!
         </Button>
       }
