@@ -57,6 +57,7 @@
     "id": "d254d70b-f26b-44f6-a48b-44b3435e0a26",
     "text": "Oletko suklaakeksi?",
     "weight": 0.2,
-    "categoryId": "faf6a4ae-66d5-11eb-ae93-0242ac130002"
+    "categoryId": "faf6a4ae-66d5-11eb-ae93-0242ac130002",
+    "correctAnswer": "disagree"
   }
 ]

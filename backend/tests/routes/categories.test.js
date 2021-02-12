@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest')
-const app = require('../app.js')
-const { initDatabase } = require('../config/setupDatabase')
+const app = require('../../app.js')
+const { initDatabase } = require('../../config/setupDatabase')
 
 beforeAll(async () => {
   await initDatabase()
@@ -26,7 +26,6 @@ describe('GET /api/categories/:categoryId', () => {
   it('Returns all questions from category', async (done) => {
     const resp = await request(app).get('/api/categories/')
     const categories = resp.body
-    console.log(categories)
     const response = await request(app).get(
       `/api/categories/${categories[0].id}`
     )

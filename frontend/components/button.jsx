@@ -1,55 +1,46 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 const StyledButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.easternBlue};
+  background-color: ${({ theme }) => theme.colors.blueDianne};
   color: white;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.easternBlue};
+  }
+
   font-family: inherit;
   font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
   border-radius: 5px;
+  border-width: 0px;
   margin: 10px;
+`
 
-  ${({ type }) => type === 'submit' && `
-    background-color: gray;
-  `}
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.blueDianne};
-    ${({ type }) => type === 'button' && `
-    background-color: gray;
-    `}
-  }
-`;
-
-const Button = ({ children, type, onClick }) => {
+const Button = ({ children, type, onClick}) => {
   if (type === 'button') {
     return (
-      <StyledButton
-        type="button"
-        onClick={onClick}
-      >
+      <StyledButton onClick={onClick} type="button">
         {children}
-      </StyledButton>
-    );
+      </StyledButton>  
+    )
   }
 
   if (type === 'submit') {
     return (
-      <StyledButton
-        type="submit"
-        onClick={onClick}
-      >
+      <StyledButton onClick={onClick} type="submit">
         {children}
-      </StyledButton>
-    );
+      </StyledButton>  
+    )
   }
 
-  console.warn('custom button only has button and submit types');
-  return (<></>);
-};
+  console.warn('custom button only has button and submit types')
+  return (<></>)
+}
 
-export default Button;
+export default Button

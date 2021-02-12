@@ -1,4 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
+import theme from './theme'
 
 const GlobalStyles = createGlobalStyle`
     *, *::before, *::after {
@@ -27,7 +28,7 @@ const GlobalStyles = createGlobalStyle`
       }
     } 
 
+    html {background-color: #F0F0EC}
+  `
 
-  `;
-
-export default GlobalStyles;
+export default GlobalStyles
