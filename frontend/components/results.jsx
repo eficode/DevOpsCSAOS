@@ -5,7 +5,7 @@ export const ResultCircle = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  font-size: 36px;
+  font-size: 32px;
   background: ${({ theme }) => theme.colors.gold};
   text-align: center;
   position: relative;
@@ -20,8 +20,9 @@ export const Result = styled.span`
   transform: translate(-50%, -50%);
 `
 
-const Results = ({ results }) => (
-  <ResultCircle><Result>10/100</Result></ResultCircle>
+const Results = ({ userResult, maxResult }) => (
+  <ResultCircle><Result>{userResult}/{maxResult}</Result></ResultCircle>
 )
 
 export default Results
+

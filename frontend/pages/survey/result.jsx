@@ -3,7 +3,9 @@ import Head from 'next/head'
 import styled from 'styled-components'
 
 import Link from 'next/link'
+import { ContentWrapper } from '../../components/shared/ContentWrapper'
 import Button from '../../components/button'
+import Results from '../../components/results'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
@@ -25,16 +27,16 @@ const Main = styled.main`
   }
 `
 
-const Result = styled.div`
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.colors.yellow};
-  width: size;
-`
-
 const Home = () => {
   const store = useStore()
-  
+
+  const userResult = store.resultsPerCategory
+    .map((score) => score.userResult)
+    .reduce((accumulator, currentValue) => accumulator + currentValue)
+  const maxResult = store.resultsPerCategory
+    .map((score) => score.maxCategoryResult)
+    .reduce((accumulator, currentValue) => accumulator + currentValue)
+
   return (
     <>
       <Head>
@@ -43,12 +45,13 @@ const Home = () => {
       <ContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
         <Heading as="h2">Your Results</Heading>
+        <Results userResult={userResult} maxResult={maxResult}/>
         <Main>
-          {store.resultsPerCategory.map((result, index) => 
-          <p key={index}>
-            {`${result.name}: ${result.userResult.toFixed(1)}/${result.maxCategoryResult.toFixed(1)}`}
-          </p>
-          )}
+          {store.resultsPerCategory.map((result, index) => (
+            <p key={index}>
+              {`${result.name}: ${result.userResult.toFixed(1)}/${result.maxCategoryResult.toFixed(1)}`}
+            </p>
+          ))}
           <Link href="/survey/result">
             <Button type="submit">
               Contact !
@@ -61,3 +64,4 @@ const Home = () => {
 }
 
 export default Home
+
