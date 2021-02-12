@@ -21,7 +21,13 @@ export const Result = styled.span`
 `
 
 const TotalResult = ({ userResult, maxResult }) => (
-  <ResultCircle><Result>{userResult}/{maxResult}</Result></ResultCircle>
+  <ResultCircle>
+    <Result>
+      {userResult}
+      /
+      {maxResult}
+    </Result>
+  </ResultCircle>
 )
 
 export default TotalResult
