@@ -6,11 +6,20 @@ import Link from 'next/link'
 import { ContentWrapper } from '../../components/shared/ContentWrapper'
 import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
+import ProgressBar from '../../components/progressBar'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
-const Heading = styled.h1`
+const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
+  font-family: Montserrat;
+  font-size: 16px;
+  margin-bottom: 10px;
+`
+const ResultsTitle = styled.h2`
+  color: ${({ theme }) => theme.colors.blueDianne};
+  font-family: Merriweather;
+  margin: 10px 0 30px 0;
 `
 const Main = styled.main`
   padding: 5rem;
@@ -18,6 +27,7 @@ const Main = styled.main`
 
   p {
     text-align: center;
+    font-family: Merriweather;
   }
 
   button {
@@ -43,8 +53,9 @@ const Home = () => {
         <title>DevOps Capability Survey Results</title>
       </Head>
       <ContentWrapper>
+        <ProgressBar />
         <Heading>DevOps Assessment Tool</Heading>
-        <Heading as="h2">Your Results</Heading>
+        <ResultsTitle>Your Results</ResultsTitle>
         <TotalResult userResult={userResult} maxResult={maxResult} />
         <Main>
           {store.resultsPerCategory.map((result, index) => (

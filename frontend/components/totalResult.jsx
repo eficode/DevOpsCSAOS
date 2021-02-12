@@ -6,6 +6,8 @@ export const ResultCircle = styled.div`
   height: 200px;
   border-radius: 50%;
   font-size: 32px;
+  font-family: Montserrat;
+  font-weight: bold;
   background: ${({ theme }) => theme.colors.gold};
   text-align: center;
   position: relative;
