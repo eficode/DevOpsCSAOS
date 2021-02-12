@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { ContentWrapper } from '../../components/shared/ContentWrapper'
 import Button from '../../components/button'
-import Results from '../../components/results'
+import TotalResult from '../../components/totalResult'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
@@ -45,7 +45,7 @@ const Home = () => {
       <ContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
         <Heading as="h2">Your Results</Heading>
-        <Results userResult={userResult} maxResult={maxResult}/>
+        <TotalResult userResult={userResult} maxResult={maxResult} />
         <Main>
           {store.resultsPerCategory.map((result, index) => (
             <p key={index}>
@@ -64,4 +64,3 @@ const Home = () => {
 }
 
 export default Home
-
