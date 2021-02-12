@@ -26,7 +26,7 @@ describe('GET /api/questions/:id', () => {
     const question = response.body
 
     expect(question.text).toBe('Oletko ruisleipä?')
-    expect(question.weight).toBe(0.8)
+    expect(question.weight).toBe(5)
     done()
   })
 

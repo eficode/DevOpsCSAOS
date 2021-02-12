@@ -25,4 +25,3 @@ const Results = ({ userResult, maxResult }) => (
 )
 
 export default Results
-

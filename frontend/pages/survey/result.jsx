@@ -49,7 +49,7 @@ const Home = () => {
         <Main>
           {store.resultsPerCategory.map((result, index) => (
             <p key={index}>
-              {`${result.name}: ${result.userResult.toFixed(1)}/${result.maxCategoryResult.toFixed(1)}`}
+              {`${result.name}: ${result.userResult}/${result.maxCategoryResult}`}
             </p>
           ))}
           <Link href="/survey/result">
