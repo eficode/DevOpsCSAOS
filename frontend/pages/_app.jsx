@@ -4,6 +4,7 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import GlobalStyles from '../styles/global'
 import theme from '../styles/theme'
+import '../public/fonts/fonts.css'
 
 function MyApp({ Component, pageProps }) {
   return (
