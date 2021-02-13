@@ -42,10 +42,10 @@ const Home = () => {
 
   const userResult = store.resultsPerCategory
     .map((score) => score.userResult)
-    .reduce((accumulator, currentValue) => accumulator + currentValue)
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
   const maxResult = store.resultsPerCategory
     .map((score) => score.maxCategoryResult)
-    .reduce((accumulator, currentValue) => accumulator + currentValue)
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 
   return (
     <>
