@@ -8,27 +8,7 @@ import { useStore } from '../../store'
 
 import Question from '../../pages/survey/questions/[questionId]'
 import ThemeWrapper from '../testutils/themeWrapper'
-
-const questions = [
-  {
-    id: '0',
-    text: 'Oletko ruisleipä?',
-    weight: 0.8,
-    categoryId: 1,
-    createdAt: '2021-02-03T07:34:56.445Z',
-    updatedAt: '2021-02-03T07:34:56.445Z',
-    Category: { name: 'Jauhot' },
-  },
-  {
-    id: '1',
-    text: 'Maistuisiko laskiaispulla?',
-    weight: 9.9,
-    categoryId: 2,
-    createdAt: '2021-02-03T07:34:56.445Z',
-    updatedAt: '2021-02-03T07:34:56.445Z',
-    Category: { name: 'Pullat' },
-  },
-]
+import { questions } from '../testutils/constants'
 
 nextRouter.useRouter = jest.fn()
 
@@ -80,7 +60,7 @@ describe('Navigation button conditional rendering', () => {
     expect(component.container).toHaveTextContent('Next')
   })
 
-  it('Last question renders link with text Get results', () => {
+  it('Last question renders link with correct link label', () => {
     useRouter.mockImplementation(() => ({
       route: '/survey/questions/2',
       pathname: 'survey/questions/2',
@@ -94,7 +74,7 @@ describe('Navigation button conditional rendering', () => {
       </ThemeWrapper>
     )
 
-    expect(component.container).toHaveTextContent('Get results')
+    expect(component.container).toHaveTextContent('Go to answer summary')
   })
 })
 
@@ -113,6 +93,6 @@ describe('Selecting option', () => {
     fireEvent.click(button)
 
     const stateAfterClick = useStore.getState()
-    expect(stateAfterClick.selections[1]).toBe(3)
+    expect(stateAfterClick.selections[1]).toBe(4)
   })
 })
