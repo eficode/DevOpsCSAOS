@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 
 import React from 'react'
-import { render, fireEvent, getByLabelText } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
@@ -28,44 +29,15 @@ describe('Contactform rendering', () => {
 })
 
 describe('Email validation', () => {
-  // it('Invalid email is not saved to store', () => {
-  //   const component = render(
-  //     <ThemeWrapper>
-  //       <ContactForm />
-  //     </ThemeWrapper>,
-  //   )
-
-  //   const initialState = useStore.getState()
-  //   expect(initialState.email).toBe('')
-
-  //   const inputField = component.container.querySelector('input')
-  //   const form = component.container.querySelector('form')
-  //   const beforeAfterClick = useStore.getState()
-  //   expect(beforeAfterClick.email).toBe('')
-
-  //   fireEvent.change(inputField, {
-  //     target: { value: 'test.com' },
-  //   })
-  //   fireEvent.click(component.getByText('Begin'))
-
-  //   const stateAfterClick = useStore.getState()
-  //   expect(stateAfterClick.email).toBe('')
-  // })
-
-  it('Valid email is saved to store', () => {
-    const component = render(
+  it('Valid email is saved to store', async () => {
+    render(
       <ThemeWrapper>
         <ContactForm />
       </ThemeWrapper>,
     )
 
-    const inputField = component.container.querySelector('input')
-    const form = component.container.querySelector('form')
-
-    fireEvent.change(inputField, {
-      target: { value: 'test@test.com' },
-    })
-    fireEvent.submit(form)
+    userEvent.type(screen.getByPlaceholderText('Email'), 'test@test.com')
+    userEvent.click(screen.getByRole('button', { name: 'Begin' }))
 
     const stateAfterClick = useStore.getState()
     expect(stateAfterClick.email).toBe('test@test.com')
