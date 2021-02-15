@@ -8,7 +8,7 @@ const linkStyle = `
   font-size: 14px;
   text-decoration: none;
   margin: 10px;
-  width: 120px;
+  min-width: 120px;
   height: 45px;
   text-align:center;
   line-height: 45px;

@@ -54,15 +54,17 @@ const ContactForm = () => {
   }
 
   return (
-    <ContentWrapper>
+    <>
       <ProgressBar />
-      <Heading>DevOps Assessment Tool</Heading>
-      <FormTitle>Add your contact details to get started</FormTitle>
-      <DetailsForm id="email-input-field" onSubmit={updateEmail}>
-        <DetailsInput type="email" id="email" name="email" placeholder="Email" value={emailInput} onChange={handleEmailChange} required />
-        <Button id="submit-email-button" type="submit">Begin</Button>
-      </DetailsForm>
-    </ContentWrapper>
+      <ContentWrapper>
+        <Heading>DevOps Assessment Tool</Heading>
+        <FormTitle>Add your contact details to get started</FormTitle>
+        <DetailsForm id="email-input-field" onSubmit={updateEmail}>
+          <DetailsInput type="email" id="email" name="email" placeholder="Email" value={emailInput} onChange={handleEmailChange} required />
+          <Button id="submit-email-button" type="submit">Begin</Button>
+        </DetailsForm>
+      </ContentWrapper>
+    </>
   )
 }
 

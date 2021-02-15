@@ -9,7 +9,6 @@ const StyledButton = styled.button`
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
 
-  font-family: Montserrat;
   font-weight: bold;
   font-size: 14px;
   text-decoration: none;
