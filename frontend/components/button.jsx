@@ -4,41 +4,36 @@ import styled from 'styled-components'
 const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.colors.blueDianne};
   color: white;
-  font-family: inherit;
-  font-weight: bold;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 5px;
-  border-width: 0px;
-  margin: 10px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
+
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 5px;
+  border-width: 0px;
+  margin: 10px;
+  width: 120px;
+  height: 45px;
 `
 
-const Button = ({ children, type, onClick }) => {
+const Button = ({ children, type, onClick}) => {
   if (type === 'button') {
     return (
-      <StyledButton
-        type="button"
-        onClick={onClick}
-      >
+      <StyledButton onClick={onClick} type="button">
         {children}
-      </StyledButton>
+      </StyledButton>  
     )
   }
 
   if (type === 'submit') {
     return (
-      <StyledButton
-        type="submit"
-        onClick={onClick}
-      >
+      <StyledButton onClick={onClick} type="submit">
         {children}
-      </StyledButton>
+      </StyledButton>  
     )
   }
 

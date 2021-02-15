@@ -3,27 +3,42 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
 
-import Link from 'next/link'
+import { ContentWrapper } from '../../../components/shared/ContentWrapper'
 import Button from '../../../components/button'
 import Option from '../../../components/option'
 import { getAll } from '../../../services/questions'
+import { sendAnswers } from '../../../services/answers'
+import NavigationButtons from '../../../components/navigationButtons'
+import ProgressBar from '../../../components/progressBar'
 
 const OptionsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 100px 100px 100px;
+  grid-template-columns: 50% 50% 50%;
   grid-template-rows: 60px 60px;
-  column-gap: 10px;
-  row-gap: 15px;
+  column-gap: 40px;
+  row-gap: 30px;
   margin-top: 20px;
   margin-bottom: 20px;
+  justify-content: center;
+  width: 50%;
 `
 
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
+  font-family: Montserrat;
+  font-size: 16px;
+  margin-bottom: 10px;
 `
 
 const QuestionTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
+  font-family: Merriweather;
+  margin: 10px 0 30px 0;
+`
+const QuestionNumber = styled.span`
+  color: ${({ theme }) => theme.colors.nevada};
+  font-family: Merriweather;
+  font-size: 15px;
 `
 
 const Question = ({ questions }) => {
@@ -45,17 +60,51 @@ const Question = ({ questions }) => {
     store.setSelections(newSelections)
   }
 
+  const checkAllQuestionsAnswered = () => {
+    let allAnswered = true
+    store.selections.forEach(selection => {
+      
+      if (selection === -1) {
+        allAnswered = false
+      }
+    })
+
+    return allAnswered
+  }
+  
+  const handleSubmit = async () => {
+    const allAnswered = checkAllQuestionsAnswered()
+
+    if (!allAnswered) {
+      return
+    }
+    const answersForBackend = questions.map((question, index) => {
+      return {
+        questionId: question.id,
+        value: store.selections[index]
+      }
+    })
+
+    const email = store.email === '' ? undefined : store.email
+
+    const { results } = await sendAnswers(email, answersForBackend)
+    
+    store.setResultsPerCategory(results)
+    router.push(resultsPageHref)
+  }
+
   useEffect(() => {
     store.setQuestions(questions)
   }, [])
 
   return (
-    <>
+    <ContentWrapper>
+      <ProgressBar />
       <Heading>DevOps Assessment Tool</Heading>
-      <span>
+      <QuestionNumber>
         {' '}
         Question {questionId}/{questions.length}{' '}
-      </span>
+      </QuestionNumber>
       <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
       <OptionsWrapper>
         {Object.keys(optionsToPointsMap).map((optionLabel) => {
@@ -72,15 +121,13 @@ const Question = ({ questions }) => {
         })}
       </OptionsWrapper>
       {!isFinalQuestion ? (
-        <Link href={nextQuestionHref} passHref>
-          <Button type="button">Next Question</Button>
-        </Link>
+        <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
       ) : (
         <Link href={summaryPageHref} passHref>
           <Button type="submit">Go to answer summary</Button>
         </Link>
       )}
-    </>
+    </ContentWrapper>
   )
 }
 

@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest')
-const app = require('../app.js')
-const { initDatabase } = require('../config/setupDatabase')
+const app = require('../../app.js')
+const { initDatabase } = require('../../config/setupDatabase')
 
 beforeAll(async () => {
   await initDatabase()
@@ -26,7 +26,7 @@ describe('GET /api/questions/:id', () => {
     const question = response.body
 
     expect(question.text).toBe('Oletko ruisleipä?')
-    expect(question.weight).toBe(0.8)
+    expect(question.weight).toBe(5)
     done()
   })
 

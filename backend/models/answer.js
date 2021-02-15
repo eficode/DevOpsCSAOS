@@ -40,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          min: 1,
-          max: 5,
+          min: 0,
+          max: 4,
           notNull: { msg: 'Answer must have a value' },
           notEmpty: { msg: "Answer value can't be empty" },
         },
