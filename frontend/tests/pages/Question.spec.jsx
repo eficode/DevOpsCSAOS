@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
 import React from 'react'
+
+import * as nextRouter from 'next/router'
 import { render, mount } from 'enzyme'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
-import * as nextRouter from 'next/router'
 
 import Question from '../../pages/survey/questions/[questionId]'
 import ThemeWrapper from '../testutils/themeWrapper'
@@ -47,7 +48,7 @@ describe('Question rendering', () => {
     )
 
     expect(component.text()).toContain(
-      'DevOps Assessment Tool'
+      'DevOps Assessment Tool',
     )
   })
 
@@ -67,7 +68,7 @@ describe('Question rendering', () => {
       </ThemeWrapper>,
     )
     expect(component.text()).toContain('Question 1/2')
-  })  
+  })
 })
 
 describe('Navigation button conditional rendering', () => {
@@ -108,11 +109,11 @@ describe('Selecting option', () => {
     )
 
     const initialState = useStore.getState()
+
     expect(initialState.selections[1]).toBe(-1)
-  
     const button = component.find('button[children="Agree"]')
     button.simulate('click')
-  
+
     const stateAfterClick = useStore.getState()
     expect(stateAfterClick.selections[1]).toBe(3)
   })

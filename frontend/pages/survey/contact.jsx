@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
-import Link from 'next/link'
 import { ContentWrapper } from '../../components/shared/ContentWrapper'
 import Button from '../../components/button'
 import { useStore } from '../../store'
@@ -17,6 +16,8 @@ const FormTitle = styled.h2`
 
 const DetailsForm = styled.form`
   display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 const DetailsInput = styled.input`
@@ -29,32 +30,30 @@ const DetailsInput = styled.input`
 `
 
 const ContactForm = () => {
-  const [email, setEmail] = useState('')
+  const [emailInput, setEmailInput] = useState('')
   const router = useRouter()
   const store = useStore()
   const firstQuestionHref = '/survey/questions/1'
 
   const handleEmailChange = (event) => {
     event.preventDefault()
-    setEmail(event.target.value)
+    setEmailInput(event.target.value)
   }
 
-  const updateEmail = (value) => {
-    store.email = value
+  const updateEmail = (event) => {
+    event.preventDefault()
+    store.setEmail(emailInput)
+    router.push(firstQuestionHref)
   }
 
   return (
     <ContentWrapper>
       <Heading>DevOps Assessment Tool</Heading>
       <FormTitle>Add your contact details to get started</FormTitle>
-      <DetailsForm onSubmit={updateEmail(email)}>
-        <DetailsInput type="email" id="email" name="email" value={email} onChange={handleEmailChange} />
+      <DetailsForm onSubmit={updateEmail}>
+        <DetailsInput type="email" id="email" name="email" value={emailInput} onChange={handleEmailChange} required />
+        <Button type="submit">Begin</Button>
       </DetailsForm>
-      <Link href={firstQuestionHref} passHref>
-        <Button type="submit">
-          Next
-        </Button>
-      </Link>
     </ContentWrapper>
   )
 }

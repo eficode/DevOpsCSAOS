@@ -22,7 +22,7 @@ const StyledButton = styled.button`
   margin: 10px;
 `
 
-const Button = ({ children, type, onClick}) => {
+const Button = (({ children, type, onClick }) => {
   if (type === 'button') {
     return (
       <StyledButton onClick={onClick} type="button">
@@ -41,6 +41,6 @@ const Button = ({ children, type, onClick}) => {
 
   console.warn('custom button only has button and submit types')
   return (<></>)
-}
+})
 
 export default Button
