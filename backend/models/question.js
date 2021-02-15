@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       weight: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: { msg: 'Question must have weight for scoring' },
