@@ -72,13 +72,13 @@ const Question = ({ questions }) => {
   }
   
   const handleSubmit = async () => {
-    /*const allAnswered = checkAllQuestionsAnswered()
+    const allAnswered = checkAllQuestionsAnswered()
 
     if (!allAnswered) {
       // for ui clarity
       alert('please answer all questions to proceed')
       return
-    }*/
+    }
     const answersForBackend = questions.map((question, index) => {
       return {
         questionId: question.id,
