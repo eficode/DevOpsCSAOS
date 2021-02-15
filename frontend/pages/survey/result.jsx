@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
-import Link from 'next/link'
+import Link from '../../components/link'
 import { ContentWrapper } from '../../components/shared/ContentWrapper'
 import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
@@ -30,6 +30,7 @@ const Heading = styled.h3`
   font-size: 16px;
   margin-bottom: 10px;
 `
+
 const ResultsTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
@@ -40,22 +41,26 @@ const Categories = styled.div`
   margin: auto;
   width: 70%;
 `
-
+        
 const Home = () => {
-  const store = useStore()
+  //const store = useStore()
 
-  const userResult = store.resultsPerCategory
+  /*const userResult = store.resultsPerCategory
     .map((score) => score.userResult)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
   const maxResult = store.resultsPerCategory
     .map((score) => score.maxCategoryResult)
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)*/
+
+  const userResult = 15
+  const maxResult = 50
 
   return (
     <>
       <Head>
         <title>DevOps Capability Survey Results</title>
       </Head>
+      <ProgressBar />
       <ContentWrapper>
         <ProgressBar />
         <Content>

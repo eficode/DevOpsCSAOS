@@ -1,33 +1,14 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import { render, mount } from 'enzyme'
+import { render, fireEvent } from '@testing-library/react'
+import * as nextRouter from 'next/router'
+import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
-import * as nextRouter from 'next/router'
 
 import Question from '../../pages/survey/questions/[questionId]'
 import ThemeWrapper from '../testutils/themeWrapper'
-
-const questions = [
-  {
-    id: '0',
-    text: 'Oletko ruisleipä?',
-    weight: 0.8,
-    categoryId: 1,
-    createdAt: '2021-02-03T07:34:56.445Z',
-    updatedAt: '2021-02-03T07:34:56.445Z',
-    Category: { name: 'Jauhot' },
-  },
-  {
-    id: '1',
-    text: 'Maistuisiko laskiaispulla?',
-    weight: 9.9,
-    categoryId: 2,
-    createdAt: '2021-02-03T07:34:56.445Z',
-    updatedAt: '2021-02-03T07:34:56.445Z',
-    Category: { name: 'Pullat' },
-  },
-]
+import { questions } from '../testutils/constants'
 
 nextRouter.useRouter = jest.fn()
 
@@ -43,45 +24,43 @@ describe('Question rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
-    expect(component.text()).toContain(
-      'DevOps Assessment Tool'
-    )
+    expect(component.container).toHaveTextContent('DevOps Assessment Tool')
   })
 
   it('The question whose id is in route is rendered', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
-    expect(component.text()).toContain('Oletko ruisleipä?')
+    expect(component.container).toHaveTextContent('Oletko ruisleipä?')
   })
 
   it('The right "Question q_id/survey_length" params are rendered', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
-    expect(component.text()).toContain('Question 1/2')
-  })  
+    expect(component.container).toHaveTextContent('Question 1/2')
+  })
 })
 
 describe('Navigation button conditional rendering', () => {
   it('Not last question renders link with text Next', () => {
-    const component = mount(
+    const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
-    expect(component.text().includes('Next')).toBe(true)
+    expect(component.container).toHaveTextContent('Next')
   })
 
-  it('Last question renders link with text Get results', () => {
+  it('Last question renders link with correct link label', () => {
     useRouter.mockImplementation(() => ({
       route: '/survey/questions/2',
       pathname: 'survey/questions/2',
@@ -89,31 +68,31 @@ describe('Navigation button conditional rendering', () => {
       asPath: '',
     }))
 
-    const component = mount(
+    const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
-    expect(component.text().includes('Get results')).toBe(true)
+    expect(component.container).toHaveTextContent('Go to answer summary')
   })
 })
 
 describe('Selecting option', () => {
   it('Clicking option changes selection in state', () => {
-    const component = mount(
+    const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
     const initialState = useStore.getState()
     expect(initialState.selections[1]).toBe(-1)
-  
-    const button = component.find('button[children="Agree"]')
-    button.simulate('click')
-  
+
+    const button = component.getByText('Agree')
+    fireEvent.click(button)
+
     const stateAfterClick = useStore.getState()
-    expect(stateAfterClick.selections[1]).toBe(3)
+    expect(stateAfterClick.selections[1]).toBe(4)
   })
 })

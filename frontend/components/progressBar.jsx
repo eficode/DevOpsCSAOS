@@ -16,7 +16,7 @@ const BarBackground = styled.div`
   box-shadow: 0px 0px 10px #888888;
 `
 
-const ProgressLine = styled.div`
+const InnerLine = styled.div`
   background-color: ${({theme}) => theme.colors.brandyPunch};
   height: 0.3rem;
   border-radius: 0.2rem;
@@ -24,10 +24,29 @@ const ProgressLine = styled.div`
   margin-left: 5%;
 `
 
-const ProgressBar = ({ point, total }) => (
-  <BarBackground>
-    <ProgressLine/>
-  </BarBackground>
-)
+const ProgressLine = styled.div`
+  background-color: ${({theme}) => theme.colors.gold};
+  height: 0.3rem;
+  border-radius: 0.1rem;
+  width: ${({ progress }) => progress}%;
+`
+
+const ProgressBar = ({id, total}) => {
+  if (!id && !total) {
+    id = 0
+    total = 100
+  }
+
+  const progress = id / total * 100
+  console.log(progress)
+
+  return (
+    <BarBackground>
+      <InnerLine>
+        <ProgressLine progress={progress}/>
+      </InnerLine>
+    </BarBackground>
+  )
+}
 
 export default ProgressBar
