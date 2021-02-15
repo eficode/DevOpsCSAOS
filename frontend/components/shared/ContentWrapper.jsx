@@ -5,7 +5,6 @@ export const ContentWrapper = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
   margin: 0 auto;
   width: 65%;
   min-height: 70%;
