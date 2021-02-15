@@ -26,7 +26,7 @@ const InnerLine = styled.div`
 
 const ProgressLine = styled.div`
   background-color: ${({theme}) => theme.colors.gold};
-  height: 0.2rem;
+  height: 0.3rem;
   border-radius: 0.1rem;
   width: ${({ progress }) => progress}%;
 `
@@ -37,7 +37,8 @@ const ProgressBar = ({id, total}) => {
     total = 100
   }
 
-  const progress = id/total * 100
+  const progress = id / total * 100
+  console.log(progress)
 
   return (
     <BarBackground>

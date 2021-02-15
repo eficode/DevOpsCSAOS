@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
@@ -22,6 +23,8 @@ const FormTitle = styled.h2`
 
 const DetailsForm = styled.form`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 50px 0 50px 0;
 `
 
@@ -57,18 +60,10 @@ const ContactForm = () => {
       <ContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
         <FormTitle>Add your contact details to get started</FormTitle>
-        <DetailsForm onSubmit={updateEmail(email)}>
-          <DetailsInput
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-          />
+        <DetailsForm id="email-input-field" onSubmit={updateEmail}>
+          <DetailsInput type="email" id="email" name="email" value={emailInput} onChange={handleEmailChange} required />
+          <Button id="submit-email-button" type="submit">Begin</Button>
         </DetailsForm>
-        <Link href={firstQuestionHref} passHref>
-          <Button type="submit">Next</Button>
-        </Link>
       </ContentWrapper>
     </>
   )
