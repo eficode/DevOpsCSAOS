@@ -101,7 +101,7 @@ const Question = ({ questions }) => {
 
   return (
     <>
-      <ProgressBar />
+      <ProgressBar id={questionId} total={questions.length}/>
       <ContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
         <QuestionNumber>
