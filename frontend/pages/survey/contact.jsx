@@ -50,9 +50,9 @@ const ContactForm = () => {
     <ContentWrapper>
       <Heading>DevOps Assessment Tool</Heading>
       <FormTitle>Add your contact details to get started</FormTitle>
-      <DetailsForm onSubmit={updateEmail}>
+      <DetailsForm id="email-input-field" onSubmit={updateEmail}>
         <DetailsInput type="email" id="email" name="email" value={emailInput} onChange={handleEmailChange} required />
-        <Button type="submit">Begin</Button>
+        <Button id="submit-email-button" type="submit">Begin</Button>
       </DetailsForm>
     </ContentWrapper>
   )
