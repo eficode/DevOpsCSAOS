@@ -51,9 +51,7 @@ const CategoryResult = ({
             /
             {maxResult}
           </CategoryTitle>
-          <p>
-            {description}
-          </p>
+          {description}
         </CategoryText>
         <CategoryImage>
           <Placeholder />
@@ -74,9 +72,7 @@ const CategoryResult = ({
           /
           {maxResult}
         </CategoryTitle>
-        <p>
-          {description}
-        </p>
+        {description}
       </CategoryText>
     </CategoryResultContainer>
   )

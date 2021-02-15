@@ -11,6 +11,19 @@ import CategoryResult from '../../components/categoryResult'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0 0 0;
+  width: 100%;
+  position: absolute;
+  top: 15px;
+  background-color: white;
+  border-radius: 0.5rem;
+`
+
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Montserrat;
@@ -46,6 +59,7 @@ const Home = () => {
       </Head>
       <ProgressBar />
       <InnerContentWrapper>
+        <Content>
           <Heading>DevOps Assessment Tool</Heading>
           <ResultsTitle>Your Results</ResultsTitle>
           <TotalResult userResult={userResult} maxResult={maxResult} />
@@ -65,6 +79,7 @@ const Home = () => {
               />
             ))}
           </Categories>
+        </Content>
       </InnerContentWrapper>
     </>
   )
