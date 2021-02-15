@@ -3,22 +3,23 @@ import styled from 'styled-components'
 
 const BarBackground = styled.div`
   background-color: ${({theme}) => theme.colors.blueDianne};
-  height: 2rem;
-  border-radius: 1rem;
+  height: 2.5rem;
+  border-radius: 0.8rem;
   margin-top: auto;
   margin: auto;
   position: absolute;
-  width: 120%;
+  width: 105%;
   display: flex;
   align-items: center;
-  top: 0%;
-  left: -10%
+  top: -5%;
+  left: -2.5%;
+  box-shadow: 0px 0px 10px #888888;
 `
 
 const ProgressLine = styled.div`
   background-color: ${({theme}) => theme.colors.brandyPunch};
-  height: 0.2rem;
-  border-radius: 0.1rem;
+  height: 0.3rem;
+  border-radius: 0.2rem;
   width: 90%;
   margin-left: 5%;
 `

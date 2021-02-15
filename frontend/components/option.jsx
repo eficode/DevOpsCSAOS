@@ -5,6 +5,9 @@ const NotSelectedOption = styled.button`
   background-color: ${({ theme }) => theme.colors.gold};
   border-radius: 3px;
   border-width: 0px;
+  font-size: 15px;
+  font-family: Montserrat;
+  font-weight: bold;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.amber};
@@ -14,6 +17,10 @@ const NotSelectedOption = styled.button`
 const SelectedOption = styled.button`
   border-radius: 3px;
   background-color: ${({ theme }) => theme.colors.brandyPunch};
+  font-size: 15px;
+  font-family: Montserrat;
+  font-weight: bold;
+  border-width: 0px;
 `
 
 const Option = ({ label, selected, onClick }) => {

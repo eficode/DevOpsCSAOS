@@ -7,10 +7,12 @@ export const ContentWrapper = styled.div`
   align-items: center;
   background-color: white;
   margin: 0 auto;
-  width: 60%;
+  width: 65%;
+  min-height: 70%;
   position: absolute;
-  top: 20%;
-  left: 20%;
+  top: 15%;
+  left: 17.5%;
   padding: 3rem;
+  border-radius: 0.5rem;
 `
 export default ContentWrapper

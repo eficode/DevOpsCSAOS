@@ -3,17 +3,18 @@ import styled from 'styled-components'
 import Link from 'next/link'
 
 const linkStyle = `
-  font-family: inherit;
+  font-family: Montserrat;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  margin: 10px;
+  width: 120px;
+  height: 45px;
+  text-align:center;
+  line-height: 45px;
   border-radius: 5px;
   border-width: 0px;
-  margin: 10px;
+  margin: 50px 25px 15px 25px;
 `
 
 const StyledPrimaryLink = styled.div`
