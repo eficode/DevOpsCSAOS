@@ -7,6 +7,7 @@ import { ContentWrapper } from '../../components/shared/ContentWrapper'
 import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
+import CategoryResult from '../../components/categoryResult'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
@@ -57,17 +58,18 @@ const Home = () => {
         <Heading>DevOps Assessment Tool</Heading>
         <ResultsTitle>Your Results</ResultsTitle>
         <TotalResult userResult={userResult} maxResult={maxResult} />
+        <Link href="/survey/result">
+          <Button type="submit">
+            Contact us!
+          </Button>
+        </Link>
+        <CategoryResult />
         <Main>
           {store.resultsPerCategory.map((result, index) => (
             <p key={index}>
               {`${result.name}: ${result.userResult}/${result.maxCategoryResult}`}
             </p>
           ))}
-          <Link href="/survey/result">
-            <Button type="submit">
-              Contact !
-            </Button>
-          </Link>
         </Main>
       </ContentWrapper>
     </>
