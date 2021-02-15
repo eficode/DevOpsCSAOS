@@ -147,8 +147,8 @@ const store = (set, get) => ({
     const existingQuestions = get().questions
     // if questions have been set and the new ones differ from old ones
     if (
-      existingQuestions.length > 0 &&
-      !isArrayEqual(existingQuestions, questions)
+      existingQuestions.length > 0
+      && !isArrayEqual(existingQuestions, questions)
     ) {
       get().setSelections(new Array(questions.length).fill(0))
     }
