@@ -22,12 +22,9 @@ const FormTitle = styled.h2`
 
 const DetailsForm = styled.form`
   display: flex;
-<<<<<<< HEAD
   flex-direction: column;
   align-items: center;
-=======
   margin: 50px 0 50px 0;
->>>>>>> main
 `
 
 const DetailsInput = styled.input`
