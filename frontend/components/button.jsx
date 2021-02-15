@@ -9,17 +9,15 @@ const StyledButton = styled.button`
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
 
-  font-family: inherit;
+  font-family: Montserrat;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
   border-radius: 5px;
   border-width: 0px;
   margin: 10px;
+  width: 120px;
+  height: 45px;
 `
 
 const Button = (({ children, type, onClick }) => {

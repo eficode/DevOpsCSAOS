@@ -116,3 +116,5 @@ dist
 .pnp.*
 
 requests
+
+.DS_Store

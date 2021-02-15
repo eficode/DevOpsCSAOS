@@ -9,19 +9,27 @@ import ProgressBar from '../components/progressBar'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
+  font-family: Merriweather;
+  margin-top: 30px;
 `
 
 const Main = styled.main`
-  padding: 5rem;
+  padding: 4rem;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: Merriweather;
 
   p {
     text-align: center;
     line-height: 1.6;
     padding: 0.5rem;
+    font-size: 16px;
+  }
+
+  h2 {
+    font-size: 24px;
   }
 `
 
