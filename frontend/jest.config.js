@@ -22,12 +22,8 @@ module.exports = {
   setupFiles: ['<rootDir>/tests/setup.js'],
   setupFilesAfterEnv: ['<rootDir>/tests/setupAfterEnv.js'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-  testPathIgnorePatterns: [
-    '/.next/',
-    '/node_modules/',
-    '/coverage/',
-  ],
+  testPathIgnorePatterns: ['/.next/', '/node_modules/', '/coverage/'],
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
   },
-};
+}
