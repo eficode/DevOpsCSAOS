@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from '../../../components/link'
 import React from 'react'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
@@ -41,17 +41,19 @@ const Summary = () => {
         }
 
         const QuestionText = `Question: ${question.text}`
-        const AnswerText = `You: ${answerToQuestion}`
+        const AnswerText = `You ${answerToQuestion}`
+
+        console.log(QuestionText)
 
         return (
           <QuestionAnswerWrapper key={question.id}>
-            <Link href={`/survey/questions/${index + 1}/`}>{QuestionText}</Link>
+            {QuestionText}
             <br />
             <span>{AnswerText}</span>
           </QuestionAnswerWrapper>
         )
       })}
-      <Link href="/survey/result">Go to your results!</Link>
+      <Link href="/survey/result" type="primary">Go to your results!</Link>
     </div>
   )
 }

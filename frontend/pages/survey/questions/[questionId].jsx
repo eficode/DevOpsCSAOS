@@ -72,11 +72,13 @@ const Question = ({ questions }) => {
   }
   
   const handleSubmit = async () => {
-    const allAnswered = checkAllQuestionsAnswered()
+    /*const allAnswered = checkAllQuestionsAnswered()
 
     if (!allAnswered) {
+      // for ui clarity
+      alert('please answer all questions to proceed')
       return
-    }
+    }*/
     const answersForBackend = questions.map((question, index) => {
       return {
         questionId: question.id,
@@ -88,7 +90,8 @@ const Question = ({ questions }) => {
 
     const { results } = await sendAnswers(email, answersForBackend)
     
-    store.setResultsPerCategory(results)
+    //function does not exist?
+    //store.setResultsPerCategory(results)
     router.push(summaryPageHref)
   }
 
@@ -97,35 +100,37 @@ const Question = ({ questions }) => {
   }, [])
 
   return (
-    <ContentWrapper>
+    <>
       <ProgressBar />
-      <Heading>DevOps Assessment Tool</Heading>
-      <QuestionNumber>
-        {' '}
-        Question {questionId}/{questions.length}{' '}
-      </QuestionNumber>
-      <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
-      <OptionsWrapper>
-        {Object.keys(optionsToPointsMap).map((optionLabel) => {
-          const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
-          return (
-            <Option
-              key={pointsAssociatedWithOption}
-              label={optionLabel}
-              selected={
-                store.selections[questionId - 1] === pointsAssociatedWithOption
-              }
-              onClick={() => updateSelections(pointsAssociatedWithOption)}
-            />
-          )
-        })}
-      </OptionsWrapper>
-      {!isFinalQuestion ? (
-        <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
-      ) : (
-        <Button type="submit" onClick={handleSubmit}>Go to answer summary</Button>
-      )}
-    </ContentWrapper>
+      <ContentWrapper>
+        <Heading>DevOps Assessment Tool</Heading>
+        <QuestionNumber>
+          {' '}
+          Question {questionId}/{questions.length}{' '}
+        </QuestionNumber>
+        <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
+        <OptionsWrapper>
+          {Object.keys(optionsToPointsMap).map((optionLabel) => {
+            const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
+            return (
+              <Option
+                key={pointsAssociatedWithOption}
+                label={optionLabel}
+                selected={
+                  store.selections[questionId - 1] === pointsAssociatedWithOption
+                }
+                onClick={() => updateSelections(pointsAssociatedWithOption)}
+              />
+            )
+          })}
+        </OptionsWrapper>
+        {!isFinalQuestion ? (
+          <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
+        ) : (
+          <Button type="submit" onClick={handleSubmit}>Go to answer summary</Button>
+        )}
+      </ContentWrapper>
+    </>
   )
 }
 

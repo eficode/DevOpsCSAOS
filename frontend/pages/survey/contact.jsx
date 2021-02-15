@@ -51,22 +51,24 @@ const ContactForm = () => {
   }
 
   return (
-    <ContentWrapper>
+    <>
       <ProgressBar />
-      <Heading>DevOps Assessment Tool</Heading>
-      <FormTitle>Add your contact details to get started</FormTitle>
-      <DetailsForm onSubmit={updateEmail(email)}>
-        <DetailsInput
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-      </DetailsForm>
-      <Link href={firstQuestionHref} passHref>
-        <Button type="submit">Next</Button>
-      </Link>
+      <ContentWrapper>
+        <Heading>DevOps Assessment Tool</Heading>
+        <FormTitle>Add your contact details to get started</FormTitle>
+        <DetailsForm onSubmit={updateEmail(email)}>
+          <DetailsInput
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+        </DetailsForm>
+        <Link href={firstQuestionHref} passHref>
+          <Button type="submit">Next</Button>
+        </Link>
+      </ContentWrapper>
     </>
   )
 }
