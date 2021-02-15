@@ -5,14 +5,17 @@ const testCategories = [
   {
     id: 1,
     name: 'Jauhot',
+    description: 'Puhtaat jauhot pussissa',
   },
   {
     id: 2,
     name: 'Tuote',
+    description: 'Jos et löydä etsimääsi tuotetta, ota meihin yhteyttä!',
   },
   {
     id: 3,
     name: 'TestiKategoria',
+    description: 'Tässä kategoriassa on testejä',
   },
 ]
 
@@ -72,12 +75,17 @@ describe('resultsPerCategory', () => {
     )
     expect(category1.userResult).toEqual(2)
     expect(category1.maxCategoryResult).toEqual(4)
+    expect(category1.description).toEqual('Puhtaat jauhot pussissa')
 
     expect(category2.userResult).toEqual(4)
     expect(category2.maxCategoryResult).toEqual(4)
+    expect(category2.description).toEqual(
+      'Jos et löydä etsimääsi tuotetta, ota meihin yhteyttä!'
+    )
 
     expect(category3.userResult).toEqual(0)
     expect(category3.maxCategoryResult).toEqual(4)
+    expect(category3.description).toEqual('Tässä kategoriassa on testejä')
     done()
   })
 })

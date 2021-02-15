@@ -11,6 +11,19 @@ import CategoryResult from '../../components/categoryResult'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0 0 0;
+  width: 100%;
+  position: absolute;
+  top: 15px;
+  background-color: white;
+  border-radius: 0.5rem;
+`
+
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Montserrat;
@@ -22,20 +35,10 @@ const ResultsTitle = styled.h2`
   font-family: Merriweather;
   margin: 10px 0 30px 0;
 `
-const Main = styled.main`
-  padding: 5rem;
-  background-color: #fff;
 
-  p {
-    text-align: center;
-    font-family: Merriweather;
-  }
-
-  button {
-    text-align: center;
-    padding: 0rem 1.5rem;
-    background-color: ${({ theme }) => theme.colors.easternBlue};
-  }
+const Categories = styled.div`
+  margin: auto;
+  width: 70%;
 `
 
 const Home = () => {
@@ -55,22 +58,27 @@ const Home = () => {
       </Head>
       <ContentWrapper>
         <ProgressBar />
-        <Heading>DevOps Assessment Tool</Heading>
-        <ResultsTitle>Your Results</ResultsTitle>
-        <TotalResult userResult={userResult} maxResult={maxResult} />
-        <Link href="/survey/result">
-          <Button type="submit">
-            Contact us!
-          </Button>
-        </Link>
-        <CategoryResult />
-        <Main>
-          {store.resultsPerCategory.map((result, index) => (
-            <p key={index}>
-              {`${result.name}: ${result.userResult}/${result.maxCategoryResult}`}
-            </p>
-          ))}
-        </Main>
+        <Content>
+          <Heading>DevOps Assessment Tool</Heading>
+          <ResultsTitle>Your Results</ResultsTitle>
+          <TotalResult userResult={userResult} maxResult={maxResult} />
+          <Link href="/survey/result">
+            <Button type="submit">
+              Contact us!
+            </Button>
+          </Link>
+          <Categories>
+            {store.resultsPerCategory.map((result, index) => (
+              <CategoryResult
+                userResult={result.userResult}
+                maxResult={result.maxCategoryResult}
+                category={result.name}
+                description={result.description}
+                index={index}
+              />
+            ))}
+          </Categories>
+        </Content>
       </ContentWrapper>
     </>
   )

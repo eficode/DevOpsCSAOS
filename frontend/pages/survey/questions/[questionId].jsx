@@ -12,6 +12,21 @@ import { sendAnswers } from '../../../services/answers'
 import NavigationButtons from '../../../components/navigationButtons'
 import ProgressBar from '../../../components/progressBar'
 
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0 0 0;
+  width: 100%;
+  position: absolute;
+  top: 15px;
+  background-color: white;
+  border-radius: 0.5rem;
+  min-height: 70%;
+  padding: 0 3rem 3rem 3rem;
+`
+
 const OptionsWrapper = styled.div`
   display: grid;
   grid-template-columns: 50% 50% 50%;
@@ -95,6 +110,7 @@ const Question = ({ questions }) => {
   return (
     <ContentWrapper>
       <ProgressBar />
+      <Content>
       <Heading>DevOps Assessment Tool</Heading>
       <QuestionNumber>
         {' '}
@@ -137,6 +153,8 @@ const Question = ({ questions }) => {
           Get results!
         </Button>
       }
+      </Content>
+      
     </ContentWrapper>
   )
 }
