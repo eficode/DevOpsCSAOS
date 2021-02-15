@@ -1,8 +1,7 @@
-import React, {useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
-
 
 import { ContentWrapper } from '../../../components/shared/ContentWrapper'
 import Button from '../../../components/button'
@@ -46,10 +45,20 @@ const Question = ({ questions }) => {
   const router = useRouter()
   const store = useStore()
 
+  const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
+
   const questionId = Number(router.query.questionId)
+  const nextQuestionHref = `/survey/questions/${questionId + 1}`
+  const summaryPageHref = '/survey/questions/summary'
   const isFinalQuestion = questionId === questions.length
 
-  const resultsPageHref = '/survey/result'
+  const updateSelections = (pointValue) => {
+    const newSelections = [...store.selections]
+    // update point value of question being answered
+    newSelections[questionId - 1] = pointValue
+    // update state
+    store.setSelections(newSelections)
+  }
 
   const checkAllQuestionsAnswered = () => {
     let allAnswered = true
@@ -62,6 +71,7 @@ const Question = ({ questions }) => {
 
     return allAnswered
   }
+  
   const handleSubmit = async () => {
     const allAnswered = checkAllQuestionsAnswered()
 
@@ -82,11 +92,6 @@ const Question = ({ questions }) => {
     store.setResultsPerCategory(results)
     router.push(resultsPageHref)
   }
-  const updateSelections = (value) => {
-    const newSelections = [...store.selections]
-    newSelections[questionId - 1] = value
-    store.setSelections(newSelections)
-  }
 
   useEffect(() => {
     store.setQuestions(questions)
@@ -98,45 +103,30 @@ const Question = ({ questions }) => {
       <Heading>DevOps Assessment Tool</Heading>
       <QuestionNumber>
         {' '}
-        Question {questionId}
-        /
-        {questions.length}
-        {' '}
+        Question {questionId}/{questions.length}{' '}
       </QuestionNumber>
       <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
       <OptionsWrapper>
-        <Option
-          label="Strongly agree"
-          selected={store.selections[questionId - 1] === 4}
-          onClick={() => updateSelections(4)}
-        />
-        <Option
-          label="Agree"
-          selected={store.selections[questionId - 1] === 3}
-          onClick={() => updateSelections(3)}
-        />
-        <Option
-          label="Neutral"
-          selected={store.selections[questionId - 1] === 2}
-          onClick={() => updateSelections(2)}
-        />
-        <Option
-          label="Disagree"
-          selected={store.selections[questionId - 1] === 1}
-          onClick={() => updateSelections(1)}
-        />
-        <Option
-          label="Strongly disagree"
-          selected={store.selections[questionId - 1] === 0}
-          onClick={() => updateSelections(0)}
-        />
+        {Object.keys(optionsToPointsMap).map((optionLabel) => {
+          const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
+          return (
+            <Option
+              label={optionLabel}
+              selected={
+                store.selections[questionId - 1] === pointsAssociatedWithOption
+              }
+              onClick={() => updateSelections(pointsAssociatedWithOption)}
+            />
+          )
+        })}
       </OptionsWrapper>
-      <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
-      {isFinalQuestion &&
-        <Button type="submit" onClick={() => handleSubmit()}>
-          Get results!
-        </Button>
-      }
+      {!isFinalQuestion ? (
+        <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
+      ) : (
+        <Link href={summaryPageHref} passHref>
+          <Button type="submit">Go to answer summary</Button>
+        </Link>
+      )}
     </ContentWrapper>
   )
 }

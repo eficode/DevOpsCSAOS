@@ -16,11 +16,13 @@ const Heading = styled.h3`
   font-size: 16px;
   margin-bottom: 10px;
 `
+
 const ResultsTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
   margin: 10px 0 30px 0;
 `
+
 const Main = styled.main`
   padding: 5rem;
   background-color: #fff;
@@ -36,7 +38,7 @@ const Main = styled.main`
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
 `
-
+        
 const Home = () => {
   const store = useStore()
 
