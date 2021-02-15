@@ -48,7 +48,6 @@ const Question = ({ questions }) => {
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
 
   const questionId = Number(router.query.questionId)
-  const nextQuestionHref = `/survey/questions/${questionId + 1}`
   const summaryPageHref = '/survey/questions/summary'
   const isFinalQuestion = questionId === questions.length
 
@@ -90,7 +89,7 @@ const Question = ({ questions }) => {
     const { results } = await sendAnswers(email, answersForBackend)
     
     store.setResultsPerCategory(results)
-    router.push(resultsPageHref)
+    router.push(summaryPageHref)
   }
 
   useEffect(() => {
@@ -111,6 +110,7 @@ const Question = ({ questions }) => {
           const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
           return (
             <Option
+              key={pointsAssociatedWithOption}
               label={optionLabel}
               selected={
                 store.selections[questionId - 1] === pointsAssociatedWithOption
@@ -123,9 +123,7 @@ const Question = ({ questions }) => {
       {!isFinalQuestion ? (
         <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
       ) : (
-        <Link href={summaryPageHref} passHref>
-          <Button type="submit">Go to answer summary</Button>
-        </Link>
+        <Button type="submit" onClick={handleSubmit}>Go to answer summary</Button>
       )}
     </ContentWrapper>
   )

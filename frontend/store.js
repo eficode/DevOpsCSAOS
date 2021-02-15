@@ -150,7 +150,7 @@ const store = (set, get) => ({
       existingQuestions.length > 0
       && !isArrayEqual(existingQuestions, questions)
     ) {
-      get().setSelections(new Array(questions.length).fill(0))
+      get().setSelections(new Array(questions.length).fill(-1))
     }
     // in all cases, update the questions
     set(() => ({

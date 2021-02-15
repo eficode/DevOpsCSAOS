@@ -74,7 +74,7 @@ describe('Navigation button conditional rendering', () => {
       </ThemeWrapper>
     )
 
-    expect(component.container).toHaveTextContent('Get results')
+    expect(component.container).toHaveTextContent('Go to answer summary')
   })
 })
 
@@ -93,6 +93,6 @@ describe('Selecting option', () => {
     fireEvent.click(button)
 
     const stateAfterClick = useStore.getState()
-    expect(stateAfterClick.selections[1]).toBe(3)
+    expect(stateAfterClick.selections[1]).toBe(4)
   })
 })
