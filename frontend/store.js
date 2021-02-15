@@ -118,7 +118,7 @@ const initialQuestions = [
     },
   },
 ]
-const initialSelections = [1, 4, 1, 2, 3, 4, 5, 3, 5, 4]
+const initialSelections = [1, 4, 1, 2, 3, 4, 3, 3, 5, 4]
 const initialEmail = ''
 const optionsToPointsMap = {
   'Strongly agree': 5,

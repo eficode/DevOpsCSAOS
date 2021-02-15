@@ -7,7 +7,7 @@ import * as nextRouter from 'next/router'
 
 import Question from '../../pages/survey/questions/[questionId]'
 import ThemeWrapper from '../testutils/themeWrapper'
-import { questions } from './constants'
+import { questions } from '../testutils/constants'
 
 nextRouter.useRouter = jest.fn()
 

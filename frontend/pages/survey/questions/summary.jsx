@@ -23,22 +23,31 @@ const Summary = () => {
 
   return (
     <div>
-      <h2>Here's what you've answered</h2>
+      <h2>Here are your current answers</h2>
+      {/* we're assuming that questions are always available */}
       {questions.map((question, index) => {
         let answerToQuestion = getKeyByValue(
           optionsToPointsMap,
           selections[index]
-        ).toLowerCase()
+        )?.toLowerCase()
+
+        // no selection for given question
+        if (!answerToQuestion) {
+          answerToQuestion = "haven't answered this question."
+        }
 
         if (answerToQuestion === 'neutral') {
           answerToQuestion = 'feel neutral'
         }
 
+        const QuestionText = `Question: ${question.text}`
+        const AnswerText = `You: ${answerToQuestion}`
+
         return (
           <QuestionAnswerWrapper key={question.id}>
-            <span>Question: {question.text}</span>
+            <Link href={`/survey/questions/${index + 1}/`}>{QuestionText}</Link>
             <br />
-            <span>You {answerToQuestion}</span>
+            <span>{AnswerText}</span>
           </QuestionAnswerWrapper>
         )
       })}
