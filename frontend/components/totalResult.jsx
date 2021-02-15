@@ -11,6 +11,7 @@ export const ResultCircle = styled.div`
   background: ${({ theme }) => theme.colors.gold};
   text-align: center;
   position: relative;
+  margin-bottom: 30px;
 `
 
 export const Result = styled.span`

@@ -3,6 +3,7 @@ const resultsPerCategory = async (categories, questions, answers) => {
     // eslint-disable-next-line node/no-unsupported-features/es-syntax
     name: category.name,
     categoryId: category.id,
+    description: category.description,
     userResult: 0,
     maxCategoryResult: 0,
   }))

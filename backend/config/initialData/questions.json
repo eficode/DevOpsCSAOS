@@ -27,19 +27,19 @@
     "id": "faf69b1c-66d5-11eb-ae93-0242ac130002",
     "text": "Lehmänmaito on parasta?",
     "weight": 1,
-    "categoryId": "faf6a1fc-66d5-11eb-ae93-0242ac130002"
+    "categoryId": "3bdac35f-db8f-4d73-9792-a179b3072e03"
   },
   {
     "id": "f9f3e2b1-3ed3-46df-8c9c-4cef635697fa",
     "text": "Maitokaakao on parasta?",
     "weight": 3,
-    "categoryId": "faf6a1fc-66d5-11eb-ae93-0242ac130002"
+    "categoryId": "3bdac35f-db8f-4d73-9792-a179b3072e03"
   },
   {
     "id": "59431e74-0ae6-4def-a87b-4fae82514187",
     "text": "Kauramaito on parasta?",
     "weight": 4,
-    "categoryId": "faf6a1fc-66d5-11eb-ae93-0242ac130002"
+    "categoryId": "3bdac35f-db8f-4d73-9792-a179b3072e03"
   },
   {
     "id": "6eb134f0-65fa-44bc-baad-14f0eeb0d743",

@@ -3,12 +3,26 @@ import Head from 'next/head'
 import styled from 'styled-components'
 
 import Link from '../../components/link'
-import { ContentWrapper } from '../../components/shared/ContentWrapper'
+import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
+import CategoryResult from '../../components/categoryResult'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0 0 0;
+  width: 100%;
+  position: absolute;
+  top: 15px;
+  background-color: white;
+  border-radius: 0.5rem;
+`
 
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -23,36 +37,20 @@ const ResultsTitle = styled.h2`
   margin: 10px 0 30px 0;
 `
 
-// main config messes result page div css.
-// creates a second div use contentWrapper instead
-const Main = styled.main`
-  padding: 5rem;
-  background-color: #fff;
-
-  p {
-    text-align: center;
-    font-family: Merriweather;
-  }
-
-  button {
-    text-align: center;
-    padding: 0rem 1.5rem;
-    background-color: ${({ theme }) => theme.colors.easternBlue};
-  }
+const Categories = styled.div`
+  margin: auto;
+  width: 70%;
 `
-        
-const Home = () => {
-  //const store = useStore()
 
-  /*const userResult = store.resultsPerCategory
+const Home = () => {
+  const store = useStore()
+
+  const userResult = store.resultsPerCategory
     .map((score) => score.userResult)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
   const maxResult = store.resultsPerCategory
     .map((score) => score.maxCategoryResult)
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)*/
-
-  const userResult = 15
-  const maxResult = 50
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 
   return (
     <>
@@ -60,14 +58,29 @@ const Home = () => {
         <title>DevOps Capability Survey Results</title>
       </Head>
       <ProgressBar />
-      <ContentWrapper>
-        <Heading>DevOps Assessment Tool</Heading>
-        <ResultsTitle>Your Results</ResultsTitle>
-        <TotalResult userResult={userResult} maxResult={maxResult} />
-        <Link href="/survey/result" type="primary">
-          Contact!
-        </Link>
-      </ContentWrapper>
+      <InnerContentWrapper>
+        <Content>
+          <Heading>DevOps Assessment Tool</Heading>
+          <ResultsTitle>Your Results</ResultsTitle>
+          <TotalResult userResult={userResult} maxResult={maxResult} />
+          <Link href="/survey/result">
+            <Button type="submit">
+              Contact us!
+            </Button>
+          </Link>
+          <Categories>
+            {store.resultsPerCategory.map((result, index) => (
+              <CategoryResult
+                userResult={result.userResult}
+                maxResult={result.maxCategoryResult}
+                category={result.name}
+                description={result.description}
+                index={index}
+              />
+            ))}
+          </Categories>
+        </Content>
+      </InnerContentWrapper>
     </>
   )
 }

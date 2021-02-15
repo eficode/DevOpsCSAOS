@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: { msg: "Category name can't be empty" },
         },
       },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Category must have a description' },
+          notEmpty: { msg: "Category description can't be empty" },
+        },
+      },
     },
     {
       sequelize,
