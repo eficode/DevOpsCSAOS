@@ -60,8 +60,12 @@ jobs:
         run: mkdir reports
       - name: Run tests
         working-directory: ./end-to-end-tests
-        run: docker run -v ${PWD}/reports:/opt/robotframework/reports:Z -v ${PWD}/robot_tests:/opt/robotframework/tests:Z -e BROWSER=firefox ppodgorsek/robot-framework:latest
-
+        run: |
+            docker run \
+              -v ${PWD}/reports:/opt/robotframework/reports:Z \
+              -v ${PWD}/tests:/opt/robotframework/tests:Z \
+              -e BROWSER=firefox \
+              ppodgorsek/robot-framework:latest
   deploy_to_staging:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
