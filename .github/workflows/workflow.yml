@@ -47,6 +47,17 @@ jobs:
       - name: Test image building
         run: docker build . -t image-test-build
 
+  end-to-end-tests:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        working-directory: ./end-to-end-tests
+        run: docker-compose up -d
+      - name: Test
+        run: docker run -v ${PWD}/reports:/opt/robotframework/reports:Z -v ${PWD}/robot_tests:/opt/robotframework/tests:Z -e BROWSER=firefox ppodgorsek/robot-framework:latest
+
   deploy_to_staging:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
