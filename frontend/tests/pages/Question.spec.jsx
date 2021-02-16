@@ -87,6 +87,7 @@ describe('Selecting option', () => {
     )
 
     const initialState = useStore.getState()
+
     expect(initialState.selections[1]).toBe(-1)
 
     const button = component.getByText('Agree')
