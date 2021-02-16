@@ -13,3 +13,4 @@ output.xml
 *.log
 env*
 .png*
+reports

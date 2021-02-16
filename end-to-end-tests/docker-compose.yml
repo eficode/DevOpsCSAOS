@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+  postgres-test-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: testUser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test_db
+    expose:
+      - 5432
+
+  app:
+    build:
+      context: ../
+      dockerfile: ./Dockerfile
+    image: app
+    environment:
+      NODE_ENV: test
+      DB_HOST: postgres-test-db
+      DB_USER: testUser
+      DB_PASS: password
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    depends_on:
+      - postgres-test-db
+
