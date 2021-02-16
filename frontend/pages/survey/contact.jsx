@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
-import { ContentWrapper } from '../../components/shared/ContentWrapper'
+import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import Button from '../../components/button'
 import ProgressBar from '../../components/progressBar'
 import { useStore } from '../../store'
@@ -33,7 +33,7 @@ const DetailsInput = styled.input`
   padding: 10px 20px;
   border-radius: 10px;
   border-width: 0px;
-  margin: 10px;
+  margin: 10px 0 50px 0;
 `
 
 const ContactForm = () => {
@@ -56,14 +56,14 @@ const ContactForm = () => {
   return (
     <>
       <ProgressBar />
-      <ContentWrapper>
+      <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
         <FormTitle>Add your contact details to get started</FormTitle>
         <DetailsForm id="email-input-field" onSubmit={updateEmail}>
           <DetailsInput type="email" id="email" name="email" placeholder="Email" value={emailInput} onChange={handleEmailChange} required />
           <Button id="submit-email-button" type="submit">Begin</Button>
         </DetailsForm>
-      </ContentWrapper>
+      </InnerContentWrapper>
     </>
   )
 }

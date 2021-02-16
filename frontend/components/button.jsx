@@ -8,13 +8,14 @@ const StyledButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
-
+  
+  font-family: Montserrat;
   font-weight: bold;
   font-size: 14px;
   text-decoration: none;
   border-radius: 5px;
   border-width: 0px;
-  margin: 10px;
+  margin-top: 40px;
   width: 120px;
   height: 45px;
 `

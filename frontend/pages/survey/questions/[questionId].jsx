@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
 
-import { ContentWrapper } from '../../../components/shared/ContentWrapper'
+import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
 import Button from '../../../components/button'
 import Option from '../../../components/option'
 import { getAll } from '../../../services/questions'
@@ -90,8 +90,7 @@ const Question = ({ questions }) => {
 
     const { results } = await sendAnswers(email, answersForBackend)
     
-    //function does not exist?
-    //store.setResultsPerCategory(results)
+    store.setResultsPerCategory(results)
     router.push(summaryPageHref)
   }
 
@@ -102,7 +101,7 @@ const Question = ({ questions }) => {
   return (
     <>
       <ProgressBar id={questionId} total={questions.length}/>
-      <ContentWrapper>
+      <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
         <QuestionNumber>
           {' '}
@@ -129,11 +128,10 @@ const Question = ({ questions }) => {
         ) : (
           <Button type="submit" onClick={handleSubmit}>Go to answer summary</Button>
         )}
-      </ContentWrapper>
+      </InnerContentWrapper>
     </>
   )
 }
-
 export async function getStaticProps() {
   // fetch all pre-defined questions
   const questions = await getAll()
@@ -141,21 +139,17 @@ export async function getStaticProps() {
     props: { questions },
   }
 }
-
 export async function getStaticPaths() {
   const questions = await getAll()
   const ids = questions.map((_, index) => index + 1)
-
   const paths = ids.map((id) => ({
     params: {
       questionId: String(id),
     },
   }))
-
   return {
     paths,
     fallback: false,
   }
 }
-
 export default Question

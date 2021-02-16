@@ -120,6 +120,7 @@ const initialQuestions = [
 ]
 const initialSelections = [1, 4, 1, 2, 3, 4, 3, 3, 5, 4]
 const initialEmail = ''
+const initalResultsPerCategory = []
 const optionsToPointsMap = {
   'Strongly agree': 5,
   Agree: 4,
@@ -140,6 +141,7 @@ const store = (set, get) => ({
   questions: initialQuestions,
   email: initialEmail,
   selections: initialSelections,
+  resultsPerCategory: initalResultsPerCategory,
   optionsToPointsMap,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
@@ -160,6 +162,7 @@ const store = (set, get) => ({
   clear: () => set(() => ({
     questions: [], email: '', selections: [], resultsPerCategory: [],
   })),
+  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
 })
 
 // a callback function which returns an object

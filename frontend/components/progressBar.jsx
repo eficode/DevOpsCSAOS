@@ -14,6 +14,7 @@ const BarBackground = styled.div`
   top: -5%;
   left: -2.5%;
   box-shadow: 0px 0px 10px #888888;
+  z-index: 2;
 `
 
 const InnerLine = styled.div`
