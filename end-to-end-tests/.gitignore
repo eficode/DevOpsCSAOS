@@ -11,6 +11,6 @@ log.html
 report.html
 output.xml
 *.log
-env*
-.png*
+env
+*.png
 reports
