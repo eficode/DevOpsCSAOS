@@ -3,7 +3,6 @@ version: '3.1'
 services:
   postgres-test-db:
     image: postgres
-    restart: always
     environment:
       POSTGRES_USER: testUser
       POSTGRES_PASSWORD: password
