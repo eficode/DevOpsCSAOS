@@ -70,7 +70,7 @@ jobs:
               -e BROWSER=firefox \
               -e ROBOT_OPTIONS="--variable HOST:app"\
               --user $(id -u):$(id -g) \
-              ppodgorsek/robot-framework:latest
+              ppodgorsek/robot-framework:3.7.0
   deploy_to_staging:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
