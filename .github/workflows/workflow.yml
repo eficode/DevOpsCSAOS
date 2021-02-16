@@ -54,7 +54,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the stack
         working-directory: ./end-to-end-tests
-        run: docker-compose up -d
+        run: docker-compose up --build --force-recreate
       - name: Create folder for robot reports
         working-directory: ./end-to-end-tests
         run: mkdir reports
