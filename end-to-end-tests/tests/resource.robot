@@ -20,5 +20,5 @@ Open Browser To Main Page
     Set Selenium Speed    ${DELAY}
 
 Main Page Should Be Open
-    Title Should Be    DevOps Capability Survey
+    Title Should Be    DevOps Capability Surve
 
