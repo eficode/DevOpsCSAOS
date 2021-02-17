@@ -1,8 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import {
-  render, screen, fireEvent, act,
-} from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
@@ -26,7 +24,7 @@ describe('Question rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
     expect(component.container).toHaveTextContent('DevOps Assessment Tool')
@@ -36,7 +34,7 @@ describe('Question rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
     expect(component.container).toHaveTextContent('Oletko ruisleipä?')
   })
@@ -45,7 +43,7 @@ describe('Question rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
     expect(component.container).toHaveTextContent('Question 1/2')
   })
@@ -56,7 +54,7 @@ describe('Navigation button conditional rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
     expect(component.container).toHaveTextContent('Next')
@@ -73,7 +71,7 @@ describe('Navigation button conditional rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
     expect(component.container).toHaveTextContent('Go to answer summary')
@@ -85,12 +83,12 @@ describe('Selecting option', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
 
     const initialState = useStore.getState()
 
-    expect(initialState.selections[1]).toBe(-1)
+    expect(initialState.selections[1]).toBe(undefined)
 
     const button = component.getByText('Agree')
     fireEvent.click(button)
@@ -112,7 +110,7 @@ describe('End of survey', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
     act(() => {
       useStore.setState({ selections: [1, -1] })
@@ -138,7 +136,7 @@ describe('End of survey', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>,
+      </ThemeWrapper>
     )
     global.alert = jest.fn()
     act(() => {
