@@ -75,13 +75,13 @@ Insert Email
     Input Text       email      ${email}
 
 Questions Page Should Be Open
-    Location Should Be  ${MAIN_URL}/survey/questions/1/
+    Location Should Contain  ${MAIN_URL}/survey/questions/1
 
 Contact Page Should Be Open
-    Location Should Be  ${MAIN_URL}/survey/contact/
+    Location Should Contain  ${MAIN_URL}/survey/contact
 
 Result Page Should Be Open
-    Location Should Be  ${MAIN_URL}/survey/result/
+    Location Should Contain  ${MAIN_URL}/survey/result
 
 Open survey and insert credentials
     Open Browser To Main Page
