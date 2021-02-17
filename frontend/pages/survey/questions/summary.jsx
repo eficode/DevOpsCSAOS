@@ -2,14 +2,42 @@ import Link from '../../../components/link'
 import React from 'react'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
+import Head from 'next/head'
+import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
+import ProgressBar from '../../../components/progressBar'
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px 0 0 0;
+  width: 100%;
+  position: absolute;
+  top: 15px;
+  padding-bottom: 30px;
+  background-color: white;
+  border-radius: 0.5rem;
+`
 
 const QuestionAnswerWrapper = styled.article`
   margin: 1rem 0;
-
+  font-family: Montserrat;
+  font-weight: bold;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.blueDianne};
   span {
     display: inline-block;
     margin: 0.4rem 0;
+    font-family:Merriweather;
+    font-weight: normal;
+    font-size: 16px;
+    color black;
   }
+`
+const Title = styled.h2`
+  color: ${({ theme }) => theme.colors.blueDianne};
+  font-family: Merriweather;
+  margin: 10px 0 30px 0;
 `
 
 function getKeyByValue(object, value) {
@@ -22,40 +50,45 @@ const Summary = () => {
   const questions = useStore((state) => state.questions)
 
   return (
-    <div>
-      <h2>Here are your current answers</h2>
-      {/* we're assuming that questions are always available */}
-      {questions.map((question, index) => {
-        let answerToQuestion = getKeyByValue(
-          optionsToPointsMap,
-          selections[index]
-        )?.toLowerCase()
+    <>
+      <Head>
+        <title>DevOps Capability Survey</title>
+      </Head>
+      <ProgressBar id={1} total={1} />
+      <InnerContentWrapper>
+        <Content>
+          <Title>Here are your current answers</Title>
+            {/* we're assuming that questions are always available */}
+            {questions.map((question, index) => {
+              let answerToQuestion = getKeyByValue(
+                optionsToPointsMap,
+                selections[index]
+              )?.toLowerCase()
 
-        // no selection for given question
-        if (!answerToQuestion) {
-          answerToQuestion = "haven't answered this question."
-        }
+              // no selection for given question
+              if (!answerToQuestion) {
+                answerToQuestion = "haven't answered this question."
+              }
 
-        if (answerToQuestion === 'neutral') {
-          answerToQuestion = 'feel neutral'
-        }
+              if (answerToQuestion === 'neutral') {
+                answerToQuestion = 'feel neutral'
+              }
 
-        const QuestionText = `Question: ${question.text}`
-        const AnswerText = `You ${answerToQuestion}`
+              const QuestionText = `${question.text}`
+              const AnswerText = `You ${answerToQuestion}`
 
-        console.log(QuestionText)
-
-        return (
-          <QuestionAnswerWrapper key={question.id}>
-            {QuestionText}
-            <br />
-            <span>{AnswerText}</span>
-          </QuestionAnswerWrapper>
-        )
-      })}
-      <Link href="/survey/result" type="primary">Go to your results!</Link>
-    </div>
-  )
-}
+              return (
+                <QuestionAnswerWrapper key={question.id}>
+                  {QuestionText}
+                  <br />
+                  <span>{AnswerText}</span>
+                </QuestionAnswerWrapper>
+                )
+              })}
+          <Link href="/survey/result" type="primary">Go to your results!</Link>
+        </Content>
+      </InnerContentWrapper>
+    </>
+  )}
 
 export default Summary

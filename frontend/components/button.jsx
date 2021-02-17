@@ -17,7 +17,7 @@ const StyledButton = styled.button`
   border-width: 0px;
   margin-top: 40px;
   width: 120px;
-  height: 45px;
+  line-height: 45px;
 
   cursor: pointer;
 `

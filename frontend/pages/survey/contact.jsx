@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import Head from 'next/head'
 
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import Button from '../../components/button'
@@ -55,6 +56,9 @@ const ContactForm = () => {
 
   return (
     <>
+      <Head>
+        <title>DevOps Capability Survey</title>
+      </Head>
       <ProgressBar />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
