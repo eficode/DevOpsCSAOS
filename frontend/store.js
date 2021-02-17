@@ -128,6 +128,9 @@ const optionsToPointsMap = {
   Disagree: 2,
   'Strongly disagree': 1,
 }
+const initialResultText = ''
+const initialUserResult = 0
+const initialMaxResult = 0
 
 // deep shallow compares two arrays
 const isArrayEqual = function (x, y) {
@@ -143,6 +146,9 @@ const store = (set, get) => ({
   selections: initialSelections,
   resultsPerCategory: initalResultsPerCategory,
   optionsToPointsMap,
+  resultText: initialResultText,
+  userResult: initialUserResult,
+  maxResult: initialMaxResult,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions) => {
@@ -160,9 +166,12 @@ const store = (set, get) => ({
     }))
   },
   clear: () => set(() => ({
-    questions: [], email: '', selections: [], resultsPerCategory: [],
+    questions: [], email: '', selections: [], resultsPerCategory: [], resultText: '',
   })),
   setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
+  setResultText: (text) => set(() => ({ resultText: text })),
+  setUserResult: (score) => set(() => ({ userResult: score })),
+  setMaxResult: (score) => set(() => ({ maxResult: score })),
 })
 
 // a callback function which returns an object

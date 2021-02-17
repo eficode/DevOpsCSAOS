@@ -22,16 +22,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notNull: { msg: 'Result must have a cutoff' },
-          notEmpty: { msg: "Result cutoff can't be empty" },
+          notNull: { msg: 'Result must have a lowest score' },
+          notEmpty: { msg: "Result lowest score can't be empty" },
         },
       },
       highestScore: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notNull: { msg: 'Result must have a cutoff' },
-          notEmpty: { msg: "Result cutoff can't be empty" },
+          notNull: { msg: 'Result must have a highest score' },
+          notEmpty: { msg: "Result highest score can't be empty" },
         },
       },
       text: {
