@@ -76,7 +76,7 @@ describe('Navigation button conditional rendering', () => {
       </ThemeWrapper>,
     )
 
-    expect(component.container).toHaveTextContent('Go to answer summary')
+    expect(component.container).toHaveTextContent('Review')
   })
 })
 
@@ -120,7 +120,7 @@ describe('End of survey', () => {
 
     global.alert = jest.fn()
 
-    const button = component.getByText('Go to answer summary')
+    const button = component.getByText('Review')
     fireEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(1)
     fireEvent.click(button)
@@ -145,7 +145,7 @@ describe('End of survey', () => {
       useStore.setState({ selections: [1, 1] })
     })
 
-    const button = component.getByText('Go to answer summary')
+    const button = component.getByText('Review')
     fireEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(0)
   })
