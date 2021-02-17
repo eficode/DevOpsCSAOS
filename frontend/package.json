@@ -8,7 +8,8 @@
     "build:hybrid": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
+    "lint:specific": "eslint \"**/*.js\" \"**/*.jsx\"",
+    "lint:fix": "eslint . --fix",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
