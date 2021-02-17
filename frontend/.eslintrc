@@ -12,5 +12,6 @@
     "no-unused-vars": "warn",
     "semi": "off"
   },
-  "plugins": ["testing-library", "jest-dom"]
+  "plugins": ["testing-library", "jest-dom"],
+  "ignorePatterns": ["node_modules/", "/out", ".next/"]
 }
