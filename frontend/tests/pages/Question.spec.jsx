@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import {
+  render, screen, fireEvent, act,
+} from '@testing-library/react'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
@@ -24,7 +26,7 @@ describe('Question rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
 
     expect(component.container).toHaveTextContent('DevOps Assessment Tool')
@@ -34,7 +36,7 @@ describe('Question rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
     expect(component.container).toHaveTextContent('Oletko ruisleipä?')
   })
@@ -43,7 +45,7 @@ describe('Question rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
     expect(component.container).toHaveTextContent('Question 1/2')
   })
@@ -54,7 +56,7 @@ describe('Navigation button conditional rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
 
     expect(component.container).toHaveTextContent('Next')
@@ -71,7 +73,7 @@ describe('Navigation button conditional rendering', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
 
     expect(component.container).toHaveTextContent('Go to answer summary')
@@ -83,7 +85,7 @@ describe('Selecting option', () => {
     const component = render(
       <ThemeWrapper>
         <Question questions={questions} />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
 
     const initialState = useStore.getState()
@@ -95,5 +97,56 @@ describe('Selecting option', () => {
 
     const stateAfterClick = useStore.getState()
     expect(stateAfterClick.selections[1]).toBe(4)
+  })
+})
+
+describe('End of survey', () => {
+  it('Cannot send answers without answering all questions', () => {
+    useRouter.mockImplementation(() => ({
+      route: '/survey/questions/2',
+      pathname: 'survey/questions/2',
+      query: { questionId: '2' },
+      asPath: '',
+    }))
+
+    const component = render(
+      <ThemeWrapper>
+        <Question questions={questions} />
+      </ThemeWrapper>,
+    )
+    act(() => {
+      useStore.setState({ selections: [1, -1] })
+    })
+
+    global.alert = jest.fn()
+
+    const button = component.getByText('Go to answer summary')
+    fireEvent.click(button)
+    expect(global.alert).toHaveBeenCalledTimes(1)
+    fireEvent.click(button)
+    expect(global.alert).toHaveBeenCalledTimes(2)
+  })
+
+  it('Able to send answers after all questions answered', () => {
+    useRouter.mockImplementation(() => ({
+      route: '/survey/questions/2',
+      pathname: 'survey/questions/2',
+      query: { questionId: '2' },
+      asPath: '',
+    }))
+
+    const component = render(
+      <ThemeWrapper>
+        <Question questions={questions} />
+      </ThemeWrapper>,
+    )
+    global.alert = jest.fn()
+    act(() => {
+      useStore.setState({ selections: [1, 1] })
+    })
+
+    const button = component.getByText('Go to answer summary')
+    fireEvent.click(button)
+    expect(global.alert).toHaveBeenCalledTimes(0)
   })
 })
