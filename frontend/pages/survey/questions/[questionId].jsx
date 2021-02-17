@@ -21,6 +21,10 @@ const OptionsWrapper = styled.div`
   margin-bottom: 20px;
   justify-content: center;
   width: 50%;
+
+  button {
+    cursor: pointer;
+  }
 `
 
 const Heading = styled.h3`
