@@ -15,6 +15,8 @@ const linkStyle = `
   border-radius: 5px;
   border-width: 0px;
   margin: 50px 25px 15px 25px;
+
+  cursor:pointer;
 `
 
 const StyledPrimaryLink = styled.div`
@@ -39,29 +41,25 @@ const StyledSecondaryLink = styled.div`
   ${linkStyle}
 `
 
-const StyledLink = ({ children, type, href}) => {
+const StyledLink = ({ children, type, href }) => {
   if (type === 'primary') {
     return (
       <Link href={href}>
-        <StyledPrimaryLink >
-          {children}
-        </StyledPrimaryLink>
-      </Link>    
+        <StyledPrimaryLink>{children}</StyledPrimaryLink>
+      </Link>
     )
   }
 
   if (type === 'secondary') {
     return (
       <Link href={href}>
-        <StyledSecondaryLink>
-          {children}
-        </StyledSecondaryLink>
-      </Link>     
+        <StyledSecondaryLink>{children}</StyledSecondaryLink>
+      </Link>
     )
   }
 
   console.warn('custom link only has primary and secondary types')
-  return (<></>)
+  return <></>
 }
 
 export default StyledLink
