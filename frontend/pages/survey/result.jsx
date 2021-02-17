@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
@@ -8,7 +8,6 @@ import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
-import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
 export const Content = styled.div`
@@ -64,9 +63,7 @@ const Home = () => {
           <ResultsTitle>Your Results</ResultsTitle>
           <TotalResult userResult={userResult} maxResult={maxResult} />
           <Link href="/survey/result">
-            <Button type="submit">
-              Contact us!
-            </Button>
+            <Button type="submit">Contact us!</Button>
           </Link>
           <Categories>
             {store.resultsPerCategory.map((result, index) => (
