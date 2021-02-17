@@ -39,7 +39,6 @@ const ProgressBar = ({id, total}) => {
   }
 
   const progress = id / total * 100
-  console.log(progress)
 
   return (
     <BarBackground>

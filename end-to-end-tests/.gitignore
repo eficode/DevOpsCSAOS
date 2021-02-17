@@ -1,0 +1,16 @@
+tmp
+build
+dist
+.idea
+.*project
+*.pyc
+*$py.class
+.DS_Store
+.spyderworkspace
+log.html
+report.html
+output.xml
+*.log
+env
+*.png
+reports

@@ -21,6 +21,10 @@ const OptionsWrapper = styled.div`
   margin-bottom: 20px;
   justify-content: center;
   width: 50%;
+
+  button {
+    cursor: pointer;
+  }
 `
 
 const Heading = styled.h3`
@@ -61,8 +65,7 @@ const Question = ({ questions }) => {
 
   const checkAllQuestionsAnswered = () => {
     let allAnswered = true
-    store.selections.forEach(selection => {
-      
+    store.selections.forEach((selection) => {
       if (selection === -1) {
         allAnswered = false
       }
@@ -70,7 +73,7 @@ const Question = ({ questions }) => {
 
     return allAnswered
   }
-  
+
   const handleSubmit = async () => {
     const allAnswered = checkAllQuestionsAnswered()
 
@@ -79,17 +82,15 @@ const Question = ({ questions }) => {
       alert('please answer all questions to proceed')
       return
     }
-    const answersForBackend = questions.map((question, index) => {
-      return {
-        questionId: question.id,
-        value: store.selections[index]
-      }
-    })
+    const answersForBackend = questions.map((question, index) => ({
+      questionId: question.id,
+      value: store.selections[index],
+    }))
 
     const email = store.email === '' ? undefined : store.email
 
     const { results } = await sendAnswers(email, answersForBackend)
-    
+
     store.setResultsPerCategory(results)
     router.push(summaryPageHref)
   }
@@ -100,7 +101,7 @@ const Question = ({ questions }) => {
 
   return (
     <>
-      <ProgressBar id={questionId} total={questions.length}/>
+      <ProgressBar id={questionId} total={questions.length} />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
         <QuestionNumber>
@@ -116,18 +117,23 @@ const Question = ({ questions }) => {
                 key={pointsAssociatedWithOption}
                 label={optionLabel}
                 selected={
-                  store.selections[questionId - 1] === pointsAssociatedWithOption
+                  store.selections[questionId - 1] ===
+                  pointsAssociatedWithOption
                 }
                 onClick={() => updateSelections(pointsAssociatedWithOption)}
               />
             )
           })}
         </OptionsWrapper>
-        {!isFinalQuestion ? (
-          <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
-        ) : (
-          <Button type="submit" onClick={handleSubmit}>Go to answer summary</Button>
-        )}
+        <NavigationButtons
+          currentQuestionId={questionId}
+          surveyLength={questions.length}
+        />
+        {isFinalQuestion ? (
+          <Button type="submit" onClick={handleSubmit}>
+            Go to answer summary
+          </Button>
+        ) : null}
       </InnerContentWrapper>
     </>
   )

@@ -159,6 +159,9 @@ const store = (set, get) => ({
       questions,
     }))
   },
+  clear: () => set(() => ({
+    questions: [], email: '', selections: [], resultsPerCategory: [],
+  })),
   setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
 })
 
