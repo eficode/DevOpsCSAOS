@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:specific": "eslint \"**/*.js\" \"**/*.jsx\"",
+    "lint:specific:fix": "eslint \"**/*.js\" \"**/*.jsx\" --fix",
     "lint:fix": "eslint . --fix",
     "test": "jest",
     "test:coverage": "jest --coverage"
