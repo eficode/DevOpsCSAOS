@@ -79,7 +79,7 @@ const Question = ({ questions }) => {
 
     if (!allAnswered) {
       // for ui clarity
-      alert('please answer all questions to proceed')
+      alert('Please answer all of the questions to proceed')
       return
     }
     const answersForBackend = questions.map((question, index) => ({
@@ -87,8 +87,7 @@ const Question = ({ questions }) => {
       value: store.selections[index],
     }))
 
-    const email = store.email === '' ? undefined : store.email
-
+    const email = store.email
     const { results } = await sendAnswers(email, answersForBackend)
 
     store.setResultsPerCategory(results)
