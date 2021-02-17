@@ -1,0 +1,23 @@
+[
+    {
+      "lowestScore": 0,
+      "highestScore": 25,
+      "text": "Olet korppu."
+    },
+    {
+      "lowestScore": 26,
+      "highestScore": 50,
+      "text": "Olet näkkileipä."
+    },
+    {
+      "lowestScore": 51,
+      "highestScore": 100,
+      "text": "Olet ranskanleipä."
+    },
+    {
+      "lowestScore": 101,
+      "highestScore": 150,
+      "text": "Olet gluteeniton leipä."
+    }
+  ]
+  
