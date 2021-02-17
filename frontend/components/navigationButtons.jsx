@@ -18,13 +18,13 @@ const NavigationButtons = ({ currentQuestionId, surveyLength }) => {
     <NavWrapper>
       {!isFirstQuestion
         && (
-        <StyledLink href={prevQUrl} passHref type="secondary">
+        <StyledLink id="back" href={prevQUrl} passHref type="secondary">
           Back
         </StyledLink>
         )}
       {!isLastQuestion
         && (
-        <StyledLink href={nextQUrl} passHref type="primary">
+        <StyledLink id="next" href={nextQUrl} passHref type="primary">
           Next
         </StyledLink>
         )}

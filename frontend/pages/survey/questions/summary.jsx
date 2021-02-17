@@ -53,7 +53,7 @@ const Summary = () => {
           </QuestionAnswerWrapper>
         )
       })}
-      <Link href="/survey/result" type="primary">Go to your results!</Link>
+      <Link id="go-to-results" href="/survey/result" type="primary">Go to your results!</Link>
     </div>
   )
 }

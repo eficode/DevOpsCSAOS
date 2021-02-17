@@ -114,6 +114,7 @@ const Question = ({ questions }) => {
             const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
             return (
               <Option
+                id={optionLabel}
                 key={pointsAssociatedWithOption}
                 label={optionLabel}
                 selected={
@@ -130,7 +131,7 @@ const Question = ({ questions }) => {
           surveyLength={questions.length}
         />
         {isFinalQuestion ? (
-          <Button type="submit" onClick={handleSubmit}>
+          <Button id="answer-summary-button" type="submit" onClick={handleSubmit}>
             Go to answer summary
           </Button>
         ) : null}

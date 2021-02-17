@@ -41,11 +41,11 @@ const StyledSecondaryLink = styled.div`
   ${linkStyle}
 `
 
-const StyledLink = ({ children, type, href }) => {
+const StyledLink = ({ children, type, href, id }) => {
   if (type === 'primary') {
     return (
       <Link href={href}>
-        <StyledPrimaryLink>{children}</StyledPrimaryLink>
+        <StyledPrimaryLink id={id}>{children}</StyledPrimaryLink>
       </Link>
     )
   }
@@ -53,7 +53,7 @@ const StyledLink = ({ children, type, href }) => {
   if (type === 'secondary') {
     return (
       <Link href={href}>
-        <StyledSecondaryLink>{children}</StyledSecondaryLink>
+        <StyledSecondaryLink id={id}>{children}</StyledSecondaryLink>
       </Link>
     )
   }

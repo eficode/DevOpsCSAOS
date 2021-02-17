@@ -22,10 +22,10 @@ const StyledButton = styled.button`
   cursor: pointer;
 `
 
-const Button = ({ children, type, onClick }) => {
+const Button = ({ children, type, onClick, id }) => {
   if (type === 'button') {
     return (
-      <StyledButton onClick={onClick} type="button">
+      <StyledButton id={id} onClick={onClick} type="button">
         {children}
       </StyledButton>
     )
@@ -33,7 +33,7 @@ const Button = ({ children, type, onClick }) => {
 
   if (type === 'submit') {
     return (
-      <StyledButton onClick={onClick} type="submit">
+      <StyledButton id={id} onClick={onClick} type="submit">
         {children}
       </StyledButton>
     )
