@@ -102,12 +102,7 @@ const Question = ({ questions }) => {
         <Heading>DevOps Assessment Tool</Heading>
         <QuestionNumber>
           {' '}
-          Question
-          {' '}
-          {questionId}
-          /
-          {questions.length}
-          {' '}
+          Question {questionId}/{questions.length}{' '}
         </QuestionNumber>
         <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
         <OptionsWrapper>
@@ -118,19 +113,23 @@ const Question = ({ questions }) => {
                 key={pointsAssociatedWithOption}
                 label={optionLabel}
                 selected={
-                  store.selections[questionId - 1] === pointsAssociatedWithOption
+                  store.selections[questionId - 1] ===
+                  pointsAssociatedWithOption
                 }
                 onClick={() => updateSelections(pointsAssociatedWithOption)}
               />
             )
           })}
         </OptionsWrapper>
-        <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length} />
+        <NavigationButtons
+          currentQuestionId={questionId}
+          surveyLength={questions.length}
+        />
         {isFinalQuestion ? (
-          <Button type="submit" onClick={handleSubmit}>Go to answer summary</Button>
-        ) : (
-          <div />
-        )}
+          <Button type="submit" onClick={handleSubmit}>
+            Go to answer summary
+          </Button>
+        ) : null}
       </InnerContentWrapper>
     </>
   )
