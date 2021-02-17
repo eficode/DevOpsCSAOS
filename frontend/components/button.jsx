@@ -8,7 +8,7 @@ const StyledButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
-  
+
   font-family: Montserrat;
   font-weight: bold;
   font-size: 14px;
@@ -18,14 +18,16 @@ const StyledButton = styled.button`
   margin-top: 40px;
   width: 120px;
   height: 45px;
+
+  cursor: pointer;
 `
 
-const Button = (({ children, type, onClick }) => {
+const Button = ({ children, type, onClick }) => {
   if (type === 'button') {
     return (
       <StyledButton onClick={onClick} type="button">
         {children}
-      </StyledButton>  
+      </StyledButton>
     )
   }
 
@@ -33,12 +35,12 @@ const Button = (({ children, type, onClick }) => {
     return (
       <StyledButton onClick={onClick} type="submit">
         {children}
-      </StyledButton>  
+      </StyledButton>
     )
   }
 
   console.warn('custom button only has button and submit types')
-  return (<></>)
-})
+  return <></>
+}
 
 export default Button
