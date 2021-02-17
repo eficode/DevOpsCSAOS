@@ -13,7 +13,7 @@ ${SERVER}         ${HOST}:${PORT}
 ${BROWSER}        Firefox
 ${DELAY}          0
 ${MAIN_URL}      http://${SERVER}
-${VALID_EMAIL}    test@test.com
+${VALID_EMAIL}    test2222@test.com
 ${INVALID_EMAIL}  invalid.email.com
 ${STRONGLY_AGREE}  Strongly agree
 
