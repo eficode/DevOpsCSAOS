@@ -61,8 +61,7 @@ const Question = ({ questions }) => {
 
   const checkAllQuestionsAnswered = () => {
     let allAnswered = true
-    store.selections.forEach(selection => {
-      
+    store.selections.forEach((selection) => {
       if (selection === -1) {
         allAnswered = false
       }
@@ -70,7 +69,7 @@ const Question = ({ questions }) => {
 
     return allAnswered
   }
-  
+
   const handleSubmit = async () => {
     const allAnswered = checkAllQuestionsAnswered()
 
@@ -79,17 +78,15 @@ const Question = ({ questions }) => {
       alert('please answer all questions to proceed')
       return
     }
-    const answersForBackend = questions.map((question, index) => {
-      return {
-        questionId: question.id,
-        value: store.selections[index]
-      }
-    })
+    const answersForBackend = questions.map((question, index) => ({
+      questionId: question.id,
+      value: store.selections[index],
+    }))
 
     const email = store.email === '' ? undefined : store.email
 
     const { results } = await sendAnswers(email, answersForBackend)
-    
+
     store.setResultsPerCategory(results)
     router.push(summaryPageHref)
   }
@@ -100,12 +97,17 @@ const Question = ({ questions }) => {
 
   return (
     <>
-      <ProgressBar id={questionId} total={questions.length}/>
+      <ProgressBar id={questionId} total={questions.length} />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
         <QuestionNumber>
           {' '}
-          Question {questionId}/{questions.length}{' '}
+          Question
+          {' '}
+          {questionId}
+          /
+          {questions.length}
+          {' '}
         </QuestionNumber>
         <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
         <OptionsWrapper>
@@ -123,10 +125,11 @@ const Question = ({ questions }) => {
             )
           })}
         </OptionsWrapper>
-        {!isFinalQuestion ? (
-          <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length}/>
-        ) : (
+        <NavigationButtons currentQuestionId={questionId} surveyLength={questions.length} />
+        {isFinalQuestion ? (
           <Button type="submit" onClick={handleSubmit}>Go to answer summary</Button>
+        ) : (
+          <div />
         )}
       </InnerContentWrapper>
     </>

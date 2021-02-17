@@ -44,8 +44,8 @@ const StyledLink = ({ children, type, href}) => {
     return (
       <Link href={href}>
         <StyledPrimaryLink >
-            {children}
-          </StyledPrimaryLink>
+          {children}
+        </StyledPrimaryLink>
       </Link>    
     )
   }
@@ -54,8 +54,8 @@ const StyledLink = ({ children, type, href}) => {
     return (
       <Link href={href}>
         <StyledSecondaryLink>
-            {children}
-          </StyledSecondaryLink>
+          {children}
+        </StyledSecondaryLink>
       </Link>     
     )
   }
