@@ -1,5 +1,9 @@
 {
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
+  ],
   "rules": {
     "no-console": "off",
     "linebreak-style": 0,
@@ -7,5 +11,6 @@
     "import/prefer-default-export": "off",
     "no-unused-vars": "warn",
     "semi": "off"
-  }
+  },
+  "plugins": ["testing-library", "jest-dom"]
 }
