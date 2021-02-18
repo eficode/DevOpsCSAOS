@@ -54,7 +54,7 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar id={1} total={1} />
+      <ProgressBar />
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
