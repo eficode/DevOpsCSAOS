@@ -15,6 +15,7 @@ const linkStyle = `
   border-radius: 5px;
   border-width: 0px;
   margin: 50px 25px 15px 25px;
+  padding: 0 20px;
 
   cursor:pointer;
 `
