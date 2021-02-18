@@ -24,13 +24,13 @@ const Home = () => (
     <Head>
       <title>DevOps Capability Survey</title>
     </Head>
-    <ProgressBar/>
+    <ProgressBar />
     <InnerContentWrapper>
       <Heading>DevOps Assessment Tool</Heading>
       <Main>
         <h2>Welcome!</h2>
         <p>Test your DevOps capabilities here.</p>
-        <Link href='/survey/contact' type='primary' id="get-started">
+        <Link href="/survey/contact" type="primary">
           Get started
         </Link>
       </Main>
