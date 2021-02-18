@@ -8,10 +8,10 @@ Library           SeleniumLibrary
 
 *** Variables ***
 ${HOST}           localhost
-${PORT}           5000
+${PORT}           3000
 ${SERVER}         ${HOST}:${PORT}
 ${BROWSER}        Firefox
-${DELAY}          0
+${DELAY}          1
 ${MAIN_URL}      http://${SERVER}
 ${VALID_EMAIL}    test2222@test.com
 ${INVALID_EMAIL}  invalid.email.com
@@ -40,7 +40,7 @@ Click question option button
 
 Click answer summary button
     Click Element   answer-summary-button
-    Sleep       4
+    Sleep       10
 
 Click go to results
     Click Element   go-to-results

@@ -68,7 +68,7 @@ jobs:
               -v ${PWD}/reports:/opt/robotframework/reports:Z \
               -v ${PWD}/tests:/opt/robotframework/tests:Z \
               -e BROWSER=firefox \
-              -e ROBOT_OPTIONS="--variable HOST:app"\
+              -e ROBOT_OPTIONS="--variable HOST:frontend"\
               --user $(id -u):$(id -g) \
               ppodgorsek/robot-framework:3.7.0
   deploy_to_staging:
