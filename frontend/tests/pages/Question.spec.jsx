@@ -23,43 +23,41 @@ describe('Question rendering', () => {
   }))
 
   it('Component is rendered', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-
-    expect(component.container).toHaveTextContent('DevOps Assessment Tool')
+    expect(screen.queryByText('DevOps Assessment Tool'))
   })
 
   it('The question whose id is in route is rendered', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-    expect(component.container).toHaveTextContent('Oletko ruisleipä?')
+    expect(screen.queryByText('Oletko ruisleipä?'))
   })
 
   it('The right "Question q_id/survey_length" params are rendered', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-    expect(component.container).toHaveTextContent('Question 1/2')
+    expect(screen.queryByText('Question 1/2'))
   })
 })
 
 describe('Navigation button conditional rendering', () => {
   it('Not last question renders link with text Next', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-
-    expect(component.container).toHaveTextContent('Next')
+    expect(screen.queryByText('Next'))
   })
 
   it('Last question renders link with correct link label', () => {
@@ -70,19 +68,19 @@ describe('Navigation button conditional rendering', () => {
       asPath: '',
     }))
 
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-
-    expect(component.container).toHaveTextContent('Go to answer summary')
+    
+    expect(screen.getByRole('button', { name: 'Go to answer summary' }))
   })
 })
 
 describe('Selecting option', () => {
   it('Clicking option changes selection in state', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>,
@@ -92,7 +90,7 @@ describe('Selecting option', () => {
 
     expect(initialState.selections[1]).toBe(-1)
 
-    const button = component.getByText('Agree')
+    const button = screen.getByRole('button', { name: 'Agree' })
     fireEvent.click(button)
 
     const stateAfterClick = useStore.getState()
@@ -109,7 +107,7 @@ describe('End of survey', () => {
       asPath: '',
     }))
 
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>,
@@ -120,7 +118,7 @@ describe('End of survey', () => {
 
     global.alert = jest.fn()
 
-    const button = component.getByText('Go to answer summary')
+    const button = screen.getByRole('button', { name: 'Go to answer summary' })
     fireEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(1)
     fireEvent.click(button)
@@ -135,7 +133,7 @@ describe('End of survey', () => {
       asPath: '',
     }))
 
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>,
@@ -145,7 +143,7 @@ describe('End of survey', () => {
       useStore.setState({ selections: [1, 1] })
     })
 
-    const button = component.getByText('Go to answer summary')
+    const button = screen.getByRole('button', { name: 'Go to answer summary' })
     fireEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(0)
   })
