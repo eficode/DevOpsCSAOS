@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import {
-  render, screen, fireEvent, act,
+  render, screen, act,
 } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
@@ -28,7 +29,7 @@ describe('Question rendering', () => {
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-    expect(screen.queryByText('DevOps Assessment Tool'))
+    expect(screen.getByText('DevOps Assessment Tool')).toBeInTheDocument()
   })
 
   it('The question whose id is in route is rendered', () => {
@@ -37,7 +38,7 @@ describe('Question rendering', () => {
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-    expect(screen.queryByText('Oletko ruisleipä?'))
+    expect(screen.getByText('Oletko ruisleipä?'))
   })
 
   it('The right "Question q_id/survey_length" params are rendered', () => {
@@ -46,7 +47,7 @@ describe('Question rendering', () => {
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-    expect(screen.queryByText('Question 1/2'))
+    expect(screen.getByText('Question 1/2')).toBeInTheDocument()
   })
 })
 
@@ -57,7 +58,7 @@ describe('Navigation button conditional rendering', () => {
         <Question questions={questions} />
       </ThemeWrapper>,
     )
-    expect(screen.queryByText('Next'))
+    expect(screen.getByText('Next')).toBeInTheDocument()
   })
 
   it('Last question renders link with correct link label', () => {
@@ -74,7 +75,7 @@ describe('Navigation button conditional rendering', () => {
       </ThemeWrapper>,
     )
     
-    expect(screen.getByRole('button', { name: 'Review' }))
+    expect(screen.getByRole('button', { name: 'Review' })).toBeInTheDocument()
   })
 })
 
@@ -91,7 +92,7 @@ describe('Selecting option', () => {
     expect(initialState.selections[1]).toBe(-1)
 
     const button = screen.getByRole('button', { name: 'Agree' })
-    fireEvent.click(button)
+    userEvent.click(button)
 
     const stateAfterClick = useStore.getState()
     expect(stateAfterClick.selections[1]).toBe(4)
@@ -119,9 +120,9 @@ describe('End of survey', () => {
     global.alert = jest.fn()
 
     const button = screen.getByRole('button', { name: 'Review' })
-    fireEvent.click(button)
+    userEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(1)
-    fireEvent.click(button)
+    userEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(2)
   })
 
@@ -144,7 +145,7 @@ describe('End of survey', () => {
     })
 
     const button = screen.getByRole('button', { name: 'Review' })
-    fireEvent.click(button)
+    userEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(0)
   })
 })

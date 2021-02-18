@@ -13,8 +13,8 @@ describe('Navigation Buttons Component', () => {
       </ThemeWrapper>
     )
 
-    expect(screen.queryByText('Next'))
-    expect(screen.queryByText('Back'))
+    expect(screen.getByText('Next')).toBeInTheDocument()
+    expect(screen.getByText('Back')).toBeInTheDocument()
   })
 
   it('Renders only next button if question is first in survey', () => {
@@ -24,7 +24,7 @@ describe('Navigation Buttons Component', () => {
       </ThemeWrapper>
     )
 
-    expect(screen.queryByText('Next'))
+    expect(screen.getByText('Next')).toBeInTheDocument()
     expect(screen.queryByText('Back')).not.toBeInTheDocument()
   })
 
@@ -36,6 +36,6 @@ describe('Navigation Buttons Component', () => {
     )
 
     expect(screen.queryByText('Next')).not.toBeInTheDocument()
-    expect(screen.queryByText('Back'))
+    expect(screen.getByText('Back')).toBeInTheDocument()
   })
 })
