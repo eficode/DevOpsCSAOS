@@ -15,7 +15,7 @@ ${DELAY}          1
 ${MAIN_URL}      http://${SERVER}
 ${VALID_EMAIL}    test2222@test.com
 ${INVALID_EMAIL}  invalid.email.com
-${STRONGLY_AGREE}  Strongly agree
+${AGREE}  Agree
 
 *** Keywords ***
 Open Browser To Main Page
@@ -44,27 +44,28 @@ Click answer summary button
 
 Click go to results
     Click Element   go-to-results
+    Sleep       3
 
 Answer all questions
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
     Click next button
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
     Click next button
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
     Click next button
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
     Click next button
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
     Click next button
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
     Click next button
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
     Click next button
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
     Click next button
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
     Click next button
-    Click question option button    ${STRONGLY_AGREE}
+    Click question option button    ${AGREE}
 
 Click begin button
     Click Element    submit-email-button  
@@ -88,5 +89,6 @@ Open survey and insert credentials
     Click get started button
     Insert Email    ${VALID_EMAIL}
     Click begin button
+    Sleep           5
 
 
