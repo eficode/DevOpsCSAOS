@@ -27,23 +27,23 @@ Main Page Should Be Open
     Title Should Be    DevOps Capability Survey
 
 Click get started button
-    Click Element    get-started
+    Click Element    //*[contains(text(), 'Get started')]
     Sleep         1
 
 Click next button
-    Click Element    next
+    Click Element    //*[contains(text(), 'Next')]
     Sleep         1
 
 Click question option button 
     [Arguments]     ${option_id}
-    Click Element   ${option_id}
+    Click Element   //*[contains(text(), '${option_id}')]
 
 Click answer summary button
-    Click Element   answer-summary-button
-    Sleep       10
+    Click Element   //*[contains(text(), 'Go to answer summary')]
+    Sleep       3
 
 Click go to results
-    Click Element   go-to-results
+    Click Element   //*[contains(text(), 'Go to your results!')]
     Sleep       3
 
 Answer all questions
@@ -68,12 +68,12 @@ Answer all questions
     Click question option button    ${AGREE}
 
 Click begin button
-    Click Element    submit-email-button  
+    Click Element    //*[contains(text(),'Begin')]  
     Sleep         1   
 
 Insert Email
     [Arguments]      ${email}
-    Input Text       email      ${email}
+    Input Text  name:email      ${email}
 
 Questions Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/1
