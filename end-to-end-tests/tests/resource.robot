@@ -15,7 +15,11 @@ ${DELAY}          1
 ${MAIN_URL}      http://${SERVER}
 ${VALID_EMAIL}    test2222@test.com
 ${INVALID_EMAIL}  invalid.email.com
-${AGREE}  Agree
+${START_SURVEY}   Get started
+${NEXT}           Next  
+${AGREE}          Agree
+${GO_TO_SUMMARY}  Go to answer summary
+${GO_TO_RESULTS}  Go to your results!
 
 *** Keywords ***
 Open Browser To Main Page
@@ -27,11 +31,11 @@ Main Page Should Be Open
     Title Should Be    DevOps Capability Survey
 
 Click get started button
-    Click Element    //*[contains(text(), 'Get started')]
+    Click Element    //*[contains(text(), '${START_SURVEY}')]
     Sleep         1
 
 Click next button
-    Click Element    //*[contains(text(), 'Next')]
+    Click Element    //*[contains(text(), '${NEXT}')]
     Sleep         1
 
 Click question option button 
@@ -39,11 +43,11 @@ Click question option button
     Click Element   //*[contains(text(), '${option_id}')]
 
 Click answer summary button
-    Click Element   //*[contains(text(), 'Go to answer summary')]
+    Click Element   //*[contains(text(), '${GO_TO_SUMMARY}')]
     Sleep       3
 
 Click go to results
-    Click Element   //*[contains(text(), 'Go to your results!')]
+    Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
     Sleep       3
 
 Answer all questions
@@ -90,5 +94,3 @@ Open survey and insert credentials
     Insert Email    ${VALID_EMAIL}
     Click begin button
     Sleep           5
-
-
