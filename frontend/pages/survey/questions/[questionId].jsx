@@ -131,7 +131,11 @@ const Question = ({ questions }) => {
           surveyLength={questions.length}
         />
         {isFinalQuestion ? (
-          <Button id="answer-summary-button" type="submit" onClick={handleSubmit}>
+          <Button
+            id="answer-summary-button"
+            type="submit"
+            onClick={handleSubmit}
+          >
             Go to answer summary
           </Button>
         ) : null}
