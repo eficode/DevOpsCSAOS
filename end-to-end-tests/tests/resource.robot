@@ -12,14 +12,15 @@ ${PORT}           3000
 ${SERVER}         ${HOST}:${PORT}
 ${BROWSER}        Firefox
 ${DELAY}          1
-${MAIN_URL}      http://${SERVER}
-${VALID_EMAIL}    test2222@test.com
+${MAIN_URL}       http://${SERVER}
+${VALID_EMAIL}    test2220@test.com
 ${INVALID_EMAIL}  invalid.email.com
 ${START_SURVEY}   Get started
 ${NEXT}           Next  
 ${AGREE}          Agree
 ${GO_TO_SUMMARY}  Go to answer summary
 ${GO_TO_RESULTS}  Go to your results!
+${SURVEY_LENGTH}  10
 
 *** Keywords ***
 Open Browser To Main Page
@@ -51,24 +52,10 @@ Click go to results
     Sleep       3
 
 Answer all questions
-    Click question option button    ${AGREE}
-    Click next button
-    Click question option button    ${AGREE}
-    Click next button
-    Click question option button    ${AGREE}
-    Click next button
-    Click question option button    ${AGREE}
-    Click next button
-    Click question option button    ${AGREE}
-    Click next button
-    Click question option button    ${AGREE}
-    Click next button
-    Click question option button    ${AGREE}
-    Click next button
-    Click question option button    ${AGREE}
-    Click next button
-    Click question option button    ${AGREE}
-    Click next button
+    FOR    ${index}    IN RANGE    1    ${SURVEY_LENGTH}
+        Click question option button    ${AGREE}
+        Click next button
+    END
     Click question option button    ${AGREE}
 
 Click begin button
