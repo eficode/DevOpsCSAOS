@@ -13,6 +13,6 @@ describe('Total Result Component', () => {
       </ThemeWrapper>
     )
 
-    expect(screen.getByRole('article')).toHaveTextContent('15/100')
+    expect(screen.getByRole('resultCircle')).toHaveTextContent('15/100')
   })
 })
