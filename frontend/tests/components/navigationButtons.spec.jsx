@@ -1,40 +1,41 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
 import NavigationButtons from '../../components/navigationButtons'
 import ThemeWrapper from '../testutils/themeWrapper'
 
 describe('Navigation Buttons Component', () => {
   it('Renders next and back buttons', () => {
-    const component = mount(
+    render(
       <ThemeWrapper>
         <NavigationButtons currentQuestionId={3} surveyLength={5}/>
       </ThemeWrapper>
     )
 
-    expect(component.text()).toContain('Next')
-    expect(component.text()).toContain('Back')
+    expect(screen.getByText('Next')).toBeInTheDocument()
+    expect(screen.getByText('Back')).toBeInTheDocument()
   })
 
   it('Renders only next button if question is first in survey', () => {
-    const component = mount(
+    render(
       <ThemeWrapper>
         <NavigationButtons currentQuestionId={1} surveyLength={5}/>
       </ThemeWrapper>
     )
 
-    expect(component.text()).toContain('Next')
-    expect(component.text()).not.toContain('Back')
+    expect(screen.getByText('Next')).toBeInTheDocument()
+    expect(screen.queryByText('Back')).not.toBeInTheDocument()
   })
 
   it('Renders only back button if question is last in survey', () => {
-    const component = mount(
+    render(
       <ThemeWrapper>
         <NavigationButtons currentQuestionId={5} surveyLength={5}/>
       </ThemeWrapper>
     )
 
-    expect(component.text()).not.toContain('Next')
-    expect(component.text()).toContain('Back')
+    expect(screen.queryByText('Next')).not.toBeInTheDocument()
+    expect(screen.getByText('Back')).toBeInTheDocument()
   })
 })

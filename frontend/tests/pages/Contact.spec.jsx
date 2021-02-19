@@ -13,7 +13,10 @@ import ThemeWrapper from '../testutils/themeWrapper'
 
 nextRouter.useRouter = jest.fn()
 useRouter.mockImplementation(() => ({
-  route: '/survey/contact', pathname: '/survey/contact', asPath: '', push: jest.fn(),
+  route: '/survey/contact', 
+  pathname: '/survey/contact', 
+  asPath: '', 
+  push: jest.fn(),
 }))
 
 describe('Contactform rendering', () => {

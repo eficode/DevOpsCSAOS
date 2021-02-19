@@ -20,7 +20,6 @@ module.exports = {
       '<rootDir>/__mocks__/fileMock.js',
   },
   setupFiles: ['<rootDir>/tests/setup.js'],
-  setupFilesAfterEnv: ['<rootDir>/tests/setupAfterEnv.js'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   testPathIgnorePatterns: ['/.next/', '/node_modules/', '/coverage/'],
   transform: {
