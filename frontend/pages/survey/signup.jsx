@@ -37,7 +37,7 @@ const DetailsInput = styled.input`
   margin: 10px 0 50px 0;
 `
 
-const ContactForm = () => {
+const SignUpForm = () => {
   const [emailInput, setEmailInput] = useState('')
   const router = useRouter()
   const store = useStore()
@@ -48,16 +48,16 @@ const ContactForm = () => {
     setEmailInput(event.target.value)
   }
 
-  const updateEmail = (event) => {
-    const tmp = getByEmail(emailInput)
-    if(!tmp){
-      event.preventDefault()
-      store.setEmail(emailInput)
-      router.push(firstQuestionHref)
-    } else {
+  const updateEmail = async (event) => {
+    event.preventDefault()
+    const tmp = await getByEmail(emailInput)
+
+    if (tmp) {
       alert('Email already used!')
     }
-    
+
+    store.setEmail(emailInput)
+      router.push(firstQuestionHref)
   }
 
   return (
@@ -78,4 +78,4 @@ const ContactForm = () => {
   )
 }
 
-export default ContactForm
+export default SignUpForm
