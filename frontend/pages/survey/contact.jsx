@@ -7,7 +7,7 @@ import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper
 import Button from '../../components/button'
 import ProgressBar from '../../components/progressBar'
 import { useStore } from '../../store'
-
+import { getByEmail} from '../../services/users'
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Montserrat;
@@ -49,9 +49,15 @@ const ContactForm = () => {
   }
 
   const updateEmail = (event) => {
-    event.preventDefault()
-    store.setEmail(emailInput)
-    router.push(firstQuestionHref)
+    const tmp = getByEmail(emailInput)
+    if(!tmp){
+      event.preventDefault()
+      store.setEmail(emailInput)
+      router.push(firstQuestionHref)
+    } else {
+      alert('Email in use!')
+    }
+    
   }
 
   return (
