@@ -11,6 +11,7 @@ import { useStore } from '../../store'
 
 import Summary from '../../pages/survey/questions/summary'
 import ThemeWrapper from '../testutils/themeWrapper'
+import { questions } from '../testutils/mockQuestions'
 
 nextRouter.useRouter = jest.fn()
 
@@ -24,10 +25,43 @@ describe('Component rendering', () => {
   it('Component is rendered', () => {
     render(
       <ThemeWrapper>
-        <Summary/>
+        <Summary />
       </ThemeWrapper>,
     )
     expect(screen.getByText('Here are your current answers')).toBeInTheDocument()
+  })
+})
+
+describe('Answer summary listing', () => {
+  it('Summary page lists all questions', () => {
+    render(
+      <ThemeWrapper>
+        <Summary />
+      </ThemeWrapper>,
+    )
+    act(() => {
+      useStore.setState({questions})
+    })
+    
+    questions.forEach(q => {
+      expect(screen.getByText(q.text)).toBeInTheDocument()
+    })
+  })
+
+  it('Current answers are listed on page', () => {
+    render(
+      <ThemeWrapper>
+        <Summary />
+      </ThemeWrapper>,
+    )
+    act(() => {
+      useStore.setState({ questions })
+      useStore.setState({ selections: [-1, 3, 5]})
+    })
+
+    expect(screen.getByText(questions[0].text)).toHaveTextContent("You haven't answered this question")
+    expect(screen.getByText(questions[1].text)).toHaveTextContent('You feel neutral')
+    expect(screen.getByText(questions[2].text)).toHaveTextContent('You strongly agree')
   })
 })
 

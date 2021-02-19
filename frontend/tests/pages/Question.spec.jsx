@@ -11,7 +11,7 @@ import { useStore } from '../../store'
 
 import Question from '../../pages/survey/questions/[questionId]'
 import ThemeWrapper from '../testutils/themeWrapper'
-import { questions } from '../testutils/constants'
+import { questions } from '../testutils/mockQuestions'
 
 nextRouter.useRouter = jest.fn()
 
