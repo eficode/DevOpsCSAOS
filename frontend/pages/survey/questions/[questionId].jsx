@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
-import { sendResult } from '../../../services/results'
 
-import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
-import Button from '../../../components/button'
+import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
+import Link from '../../../components/link'
 import Option from '../../../components/option'
-import { getAll } from '../../../services/questions'
-import { sendAnswers } from '../../../services/answers'
 import NavigationButtons from '../../../components/navigationButtons'
 import ProgressBar from '../../../components/progressBar'
+import { getAll } from '../../../services/questions'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -65,55 +63,6 @@ const Question = ({ questions }) => {
     store.setSelections(newSelections)
   }
 
-  const checkAllQuestionsAnswered = () => {
-    let allAnswered = true
-    store.selections.forEach((selection) => {
-      if (selection === -1) {
-        allAnswered = false
-      }
-    })
-
-    return allAnswered
-  }
-
-  const handleSubmit = async () => {
-    const allAnswered = checkAllQuestionsAnswered()
-
-    if (!allAnswered) {
-      // for ui clarity
-      alert('please answer all questions to proceed')
-      return
-    }
-    const answersForBackend = questions.map((question, index) => ({
-      questionId: question.id,
-      value: store.selections[index],
-    }))
-
-    const email = store.email === '' ? undefined : store.email
-
-    const { results } = await sendAnswers(email, answersForBackend)
-
-    store.setResultsPerCategory(results)
-
-    const userResult = results
-      .map((score) => score.userResult)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-
-    store.setUserResult(userResult)
-
-    const maxResult = results
-      .map((score) => score.maxCategoryResult)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-
-    store.setMaxResult(maxResult)
-
-    const { resultText } = await sendResult(userResult)
-
-    store.setResultText(resultText)
-
-    router.push(summaryPageHref)
-  }
-
   useEffect(() => {
     store.setQuestions(questions)
   }, [])
@@ -152,9 +101,7 @@ const Question = ({ questions }) => {
           surveyLength={questions.length}
         />
         {isFinalQuestion ? (
-          <Button type="submit" onClick={handleSubmit}>
-            Review
-          </Button>
+          <Link href={summaryPageHref} type="primary">Review</Link>
         ) : null}
       </InnerContentWrapper>
     </>

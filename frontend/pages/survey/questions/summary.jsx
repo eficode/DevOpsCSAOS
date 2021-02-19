@@ -1,10 +1,14 @@
-import Link from '../../../components/link'
 import React from 'react'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
 import Head from 'next/head'
-import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
+
+import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import ProgressBar from '../../../components/progressBar'
+import Button from '../../../components/button'
+import { sendResult } from '../../../services/results'
+import { sendAnswers } from '../../../services/answers'
 
 const Content = styled.div`
   display: flex;
@@ -49,6 +53,58 @@ const Summary = () => {
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
   const questions = useStore((state) => state.questions)
 
+  const store = useStore()
+  const router = useRouter()
+
+  const checkAllQuestionsAnswered = () => {
+    let allAnswered = true
+    store.selections.forEach((selection) => {
+      if (selection === -1) {
+        allAnswered = false
+      }
+    })
+
+    return allAnswered
+  }
+
+  const handleSubmit = async () => {
+    const allAnswered = checkAllQuestionsAnswered()
+
+    if (!allAnswered) {
+      alert('please answer all questions to proceed')
+      return
+    }
+
+    const answersForBackend = questions.map((question, index) => ({
+      questionId: question.id,
+      value: store.selections[index],
+    }))
+
+    const email = store.email === '' ? undefined : store.email
+
+    const { results } = await sendAnswers(email, answersForBackend)
+
+    store.setResultsPerCategory(results)
+
+    const userResult = results
+      .map((score) => score.userResult)
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+
+    store.setUserResult(userResult)
+
+    const maxResult = results
+      .map((score) => score.maxCategoryResult)
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+
+    store.setMaxResult(maxResult)
+
+    const { resultText } = await sendResult(userResult)
+
+    store.setResultText(resultText)
+
+    router.push('/survey/result')
+  }
+
   return (
     <>
       <Head>
@@ -65,7 +121,6 @@ const Summary = () => {
                 selections[index]
               )?.toLowerCase()
 
-              // no selection for given question
               if (!answerToQuestion) {
                 answerToQuestion = "haven't answered this question."
               }
@@ -85,7 +140,9 @@ const Summary = () => {
                 </QuestionAnswerWrapper>
                 )
               })}
-          <Link href="/survey/result" type="primary">Go to your results!</Link>
+          <Button type="submit" onClick={handleSubmit}>
+            Go to your results!
+          </Button>
         </Content>
       </InnerContentWrapper>
     </>
