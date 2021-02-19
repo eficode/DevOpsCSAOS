@@ -55,7 +55,7 @@ const ContactForm = () => {
       store.setEmail(emailInput)
       router.push(firstQuestionHref)
     } else {
-      alert('Email in use!')
+      alert('Email already used!')
     }
     
   }
