@@ -14,7 +14,7 @@ import ThemeWrapper from '../testutils/themeWrapper'
 
 nextRouter.useRouter = jest.fn()
 
-describe.only('Component rendering', () => {
+describe('Component rendering', () => {
   useRouter.mockImplementation(() => ({
     route: '/survey/summary/',
     pathname: 'survey/summary',
@@ -28,5 +28,43 @@ describe.only('Component rendering', () => {
       </ThemeWrapper>,
     )
     expect(screen.getByText('Here are your current answers')).toBeInTheDocument()
+  })
+})
+
+describe('Sending answers', () => {
+  it('Cannot send answers without answering all questions', () => {
+    render(
+      <ThemeWrapper>
+        <Summary />
+      </ThemeWrapper>,
+    )
+    act(() => {
+      useStore.setState({ selections: [1, -1] })
+    })
+
+    global.alert = jest.fn()
+
+    const button = screen.getByRole('button', { name: 'Go to your results!' })
+    userEvent.click(button)
+    expect(global.alert).toHaveBeenCalledTimes(1)
+    userEvent.click(button)
+    expect(global.alert).toHaveBeenCalledTimes(2)
+  })
+
+  it('Able to send answers after all questions answered', () => {
+    render(
+      <ThemeWrapper>
+        <Summary />
+      </ThemeWrapper>,
+    )
+    
+    global.alert = jest.fn()
+    act(() => {
+      useStore.setState({ selections: [1, 1] })
+    })
+
+    const button = screen.getByRole('button', { name: 'Go to your results!' })
+    userEvent.click(button)
+    expect(global.alert).toHaveBeenCalledTimes(0)
   })
 })
