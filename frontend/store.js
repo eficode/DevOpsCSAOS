@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -51,9 +52,8 @@ const store = (set, _) => ({
   setMaxResult: (score) => set(() => ({ maxResult: score })),
 })
 
-// persist: persists our store in localStorage by default!
 export const useStore = create(persist(store,
-  { 
-    name: 'devops assessment tool store', // unique name
-    getStorage: () => sessionStorage, // (optional) by default the 'localStorage' is used
+  {
+    name: 'devops assessment tool store',
+    getStorage: () => sessionStorage, // use sessionStorage
   }))
