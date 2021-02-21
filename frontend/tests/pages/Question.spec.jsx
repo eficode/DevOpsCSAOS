@@ -1,6 +1,9 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import {
+  render, screen, act,
+} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
@@ -21,43 +24,41 @@ describe('Question rendering', () => {
   }))
 
   it('Component is rendered', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>
     )
-
-    expect(component.container).toHaveTextContent('DevOps Assessment Tool')
+    expect(screen.getByText('DevOps Assessment Tool')).toBeInTheDocument()
   })
 
   it('The question whose id is in route is rendered', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>
     )
-    expect(component.container).toHaveTextContent('Oletko ruisleipä?')
+    expect(screen.getByText('Oletko ruisleipä?'))
   })
 
   it('The right "Question q_id/survey_length" params are rendered', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>
     )
-    expect(component.container).toHaveTextContent('Question 1/2')
+    expect(screen.getByText('Question 1/2')).toBeInTheDocument()
   })
 })
 
 describe('Navigation button conditional rendering', () => {
   it('Not last question renders link with text Next', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>
     )
-
-    expect(component.container).toHaveTextContent('Next')
+    expect(screen.getByText('Next')).toBeInTheDocument()
   })
 
   it('Last question renders link with correct link label', () => {
@@ -68,19 +69,19 @@ describe('Navigation button conditional rendering', () => {
       asPath: '',
     }))
 
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>
     )
-
-    expect(component.container).toHaveTextContent('Go to answer summary')
+    
+    expect(screen.getByRole('button', { name: 'Review' })).toBeInTheDocument()
   })
 })
 
 describe('Selecting option', () => {
   it('Clicking option changes selection in state', () => {
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>
@@ -90,8 +91,8 @@ describe('Selecting option', () => {
 
     expect(initialState.selections[1]).toBe(undefined)
 
-    const button = component.getByText('Agree')
-    fireEvent.click(button)
+    const button = screen.getByRole('button', { name: 'Agree' })
+    userEvent.click(button)
 
     const stateAfterClick = useStore.getState()
     expect(stateAfterClick.selections[1]).toBe(4)
@@ -107,7 +108,7 @@ describe('End of survey', () => {
       asPath: '',
     }))
 
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>
@@ -118,10 +119,10 @@ describe('End of survey', () => {
 
     global.alert = jest.fn()
 
-    const button = component.getByText('Go to answer summary')
-    fireEvent.click(button)
+    const button = screen.getByRole('button', { name: 'Review' })
+    userEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(1)
-    fireEvent.click(button)
+    userEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(2)
   })
 
@@ -133,7 +134,7 @@ describe('End of survey', () => {
       asPath: '',
     }))
 
-    const component = render(
+    render(
       <ThemeWrapper>
         <Question questions={questions} />
       </ThemeWrapper>
@@ -143,8 +144,8 @@ describe('End of survey', () => {
       useStore.setState({ selections: [1, 1] })
     })
 
-    const button = component.getByText('Go to answer summary')
-    fireEvent.click(button)
+    const button = screen.getByRole('button', { name: 'Review' })
+    userEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(0)
   })
 })

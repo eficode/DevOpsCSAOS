@@ -10,7 +10,7 @@ import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
 import { useStore } from '../../store'
 
-export const Content = styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,20 +41,24 @@ const Categories = styled.div`
   width: 70%;
 `
 
+const ResultsText = styled.h4`
+  color: ${({ theme }) => theme.colors.blueDianne};
+  font-family: Montserrat;
+  font-size: 22px;
+  padding-top: 20px;
+`
+
 const Home = () => {
   const store = useStore()
 
-  const userResult = store.resultsPerCategory
-    .map((score) => score.userResult)
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-  const maxResult = store.resultsPerCategory
-    .map((score) => score.maxCategoryResult)
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+  const { userResult } = store
+  const { maxResult } = store
+  const { resultText } = store
 
   return (
     <>
       <Head>
-        <title>DevOps Capability Survey Results</title>
+        <title>DevOps Capability Survey</title>
       </Head>
       <ProgressBar />
       <InnerContentWrapper>
@@ -62,8 +66,9 @@ const Home = () => {
           <Heading>DevOps Assessment Tool</Heading>
           <ResultsTitle>Your Results</ResultsTitle>
           <TotalResult userResult={userResult} maxResult={maxResult} />
-          <Link href="/survey/result">
-            <Button type="submit">Contact us!</Button>
+          <ResultsText>{resultText}</ResultsText>
+          <Link href="mailto:devops@leipalaari.fi" type="primary">
+            Contact us!
           </Link>
           <Categories>
             {store.resultsPerCategory.map((result, index) => (

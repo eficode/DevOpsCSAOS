@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
-export const CategoryResultContainer = styled.div`
+export const CategoryResultContainer = styled.article`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@ export const CategoryText = styled.div`
 export const CategoryTitle = styled.h3`
   font-family: Montserrat;
   font-size: 20px;
-  color: ${({ theme }) => theme.colors.blueDianne}
+  color: ${({ theme }) => theme.colors.blueDianne};
 `
 
 export const CategoryImage = styled.div`
@@ -34,11 +34,15 @@ export const CategoryImage = styled.div`
 export const Placeholder = styled.div`
   width: 200px;
   height: 200px;
-  background: ${({ theme }) => theme.colors.nevada}
+  background: ${({ theme }) => theme.colors.nevada};
 `
 
 const CategoryResult = ({
-  userResult, maxResult, category, description, index,
+  userResult,
+  maxResult,
+  category,
+  description,
+  index,
 }) => {
   if (index % 2 === 0) {
     return (

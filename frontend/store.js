@@ -1,10 +1,6 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-/*
-This is a general store for our local state
- */
-
 const initialQuestions = []
 const initialSelections = []
 const initialEmail = ''
@@ -16,16 +12,19 @@ const optionsToPointsMap = {
   Disagree: 2,
   'Strongly disagree': 1,
 }
+const initialResultText = ''
+const initialUserResult = 0
+const initialMaxResult = 0
 
-/*
- * get: access state within actions
- */
 const store = (set, _) => ({
   questions: initialQuestions,
   email: initialEmail,
   selections: initialSelections,
   resultsPerCategory: initialResultsPerCategory,
   optionsToPointsMap,
+  resultText: initialResultText,
+  userResult: initialUserResult,
+  maxResult: initialMaxResult,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions) => {
@@ -33,19 +32,14 @@ const store = (set, _) => ({
       questions,
     }))
   },
-  clear: () =>
-    set(() => ({
-      questions: [],
-      email: '',
-      selections: [],
-      resultsPerCategory: [],
-    })),
-  setResultsPerCategory: (results) =>
-    set(() => ({ resultsPerCategory: results })),
+  clear: () => set(() => ({
+    questions: [], email: '', selections: [], resultsPerCategory: [], resultText: '',
+  })),
+  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
+  setResultText: (text) => set(() => ({ resultText: text })),
+  setUserResult: (score) => set(() => ({ userResult: score })),
+  setMaxResult: (score) => set(() => ({ maxResult: score })),
 })
 
-// a callback function which returns an object
-// describing state
 // persist: persists our store in localStorage by default!
 export const useStore = create(persist(store))
-// storing the returned hook as useStore

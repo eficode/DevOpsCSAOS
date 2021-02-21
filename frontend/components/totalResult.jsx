@@ -25,7 +25,7 @@ export const Result = styled.span`
 
 const TotalResult = ({ userResult, maxResult }) => (
   <ResultCircle>
-    <Result>
+    <Result role="resultCircle">
       {userResult}
       /
       {maxResult}
