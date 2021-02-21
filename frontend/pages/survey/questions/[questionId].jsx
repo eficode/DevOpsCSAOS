@@ -1,17 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
-import { sendResult } from '../../../services/results'
 
-import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
-import Button from '../../../components/button'
+import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
+import Link from '../../../components/link'
 import Option from '../../../components/option'
-import { getAll } from '../../../services/questions'
-import { sendAnswers } from '../../../services/answers'
 import NavigationButtons from '../../../components/navigationButtons'
 import ProgressBar from '../../../components/progressBar'
+import { getAll } from '../../../services/questions'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -57,60 +55,15 @@ const Question = ({ questions }) => {
   const summaryPageHref = '/survey/questions/summary'
   const isFinalQuestion = questionId === questions.length
 
+  useEffect(() => {
+    store.setQuestions(questions)
+  }, questions)
+
   const updateSelections = (pointValue) => {
     const newSelections = [...store.selections]
     newSelections[questionId - 1] = pointValue
     store.setSelections(newSelections)
   }
-
-  /*
-    new checker: boolean variable updating on every change in store
-    reduce function checks that no selection is undef,
-    length checker is needed as selections arr can be shorter than survey
-  */
-  const allQuestionsAnswered = store.selections.length === questions.length
-    && store.selections.reduce((allAnswered, s) => {
-      if (!s || !allAnswered) {
-        return false
-      }
-      return true
-    } , true)
-
-  const handleSubmit = async () => {
-    if (!allQuestionsAnswered) {
-      alert('Please answer all of the questions to proceed')
-      return
-    }
-
-    const answersForBackend = questions.map((question, index) => ({
-      questionId: question.id,
-      value: store.selections[index],
-    }))
-
-    const email = store.email
-    const { results } = await sendAnswers(email, answersForBackend)
-
-    store.setResultsPerCategory(results)
-
-    const userResult = results
-      .map((score) => score.userResult)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-
-    store.setUserResult(userResult)
-
-    const maxResult = results
-      .map((score) => score.maxCategoryResult)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-
-    store.setMaxResult(maxResult)
-
-    const { resultText } = await sendResult(userResult)
-
-    store.setResultText(resultText)
-
-    router.push(summaryPageHref)
-  }
-
 
   return (
     <>
@@ -147,17 +100,15 @@ const Question = ({ questions }) => {
           surveyLength={questions.length}
         />
         {isFinalQuestion ? (
-          <Button type="submit" onClick={handleSubmit}>
-            Review
-          </Button>
+          <Link href={summaryPageHref} type="primary">Review</Link>
         ) : null}
       </InnerContentWrapper>
     </>
   )
 }
+
 export async function getStaticProps() {
   const questions = await getAll()
-  useStore.setState({ questions })
   return {
     props: { questions },
   }

@@ -119,4 +119,5 @@ requests
 
 .DS_Store
 
+# venv for robot framework running
 */venv/

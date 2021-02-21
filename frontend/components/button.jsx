@@ -16,8 +16,10 @@ const StyledButton = styled.button`
   border-radius: 5px;
   border-width: 0px;
   margin-top: 40px;
-  width: 120px;
+  min-width: 120px;
   line-height: 45px;
+  padding-left: 10px;
+  padding-right: 10px;
 
   cursor: pointer;
 `
