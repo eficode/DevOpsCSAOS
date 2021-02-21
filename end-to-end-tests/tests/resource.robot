@@ -5,6 +5,8 @@ Documentation     A resource file with reusable keywords and variables.
 ...               domain specific language. They utilize keywords provided
 ...               by the imported SeleniumLibrary.
 Library           SeleniumLibrary
+Library           Process
+
 
 *** Variables ***
 ${HOST}           localhost
@@ -23,6 +25,11 @@ ${GO_TO_RESULTS}  Go to your results!
 ${SURVEY_LENGTH}  10
 
 *** Keywords ***
+Start application
+    Start Process	${CURDIR}/robot-frontend.sh   shell=True
+    Start Process	${CURDIR}/robot-backend.sh   shell=True
+    Sleep   3
+
 Open Browser To Main Page
     Open Browser    ${MAIN_URL}/    ${BROWSER}
     Maximize Browser Window

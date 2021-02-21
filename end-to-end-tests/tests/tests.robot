@@ -4,14 +4,20 @@ Documentation     A test suite with a single test for testing that main page is 
 ...               This test has a workflow that is created using keywords in
 ...               the imported resource file.
 Resource          resource.robot
+Suite Teardown    Terminate All Processes    kill=True
 
 *** Test Cases ***
+Test scripts
+    Start application
+
 Main page can be opened
+    Start application
     Open Browser To Main Page
     Main Page Should Be Open
     [Teardown]    Close Browser
 
 User can access the survey with valid email
+    Start application
     Open Browser To Main Page
     Click get started button
     Insert Email  ${VALID_EMAIL}
@@ -20,6 +26,7 @@ User can access the survey with valid email
     [Teardown]    Close Browser
 
 User can't access the survey with invalid email
+    Start application
     Open Browser To Main Page
     Click get started button
     Insert Email  ${INVALID_EMAIL}
@@ -28,6 +35,7 @@ User can't access the survey with invalid email
     [Teardown]    Close Browser
 
 User can answer the questions and get results
+    Start application
     Open survey and insert credentials
     Answer all questions
     Click answer summary button
