@@ -8,12 +8,12 @@ Library           SeleniumLibrary
 
 *** Variables ***
 ${HOST}           localhost
-${PORT}           3000
+${PORT}           3001
 ${SERVER}         ${HOST}:${PORT}
 ${BROWSER}        Firefox
 ${DELAY}          1
 ${MAIN_URL}       http://${SERVER}
-${VALID_EMAIL}    test2220@test.com
+${VALID_EMAIL}    test2229@test.com
 ${INVALID_EMAIL}  invalid.email.com
 ${START_SURVEY}   Get started
 ${NEXT}           Next  
