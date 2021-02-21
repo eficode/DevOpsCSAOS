@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
@@ -59,31 +59,29 @@ const Question = ({ questions }) => {
 
   const updateSelections = (pointValue) => {
     const newSelections = [...store.selections]
-    // update point value of question being answered
     newSelections[questionId - 1] = pointValue
-    // update state
     store.setSelections(newSelections)
   }
 
-  const checkAllQuestionsAnswered = () => {
-    let allAnswered = true
-    store.selections.forEach((selection) => {
-      if (selection === -1) {
-        allAnswered = false
+  /*
+    new checker: boolean variable updating on every change in store
+    reduce function checks that no selection is undef,
+    length checker is needed as selections arr can be shorter than survey
+  */
+  const allQuestionsAnswered = store.selections.length === questions.length
+    && store.selections.reduce((allAnswered, s) => {
+      if (!s || !allAnswered) {
+        return false
       }
-    })
-
-    return allAnswered
-  }
+      return true
+    } , true)
 
   const handleSubmit = async () => {
-    const allAnswered = checkAllQuestionsAnswered()
-
-    if (!allAnswered) {
-      // for ui clarity
+    if (!allQuestionsAnswered) {
       alert('Please answer all of the questions to proceed')
       return
     }
+
     const answersForBackend = questions.map((question, index) => ({
       questionId: question.id,
       value: store.selections[index],
@@ -113,9 +111,6 @@ const Question = ({ questions }) => {
     router.push(summaryPageHref)
   }
 
-  useEffect(() => {
-    store.setQuestions(questions)
-  }, [])
 
   return (
     <>
@@ -133,6 +128,7 @@ const Question = ({ questions }) => {
         <OptionsWrapper>
           {Object.keys(optionsToPointsMap).map((optionLabel) => {
             const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
+            
             return (
               <Option
                 key={pointsAssociatedWithOption}
@@ -160,12 +156,13 @@ const Question = ({ questions }) => {
   )
 }
 export async function getStaticProps() {
-  // fetch all pre-defined questions
   const questions = await getAll()
+  useStore.setState({ questions })
   return {
     props: { questions },
   }
 }
+
 export async function getStaticPaths() {
   const questions = await getAll()
   const ids = questions.map((_, index) => index + 1)

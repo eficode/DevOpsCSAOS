@@ -16,6 +16,16 @@ const initialResultText = ''
 const initialUserResult = 0
 const initialMaxResult = 0
 
+/*
+  selections: array of length 0 to survey length
+  contains empty or undefined if question unanswered
+
+  (store is updated both through setSelections etc and
+    store.setState not using setter functions -> 0 or
+    -1 representing no selection is harder to implement
+    + unnecessary as undef does the same job)
+*/
+
 const store = (set, _) => ({
   questions: initialQuestions,
   email: initialEmail,
@@ -42,4 +52,8 @@ const store = (set, _) => ({
 })
 
 // persist: persists our store in localStorage by default!
-export const useStore = create(persist(store))
+export const useStore = create(persist(store,
+  { 
+    name: 'devops assessment tool store', // unique name
+    getStorage: () => sessionStorage, // (optional) by default the 'localStorage' is used
+  }))

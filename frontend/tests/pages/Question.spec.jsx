@@ -114,7 +114,7 @@ describe('End of survey', () => {
       </ThemeWrapper>
     )
     act(() => {
-      useStore.setState({ selections: [1, -1] })
+      useStore.setState({ selections: [1, undefined] })
     })
 
     global.alert = jest.fn()
