@@ -118,3 +118,5 @@ dist
 requests
 
 .DS_Store
+
+*/venv/

@@ -30,7 +30,7 @@ const Home = () => (
       <Main>
         <h2>Welcome!</h2>
         <p>Test your DevOps capabilities here.</p>
-        <Link href='/survey/contact' type='primary'>
+        <Link href='/survey/signup' type='primary'>
           Get started
         </Link>
       </Main>
