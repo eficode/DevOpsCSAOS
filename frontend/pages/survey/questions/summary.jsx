@@ -141,7 +141,7 @@ const Summary = () => {
                 )
               })}
           <Button type="submit" onClick={handleSubmit}>
-            Submit answers and see your results
+            Submit answers
           </Button>
         </Content>
       </InnerContentWrapper>

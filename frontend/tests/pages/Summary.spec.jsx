@@ -78,7 +78,7 @@ describe('Sending answers', () => {
 
     global.alert = jest.fn()
 
-    const button = screen.getByRole('button', { name: 'Go to your results!' })
+    const button = screen.getByRole('button', { name: 'Submit answers' })
     userEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(1)
     userEvent.click(button)
@@ -97,7 +97,7 @@ describe('Sending answers', () => {
       useStore.setState({ selections: [1, 1] })
     })
 
-    const button = screen.getByRole('button', { name: 'Go to your results!' })
+    const button = screen.getByRole('button', { name: 'Submit answers' })
     userEvent.click(button)
     expect(global.alert).toHaveBeenCalledTimes(0)
   })
