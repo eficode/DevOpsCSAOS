@@ -54,10 +54,11 @@ const SignUpForm = () => {
 
     if (tmp) {
       alert('Email already used!')
+      return
     }
 
     store.setEmail(emailInput)
-      router.push(firstQuestionHref)
+    router.push(firstQuestionHref)
   }
 
   return (
