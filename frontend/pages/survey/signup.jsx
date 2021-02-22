@@ -7,7 +7,7 @@ import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper
 import Button from '../../components/button'
 import ProgressBar from '../../components/progressBar'
 import { useStore } from '../../store'
-
+import { getByEmail} from '../../services/users'
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Montserrat;
@@ -37,7 +37,7 @@ const DetailsInput = styled.input`
   margin: 10px 0 50px 0;
 `
 
-const ContactForm = () => {
+const SignUpForm = () => {
   const [emailInput, setEmailInput] = useState('')
   const router = useRouter()
   const store = useStore()
@@ -48,10 +48,16 @@ const ContactForm = () => {
     setEmailInput(event.target.value)
   }
 
-  const updateEmail = (event) => {
+  const updateEmail = async (event) => {
     event.preventDefault()
+    const tmp = await getByEmail(emailInput)
+
+    if (tmp) {
+      alert('Email already used!')
+    }
+
     store.setEmail(emailInput)
-    router.push(firstQuestionHref)
+      router.push(firstQuestionHref)
   }
 
   return (
@@ -72,4 +78,4 @@ const ContactForm = () => {
   )
 }
 
-export default ContactForm
+export default SignUpForm
