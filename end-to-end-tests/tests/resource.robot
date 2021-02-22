@@ -12,17 +12,22 @@ Library           Process
 ${HOST}           localhost
 ${PORT}           3001
 ${SERVER}         ${HOST}:${PORT}
-${BROWSER}        Firefox
+# Change browser to firefox to see test run
+${BROWSER}        headlessfirefox
 ${DELAY}          1
 ${MAIN_URL}       http://${SERVER}
-${VALID_EMAIL}    test2229@test.com
+${VALID_EMAIL}    test2222@test.com
+${VALID_EMAIL_2}  test222@test.com
 ${INVALID_EMAIL}  invalid.email.com
+${EMAIL_IN_USE}   testaaja1@email.com
+${SURVEY_LENGTH}  10
+${HEADLESS}       True
+# Below: texts in buttons
 ${START_SURVEY}   Get started
 ${NEXT}           Next  
 ${AGREE}          Agree
-${GO_TO_SUMMARY}  Go to answer summary
-${GO_TO_RESULTS}  Go to your results!
-${SURVEY_LENGTH}  10
+${GO_TO_SUMMARY}  Review
+${GO_TO_RESULTS}  Submit answers
 
 *** Keywords ***
 Start application
@@ -85,6 +90,6 @@ Result Page Should Be Open
 Open survey and insert credentials
     Open Browser To Main Page
     Click get started button
-    Insert Email    ${VALID_EMAIL}
+    Insert Email    ${VALID_EMAIL_2}
     Click begin button
     Sleep           5

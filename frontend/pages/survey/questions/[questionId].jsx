@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
+import { sendResult } from '../../../services/results'
 
 import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
 import Button from '../../../components/button'
@@ -92,6 +94,23 @@ const Question = ({ questions }) => {
     const { results } = await sendAnswers(email, answersForBackend)
 
     store.setResultsPerCategory(results)
+
+    const userResult = results
+      .map((score) => score.userResult)
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+
+    store.setUserResult(userResult)
+
+    const maxResult = results
+      .map((score) => score.maxCategoryResult)
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+
+    store.setMaxResult(maxResult)
+
+    const { resultText } = await sendResult(userResult)
+
+    store.setResultText(resultText)
+
     router.push(summaryPageHref)
   }
 
@@ -101,6 +120,9 @@ const Question = ({ questions }) => {
 
   return (
     <>
+      <Head>
+        <title>DevOps Capability Survey</title>
+      </Head>
       <ProgressBar id={questionId} total={questions.length} />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
@@ -131,7 +153,7 @@ const Question = ({ questions }) => {
         />
         {isFinalQuestion ? (
           <Button type="submit" onClick={handleSubmit}>
-            Go to answer summary
+            Review
           </Button>
         ) : null}
       </InnerContentWrapper>

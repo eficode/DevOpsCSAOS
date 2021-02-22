@@ -32,6 +32,12 @@ const ProgressLine = styled.div`
   width: ${({ progress }) => progress}%;
 `
 
+/*
+  USAGE:
+  - show progress: insert id and total props
+  - bar component without progress (non-survey pages): leave props undefined
+*/
+
 const ProgressBar = ({id, total}) => {
   if (!id && !total) {
     id = 0

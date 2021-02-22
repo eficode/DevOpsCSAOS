@@ -67,21 +67,46 @@ $ webdrivermanager firefox
 
 ## Usage
 
-To run tests locally, make sure virtualenv is activated.
+To run tests locally:
 
-Create new build from frontend. Then turn backend on.
-in frontend folder:
-  ```console
+In project root to start application in test mode:
+```
+npm run start-robot-frontend
+```
 
-npm run build
+In another terminal:
+```
+npm run start-robot-backend
+```
+
+Run end-to-end tests:
+
+in end-to-end-tests folder:
+
+Activate virtual env:
 
 ```
-in end-to-end-tests folder:
+source env/bin/activate
+```
 
 Run tests:
 
-```console
-
-robot tests
-
 ```
+source env/bin/activate
+```
+
+! Test database resets only when backend is re-started in test mode.
+Tests will not pass if backend is not re-started between test runs
+
+! resource.robot contains variables with text content of buttons in application. If
+text in a button used in tests is changed, tests will break. Update variables if needed.
+(Why not test-ids to avoid breaking tests? Tests should break if button texts change because that indicates
+a change in how the application should work.)
+
+### Upgrades to test scripts
+
+* automate robot framework to start application before test suite run
+
+* a better way to reset test database to avoid manual re-start (prev point should fix)
+
+* staging uses static build -> end-to-end test the static build or change staging
