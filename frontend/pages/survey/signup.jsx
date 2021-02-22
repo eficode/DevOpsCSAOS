@@ -7,7 +7,7 @@ import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper
 import Button from '../../components/button'
 import ProgressBar from '../../components/progressBar'
 import { useStore } from '../../store'
-import { getByEmail} from '../../services/users'
+import { getByEmail } from '../../services/users'
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Montserrat;
@@ -52,13 +52,12 @@ const SignUpForm = () => {
     event.preventDefault()
     const tmp = await getByEmail(emailInput)
 
-    if (tmp) {
+    if (!tmp) {
+      store.setEmail(emailInput)
+      router.push(firstQuestionHref)
+    } else {
       alert('Email already used!')
-      return
     }
-
-    store.setEmail(emailInput)
-    router.push(firstQuestionHref)
   }
 
   return (
@@ -71,8 +70,18 @@ const SignUpForm = () => {
         <Heading>DevOps Assessment Tool</Heading>
         <FormTitle>Add your contact details to get started</FormTitle>
         <DetailsForm id="email-input-field" onSubmit={updateEmail}>
-          <DetailsInput type="email" id="email" name="email" placeholder="Email" value={emailInput} onChange={handleEmailChange} required />
-          <Button id="submit-email-button" type="submit">Begin</Button>
+          <DetailsInput
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            value={emailInput}
+            onChange={handleEmailChange}
+            required
+          />
+          <Button id="submit-email-button" type="submit">
+            Begin
+          </Button>
         </DetailsForm>
       </InnerContentWrapper>
     </>

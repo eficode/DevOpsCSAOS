@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development node server.js",
-    "start-robot": "cross-env NODE_ENV=test node server.js",
+    "start-robot": "NODE_ENV=test PORT=3001 node server.js",
     "build": "next build && next export",
     "build:hybrid": "next build",
     "start": "next start",
