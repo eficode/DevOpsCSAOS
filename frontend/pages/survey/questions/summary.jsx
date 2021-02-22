@@ -56,6 +56,8 @@ const Summary = () => {
   const store = useStore()
   const router = useRouter()
 
+  const answeredSelections = selections.filter(item => item)
+
     /*
       new checker: boolean variable updating on every change in store
       reduce function checks that no selection is undef,
@@ -79,7 +81,7 @@ const Summary = () => {
       questionId: question.id,
       value: store.selections[index],
     }))
-
+    
     const email = store.email === '' ? undefined : store.email
 
     const { results } = await sendAnswers(email, answersForBackend)
@@ -110,7 +112,7 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar />
+      <ProgressBar id={answeredSelections.length} total={questions.length}/>
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
