@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
@@ -8,7 +8,6 @@ import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
-import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
 const Content = styled.div`
