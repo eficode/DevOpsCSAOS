@@ -9,7 +9,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
-import Question from '../../pages/survey/questions/[questionId]'
+import Question from '../../pages/survey/questions/question'
 import ThemeWrapper from '../testutils/themeWrapper'
 import { questions } from '../testutils/mockQuestions'
 
