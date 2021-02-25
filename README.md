@@ -6,21 +6,23 @@ An online survey that software engineers and operations experts can use to asses
 
 ## Running the application locally
 
+(The commands are run in the root folder of the project.)
+
 To start the server:
 ```bash
-cd packages/backendv2
+cd backend
 npm ci
 npm run dev
 ```
 
 The server will be listening on [http://localhost:5000/](http://localhost:5000/).
 
-Please note that the Postgres database has to be set up before running the server. [See here for instructions.](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/tree/main/backendv2) 
+Please note that the Postgres database has to be set up before running the server. [See here for instructions.](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/backend/README.md) 
 
 To start the client:
 
 ```bash
-cd packages/frontend
+cd frontend
 npm ci
 npm run dev
 ```
