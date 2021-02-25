@@ -16,17 +16,28 @@ import { questions } from '../testutils/mockQuestions'
 nextRouter.useRouter = jest.fn()
 
 describe('Question rendering', () => {
-  useRouter.mockImplementation(() => ({
-    route: '/survey/questions/1',
-    pathname: 'survey/questions/1',
-    query: { questionId: '1' },
-    asPath: '',
-  }))
+
+  beforeEach(() => {
+
+    const currentState = useStore.getState()
+    useStore.setState({
+      ...currentState,
+      questions: questions
+    })
+
+    useRouter.mockImplementation(() => ({
+      route: '/survey/questions/1',
+      pathname: 'survey/questions/1',
+      query: { questionId: '1' },
+      asPath: '',
+    }))
+
+  })
 
   it('Component is rendered', () => {
     render(
       <ThemeWrapper>
-        <Question questions={questions} />
+        <Question />
       </ThemeWrapper>
     )
     expect(screen.getByText('DevOps Assessment Tool')).toBeInTheDocument()
@@ -35,7 +46,7 @@ describe('Question rendering', () => {
   it('The question whose id is in route is rendered', () => {
     render(
       <ThemeWrapper>
-        <Question questions={questions} />
+        <Question/>
       </ThemeWrapper>
     )
     expect(screen.getByText('Oletko ruisleipä?'))
@@ -44,7 +55,7 @@ describe('Question rendering', () => {
   it('The right "Question q_id/survey_length" params are rendered', () => {
     render(
       <ThemeWrapper>
-        <Question questions={questions} />
+        <Question/>
       </ThemeWrapper>
     )
     expect(screen.getByText(`Question 1/${questions.length}`)).toBeInTheDocument()
@@ -52,10 +63,20 @@ describe('Question rendering', () => {
 })
 
 describe('Navigation button conditional rendering', () => {
+
+  beforeEach(() => {
+    const currentState = useStore.getState()
+    useStore.setState({
+      ...currentState,
+      questions: questions
+    })
+  })
+
   it('Not last question renders only link with text Next', () => {
+    
     render(
       <ThemeWrapper>
-        <Question questions={questions} />
+        <Question/>
       </ThemeWrapper>
     )
     //.not. does not work with getByText
@@ -64,6 +85,7 @@ describe('Navigation button conditional rendering', () => {
   })
 
   it('Mid-survey question renders links with texts Back and Next', () => {
+
     useRouter.mockImplementation(() => ({
       route: '/survey/questions/2',
       pathname: 'survey/questions/2',
@@ -73,7 +95,7 @@ describe('Navigation button conditional rendering', () => {
 
     render(
       <ThemeWrapper>
-        <Question questions={questions} />
+        <Question />
       </ThemeWrapper>
     )
     
@@ -88,10 +110,10 @@ describe('Navigation button conditional rendering', () => {
       query: { questionId: '3' },
       asPath: '',
     }))
-
+    
     render(
       <ThemeWrapper>
-        <Question questions={questions} />
+        <Question/>
       </ThemeWrapper>
     )
     
@@ -102,10 +124,20 @@ describe('Navigation button conditional rendering', () => {
 })
 
 describe('Selecting option', () => {
+
+  beforeEach(() => {
+    const currentState = useStore.getState()
+    useStore.setState({
+      ...currentState,
+      questions: questions
+    })
+  })
+
   it('Clicking option changes selection in state', () => {
+    
     render(
       <ThemeWrapper>
-        <Question questions={questions} />
+        <Question />
       </ThemeWrapper>
     )
 
@@ -117,6 +149,6 @@ describe('Selecting option', () => {
     userEvent.click(button)
 
     const stateAfterClick = useStore.getState()
-    expect(stateAfterClick.selections[2]).toBe(4)
+    expect(stateAfterClick.selections[2]).toBe(3)
   })  
 })
