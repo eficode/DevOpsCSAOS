@@ -12,15 +12,28 @@ answersRouter.post('/', async (req, res) => {
 
     try {
 
-      if(email !== undefined) {
-        const user = await User.create({ email })
+      if (email !== undefined) {
+        let userId = -1
+        const existingUser = await User.findOne({
+          where: { email: email }
+        })
+
+        if (existingUser !== null) {
+          userId = existingUser.id
+        } else {
+          const user = await User.create({ email })
+          userId = user.id
+        }
+
         const answersToQuestions = answers.map((answer) => ({
             // eslint-disable-next-line node/no-unsupported-features/es-syntax
           ...answer,
-          userId: user.id,
+          userId: userId,
         }))
 
-        await Answer.bulkCreate(answersToQuestions)
+        const returnedArray = await Answer.bulkCreate(answersToQuestions, { updateOnDuplicate: ['value'] })
+        const mappedArray = returnedArray.map(answerObject => ({questionId: answerObject.dataValues.id, value: answerObject.dataValues.value}))
+        console.log(mappedArray)
       }
       
       userResult = await resultsPerCategory(
@@ -30,6 +43,7 @@ answersRouter.post('/', async (req, res) => {
       )
       return res.status(200).json({ results: userResult })
     } catch (err) {
+      console.log(err)
       return res.status(500).json(err)
     }
   

@@ -18,7 +18,7 @@ const Heading = styled.h3`
 const FormTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
-  margin: 10px;
+  margin: 10px;s
 `
 
 const DetailsForm = styled.form`
@@ -50,14 +50,8 @@ const SignUpForm = () => {
 
   const updateEmail = async (event) => {
     event.preventDefault()
-    const tmp = await getByEmail(emailInput)
-
-    if (!tmp) {
-      store.setEmail(emailInput)
-      router.push(firstQuestionHref)
-    } else {
-      alert('Email already used!')
-    }
+    store.setEmail(emailInput)
+    router.push(firstQuestionHref)
   }
 
   return (
