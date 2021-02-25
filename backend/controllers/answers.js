@@ -2,7 +2,6 @@
 const answersRouter = require('express').Router()
 const { User, Answer, Question, Category } = require('../models')
 const { resultsPerCategory } = require('../helpers/answerResults')
-const answer = require('../models/answer')
 
 answersRouter.post('/', async (req, res) => {
   const { email, answers } = req.body
@@ -34,8 +33,8 @@ answersRouter.post('/', async (req, res) => {
       if (existingUser === null) {
         await Answer.bulkCreate(answersToQuestions)
       } else {
-        answersToQuestions.forEach(async answer =>
-          await Answer.update(
+        answersToQuestions.forEach(answer =>
+           Answer.update(
             { value: answer.value },
             { where: { questionId: answer.questionId, userId: answer.userId } }
         )) 

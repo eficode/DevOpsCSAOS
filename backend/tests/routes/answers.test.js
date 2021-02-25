@@ -3,7 +3,6 @@
 const request = require('supertest')
 const app = require('../../app.js')
 const { initDatabase } = require('../../config/setupDatabase')
-const answer = require('../../models/answer.js')
 const { Answer } = require('../../models')
 const { User } = require('../../models')
 
@@ -147,7 +146,7 @@ describe('POST /api/answers', () => {
   })
 
   it('User has only one answer set in database', async (done) => {
-    const response1 = await request(app).post('/api/answers').send({
+    await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
       answers: testAnswers,
     })
@@ -156,7 +155,7 @@ describe('POST /api/answers', () => {
       where: { userId: user.id },
     })
     expect(firstAnswers.length).toEqual(10)
-    const response2 = await request(app).post('/api/answers').send({
+    await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
       answers: testAnswers2,
     })
@@ -168,11 +167,11 @@ describe('POST /api/answers', () => {
   })
 
   it('The answers are updated if user exists', async (done) => {
-    const response1 = await request(app).post('/api/answers').send({
+    await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
       answers: testAnswers,
     })
-    const response2 = await request(app).post('/api/answers').send({
+    await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
       answers: testAnswers2,
     })
@@ -180,8 +179,10 @@ describe('POST /api/answers', () => {
     const secondAnswers = await Answer.findAll({
       where: { userId: user.id },
     })
-    secondAnswers.forEach(answer1 => {
-      const answer2 = testAnswers2.find(answer => answer.questionId === answer1.questionId)
+    secondAnswers.forEach((answer1) => {
+      const answer2 = testAnswers2.find(
+        (answer) => answer.questionId === answer1.questionId
+      )
       expect(answer1.value).toBe(answer2.value)
     })
     done()
