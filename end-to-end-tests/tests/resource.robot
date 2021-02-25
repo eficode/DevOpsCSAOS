@@ -10,7 +10,7 @@ Library           Process
 
 *** Variables ***
 ${HOST}           localhost
-${PORT}           3000
+${PORT}           5001
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run
 ${BROWSER}        headlessfirefox
@@ -29,10 +29,6 @@ ${GO_TO_SUMMARY}  Review
 ${GO_TO_RESULTS}  Submit answers
 
 *** Keywords ***
-Start application
-    Start Process	${CURDIR}/robot-frontend.sh   shell=True
-    Start Process	${CURDIR}/robot-backend.sh   shell=True
-    Sleep   3
 
 Open Browser To Main Page
     Open Browser    ${MAIN_URL}/    ${BROWSER}

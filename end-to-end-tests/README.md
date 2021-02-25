@@ -69,21 +69,14 @@ $ webdrivermanager firefox
 
 To run tests locally:
 
+! to test the newest version of app frontend has to be re-built and re-launched before e2e test run
+
 In project root to start application in test mode:
 ```
-npm run start-robot-frontend
+npm run start:robot
 ```
 
-In another terminal:
-```
-npm run start-robot-backend
-```
-
-Run end-to-end tests:
-
-in end-to-end-tests folder:
-
-Activate virtual env:
+Activate virtual envin end-to-end directory:
 
 ```
 source env/bin/activate
@@ -92,7 +85,7 @@ source env/bin/activate
 Run tests:
 
 ```
-source env/bin/activate
+robot tests
 ```
 
 ! Test database resets only when backend is re-started in test mode.
