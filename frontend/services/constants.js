@@ -1,8 +1,11 @@
 import getConfig from 'next/config'
-const { publicRuntimeConfig } = getConfig()
-
 
 const getHost = () => {
+  if (process.env.NODE_ENV === 'test') {
+    return 'http://localhost:3000'
+  }
+
+  const { publicRuntimeConfig } = getConfig()
 
   if (process.env.NODE_ENV === 'development') {
     /*
