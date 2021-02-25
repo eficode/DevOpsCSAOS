@@ -1,13 +1,9 @@
-FROM ubuntu:16.04
+FROM node:10
 
-WORKDIR /frontend
 COPY . .
-RUN apt-get update && apt-get install -y curl
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt install -y nodejs && npm install
 
-EXPOSE 3000
+RUN npm install
 
-ENTRYPOINT ["npm"]
-CMD ["run","dev"]
+CMD ["node", "server.js"]
 
 

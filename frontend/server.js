@@ -1,16 +1,21 @@
+/*
+  This file is NOT used at all, when the next.js build is done!
+  This is only for the development server!
+*/
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 const express = require('express')
 const next = require('next')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
-const port = process.env.PORT || 3000
-const dev = process.env.NODE_ENV !== 'production'
+const port = process.env.PORT
+const dev = true
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
 const apiPaths = {
   '/api': {
-    target: 'http://localhost:5000',
+    target: process.env.API_URL,
     pathRewrite: {
       '^/api': '/api',
     },
@@ -18,7 +23,7 @@ const apiPaths = {
   },
 }
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const isDevelopment = true
 
 app
   .prepare()

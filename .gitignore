@@ -121,3 +121,4 @@ requests
 
 # venv for robot framework running
 */venv/
+*/env/

@@ -56,7 +56,7 @@ describe('Answer summary listing', () => {
     )
     act(() => {
       useStore.setState({ questions })
-      useStore.setState({ selections: [-1, 3, 5]})
+      useStore.setState({ selections: [-1, 2, 4]})
     })
 
     expect(screen.getByText(questions[0].text)).toHaveTextContent("You haven't answered this question")

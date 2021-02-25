@@ -9,7 +9,7 @@ import Link from '../../../components/link'
 import Option from '../../../components/option'
 import NavigationButtons from '../../../components/navigationButtons'
 import ProgressBar from '../../../components/progressBar'
-import { getAll } from '../../../services/questions'
+import { getAll as getAllQuestions } from '../../../services/questions'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -45,9 +45,11 @@ const QuestionNumber = styled.span`
   font-size: 15px;
 `
 
-const Question = ({ questions }) => {
+const Question = () => {
   const router = useRouter()
   const store = useStore()
+  
+  const questions = store.questions
 
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
 
@@ -56,13 +58,29 @@ const Question = ({ questions }) => {
   const isFinalQuestion = questionId === questions.length
 
   useEffect(() => {
-    store.setQuestions(questions)
-  }, questions)
+      
+    (async () => {
+
+        if ( store.questions.length === 0 ) {
+          const response = await getAllQuestions()
+          store.setQuestions(response)
+        }
+
+    })()
+  }, [])
 
   const updateSelections = (pointValue) => {
     const newSelections = [...store.selections]
     newSelections[questionId - 1] = pointValue
     store.setSelections(newSelections)
+  }
+  // this needs to be changed, but is here for placeholder
+  if ( store.questions.length === 0 ) {
+      return (
+          <div>
+              Loading questions...
+          </div>
+      )
   }
 
   return (
@@ -107,24 +125,5 @@ const Question = ({ questions }) => {
   )
 }
 
-export async function getStaticProps() {
-  const questions = await getAll()
-  return {
-    props: { questions },
-  }
-}
 
-export async function getStaticPaths() {
-  const questions = await getAll()
-  const ids = questions.map((_, index) => index + 1)
-  const paths = ids.map((id) => ({
-    params: {
-      questionId: String(id),
-    },
-  }))
-  return {
-    paths,
-    fallback: false,
-  }
-}
 export default Question
