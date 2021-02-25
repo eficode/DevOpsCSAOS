@@ -30,7 +30,7 @@ app
   .then(() => {
     const server = express()
 
-    if (isDevelopment || isTest) {
+    if (isDevelopment) {
       server.use('/api', createProxyMiddleware(apiPaths['/api']))
     }
 
