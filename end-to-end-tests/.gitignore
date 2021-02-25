@@ -12,5 +12,6 @@ report.html
 output.xml
 *.log
 env
+venv
 *.png
 reports
