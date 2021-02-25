@@ -57,7 +57,6 @@ const SignUpForm = () => {
       router.push(firstQuestionHref)
     } else {
       alert('Email already used!')
-      return
     }
   }
 
