@@ -33,13 +33,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Docker
-
-Frontend can be run on Docker. You will need to have Docker installed. Depending on your system, you might need sudo-privileges.
-
-Docker container can be built and run by using the commands in /frontend-directory:
-```
-$ docker build . -t csaos-frontend
-$ docker container run -p 3000:3000 csaos-frontend
-```
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
