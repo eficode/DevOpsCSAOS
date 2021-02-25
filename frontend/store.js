@@ -7,11 +7,11 @@ const initialSelections = []
 const initialEmail = ''
 const initialResultsPerCategory = []
 const optionsToPointsMap = {
-  'Strongly agree': 5,
-  Agree: 4,
-  Neutral: 3,
-  Disagree: 2,
-  'Strongly disagree': 1,
+  'Strongly agree': 4,
+  'Agree': 3,
+  'Neutral': 2,
+  'Disagree': 1,
+  'Strongly disagree': 0,
 }
 const initialResultText = ''
 const initialUserResult = 0

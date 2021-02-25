@@ -126,6 +126,7 @@ describe('POST /api/answers', () => {
     expect(response.body.results.length).toEqual(4)
     done()
   })
+
   it('User can submit answers with existing email', async (done) => {
     const response1 = await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
@@ -144,6 +145,7 @@ describe('POST /api/answers', () => {
     )
     done()
   })
+
   it('User has only one answer set in database', async (done) => {
     const response1 = await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
@@ -164,6 +166,7 @@ describe('POST /api/answers', () => {
     expect(secondAnswers.length).toEqual(10)
     done()
   })
+
   it('The answers are updated if user exists', async (done) => {
     const response1 = await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
@@ -174,20 +177,16 @@ describe('POST /api/answers', () => {
       answers: testAnswers2,
     })
     const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
-    let secondAnswers = await Answer.findAll({
+    const secondAnswers = await Answer.findAll({
       where: { userId: user.id },
     })
-    secondAnswers.sort((a, b) => a.questionId - b.questionId)
-    const sortedTestAnswers2 = testAnswers2.sort(
-      (a, b) => a.questionId - b.questionId
-    )
-    for (i = 0; i < secondAnswers.length; i++) {
-      // expect(secondAnswers[i].value).toEqual(sortedTestAnswers2[i].value)
-      console.log(secondAnswers[i])
-      console.log(sortedTestAnswers2[i])
-    }
+    secondAnswers.forEach(answer1 => {
+      const answer2 = testAnswers2.find(answer => answer.questionId === answer1.questionId)
+      expect(answer1.value).toBe(answer2.value)
+    })
     done()
   })
+
   it('Returns data in expected form', async (done) => {
     const response = await request(app).post('/api/answers').send({
       email: 'test100@gmail.com',

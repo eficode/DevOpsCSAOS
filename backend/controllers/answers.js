@@ -34,28 +34,12 @@ answersRouter.post('/', async (req, res) => {
       if (existingUser === null) {
         await Answer.bulkCreate(answersToQuestions)
       } else {
-        /* answersToQuestions.forEach(answer =>
-        await Answer.update(
-          { value: answer.value },
-          { where: { questionId: answer.questionId, userId: answer.userId } }
-        )) */
-        for (i = 0; i < answersToQuestions.length; i++) {
+        answersToQuestions.forEach(async answer =>
           await Answer.update(
-            { value: answersToQuestions[i].value },
-            {
-              where: {
-                questionId: answersToQuestions[i].questionId,
-                userId: answersToQuestions[i].userId,
-              },
-            }
-          )
-        }
+            { value: answer.value },
+            { where: { questionId: answer.questionId, userId: answer.userId } }
+        )) 
       }
-      /* const mappedArray = returnedArray.map((answerObject) => ({
-        questionId: answerObject.dataValues.id,
-        value: answerObject.dataValues.value,
-      }))
-      console.log(mappedArray) */
     }
 
     userResult = await resultsPerCategory(allCategories, allQuestions, answers)
