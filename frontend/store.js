@@ -8,9 +8,9 @@ const initialEmail = ''
 const initialResultsPerCategory = []
 const optionsToPointsMap = {
   'Strongly agree': 4,
-  'Agree': 3,
-  'Neutral': 2,
-  'Disagree': 1,
+  Agree: 3,
+  Neutral: 2,
+  Disagree: 1,
   'Strongly disagree': 0,
 }
 const initialResultText = ''
@@ -27,7 +27,7 @@ const initialMaxResult = 0
     + unnecessary as undef does the same job)
 */
 
-const store = (set, _) => ({
+const store = (set) => ({
   questions: initialQuestions,
   email: initialEmail,
   selections: initialSelections,
