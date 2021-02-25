@@ -10,20 +10,38 @@ services:
     expose:
       - 5432
 
-  app:
+  backend:
     build:
-      context: ../
+      context: ../backend
       dockerfile: ./Dockerfile
-    image: app
-    environment:
+    image: backend
+    expose:
+      - 5000
+    environment: 
       NODE_ENV: test
       DB_HOST: postgres-test-db
       DB_USER: testUser
       DB_PASS: password
-    expose:
-      - 5000
     ports:
       - 5000:5000
-    depends_on:
+    depends_on: 
       - postgres-test-db
+
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ./Dockerfile
+    image: frontend
+    environment:
+      HOST: http://frontend:3000
+      BACKEND_URL: http://backend:5000
+      NODE_ENV: test
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    depends_on: 
+      - backend
+
 

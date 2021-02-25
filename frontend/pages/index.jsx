@@ -24,7 +24,7 @@ const Home = () => (
     <Head>
       <title>DevOps Capability Survey</title>
     </Head>
-    <ProgressBar/>
+    <ProgressBar />
     <InnerContentWrapper>
       <Heading>DevOps Assessment Tool</Heading>
       <Main>
