@@ -8,8 +8,10 @@ Suite Teardown    Terminate All Processes    kill=True
 
 *** Test Cases ***
 
-
-
+Main page can be opened
+    Open Browser To Main Page
+    Main Page Should Be Open
+    [Teardown]    Close Browser
 
 User can access the survey with valid email
     Open Browser To Main Page
@@ -35,10 +37,3 @@ User can answer the questions and get results
     Result Page Should Be Open
     [Teardown]    Close Browser
 
-Main page can be opened
-    Open Browser To Main Page
-    Main Page Should Be Open
-    [Teardown]    Close Browser
-
-Test scripts
-    Start application

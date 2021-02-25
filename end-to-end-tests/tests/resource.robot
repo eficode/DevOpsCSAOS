@@ -10,14 +10,14 @@ Library           Process
 
 *** Variables ***
 ${HOST}           localhost
-${PORT}           3001
+${PORT}           3000
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run
-${BROWSER}        firefox
+${BROWSER}        headlessfirefox
 ${DELAY}          1
 ${MAIN_URL}       http://${SERVER}
 ${VALID_EMAIL}    test2222@test.com
-${VALID_EMAIL_2}  test222@test.com
+${VALID_EMAIL_2}  test0000@test.co
 ${INVALID_EMAIL}  invalid.email.com
 ${EMAIL_IN_USE}   testaaja1@email.com
 ${SURVEY_LENGTH}  10
