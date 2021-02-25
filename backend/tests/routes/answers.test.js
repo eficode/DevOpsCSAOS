@@ -3,6 +3,9 @@
 const request = require('supertest')
 const app = require('../../app.js')
 const { initDatabase } = require('../../config/setupDatabase')
+const answer = require('../../models/answer.js')
+const { Answer } = require('../../models')
+const { User } = require('../../models')
 
 const testAnswers = [
   {
@@ -136,7 +139,53 @@ describe('POST /api/answers', () => {
     expect(response2.status).toBe(200)
     expect(response2.body.results).not.toEqual(null)
     expect(response2.body.results.length).toEqual(4)
-    expect(response1.body.results[0].userResult).not.toEqual(response2.body.results[0].userResult)
+    expect(response1.body.results[0].userResult).not.toEqual(
+      response2.body.results[0].userResult
+    )
+    done()
+  })
+  it('User has only one answer set in database', async (done) => {
+    const response1 = await request(app).post('/api/answers').send({
+      email: 'testv2@gmail.com',
+      answers: testAnswers,
+    })
+    const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
+    const firstAnswers = await Answer.findAll({
+      where: { userId: user.id },
+    })
+    expect(firstAnswers.length).toEqual(10)
+    const response2 = await request(app).post('/api/answers').send({
+      email: 'testv2@gmail.com',
+      answers: testAnswers2,
+    })
+    const secondAnswers = await Answer.findAll({
+      where: { userId: user.id },
+    })
+    expect(secondAnswers.length).toEqual(10)
+    done()
+  })
+  it('The answers are updated if user exists', async (done) => {
+    const response1 = await request(app).post('/api/answers').send({
+      email: 'testv2@gmail.com',
+      answers: testAnswers,
+    })
+    const response2 = await request(app).post('/api/answers').send({
+      email: 'testv2@gmail.com',
+      answers: testAnswers2,
+    })
+    const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
+    let secondAnswers = await Answer.findAll({
+      where: { userId: user.id },
+    })
+    secondAnswers.sort((a, b) => a.questionId - b.questionId)
+    const sortedTestAnswers2 = testAnswers2.sort(
+      (a, b) => a.questionId - b.questionId
+    )
+    for (i = 0; i < secondAnswers.length; i++) {
+      // expect(secondAnswers[i].value).toEqual(sortedTestAnswers2[i].value)
+      console.log(secondAnswers[i])
+      console.log(sortedTestAnswers2[i])
+    }
     done()
   })
   it('Returns data in expected form', async (done) => {

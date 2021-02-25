@@ -2,6 +2,7 @@
 const answersRouter = require('express').Router()
 const { User, Answer, Question, Category } = require('../models')
 const { resultsPerCategory } = require('../helpers/answerResults')
+const answer = require('../models/answer')
 
 answersRouter.post('/', async (req, res) => {
   const { email, answers } = req.body
@@ -10,43 +11,59 @@ answersRouter.post('/', async (req, res) => {
 
   let userResult
 
-    try {
+  try {
+    if (email !== undefined) {
+      let userId = -1
+      const existingUser = await User.findOne({
+        where: { email: email },
+      })
 
-      if (email !== undefined) {
-        let userId = -1
-        const existingUser = await User.findOne({
-          where: { email: email }
-        })
-
-        if (existingUser !== null) {
-          userId = existingUser.id
-        } else {
-          const user = await User.create({ email })
-          userId = user.id
-        }
-
-        const answersToQuestions = answers.map((answer) => ({
-            // eslint-disable-next-line node/no-unsupported-features/es-syntax
-          ...answer,
-          userId: userId,
-        }))
-
-        const returnedArray = await Answer.bulkCreate(answersToQuestions, { updateOnDuplicate: ['value'] })
-        const mappedArray = returnedArray.map(answerObject => ({questionId: answerObject.dataValues.id, value: answerObject.dataValues.value}))
-        console.log(mappedArray)
+      if (existingUser !== null) {
+        userId = existingUser.id
+      } else {
+        const user = await User.create({ email })
+        userId = user.id
       }
-      
-      userResult = await resultsPerCategory(
-        allCategories,
-        allQuestions,
-        answers
-      )
-      return res.status(200).json({ results: userResult })
-    } catch (err) {
-      console.log(err)
-      return res.status(500).json(err)
+
+      const answersToQuestions = answers.map((answer) => ({
+        // eslint-disable-next-line node/no-unsupported-features/es-syntax
+        ...answer,
+        userId: userId,
+      }))
+
+      if (existingUser === null) {
+        await Answer.bulkCreate(answersToQuestions)
+      } else {
+        /* answersToQuestions.forEach(answer =>
+        await Answer.update(
+          { value: answer.value },
+          { where: { questionId: answer.questionId, userId: answer.userId } }
+        )) */
+        for (i = 0; i < answersToQuestions.length; i++) {
+          await Answer.update(
+            { value: answersToQuestions[i].value },
+            {
+              where: {
+                questionId: answersToQuestions[i].questionId,
+                userId: answersToQuestions[i].userId,
+              },
+            }
+          )
+        }
+      }
+      /* const mappedArray = returnedArray.map((answerObject) => ({
+        questionId: answerObject.dataValues.id,
+        value: answerObject.dataValues.value,
+      }))
+      console.log(mappedArray) */
     }
-  
+
+    userResult = await resultsPerCategory(allCategories, allQuestions, answers)
+    return res.status(200).json({ results: userResult })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json(err)
+  }
 })
 
 answersRouter.get('/', async (req, res) => {
