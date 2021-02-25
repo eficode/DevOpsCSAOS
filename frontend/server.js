@@ -1,10 +1,9 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-
 /*
   This file is NOT used at all, when the next.js build is done!
   This is only for the development server!
 */
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const express = require('express')
 const next = require('next')
 const { createProxyMiddleware } = require('http-proxy-middleware')
