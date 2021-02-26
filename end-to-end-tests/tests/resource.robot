@@ -27,13 +27,20 @@ ${NEXT}           Next
 ${AGREE}          Agree
 ${GO_TO_SUMMARY}  Review
 ${GO_TO_RESULTS}  Submit answers
-${DB_TEST_QUERY}  INSERT INTO "Users" VALUES ('3b6b220b-2690-4279-8343-cbe6167f7596'::UUID, 'moi@moimoi.moi', 'organisaatio', '2021-02-25T19:11:49Z', '2021-02-25T19:11:49Z');
+
+${SQL_QUERY_DELETE_ANSWERS}  DELETE FROM "Answers";
+${SQL_QUERY_DELETE_USERS}  DELETE FROM "Users";
 
 *** Keywords ***
 
-Test Database Connection
+Close Application
+    Close Browser
+    Empty Users And Answers Tables In Database
+
+Empty Users And Answers Tables In Database
     Connect To Database 
-    Execute Sql String    ${DB_TEST_QUERY}
+    Execute Sql String    ${SQL_QUERY_DELETE_ANSWERS}
+    Execute Sql String    ${SQL_QUERY_DELETE_USERS}
     Disconnect From Database
 
 Open Browser To Main Page

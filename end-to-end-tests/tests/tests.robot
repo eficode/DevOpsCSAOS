@@ -11,7 +11,7 @@ Resource          resource.robot
 Main page can be opened
     Open Browser To Main Page
     Main Page Should Be Open
-    [Teardown]    Close Browser
+    [Teardown]    Close Application
 
 # tests that app connects to backend
 User can access the survey with valid email and complete survey
@@ -22,7 +22,7 @@ User can access the survey with valid email and complete survey
     Answer all questions
     Click answer summary button
     Click go to results
-    [Teardown]    Close Browser
+    [Teardown]    Close Application
 
 # tests that database is reseted between tests
 # database reseting not working yet, uncomment assertion when db reset works
@@ -31,8 +31,8 @@ User can access the survey again with valid email
     Click get started button
     Insert Email  ${VALID_EMAIL}
     Click begin button
-#    Questions Page Should Be Open
-    [Teardown]    Close Browser
+    Questions Page Should Be Open
+    [Teardown]    Close Application
 
 #User can't access the survey with invalid email
 #    Open Browser To Main Page
