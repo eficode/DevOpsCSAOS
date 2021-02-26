@@ -24,15 +24,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Run end-to-end
-        working-directory: ./end-to-end-tests
-        run: python3 -m venv env && source env/bin/activate && pip install -r requirements.txt && webdrivermanager firefox && echo "[default]
-          dbapiModuleName=psycopg2
-          dbName=test_db
-          dbUsername=postgres
-          dbPassword=postgres
-          dbHost=localhost
-          dbPort=5432" > db.cfg && cd .. && npm install && cd frontend/ && npm install && cd .. &&s npm run start:robot && robot tests
+      - name: Robot Framework
+        uses: joonvena/robotframework-docker-action@v0.1
+        env:
+          BROWSER: firefox
+          ROBOT_TESTS_DIR: ./end-to-end-tests/tests
+          ROBOT_REPORTS_DIR: ./end-to-end-tests/reports
       - name: Run backend lint
         working-directory: ./backend
         run: npm run lint
