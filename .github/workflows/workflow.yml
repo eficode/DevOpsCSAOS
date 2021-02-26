@@ -28,8 +28,8 @@ jobs:
         uses: joonvena/robotframework-docker-action@v0.1
         env:
           BROWSER: firefox
-          ROBOT_TESTS_DIR: ./end-to-end-tests/tests
-          ROBOT_REPORTS_DIR: ./end-to-end-tests/reports
+          ROBOT_TESTS_DIR:  ${{ github.workspace }}/end-to-end-tests/tests
+          ROBOT_REPORTS_DIR:  ${{ github.workspace }}/end-to-end-tests/reports
       - name: Run backend lint
         working-directory: ./backend
         run: npm install && npm run lint
