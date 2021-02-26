@@ -32,10 +32,10 @@ jobs:
           ROBOT_REPORTS_DIR: ./end-to-end-tests/reports
       - name: Run backend lint
         working-directory: ./backend
-        run: npm run lint
+        run: npm install && npm run lint
       - name: Run frontend lint
         working-directory: ./frontend
-        run: npm run lint
+        run: npm install && npm run lint
       - name: Run backend tests
         working-directory: ./backend
         # install dependencies and create the necessary databases before running tests
