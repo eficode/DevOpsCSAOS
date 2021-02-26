@@ -63,6 +63,20 @@ in end-to-end-tests folder:
 $ webdrivermanager firefox
 
 ```
+
+#### 5. Create database env file
+
+Create file db.cfg in end-to-end-tests folder with the following content:
+
+[default]
+dbapiModuleName=psycopg2
+dbName=test_db
+dbUsername=${DB_USER}
+dbPassword=${DB_PASS}
+dbHost=${DB_HOST}
+dbPort=5432
+
+copy variables from backend .env file (replace vars with username etc. specified in .env)
  
 
 ## Usage
