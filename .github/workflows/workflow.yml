@@ -26,15 +26,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run end-to-end
         working-directory: ./end-to-end-tests
-        run: python3 -m venv env && source env/bin/activate && pip install -r requirements.txt && webdrivermanager firefox
-        run: echo "[default]
+        run: python3 -m venv env && source env/bin/activate && pip install -r requirements.txt && webdrivermanager firefox && echo "[default]
           dbapiModuleName=psycopg2
           dbName=test_db
           dbUsername=postgres
           dbPassword=postgres
           dbHost=localhost
-          dbPort=5432" > db.cfg
-        run: robot tests
+          dbPort=5432" > db.cfg && robot tests
       - name: Run backend lint
         working-directory: ./backend
         run: npm run lint
