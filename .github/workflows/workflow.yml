@@ -24,6 +24,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Run end-to-end
+        working-directory: ./end-to-end-tests
+        run: python3 -m venv env && source env/bin/activate && pip install -r requirements.txt && webdrivermanager firefox
+        run: echo "[default]
+          dbapiModuleName=psycopg2
+          dbName=test_db
+          dbUsername=postgres
+          dbPassword=postgres
+          dbHost=localhost
+          dbPort=5432" > db.cfg
+        run: robot tests
+      - name: Run backend lint
+        working-directory: ./backend
+        run: npm run lint
+      - name: Run frontend lint
+        working-directory: ./frontend
+        run: npm run lint
       - name: Run backend tests
         working-directory: ./backend
         # install dependencies and create the necessary databases before running tests
@@ -38,12 +55,6 @@ jobs:
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
-      - name: Run backend lint
-        working-directory: ./backend
-        run: npm run lint
-      - name: Run frontend lint
-        working-directory: ./frontend
-        run: npm run lint
       - name: Test image building
         run: docker build . -t image-test-build
 
