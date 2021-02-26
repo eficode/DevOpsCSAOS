@@ -4,7 +4,6 @@ Documentation     A test suite for testing e2e test setup.
 ...               This test has a workflow that is created using keywords in
 ...               the imported resource file.
 Resource          resource.robot
-Suite Teardown    Terminate All Processes    kill=True
 
 *** Test Cases ***
 

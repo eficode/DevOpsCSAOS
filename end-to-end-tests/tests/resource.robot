@@ -5,7 +5,7 @@ Documentation     A resource file with reusable keywords and variables.
 ...               domain specific language. They utilize keywords provided
 ...               by the imported SeleniumLibrary.
 Library           SeleniumLibrary
-Library           Process
+Library           DatabaseLibrary
 
 
 *** Variables ***
@@ -27,8 +27,14 @@ ${NEXT}           Next
 ${AGREE}          Agree
 ${GO_TO_SUMMARY}  Review
 ${GO_TO_RESULTS}  Submit answers
+${DB_TEST_QUERY}  INSERT INTO "Users" VALUES ('3b6b220b-2690-4279-8343-cbe6167f7596'::UUID, 'moi@moimoi.moi', 'organisaatio', '2021-02-25T19:11:49Z', '2021-02-25T19:11:49Z');
 
 *** Keywords ***
+
+Test Database Connection
+    Connect To Database 
+    Execute Sql String    ${DB_TEST_QUERY}
+    Disconnect From Database
 
 Open Browser To Main Page
     Open Browser    ${MAIN_URL}/    ${BROWSER}
