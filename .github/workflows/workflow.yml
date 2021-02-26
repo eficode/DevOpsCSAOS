@@ -32,7 +32,7 @@ jobs:
           dbUsername=postgres
           dbPassword=postgres
           dbHost=localhost
-          dbPort=5432" > db.cfg && robot tests
+          dbPort=5432" > db.cfg && cd .. && npm run start:robot && robot tests
       - name: Run backend lint
         working-directory: ./backend
         run: npm run lint

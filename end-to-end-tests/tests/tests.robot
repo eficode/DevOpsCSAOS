@@ -25,7 +25,6 @@ User can access the survey with valid email and complete survey
     [Teardown]    Close Application
 
 # tests that database is reseted between tests
-# database reseting not working yet, uncomment assertion when db reset works
 User can access the survey again with valid email
     Open Browser To Main Page
     Click get started button
