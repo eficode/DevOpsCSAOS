@@ -83,8 +83,6 @@ copy variables from backend .env file (replace vars with username etc. specified
 
 To run tests locally:
 
-! to test the newest version of app frontend has to be re-built and re-launched before e2e test run
-
 In project root to start application in test mode:
 ```
 npm run start:robot
@@ -102,18 +100,7 @@ Run tests:
 robot tests
 ```
 
-! Test database resets only when backend is re-started in test mode.
-Tests will not pass if backend is not re-started between test runs
-
 ! resource.robot contains variables with text content of buttons in application. If
 text in a button used in tests is changed, tests will break. Update variables if needed.
 (Why not test-ids to avoid breaking tests? Tests should break if button texts change because that indicates
 a change in how the application should work.)
-
-### Upgrades to test scripts
-
-* automate robot framework to start application before test suite run
-
-* a better way to reset test database to avoid manual re-start (prev point should fix)
-
-* staging uses static build -> end-to-end test the static build or change staging

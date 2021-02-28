@@ -4,6 +4,10 @@ const users = require('./initialData/users.json')
 const answers = require('./initialData/answers.json')
 const results = require('./initialData/results.json')
 
+const categoriesTestData = require('./initialTestData/categories.json')
+const questionsTestData = require('./initialTestData/questions.json')
+const resultsTestData = require('./initialTestData/results.json')
+
 const {
   sequelize,
   Question,
@@ -13,7 +17,20 @@ const {
   Result,
 } = require('../models')
 
-const initDatabase = async () => {
+/*
+  currently app has to be started in test mode before running robot.
+  This ensures that app has data during build-time before robot
+  inserts seed data (testData copied from seed_database.sql)
+*/
+const initDatabase = process.env.NODE_ENV === 'test' ? 
+async () => {
+  await sequelize.sync({ force: true })
+  await Category.bulkCreate(categoriesTestData)
+  await Question.bulkCreate(questionsTestData)
+  await Result.bulkCreate(resultsTestData)
+}
+:
+async () => {
   await sequelize.sync({ force: true })
   await Category.bulkCreate(categories)
   await User.bulkCreate(users)

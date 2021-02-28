@@ -1,0 +1,45 @@
+ROBOT TEST Cases
+
+E2E config:
+setup: seed database w test data
+teardown: empty all tables + close browser and/or empty sessionstorage
+
+e2e test suites:
+1. app launches correctly [DONE]
+  * main page can be accessed
+  * email can be given in signup (checks connection to backend)
+
+2. signup / email validation
+  * valid email accepted
+  * email without @ not accepted
+  * empty input not accepted
+  * overy long input not accepted***
+  * email already in database not accepted**
+
+3. survey
+  * click all q's on different option -> summary is correct 
+  * click some q's, go back, change choice -> summary is correct
+  * results are received when all q's answered
+      -> all answered accepts submit***
+      -> mid-survey unanswered not accepting
+      -> first q unanswered not accepting
+      -> last q unanswered not accepting
+  * email in db -> submit not working**
+  * clicking contact in result opens email with sender and recipient auto-filled
+
+5. browser controls
+  * click around survey between home page and summary page works***
+  * go to result and try to go back to survey and then to result does not work**
+  * refresh browser persists app state data on all pages
+    -> signup
+    -> individual question
+    -> summary
+    -> result
+  * going to another tab in browser persists app state data on all pages (same data cases as above)
+
+** change these when overwriting answers story is done
+*** these are test cases for current flaws in app:
+  -> no email length limit,
+  -> if email is in store signup re-prompts email on signup page -> should
+auto-fill field if email is in store to enable updating email)
+  -> with test data all answered questions still prompts answer all to proceed

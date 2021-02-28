@@ -6,6 +6,7 @@ Documentation     A resource file with reusable keywords and variables.
 ...               by the imported SeleniumLibrary.
 Library           SeleniumLibrary
 Library           DatabaseLibrary
+Library           Process
 
 
 *** Variables ***
@@ -13,13 +14,11 @@ ${HOST}           localhost
 ${PORT}           5001
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run
-${BROWSER}        headlessfirefox
+${BROWSER}        firefox
 ${DELAY}          1
 ${MAIN_URL}       http://${SERVER}
 ${VALID_EMAIL}    test2222@test.com
-${VALID_EMAIL_2}  test0000@test.co
 ${INVALID_EMAIL}  invalid.email.com
-${EMAIL_IN_USE}   testaaja1@email.com
 ${SURVEY_LENGTH}  10
 # Below: texts in buttons
 ${START_SURVEY}   Get started
@@ -28,19 +27,21 @@ ${AGREE}          Agree
 ${GO_TO_SUMMARY}  Review
 ${GO_TO_RESULTS}  Submit answers
 
-${SQL_QUERY_DELETE_ANSWERS}  DELETE FROM "Answers";
-${SQL_QUERY_DELETE_USERS}  DELETE FROM "Users";
-
 *** Keywords ***
 
 Close Application
     Close Browser
-    Empty Users And Answers Tables In Database
+    Empty Test Database
 
-Empty Users And Answers Tables In Database
+Seed Database With Test Data
+    Connect To Database
+    Execute Sql Script    clear_database.sql
+    Execute Sql Script    seed_database.sql
+    Disconnect From Database
+
+Empty Test Database
     Connect To Database 
-    Execute Sql String    ${SQL_QUERY_DELETE_ANSWERS}
-    Execute Sql String    ${SQL_QUERY_DELETE_USERS}
+    Execute Sql Script    clear_database.sql
     Disconnect From Database
 
 Open Browser To Main Page
