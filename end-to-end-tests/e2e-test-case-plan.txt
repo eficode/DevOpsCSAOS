@@ -10,11 +10,11 @@ e2e test suites:
   * email can be given in signup (checks connection to backend)
 
 2. signup / email validation
-  * valid email accepted
-  * email without @ not accepted
-  * empty input not accepted
-  * overy long input not accepted***
-  * email already in database not accepted**
+  * valid email accepted [DONE]
+  * email without @ not accepted [DONE]
+  * empty input not accepted [DONE]
+  * overy long input not accepted [DONE]
+  * email already in database not accepted** [IN PROGRESS]
 
 3. survey
   * click all q's on different option -> summary is correct 
@@ -39,7 +39,6 @@ e2e test suites:
 
 ** change these when overwriting answers story is done
 *** these are test cases for current flaws in app:
-  -> no email length limit,
   -> if email is in store signup re-prompts email on signup page -> should
 auto-fill field if email is in store to enable updating email)
   -> with test data all answered questions still prompts answer all to proceed

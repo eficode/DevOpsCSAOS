@@ -13,13 +13,17 @@ Library           Process
 ${HOST}           localhost
 ${PORT}           5001
 ${SERVER}         ${HOST}:${PORT}
+
 # Change browser to firefox to see test run
 ${BROWSER}        firefox
 ${DELAY}          1
 ${MAIN_URL}       http://${SERVER}
 ${VALID_EMAIL}    test2222@test.com
-${INVALID_EMAIL}  invalid.email.com
+${EMAIL_WITHOUT_AT_SIGN}  mail.mail.com
+${LONG_EMAIL}     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+${EMAIL_IN_DATABASE} maili@maili.com
 ${SURVEY_LENGTH}  10
+
 # Below: texts in buttons
 ${START_SURVEY}   Get started
 ${NEXT}           Next  
@@ -29,9 +33,25 @@ ${GO_TO_RESULTS}  Submit answers
 
 *** Keywords ***
 
+Signup With Invalid Email Should Fail
+    [Arguments]      ${email}
+    [Setup]       Seed Database With Test Data
+    Open Browser To Main Page
+    Click get started button
+    Insert Email    ${email}
+    Click Begin Button
+    Signup Page Should Be Open
+
 Close Application
     Close Browser
     Empty Test Database
+
+Seed Database With Test Data And A User
+    Connect To Database
+    Execute Sql Script    clear_database.sql
+    Execute Sql Script    seed_database.sql
+    Execute Sql String    INSERT INTO Users VALUES (maili@maili.com)
+    Disconnect From Database
 
 Seed Database With Test Data
     Connect To Database
@@ -90,7 +110,7 @@ Insert Email
 Questions Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/1
 
-Contact Page Should Be Open
+Signup Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/signup
 
 Result Page Should Be Open
