@@ -18,8 +18,9 @@ Main page can be opened
 User can access the survey with valid email
     [Setup]   Seed Database With Test Data
     Open Browser To Main Page
-    Click get started button
+    Click Get Started Button
     Insert Email  ${VALID_EMAIL}
-    Questions page should be open
+    Click Begin Button
+    Questions Page Should Be Open
     [Teardown]    Close Application
 

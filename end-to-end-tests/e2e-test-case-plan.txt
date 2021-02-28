@@ -5,7 +5,7 @@ setup: seed database w test data
 teardown: empty all tables + close browser and/or empty sessionstorage
 
 e2e test suites:
-1. app launches correctly
+1. app launches correctly [DONE]
   * main page can be accessed
   * email can be given in signup (checks connection to backend)
 
@@ -20,7 +20,7 @@ e2e test suites:
   * click all q's on different option -> summary is correct 
   * click some q's, go back, change choice -> summary is correct
   * results are received when all q's answered
-      -> all answered accepts submit
+      -> all answered accepts submit***
       -> mid-survey unanswered not accepting
       -> first q unanswered not accepting
       -> last q unanswered not accepting
@@ -38,6 +38,8 @@ e2e test suites:
   * going to another tab in browser persists app state data on all pages (same data cases as above)
 
 ** change these when overwriting answers story is done
-*** these are test cases for current ui flaws (no email length limit,
-if email is in store signup re-prompts email on signup page -> should
+*** these are test cases for current flaws in app:
+  -> no email length limit,
+  -> if email is in store signup re-prompts email on signup page -> should
 auto-fill field if email is in store to enable updating email)
+  -> with test data all answered questions still prompts answer all to proceed

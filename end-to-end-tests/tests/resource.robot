@@ -18,9 +18,7 @@ ${BROWSER}        firefox
 ${DELAY}          1
 ${MAIN_URL}       http://${SERVER}
 ${VALID_EMAIL}    test2222@test.com
-${VALID_EMAIL_2}  test0000@test.co
 ${INVALID_EMAIL}  invalid.email.com
-${EMAIL_IN_USE}   testaaja1@email.com
 ${SURVEY_LENGTH}  10
 # Below: texts in buttons
 ${START_SURVEY}   Get started
@@ -30,15 +28,6 @@ ${GO_TO_SUMMARY}  Review
 ${GO_TO_RESULTS}  Submit answers
 
 *** Keywords ***
-
-Setup Application
-    Seed Database With Test Data
-    Start Application In Test Mode
-
-# the application should be started here. Otherwise app does not
-# contain seed data when it is launched
-Start Application In Test Mode
-    Start Process   npm run start:robot	shell=yes	cwd=${CURDIR}/..
 
 Close Application
     Close Browser
