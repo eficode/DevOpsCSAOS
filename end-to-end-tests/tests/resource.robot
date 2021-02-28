@@ -38,7 +38,7 @@ Setup Application
 # the application should be started here. Otherwise app does not
 # contain seed data when it is launched
 Start Application In Test Mode
-    Start Process   
+    Start Process   npm run start:robot	shell=yes	cwd=${CURDIR}/..
 
 Close Application
     Close Browser
