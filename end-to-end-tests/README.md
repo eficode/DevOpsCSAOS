@@ -64,13 +64,15 @@ $ webdrivermanager firefox
 
 ```
 
-#### 5. Create database env file
+#### 5. Setup database
+
+Create database endtoend_test_db with full access rights to postgres
 
 Create directory resources and create file db.cfg in end-to-end-tests folder with the following content:
 
 [default]
 dbapiModuleName=psycopg2
-dbName=test_db
+dbName=endtoend_test_db
 dbUsername=${DB_USER}
 dbPassword=${DB_PASS}
 dbHost=${DB_HOST}

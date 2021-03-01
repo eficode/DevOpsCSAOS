@@ -5,11 +5,11 @@ const { PORT, NODE_ENV } = process.env
 
 const { initDatabase } = require('./config/setupDatabase')
 
-const port = NODE_ENV === 'test' ? 5001 : 
+const port = NODE_ENV === 'endtoend' ? 5001 : 
   PORT || 5000
 
 app.listen({ port }, async () => {
-  if (NODE_ENV !== 'test'){
+  if (NODE_ENV !== 'endtoend'){
     await initDatabase()
   }
   
