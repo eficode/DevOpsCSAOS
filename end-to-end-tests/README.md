@@ -66,7 +66,7 @@ $ webdrivermanager firefox
 
 #### 5. Create database env file
 
-Create file db.cfg in end-to-end-tests folder with the following content:
+Create directory resources and create file db.cfg in end-to-end-tests folder with the following content:
 
 [default]
 dbapiModuleName=psycopg2
