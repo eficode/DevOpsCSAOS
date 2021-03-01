@@ -9,7 +9,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 
-import Question from '../../pages/survey/questions/[questionId]'
+import Question from '../../pages/survey/questions/question'
 import ThemeWrapper from '../testutils/themeWrapper'
 import { questions } from '../testutils/mockQuestions'
 
@@ -26,9 +26,9 @@ describe('Question rendering', () => {
     })
 
     useRouter.mockImplementation(() => ({
-      route: '/survey/questions/1',
-      pathname: 'survey/questions/1',
-      query: { questionId: '1' },
+      route: '/survey/questions/question/?id=1',
+      pathname: 'survey/questions/question/?id=1',
+      query: { id: '1' },
       asPath: '',
     }))
 
@@ -87,9 +87,9 @@ describe('Navigation button conditional rendering', () => {
   it('Mid-survey question renders links with texts Back and Next', () => {
 
     useRouter.mockImplementation(() => ({
-      route: '/survey/questions/2',
-      pathname: 'survey/questions/2',
-      query: { questionId: '2' },
+      route: '/survey/questions/question/?id=2',
+      pathname: 'survey/questions/question/?id=2',
+      query: { id: '2' },
       asPath: '',
     }))
 
@@ -105,9 +105,9 @@ describe('Navigation button conditional rendering', () => {
 
   it('Last question renders link with text Back and link to summary', () => {
     useRouter.mockImplementation(() => ({
-      route: '/survey/questions/3',
-      pathname: 'survey/questions/3',
-      query: { questionId: '3' },
+      route: '/survey/questions/question/?id=3',
+      pathname: 'survey/questions/question/?id=3',
+      query: { id: '3' },
       asPath: '',
     }))
     
