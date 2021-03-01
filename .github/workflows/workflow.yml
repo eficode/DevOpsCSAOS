@@ -24,6 +24,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Robot Framework
+        uses: joonvena/robotframework-docker-action@v0.1
+        env:
+          BROWSER: firefox
+          ROBOT_TESTS_DIR:  ${{ github.workspace }}/end-to-end-tests/tests
+          ROBOT_REPORTS_DIR:  ${{ github.workspace }}/end-to-end-tests/reports
+      - name: Run backend lint
+        working-directory: ./backend
+        run: npm install && npm run lint
+      - name: Run frontend lint
+        working-directory: ./frontend
+        run: npm install && npm run lint
       - name: Run backend tests
         working-directory: ./backend
         # install dependencies and create the necessary databases before running tests
@@ -38,12 +50,6 @@ jobs:
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
-      - name: Run backend lint
-        working-directory: ./backend
-        run: npm run lint
-      - name: Run frontend lint
-        working-directory: ./frontend
-        run: npm run lint
       - name: Test image building
         run: docker build . -t image-test-build
 
