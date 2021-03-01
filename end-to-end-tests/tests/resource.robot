@@ -6,24 +6,21 @@ Documentation     A resource file with reusable keywords and variables.
 ...               by the imported SeleniumLibrary.
 Library           SeleniumLibrary
 Library           DatabaseLibrary
-Library           Process
 
 
 *** Variables ***
 ${HOST}           localhost
 ${PORT}           5001
 ${SERVER}         ${HOST}:${PORT}
-
 # Change browser to firefox to see test run, headlessfirefox to run headless
 ${BROWSER}                headlessfirefox
 ${DELAY}                  1
 ${MAIN_URL}               http://${SERVER}
+
 ${VALID_EMAIL}            test2222@test.com
 ${EMAIL_WITHOUT_AT_SIGN}  mail.mail.com
 ${LONG_EMAIL}             aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ${EMAIL_IN_DATABASE}      maili@maili.com
-${ISO_TIMESTAMP}          2021-03-01T09:53:45+0000
-${SURVEY_LENGTH}          10  
 
 # Below: texts in buttons
 ${START_SURVEY}   Get started
@@ -42,27 +39,26 @@ Signup With Invalid Email Should Fail
     Click Begin Button
     Signup Page Should Be Open
 
+Modify Database
+    [Arguments]   @{SCRIPTS}
+    Connect To Database
+    FOR   ${script}   IN   @{SCRIPTS}
+        Execute Sql Script    ${script}
+    END
+    Disconnect From Database
+
+Seed Database With Test Data And A User
+    Modify Database       clear_database.sql   seed_database.sql   user_to_database.sql
+
+Seed Database With Test Data
+    Modify Database       clear_database.sql   seed_database.sql
+
+Empty Test Database
+    Modify Database       clear_database.sql
+
 Close Application
     Close Browser
     Empty Test Database
-
-Seed Database With Test Data And A User
-    Connect To Database
-    Execute Sql Script    clear_database.sql
-    Execute Sql Script    seed_database.sql
-    Execute Sql String    INSERT INTO "Users" VALUES ('ec5c24de-9621-489d-aaaf-22fb5bc71846', '${EMAIL_IN_DATABASE}', 'organizaion', '${ISO_TIMESTAMP}', '${ISO_TIMESTAMP}');
-    Disconnect From Database
-
-Seed Database With Test Data
-    Connect To Database
-    Execute Sql Script    clear_database.sql
-    Execute Sql Script    seed_database.sql
-    Disconnect From Database
-
-Empty Test Database
-    Connect To Database 
-    Execute Sql Script    clear_database.sql
-    Disconnect From Database
 
 Open Browser To Main Page
     Open Browser    ${MAIN_URL}/    ${BROWSER}

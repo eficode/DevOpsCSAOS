@@ -9,12 +9,12 @@ e2e test suites:
   * main page can be accessed
   * email can be given in signup (checks connection to backend)
 
-2. signup / email validation
-  * valid email accepted [DONE]
-  * email without @ not accepted [DONE]
-  * empty input not accepted [DONE]
-  * overy long input not accepted [DONE]
-  * email already in database not accepted** [IN PROGRESS]
+2. signup / email validation [DONE]
+  * valid email accepted
+  * email without @ not accepted
+  * empty input not accepted
+  * overy long input not accepted
+  * email already in database not accepted**
 
 3. survey
   * click all q's on different option -> summary is correct 
@@ -27,7 +27,7 @@ e2e test suites:
   * email in db -> submit not working**
   * clicking contact in result opens email with sender and recipient auto-filled
 
-5. browser controls
+4. browser controls
   * click around survey between home page and summary page works***
   * go to result and try to go back to survey and then to result does not work**
   * refresh browser persists app state data on all pages
