@@ -11,13 +11,13 @@ answersRouter.post('/', async (req, res) => {
   let userResult
 
   try {
-    if (email !== undefined) {
-      let userId = -1
+    if (email) {
+      let userId
       const existingUser = await User.findOne({
-        where: { email: email },
+        where: { email },
       })
 
-      if (existingUser !== null) {
+      if (existingUser) {
         userId = existingUser.id
       } else {
         const user = await User.create({ email })
@@ -27,10 +27,10 @@ answersRouter.post('/', async (req, res) => {
       const answersToQuestions = answers.map((answer) => ({
         // eslint-disable-next-line node/no-unsupported-features/es-syntax
         ...answer,
-        userId: userId,
+        userId,
       }))
 
-      if (existingUser === null) {
+      if (!existingUser) {
         await Answer.bulkCreate(answersToQuestions)
       } else {
         answersToQuestions.forEach(answer =>

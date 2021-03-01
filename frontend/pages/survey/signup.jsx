@@ -18,7 +18,7 @@ const Heading = styled.h3`
 const FormTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
-  margin: 10px;s
+  margin: 10px;
 `
 
 const DetailsForm = styled.form`

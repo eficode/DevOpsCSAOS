@@ -110,7 +110,6 @@ describe('POST /api/answers', () => {
       answers: testAnswers,
     })
     expect(response.status).toBe(200)
-    expect(response.body.results).not.toEqual(null)
     expect(response.body.results.length).toEqual(4)
     done()
   })
@@ -121,7 +120,6 @@ describe('POST /api/answers', () => {
       answers: testAnswers,
     })
     expect(response.status).toBe(200)
-    expect(response.body.results).not.toEqual(null)
     expect(response.body.results.length).toEqual(4)
     done()
   })
@@ -137,7 +135,6 @@ describe('POST /api/answers', () => {
       answers: testAnswers2,
     })
     expect(response2.status).toBe(200)
-    expect(response2.body.results).not.toEqual(null)
     expect(response2.body.results.length).toEqual(4)
     expect(response1.body.results[0].userResult).not.toEqual(
       response2.body.results[0].userResult
