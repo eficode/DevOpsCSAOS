@@ -44,8 +44,6 @@ jobs:
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
-      - name: Test image building
-        run: docker build . -t image-test-build
         
   end-to-end-tests:
     if: github.ref != 'refs/heads/main'
