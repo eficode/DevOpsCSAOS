@@ -1,47 +1,35 @@
 version: '3.1'
 
 services:
-  postgres-test-db:
+  postgres-db:
     image: postgres
+    restart: always
     environment:
       POSTGRES_USER: testUser
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: test_db
+      POSTGRES_DB: endtoend_test_db
     expose:
       - 5432
+    ports:
+      - 5432:5432
 
-  backend:
+  devopscsaos:
     build:
-      context: ../backend
+      context: ../
       dockerfile: ./Dockerfile
-    image: backend
-    expose:
-      - 5000
+      args: 
+        API_URL: http://localhost:5001
+    image: devopscsaos
     environment: 
-      NODE_ENV: test
-      DB_HOST: postgres-test-db
+      API_URL: http://localhost:5001
+      NODE_ENV: endtoend
+      DB_HOST: postgres-db
       DB_USER: testUser
       DB_PASS: password
     ports:
-      - 5000:5000
+      - 5001:5001
     depends_on: 
-      - postgres-test-db
+      - postgres-db
 
-
-  frontend:
-    build:
-      context: ../frontend
-      dockerfile: ./Dockerfile
-    image: frontend
-    environment:
-      HOST: http://frontend:3000
-      BACKEND_URL: http://backend:5000
-      NODE_ENV: test
-    expose:
-      - 3000
-    ports:
-      - 3000:3000
-    depends_on: 
-      - backend
 
 
