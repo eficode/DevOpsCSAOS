@@ -97,7 +97,7 @@ Activate virtual envin end-to-end directory:
 source env/bin/activate
 ```
 
-Run tests:
+Run tests (has to be run in end-to-end directory):
 
 ```
 robot tests

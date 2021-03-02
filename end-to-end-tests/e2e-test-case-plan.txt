@@ -17,14 +17,14 @@ e2e test suites:
   * email already in database not accepted**
 
 3. survey
-  * click all q's on different option -> summary is correct 
-  * click some q's, go back, change choice -> summary is correct
+  * click all q's on different option -> summary is correct [DONE]
+  * click some q's, go back, change choice -> summary is correct [DONE]
   * results are received when all q's answered
       -> all answered accepts submit***
       -> mid-survey unanswered not accepting
       -> first q unanswered not accepting
       -> last q unanswered not accepting
-  * email in db -> submit not working**
+  (* email in db -> submit not working**) after update with same email allowed?
   * clicking contact in result opens email with sender and recipient auto-filled
 
 4. browser controls
@@ -42,3 +42,20 @@ e2e test suites:
   -> if email is in store signup re-prompts email on signup page -> should
 auto-fill field if email is in store to enable updating email)
   -> with test data all answered questions still prompts answer all to proceed
+
+
+Answering Questions Updates Summary
+  [Setup]       Seed Database With Test Data
+  Complete survey and go to summary     @{TEST_ANSWERS}
+  Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
+  [Teardown]    Close Application
+
+Changing An Answer Updates Summary
+  [Setup]       Seed Database With Test Data
+  Complete survey and go to summary     @{TEST_ANSWERS}
+  Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
+  Go back to last question
+  Click question option button   ${STRONGLY_AGREE}
+  Click answer summary button
+  Summary Page Should Contain Selected Answers    @{UPDATED_ANSWERS_IN_SUMMARY}
+  [Teardown]    Close Application

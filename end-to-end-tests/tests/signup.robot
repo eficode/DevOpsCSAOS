@@ -1,13 +1,14 @@
 *** Settings ***
 Documentation   For testing signup + signup validation.
 Resource        resource.robot
+Resource        db_resource.robot
 
 *** Test Cases ***
 
 Invalid Email
   [Setup]       Seed Database With Test Data
   [Template]    Signup With Invalid Email Should Fail
-  ${EMAIL_WITHOUT_AT_SIGN}  
+  ${EMAIL_WITHOUT_AT_SIGN}
   ${EMPTY}
   ${LONG_EMAIL}
   [Teardown]    Close Application
