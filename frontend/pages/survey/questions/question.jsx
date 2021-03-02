@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
 
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
-import Link from '../../../components/link'
 import Option from '../../../components/option'
 import NavigationButtons from '../../../components/navigationButtons'
 import ProgressBar from '../../../components/progressBar'
 import { getAll as getAllQuestions } from '../../../services/questions'
+import { useRouter, withRouter } from '../../../components/staticRouting'
+import Link from 'next/link'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -48,24 +48,21 @@ const QuestionNumber = styled.span`
 const Question = () => {
   const router = useRouter()
   const store = useStore()
-  
+
   const questions = store.questions
 
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
 
-  const questionId = Number(router.query.questionId)
+  const questionId = Number(router.query.id)
   const summaryPageHref = '/survey/questions/summary'
   const isFinalQuestion = questionId === questions.length
 
   useEffect(() => {
-      
-    (async () => {
-
-        if ( store.questions.length === 0 ) {
-          const response = await getAllQuestions()
-          store.setQuestions(response)
-        }
-
+    ;(async () => {
+      if (store.questions.length === 0) {
+        const response = await getAllQuestions()
+        store.setQuestions(response)
+      }
     })()
   }, [])
 
@@ -75,12 +72,8 @@ const Question = () => {
     store.setSelections(newSelections)
   }
   // this needs to be changed, but is here for placeholder
-  if ( store.questions.length === 0 ) {
-      return (
-          <div>
-              Loading questions...
-          </div>
-      )
+  if (store.questions.length === 0) {
+    return <div>Loading questions...</div>
   }
 
   return (
@@ -99,7 +92,7 @@ const Question = () => {
         <OptionsWrapper>
           {Object.keys(optionsToPointsMap).map((optionLabel) => {
             const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
-            
+
             return (
               <Option
                 key={pointsAssociatedWithOption}
@@ -118,12 +111,13 @@ const Question = () => {
           surveyLength={questions.length}
         />
         {isFinalQuestion ? (
-          <Link href={summaryPageHref} type="primary">Review</Link>
+          <Link href={summaryPageHref} type="primary">
+            Review
+          </Link>
         ) : null}
       </InnerContentWrapper>
     </>
   )
 }
 
-
-export default Question
+export default withRouter(Question)

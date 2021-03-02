@@ -66,7 +66,8 @@ $ webdrivermanager firefox
 
 #### 5. Setup database
 
-Create database endtoend_test_db with full access rights to postgres
+Create database endtoend_test_db with full access rights to postgres (no need to create tables,
+when starting application in test mode migrations are run with sequelize)
 
 Create directory resources and create file db.cfg in end-to-end-tests folder with the following content:
 
