@@ -3,6 +3,7 @@ Documentation     Resource file for signup tests.
 ...
 
 *** Variables ***
+
 ${VALID_EMAIL}            test2222@test.com
 ${EMAIL_WITHOUT_AT_SIGN}  mail.mail.com
 ${LONG_EMAIL}             aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

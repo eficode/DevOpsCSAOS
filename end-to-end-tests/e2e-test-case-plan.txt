@@ -19,7 +19,7 @@ e2e test suites:
 3. survey
   * click all q's on different option -> summary is correct [DONE]
   * click some q's, go back, change choice -> summary is correct [DONE]
-  * results are received when all q's answered
+  * results are received when all q's answered [IN PROGRESS]
       -> all answered accepts submit***
       -> mid-survey unanswered not accepting
       -> first q unanswered not accepting
@@ -42,6 +42,7 @@ e2e test suites:
   -> if email is in store signup re-prompts email on signup page -> should
 auto-fill field if email is in store to enable updating email)
   -> with test data all answered questions still prompts answer all to proceed
+
 
 
 

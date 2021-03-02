@@ -1,6 +1,9 @@
 *** Settings ***
 Documentation   For testing survey
-Resource        resource.robot
+Resource        ../resources/db_resource.robot
+Resource        ../resources/url_navigation_resource.robot
+Resource        ../resources/signup_resource.robot
+Resource        ../resources/survey_resource.robot
 
 *** Test Cases ***
 
@@ -20,13 +23,12 @@ Changing An Answer Updates Summary
   Summary Page Should Contain Selected Answers    @{UPDATED_ANSWERS_IN_SUMMARY}
   [Teardown]    Close Application
 
+# BUG: test inputs options to be chosen in email input field
 Answers Can Be Submitted When All Questions Are Answered
   [Setup]       Seed Database With Test Data
   [Template]    Signup With Invalid Email Should Fail
   ${MID_SURVEY_UNANSWERED}
- [Teardown]    Close Application
-
-
+  [Teardown]    Close Application
 
 
 #Clicking Contact In Result Opens Email With Sender And Recipient Auto-filled

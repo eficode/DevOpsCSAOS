@@ -8,9 +8,10 @@ ${HOST}           localhost
 ${PORT}           5001
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run, headlessfirefox to run headless
-${BROWSER}                headlessfirefox
+${BROWSER}                firefox
 ${DELAY}                  1
 ${MAIN_URL}               http://${SERVER}
+${VALID_EMAIL}            test2222@test.com
 
 ${BEGIN}            Begin
 ${START_SURVEY}     Get started
@@ -39,7 +40,6 @@ Summary Page Should Be Open
 
 Result Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/result
-
 
 Click get started button
     Click Element    //*[contains(text(), '${START_SURVEY}')]

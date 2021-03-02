@@ -34,8 +34,8 @@ ${QUESTION_3}     Auringon näyttäytyessä ajatukseni singahtavat vappupirskeun
 
 *** Keywords ***
 Submit Disabled When Some Questions Not Answered
-    [Arguments]   @{options}
-    Complete survey and go to summary   @{options}
+    [Arguments]   @{answers}
+    Complete survey and go to summary   @{answers}
     Click go to results
     Alert Should Be Present
 
