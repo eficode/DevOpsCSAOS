@@ -18,14 +18,13 @@ const {
   Following code ensures that app has data during build-time before robot
   inserts seed data (testData copied from seed_database.sql)
 */
-const initDatabase =
-  async () => {
-    await sequelize.sync({ force: true })
-    await Category.bulkCreate(categories)
-    await User.bulkCreate(users)
-    await Question.bulkCreate(questions)
-    await Answer.bulkCreate(answers)
-    await Result.bulkCreate(results)
-  }
+const initDatabase = async () => {
+  await sequelize.sync({ force: true })
+  await Category.bulkCreate(categories)
+  await User.bulkCreate(users)
+  await Question.bulkCreate(questions)
+  await Answer.bulkCreate(answers)
+  await Result.bulkCreate(results)
+}
 
 module.exports = { initDatabase }
