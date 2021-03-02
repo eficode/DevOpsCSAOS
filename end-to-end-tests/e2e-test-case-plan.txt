@@ -44,18 +44,4 @@ auto-fill field if email is in store to enable updating email)
   -> with test data all answered questions still prompts answer all to proceed
 
 
-Answering Questions Updates Summary
-  [Setup]       Seed Database With Test Data
-  Complete survey and go to summary     @{TEST_ANSWERS}
-  Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
-  [Teardown]    Close Application
 
-Changing An Answer Updates Summary
-  [Setup]       Seed Database With Test Data
-  Complete survey and go to summary     @{TEST_ANSWERS}
-  Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
-  Go back to last question
-  Click question option button   ${STRONGLY_AGREE}
-  Click answer summary button
-  Summary Page Should Contain Selected Answers    @{UPDATED_ANSWERS_IN_SUMMARY}
-  [Teardown]    Close Application

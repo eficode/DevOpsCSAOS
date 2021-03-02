@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation   For testing signup + signup validation.
-Resource        resource.robot
-Resource        db_resource.robot
+Resource        ../resources/db_resource.robot
+Resource        ../resources/signup_resource.robot
+Resource        ../resources/url_navigation_resource.robot
 
 *** Test Cases ***
 

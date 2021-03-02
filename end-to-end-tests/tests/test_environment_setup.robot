@@ -3,8 +3,10 @@ Documentation     A test suite for testing e2e test setup.
 ...
 ...               This test has a workflow that is created using keywords in
 ...               the imported resource file.
-Resource          resource.robot
-Resource          db_resource.robot
+Resource          ../resources/db_resource.robot
+Resource          ../resources/url_navigation_resource.robot
+Resource          ../resources/url_navigation_resource.robot
+Resource          ../resources/signup_resource.robot
 
 *** Test Cases ***
 
