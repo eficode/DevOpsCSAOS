@@ -34,13 +34,13 @@ Close Application
     Empty Test Database
 
 Seed Database With Test Data
-    Connect To Database
+    Connect To Database   dbConfigFile=./resources/compose.cfg
     Execute Sql Script    clear_database.sql
     Execute Sql Script    seed_database.sql
     Disconnect From Database
 
 Empty Test Database
-    Connect To Database 
+    Connect To Database   dbConfigFile=./resources/compose.cfg
     Execute Sql Script    clear_database.sql
     Disconnect From Database
 
