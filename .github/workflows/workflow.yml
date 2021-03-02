@@ -58,7 +58,7 @@ jobs:
       - name: Build the application stack
         working-directory: ./end-to-end-tests
         run: docker-compose up -d
-      - name: Wait for a 10 seconds so that server is running and db initialized
+      - name: Wait for 10 seconds so that server is running and db initialized
         uses: jakejarvis/wait-action@master
         with:
             time: '10s'
