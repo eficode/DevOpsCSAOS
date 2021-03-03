@@ -27,7 +27,7 @@ const initialMaxResult = 0
     + unnecessary as undef does the same job)
 */
 
-const store = (set, _) => ({
+const store = (set) => ({
   questions: initialQuestions,
   email: initialEmail,
   selections: initialSelections,
