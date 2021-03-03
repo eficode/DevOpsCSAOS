@@ -15,10 +15,8 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 50px 0 0 0;
+  margin-top: 1rem;
   width: 100%;
-  position: absolute;
-  top: 15px;
   background-color: white;
   border-radius: 0.5rem;
 `
