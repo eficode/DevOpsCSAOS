@@ -35,7 +35,7 @@ const QuestionAnswerWrapper = styled.article`
     font-family:Merriweather;
     font-weight: normal;
     font-size: 16px;
-    color black;
+    color: black;
   }
 `
 const Title = styled.h2`
@@ -64,8 +64,8 @@ const Summary = () => {
       length checker is needed as selections arr can be shorter than survey
     */
   const allQuestionsAnswered = store.selections.length === questions.length
-  && store.selections.reduce((allAnswered, s) => {
-    if (!s || !allAnswered) {
+  && store.selections.reduce((allAnswered, selection) => {
+    if (selection == null || !allAnswered) {
       return false
     }
     return true
