@@ -11,13 +11,18 @@ ${EMAIL_IN_DATABASE}      maili@maili.com
 
 *** Keywords ***
 
-Signup With Invalid Email Should Fail
+Signup With Email
     [Arguments]      ${email}
     Open Browser To Main Page
     Click get started button
     Insert Email    ${email}
-    Click Begin Button
+    Click Begin button
+
+Signup With Invalid Email Should Fail
+    [Arguments]      ${email}
+    Signup With Email   ${email}
     Signup Page Should Be Open
+
 
 Insert Email
     [Arguments]      ${email}

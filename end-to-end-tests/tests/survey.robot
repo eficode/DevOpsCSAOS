@@ -5,6 +5,13 @@ Resource        ../resources/url_navigation_resource.robot
 Resource        ../resources/signup_resource.robot
 Resource        ../resources/survey_resource.robot
 
+*** Variables ***
+
+${VALID_EMAIL}            test2222@test.com
+${EMAIL_WITHOUT_AT_SIGN}  mail.mail.com
+${LONG_EMAIL}             aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+${EMAIL_IN_DATABASE}      maili@maili.com 
+
 *** Test Cases ***
 
 Answering Questions Updates Summary

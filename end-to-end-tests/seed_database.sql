@@ -8,3 +8,5 @@ INSERT INTO "Questions" VALUES ('fc29c75b-559c-4b1c-a8b6-b4453b35f3fa', 'Auringo
 INSERT INTO "Results" VALUES ('2cf1f17c-d5f1-4b15-81f1-52db3f58b9b6', 0, 20, 'Vappufiiliksesi on heikko.', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Results" VALUES ('d29bbf05-8358-44b7-a84b-9d1ce0129178', 20, 60, 'Hmmm... ihan siis, ihan siis jeppinen vappufiilis!', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Results" VALUES ('17544948-2e9a-48f3-8674-51172a17a04a', 60, 80, 'Hippulihei rillumarei! Asiallista vappumeisinkia!!', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+
+INSERT INTO "Users" VALUES ('ec5c24de-9621-489d-aaaf-22fb5bc71846', 'maili@maili.com', 'organizaion', '2021-03-01T09:53:45+0000', '2021-03-01T09:53:45+0000');

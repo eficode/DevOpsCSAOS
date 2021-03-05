@@ -15,9 +15,6 @@ Modify Database
     END
     Disconnect From Database
 
-Seed Database With Test Data And A User
-    Modify Database       clear_database.sql   seed_database.sql   user_to_database.sql
-
 Seed Database With Test Data
     Modify Database       clear_database.sql   seed_database.sql
 
