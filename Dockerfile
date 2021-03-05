@@ -1,13 +1,11 @@
-FROM node:10 AS ui-build
+FROM node:10 AS app-build
 WORKDIR /usr/src/app
 COPY frontend/ ./frontend/
+COPY backend/ ./backend/
+ARG API_URL=https://ohtu-csaos-staging.herokuapp.com
+ENV API_URL=${API_URL}
 RUN cd frontend && npm install && npm run build
-
-FROM node:10 AS server-build
-WORKDIR /root/
-COPY --from=ui-build /usr/src/app/frontend/out ./frontend/out
-COPY backend/package*.json ./backend/
+WORKDIR /usr/src/app
 RUN cd backend && npm install
-COPY . .
-
 CMD ["node", "./backend/server.js"]
+
