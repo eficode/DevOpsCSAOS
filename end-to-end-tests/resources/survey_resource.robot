@@ -27,9 +27,9 @@ ${NOT_ANSWERED_IN_SUMMARY}        You haven's answered this question
 @{FIRST_QUESTION_UNANSWERED}    ${EMPTY}    ${AGREE}      ${DISAGREE}
 @{LAST_QUESTION_UNANSWERED}     ${DISAGREE} ${NEUTRAL}    ${EMPTY}
 
-${QUESTION_1}     Ajatus vihreällä nurmella villisti kierimisestä viehättää minua
+${QUESTION_1}     Ajatus vihrealla nurmella villisti kierimisesta viehattaa minua
 ${QUESTION_2}     Suutani kuivaa tavalla, jonka voi taltuttaa vain poreileva juoma
-${QUESTION_3}     Auringon näyttäytyessä ajatukseni singahtavat vappupirskeunelmiin välittömästi
+${QUESTION_3}     Auringon nayttaytyessa ajatukseni singahtavat vappupirskeunelmiin valittomasti
 @{QUESTIONS}      ${QUESTION_1}   ${QUESTION_2}   ${QUESTION_3}
 
 *** Keywords ***

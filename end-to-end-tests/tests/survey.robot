@@ -24,11 +24,11 @@ Changing An Answer Updates Summary
   [Teardown]    Close Application
 
 # BUG: test inputs options to be chosen in email input field
-Answers Can Be Submitted When All Questions Are Answered
-  [Setup]       Seed Database With Test Data
-  [Template]    Signup With Invalid Email Should Fail
-  ${MID_SURVEY_UNANSWERED}
-  [Teardown]    Close Application
+# Answers Can Be Submitted When All Questions Are Answered
+#  [Setup]       Seed Database With Test Data
+#  [Template]    Signup With Invalid Email Should Fail
+#  ${MID_SURVEY_UNANSWERED}
+#  [Teardown]    Close Application
 
 
-#Clicking Contact In Result Opens Email With Sender And Recipient Auto-filled
+# Clicking Contact In Result Opens Email With Sender And Recipient Auto-filled

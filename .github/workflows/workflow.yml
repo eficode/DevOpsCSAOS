@@ -24,12 +24,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Robot Framework
-        uses: joonvena/robotframework-docker-action@v0.1
-        env:
-          BROWSER: firefox
-          ROBOT_TESTS_DIR:  ${{ github.workspace }}/end-to-end-tests/tests
-          ROBOT_REPORTS_DIR:  ${{ github.workspace }}/end-to-end-tests/reports
       - name: Run backend lint
         working-directory: ./backend
         run: npm install && npm run lint
@@ -50,8 +44,33 @@ jobs:
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
-      - name: Test image building
-        run: docker build . -t image-test-build
+        
+  end-to-end-tests:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Build the application stack
+        working-directory: ./end-to-end-tests
+        run: docker-compose up -d
+      - name: Wait for 10 seconds so that server is running and db initialized
+        uses: jakejarvis/wait-action@master
+        with:
+            time: '10s'
+      - name: Install python dependencies
+        working-directory: ./end-to-end-tests
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Check running containers
+        run: docker ps -a
+      - name: Run robot tests
+        working-directory: ./end-to-end-tests
+        run: robot --variable DB_CONFIG_FILE:resources/compose.cfg --variable BROWSER:headlessfirefox tests
+
 
   deploy_to_staging:
     if: github.ref == 'refs/heads/main'

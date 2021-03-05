@@ -2,12 +2,14 @@
 Documentation     Resource file for database operations.
 ...
 Library           DatabaseLibrary
+*** Variables ***
+${DB_CONFIG_FILE}   resources/db.cfg
 
 *** Keywords ***
 
 Modify Database
     [Arguments]   @{SCRIPTS}
-    Connect To Database
+    Connect To Database    dbConfigFile=./${DB_CONFIG_FILE}
     FOR   ${script}   IN   @{SCRIPTS}
         Execute Sql Script    ${script}
     END
