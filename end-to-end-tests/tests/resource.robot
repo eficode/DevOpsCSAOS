@@ -35,13 +35,13 @@ Close Application
     Empty Test Database
 
 Seed Database With Test Data
-    Connect To Database   dbConfigFile=${DB_CONFIG_FILE}
+    Connect To Database   dbConfigFile=./${DB_CONFIG_FILE}
     Execute Sql Script    clear_database.sql
     Execute Sql Script    seed_database.sql
     Disconnect From Database
 
 Empty Test Database
-    Connect To Database   dbConfigFile=${DB_CONFIG_FILE}
+    Connect To Database   dbConfigFile=./${DB_CONFIG_FILE}
     Execute Sql Script    clear_database.sql
     Disconnect From Database
 
