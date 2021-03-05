@@ -22,7 +22,6 @@ describe('POST /api/results', () => {
       score: 81,
     })
     expect(response.status).toBe(200)
-    console.log(response)
     expect(response.body.resultText).not.toEqual(null)
     expect(response.body.resultText).toContain('Olet')
     done()

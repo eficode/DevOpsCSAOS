@@ -50,14 +50,8 @@ const SignUpForm = () => {
 
   const updateEmail = async (event) => {
     event.preventDefault()
-    const tmp = await getByEmail(emailInput)
-
-    if (!tmp) {
-      store.setEmail(emailInput)
-      router.push(firstQuestionHref)
-    } else {
-      alert('Email already used!')
-    }
+    store.setEmail(emailInput)
+    router.push(firstQuestionHref)
   }
 
   return (

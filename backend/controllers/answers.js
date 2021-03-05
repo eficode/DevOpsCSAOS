@@ -10,29 +10,43 @@ answersRouter.post('/', async (req, res) => {
 
   let userResult
 
-    try {
+  try {
+    if (email) {
+      let userId
+      const existingUser = await User.findOne({
+        where: { email },
+      })
 
-      if(email !== undefined) {
+      if (existingUser) {
+        userId = existingUser.id
+      } else {
         const user = await User.create({ email })
-        const answersToQuestions = answers.map((answer) => ({
-            // eslint-disable-next-line node/no-unsupported-features/es-syntax
-          ...answer,
-          userId: user.id,
-        }))
-
-        await Answer.bulkCreate(answersToQuestions)
+        userId = user.id
       }
-      
-      userResult = await resultsPerCategory(
-        allCategories,
-        allQuestions,
-        answers
-      )
-      return res.status(200).json({ results: userResult })
-    } catch (err) {
-      return res.status(500).json(err)
+
+      const answersToQuestions = answers.map((answer) => ({
+        // eslint-disable-next-line node/no-unsupported-features/es-syntax
+        ...answer,
+        userId,
+      }))
+
+      if (!existingUser) {
+        await Answer.bulkCreate(answersToQuestions)
+      } else {
+        answersToQuestions.forEach(answer =>
+           Answer.update(
+            { value: answer.value },
+            { where: { questionId: answer.questionId, userId: answer.userId } }
+        )) 
+      }
     }
-  
+
+    userResult = await resultsPerCategory(allCategories, allQuestions, answers)
+    return res.status(200).json({ results: userResult })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json(err)
+  }
 })
 
 answersRouter.get('/', async (req, res) => {
