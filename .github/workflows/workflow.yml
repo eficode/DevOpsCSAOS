@@ -69,7 +69,7 @@ jobs:
         run: docker ps -a
       - name: Run robot tests
         working-directory: ./end-to-end-tests
-        run: robot --variable BROWSER:headlessfirefox tests
+        run: robot --variable DB_CONFIG:resources/compose.cfg --variable BROWSER:headlessfirefox tests
 
 
   deploy_to_staging:

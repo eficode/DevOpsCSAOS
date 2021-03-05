@@ -26,6 +26,7 @@ ${NEXT}           Next
 ${AGREE}          Agree
 ${GO_TO_SUMMARY}  Review
 ${GO_TO_RESULTS}  Submit answers
+${DB_CONFIG_FILE}      resources/db.cfg
 
 *** Keywords ***
 
@@ -34,13 +35,13 @@ Close Application
     Empty Test Database
 
 Seed Database With Test Data
-    Connect To Database   dbConfigFile=./resources/compose.cfg
+    Connect To Database   dbConfigFile=${DB_CONFIG_FILE}
     Execute Sql Script    clear_database.sql
     Execute Sql Script    seed_database.sql
     Disconnect From Database
 
 Empty Test Database
-    Connect To Database   dbConfigFile=./resources/compose.cfg
+    Connect To Database   dbConfigFile=${DB_CONFIG_FILE}
     Execute Sql Script    clear_database.sql
     Disconnect From Database
 
