@@ -6,10 +6,11 @@ export const InnerContentWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 90%;
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 15% 8%;
+  min-height: 30rem;
+  margin: 0 4rem;
+  padding: 7% 8%;
   background-color: white;
   border-radius: 0.5rem;
+  flex: 1;
 `
 export default InnerContentWrapper

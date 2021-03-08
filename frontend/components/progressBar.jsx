@@ -7,9 +7,10 @@ const BarBackground = styled.div`
   background-color: ${({ theme }) => theme.colors.blueDianne};
   height: 2.5rem;
   border-radius: 0.8rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: -1rem;
   box-shadow: 0px 0px 10px #888888;
   z-index: 2;
+  width: 95%;
 `
 
 const InnerLine = styled.div`
