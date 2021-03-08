@@ -65,7 +65,9 @@ const Question = () => {
       }
     })()
   }, [])
-
+  const onReviewClick = () => {
+    router.push(summaryPageHref)
+  }
   const updateSelections = (pointValue) => {
     const newSelections = [...store.selections]
     newSelections[questionId - 1] = pointValue
@@ -111,7 +113,7 @@ const Question = () => {
           surveyLength={questions.length}
         />
         {isFinalQuestion ? (
-          <Button href={summaryPageHref} type="button">
+          <Button onClick={() => onReviewClick()} type="button">
             Review
           </Button>
         ) : null}
