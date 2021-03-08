@@ -5,8 +5,9 @@ export const ContentWrapper = styled.main`
   flex-direction: column;
   align-items: center;
   padding: 4rem 4rem;
-  margin: 0 4rem;
+  margin: 0 auto;
   font-family: Merriweather;
+  max-width: 1900px;
 
   p {
     text-align: center;
