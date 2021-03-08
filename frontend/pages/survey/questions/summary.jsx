@@ -59,14 +59,14 @@ const Summary = () => {
       reduce function checks that no selection is undef,
       length checker is needed as selections arr can be shorter than survey
     */
-  const allQuestionsAnswered =
-    store.selections.length === questions.length &&
-    store.selections.reduce((allAnswered, s) => {
-      if (!s || !allAnswered) {
-        return false
-      }
-      return true
-    }, true)
+
+  const allQuestionsAnswered = store.selections.length === questions.length
+  && store.selections.reduce((allAnswered, selection) => {
+    if (selection == null || !allAnswered) {
+      return false
+    }
+    return true
+  } , true)
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered) {

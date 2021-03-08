@@ -13,6 +13,11 @@ const {
   Result,
 } = require('../models')
 
+/*
+  currently app has to be started in test mode before running robot.
+  Following code ensures that app has data during build-time before robot
+  inserts seed data (testData copied from seed_database.sql)
+*/
 const initDatabase = async () => {
   await sequelize.sync({ force: true })
   await Category.bulkCreate(categories)

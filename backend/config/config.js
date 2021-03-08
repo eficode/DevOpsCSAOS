@@ -19,6 +19,14 @@ module.exports = {
     dialect: 'postgres',
     logging: false,
   },
+  endtoend: {
+    username: DB_USER,
+    password: DB_PASS,
+    database: 'endtoend_test_db',
+    host: DB_HOST,
+    dialect: 'postgres',
+    logging: false,
+  },
   production: {
     use_env_variable: 'DATABASE_URL',
   },
