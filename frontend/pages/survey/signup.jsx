@@ -59,8 +59,8 @@ const SignUpForm = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
+      <ProgressBar />
       <InnerContentWrapper>
-        <ProgressBar />
         <Heading>DevOps Assessment Tool</Heading>
         <FormTitle>Add your contact details to get started</FormTitle>
         <DetailsForm id="email-input-field" onSubmit={updateEmail}>
