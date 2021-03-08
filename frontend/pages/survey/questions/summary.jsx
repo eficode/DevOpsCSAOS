@@ -14,11 +14,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 0 0 0;
   width: 100%;
-  position: absolute;
-  top: 15px;
-  padding-bottom: 30px;
   background-color: white;
   border-radius: 0.5rem;
 `
@@ -32,7 +28,7 @@ const QuestionAnswerWrapper = styled.article`
   span {
     display: inline-block;
     margin: 0.4rem 0;
-    font-family:Merriweather;
+    font-family: Merriweather;
     font-weight: normal;
     font-size: 16px;
     color: black;
@@ -56,13 +52,14 @@ const Summary = () => {
   const store = useStore()
   const router = useRouter()
 
-  const answeredSelections = selections.filter(item => item)
+  const answeredSelections = selections.filter((item) => item)
 
-    /*
+  /*
       new checker: boolean variable updating on every change in store
       reduce function checks that no selection is undef,
       length checker is needed as selections arr can be shorter than survey
     */
+
   const allQuestionsAnswered = store.selections.length === questions.length
   && store.selections.reduce((allAnswered, selection) => {
     if (selection == null || !allAnswered) {
@@ -81,7 +78,7 @@ const Summary = () => {
       questionId: question.id,
       value: store.selections[index],
     }))
-    
+
     const email = store.email === '' ? undefined : store.email
 
     const { results } = await sendAnswers(email, answersForBackend)
@@ -112,42 +109,43 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar id={answeredSelections.length} total={questions.length}/>
+      <ProgressBar id={answeredSelections.length} total={questions.length} />
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
-            {/* we're assuming that questions are always available */}
-            {questions.map((question, index) => {
-              let answerToQuestion = getKeyByValue(
-                optionsToPointsMap,
-                selections[index]
-              )?.toLowerCase()
+          {/* we're assuming that questions are always available */}
+          {questions.map((question, index) => {
+            let answerToQuestion = getKeyByValue(
+              optionsToPointsMap,
+              selections[index]
+            )?.toLowerCase()
 
-              if (!answerToQuestion) {
-                answerToQuestion = "haven't answered this question."
-              }
+            if (!answerToQuestion) {
+              answerToQuestion = "haven't answered this question."
+            }
 
-              if (answerToQuestion === 'neutral') {
-                answerToQuestion = 'feel neutral'
-              }
+            if (answerToQuestion === 'neutral') {
+              answerToQuestion = 'feel neutral'
+            }
 
-              const QuestionText = `${question.text}`
-              const AnswerText = `You ${answerToQuestion}`
+            const QuestionText = `${question.text}`
+            const AnswerText = `You ${answerToQuestion}`
 
-              return (
-                <QuestionAnswerWrapper key={question.id}>
-                  {QuestionText}
-                  <br />
-                  <span>{AnswerText}</span>
-                </QuestionAnswerWrapper>
-                )
-              })}
+            return (
+              <QuestionAnswerWrapper key={question.id}>
+                {QuestionText}
+                <br />
+                <span>{AnswerText}</span>
+              </QuestionAnswerWrapper>
+            )
+          })}
           <Button type="submit" onClick={handleSubmit}>
             Submit answers
           </Button>
         </Content>
       </InnerContentWrapper>
     </>
-  )}
+  )
+}
 
 export default Summary

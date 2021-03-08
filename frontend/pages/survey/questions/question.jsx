@@ -9,7 +9,7 @@ import NavigationButtons from '../../../components/navigationButtons'
 import ProgressBar from '../../../components/progressBar'
 import { getAll as getAllQuestions } from '../../../services/questions'
 import { useRouter, withRouter } from '../../../components/staticRouting'
-import Link from 'next/link'
+import Button from '../../../components/button'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -111,9 +111,9 @@ const Question = () => {
           surveyLength={questions.length}
         />
         {isFinalQuestion ? (
-          <Link href={summaryPageHref} type="primary">
+          <Button href={summaryPageHref} type="button">
             Review
-          </Link>
+          </Button>
         ) : null}
       </InnerContentWrapper>
     </>
