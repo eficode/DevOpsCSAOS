@@ -6,8 +6,8 @@ export const InnerContentWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 90%;
+  max-height: 100%;
   /* min-height: 30rem; */
-  height: 75vh;
   margin: 0 4rem;
   padding: 7% 8%;
   background-color: white;

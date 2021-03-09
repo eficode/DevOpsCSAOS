@@ -52,8 +52,6 @@ const Summary = () => {
   const store = useStore()
   const router = useRouter()
 
-  const answeredSelections = selections.filter((item) => item)
-
   /*
       new checker: boolean variable updating on every change in store
       reduce function checks that no selection is undef,
@@ -109,7 +107,7 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar id={answeredSelections.length} total={questions.length} />
+      <ProgressBar id={1} total={1} />
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
