@@ -3,6 +3,7 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useStore } from '../../../store'
+import chunk from 'lodash/chunk'
 
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import Option from '../../../components/option'
@@ -36,7 +37,7 @@ const Heading = styled.h3`
   margin-bottom: 10px;
 `
 
-const Question = () => {
+const SurveyPage = () => {
   const router = useRouter()
   const store = useStore()
 
@@ -50,8 +51,13 @@ const Question = () => {
 
   const questionId = Number(router.query.id)
   const summaryPageHref = '/survey/questions/summary'
-  const isFinalQuestion = questionId === questions.length
 
+  // work in progress version: has 2 pages with 5 q's
+  const isFinalQuestion = questionId === 2
+  const chunkedQuestions = chunk(questions, 5)
+  const questionsToRender = questionId === 1 ?
+    chunkedQuestions[0] : chunkedQuestions[1]
+  
   useEffect(() => {
     ;(async () => {
       if (store.questions.length === 0) {
@@ -60,29 +66,32 @@ const Question = () => {
       }
     })()
   }, [])
+
   const onReviewClick = () => {
     router.push(summaryPageHref)
   }
+
   const updateSelections = (pointValue) => {
     const newSelections = [...store.selections]
     newSelections[questionId - 1] = pointValue
     store.setSelections(newSelections)
   }
+
   // this needs to be changed, but is here for placeholder
   if (store.questions.length === 0) {
     return <div>Loading questions...</div>
   }
-
+  
   return (
     <>
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar id={questionId} total={questions.length} />
+      <ProgressBar />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
 
-        <QuestionGrouper questions={questions}> </QuestionGrouper>
+        <QuestionGrouper questions={questionsToRender}> </QuestionGrouper>
 
         <NavigationButtons
           currentQuestionId={questionId}
@@ -98,4 +107,4 @@ const Question = () => {
   )
 }
 
-export default withRouter(Question)
+export default withRouter(SurveyPage)

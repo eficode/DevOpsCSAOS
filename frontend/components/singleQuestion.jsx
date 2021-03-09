@@ -37,7 +37,6 @@ const SingleQuestion = ({ question }) => {
   return (
     <>
       <QuestionTitle>{question.text}</QuestionTitle>
-      {console.log(question)}
       <OptionsWrapper>
         {Object.keys(optionsToPointsMap).map((optionLabel) => {
           const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
