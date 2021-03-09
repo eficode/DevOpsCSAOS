@@ -55,7 +55,7 @@ const Summary = () => {
   const notAnsweredQuestions = questions.filter(q => (
     // ! must be === undefined as js interprets 0 as falsy and value
     // of a selected option can be 0
-    selections.find(s => s.id === q.id).value === undefined)
+    selections.find(s => s.questionId === q.id).value === undefined)
   )
   const allQuestionsAnswered = notAnsweredQuestions.length === 0
 
@@ -66,14 +66,9 @@ const Summary = () => {
       return
     }
 
-    const answersForBackend = questions.map((question, index) => ({
-      questionId: question.id,
-      value: store.selections[index],
-    }))
-
     const email = store.email === '' ? undefined : store.email
 
-    const { results } = await sendAnswers(email, answersForBackend)
+    const { results } = await sendAnswers(email, store.selections)
 
     store.setResultsPerCategory(results)
 

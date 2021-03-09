@@ -28,13 +28,13 @@ const QuestionTitle = styled.h2`
 const SingleQuestion = ({ question }) => {
   const store = useStore()
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
-  const currentSelection = store.selections.find(s => s.id === question.id).value
+  const currentSelection = store.selections.find(s => s.questionId === question.id).value
 
   const updateSelections = (pointValue) => {
     const prevSelections = [...store.selections]
     const newSelections = prevSelections.map(selection => {
-      if (selection.id === question.id) {
-        return {id: selection.id, value: pointValue}
+      if (selection.questionId === question.id) {
+        return {questionId: selection.questionId, value: pointValue}
       }
       return selection
     })

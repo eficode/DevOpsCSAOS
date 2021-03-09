@@ -35,7 +35,7 @@ const store = (set) => ({
   setQuestions: (questions) => {
     const initialSelectionsWithQuestionIds = []
     questions.forEach(q => {
-      initialSelectionsWithQuestionIds.push({id: q.id, value: undefined})
+      initialSelectionsWithQuestionIds.push({questionId: q.id, value: undefined})
     });
 
     /* question grouping on pages can be modified here.
