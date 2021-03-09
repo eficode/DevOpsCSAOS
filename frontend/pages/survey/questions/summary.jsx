@@ -52,19 +52,13 @@ const Summary = () => {
   const store = useStore()
   const router = useRouter()
 
-  /*
-      new checker: boolean variable updating on every change in store
-      reduce function checks that no selection is undef,
-      length checker is needed as selections arr can be shorter than survey
-    */
+  const notAnsweredQuestions = questions.filter(q => (
+    // ! must be === undefined as js interprets 0 as falsy and value
+    // of a selected option can be 0
+    selections.find(s => s.id === q.id).value === undefined)
+  )
+  const allQuestionsAnswered = notAnsweredQuestions.length === 0
 
-  const allQuestionsAnswered = store.selections.length === questions.length
-  && store.selections.reduce((allAnswered, selection) => {
-    if (selection == null || !allAnswered) {
-      return false
-    }
-    return true
-  } , true)
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered) {
@@ -112,10 +106,10 @@ const Summary = () => {
         <Content>
           <Title>Here are your current answers</Title>
           {/* we're assuming that questions are always available */}
-          {questions.map((question, index) => {
+          {questions.map((question) => {
             let answerToQuestion = getKeyByValue(
               optionsToPointsMap,
-              selections[index]
+              selections.find(s => s.id === question.id).value
             )?.toLowerCase()
 
             if (!answerToQuestion) {

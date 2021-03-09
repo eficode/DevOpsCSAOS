@@ -39,8 +39,14 @@ const store = (set) => ({
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions) => {
+    const initialSelectionsWithQuestionIds = []
+    questions.forEach(q => {
+      initialSelectionsWithQuestionIds.push({id: q.id, value: undefined})
+    });
+
     set(() => ({
       questions,
+      selections: initialSelectionsWithQuestionIds
     }))
   },
   clear: () => set(() => ({

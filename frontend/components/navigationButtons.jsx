@@ -8,8 +8,8 @@ const NavWrapper = styled.nav`
 `
 
 const NavigationButtons = ({ currentQuestionId, surveyLength }) => {
-  const prevQUrl = `/survey/questions/question/?id=${currentQuestionId - 1}`
-  const nextQUrl = `/survey/questions/question/?id=${currentQuestionId + 1}`
+  const prevQUrl = `/survey/questions/?id=${currentQuestionId - 1}`
+  const nextQUrl = `/survey/questions/?id=${currentQuestionId + 1}`
 
   const isFirstQuestion = currentQuestionId === 1
   const isLastQuestion = currentQuestionId === surveyLength

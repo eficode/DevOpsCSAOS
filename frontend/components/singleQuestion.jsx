@@ -28,12 +28,19 @@ const QuestionTitle = styled.h2`
 const SingleQuestion = ({ question }) => {
   const store = useStore()
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
+  const currentSelection = store.selections.find(s => s.id === question.id).value
 
   const updateSelections = (pointValue) => {
-    const newSelections = [...store.selections]
-    newSelections[question.id - 1] = pointValue
+    const prevSelections = [...store.selections]
+    const newSelections = prevSelections.map(selection => {
+      if (selection.id === question.id) {
+        return {id: selection.id, value: pointValue}
+      }
+      return selection
+    })
     store.setSelections(newSelections)
   }
+
   return (
     <>
       <QuestionTitle>{question.text}</QuestionTitle>
@@ -46,7 +53,7 @@ const SingleQuestion = ({ question }) => {
               key={pointsAssociatedWithOption}
               label={optionLabel}
               selected={
-                store.selections[question.id - 1] === pointsAssociatedWithOption
+                currentSelection === pointsAssociatedWithOption
               }
               onClick={() => updateSelections(pointsAssociatedWithOption)}
             />

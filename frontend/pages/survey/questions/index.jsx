@@ -42,12 +42,6 @@ const SurveyPage = () => {
   const store = useStore()
 
   const { questions } = store
-  const questionNumber = 1
-  const questionsWithNumber = questions.map((question) => ({
-    ...question,
-    number: questionNumber,
-  }))
-  const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
 
   const questionId = Number(router.query.id)
   const summaryPageHref = '/survey/questions/summary'
@@ -71,16 +65,12 @@ const SurveyPage = () => {
     router.push(summaryPageHref)
   }
 
-  const updateSelections = (pointValue) => {
-    const newSelections = [...store.selections]
-    newSelections[questionId - 1] = pointValue
-    store.setSelections(newSelections)
-  }
-
   // this needs to be changed, but is here for placeholder
   if (store.questions.length === 0) {
     return <div>Loading questions...</div>
   }
+
+  console.log(store.selections)
   
   return (
     <>
@@ -95,7 +85,7 @@ const SurveyPage = () => {
 
         <NavigationButtons
           currentQuestionId={questionId}
-          surveyLength={questions.length}
+          surveyLength={2}
         />
         {isFinalQuestion ? (
           <Button onClick={() => onReviewClick()} type="button">
