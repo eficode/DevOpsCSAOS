@@ -41,16 +41,11 @@ const SurveyPage = () => {
   const router = useRouter()
   const store = useStore()
 
-  const { questions } = store
-
-  const questionId = Number(router.query.id)
+  const pageId = Number(router.query.id)
   const summaryPageHref = '/survey/questions/summary'
 
-  // work in progress version: has 2 pages with 5 q's
-  const isFinalQuestion = questionId === 2
-  const chunkedQuestions = chunk(questions, 5)
-  const questionsToRender = questionId === 1 ?
-    chunkedQuestions[0] : chunkedQuestions[1]
+  const isFinalPage = pageId === store.questionGroups.length
+  const questionsToRender = store.questionGroups[pageId - 1]
   
   useEffect(() => {
     ;(async () => {
@@ -84,10 +79,10 @@ const SurveyPage = () => {
         <QuestionGrouper questions={questionsToRender}> </QuestionGrouper>
 
         <NavigationButtons
-          currentQuestionId={questionId}
-          surveyLength={2}
+          currentPageId={pageId}
+          pageCount={store.questionGroups.length}
         />
-        {isFinalQuestion ? (
+        {isFinalPage ? (
           <Button onClick={() => onReviewClick()} type="button">
             Review
           </Button>

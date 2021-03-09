@@ -7,22 +7,22 @@ const NavWrapper = styled.nav`
   flex-direction: row;
 `
 
-const NavigationButtons = ({ currentQuestionId, surveyLength }) => {
-  const prevQUrl = `/survey/questions/?id=${currentQuestionId - 1}`
-  const nextQUrl = `/survey/questions/?id=${currentQuestionId + 1}`
+const NavigationButtons = ({ currentPageId, pageCount }) => {
+  const prevPageUrl = `/survey/questions/?id=${currentPageId - 1}`
+  const nextPageUrl = `/survey/questions/?id=${currentPageId + 1}`
 
-  const isFirstQuestion = currentQuestionId === 1
-  const isLastQuestion = currentQuestionId === surveyLength
+  const isFirstPage = currentPageId === 1
+  const isLastPage = currentPageId === pageCount
 
   return (
     <NavWrapper>
-      {!isFirstQuestion && (
-        <StyledLink href={prevQUrl} passHref type="secondary">
+      {!isFirstPage && (
+        <StyledLink href={prevPageUrl} passHref type="secondary">
           Back
         </StyledLink>
       )}
-      {!isLastQuestion && (
-        <StyledLink href={nextQUrl} passHref type="primary">
+      {!isLastPage && (
+        <StyledLink href={nextPageUrl} passHref type="primary">
           Next
         </StyledLink>
       )}
