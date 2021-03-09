@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+import Link from 'next/link'
 import { useStore } from '../../../store'
 
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import Option from '../../../components/option'
+import QuestionGrouper from '../../../components/questionGrouper'
 import NavigationButtons from '../../../components/navigationButtons'
 import ProgressBar from '../../../components/progressBar'
 import { getAll as getAllQuestions } from '../../../services/questions'
@@ -34,23 +36,16 @@ const Heading = styled.h3`
   margin-bottom: 10px;
 `
 
-const QuestionTitle = styled.h2`
-  color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Merriweather;
-  margin: 10px 0 30px 0;
-`
-const QuestionNumber = styled.span`
-  color: ${({ theme }) => theme.colors.nevada};
-  font-family: Merriweather;
-  font-size: 15px;
-`
-
 const Question = () => {
   const router = useRouter()
   const store = useStore()
 
-  const questions = store.questions
-
+  const { questions } = store
+  const questionNumber = 1
+  const questionsWithNumber = questions.map((question) => ({
+    ...question,
+    number: questionNumber,
+  }))
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
 
   const questionId = Number(router.query.id)
@@ -86,28 +81,9 @@ const Question = () => {
       <ProgressBar id={questionId} total={questions.length} />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
-        <QuestionNumber>
-          {' '}
-          Question {questionId}/{questions.length}{' '}
-        </QuestionNumber>
-        <QuestionTitle>{questions[questionId - 1].text}</QuestionTitle>
-        <OptionsWrapper>
-          {Object.keys(optionsToPointsMap).map((optionLabel) => {
-            const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
 
-            return (
-              <Option
-                key={pointsAssociatedWithOption}
-                label={optionLabel}
-                selected={
-                  store.selections[questionId - 1] ===
-                  pointsAssociatedWithOption
-                }
-                onClick={() => updateSelections(pointsAssociatedWithOption)}
-              />
-            )
-          })}
-        </OptionsWrapper>
+        <QuestionGrouper questions={questions}> </QuestionGrouper>
+
         <NavigationButtons
           currentQuestionId={questionId}
           surveyLength={questions.length}
