@@ -7,12 +7,10 @@ const NavWrapper = styled.nav`
   flex-direction: row;
 `
 
-const NavigationButtons = ({ currentQuestionId, surveyLength }) => {
+const NavigationButtons = ({ currentQuestionId }) => {
   const prevQUrl = `/survey/questions/question/?id=${currentQuestionId - 1}`
-  const nextQUrl = `/survey/questions/question/?id=${currentQuestionId + 1}`
 
   const isFirstQuestion = currentQuestionId === 1
-  const isLastQuestion = currentQuestionId === surveyLength
 
   return (
     <NavWrapper>
@@ -21,11 +19,6 @@ const NavigationButtons = ({ currentQuestionId, surveyLength }) => {
           Previous
         </StyledLink>
       )}
-      {/* {!isLastQuestion && (
-        <StyledLink href={nextQUrl} passHref type="primary">
-          Next
-        </StyledLink>
-      )} */}
     </NavWrapper>
   )
 }
