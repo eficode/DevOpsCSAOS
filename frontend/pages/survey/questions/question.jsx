@@ -10,6 +10,7 @@ import ProgressBar from '../../../components/progressBar'
 import { getAll as getAllQuestions } from '../../../services/questions'
 import { useRouter, withRouter } from '../../../components/staticRouting'
 import Button from '../../../components/button'
+import Link from 'next/link'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -65,9 +66,7 @@ const Question = () => {
       }
     })()
   }, [])
-  const onReviewClick = () => {
-    router.push(summaryPageHref)
-  }
+
   const updateSelections = (pointValue) => {
     const newSelections = [...store.selections]
     newSelections[questionId - 1] = pointValue
@@ -112,11 +111,7 @@ const Question = () => {
           currentQuestionId={questionId}
           surveyLength={questions.length}
         />
-        {isFinalQuestion ? (
-          <Button onClick={() => onReviewClick()} type="button">
-            Review
-          </Button>
-        ) : null}
+        {isFinalQuestion ? <Link href={summaryPageHref}>Review</Link> : null}
       </InnerContentWrapper>
     </>
   )
