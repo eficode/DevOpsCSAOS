@@ -21,8 +21,8 @@ Signup With Email
 Signup With Invalid Email Should Fail
     [Arguments]      ${email}
     Signup With Email   ${email}
+    Alert Should Be Present
     Signup Page Should Be Open
-
 
 Insert Email
     [Arguments]      ${email}
