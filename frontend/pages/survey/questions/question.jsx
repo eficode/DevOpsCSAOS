@@ -10,6 +10,7 @@ import { getAll as getAllQuestions } from '../../../services/questions'
 import { useRouter, withRouter } from '../../../components/staticRouting'
 import Link from 'next/link'
 import StyledLink from '../../../components/link'
+import NavigationGroup from '../../../components/navigationGroup'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -123,11 +124,18 @@ const Question = () => {
             )
           })}
         </OptionsWrapper>
+        <NavigationGroup>
         {!isFirstQuestion ? (
           <StyledLink href={previousQuestionHref} passHref type="secondary">
             Previous
           </StyledLink>
         ) : null}
+        {!isFinalQuestion ? (
+          <StyledLink href={nextQuestionHref} passHref type="primary">
+            Next
+          </StyledLink>
+        ) : null}
+        </NavigationGroup>
         {isFinalQuestion ? <Link href={summaryPageHref}>Review</Link> : null}
       </InnerContentWrapper>
     </>
