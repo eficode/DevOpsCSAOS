@@ -55,7 +55,8 @@ const Summary = () => {
   const notAnsweredQuestions = questions.filter(q => (
     // ! must be === undefined as js interprets 0 as falsy and value
     // of a selected option can be 0
-    selections.find(s => s.questionId === q.id).value === undefined)
+    selections.find(s => s.questionId === q.id).value === undefined
+    )
   )
   const allQuestionsAnswered = notAnsweredQuestions.length === 0
 
@@ -104,7 +105,7 @@ const Summary = () => {
           {questions.map((question) => {
             let answerToQuestion = getKeyByValue(
               optionsToPointsMap,
-              selections.find(s => s.id === question.id).value
+              selections.find(s => s.questionId === question.id).value
             )?.toLowerCase()
 
             if (!answerToQuestion) {
