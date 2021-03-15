@@ -6,9 +6,4 @@ export const create = async (credentials) => {
   return response.data
 }
 
-export const getByEmail = async (email) => {
-  const response = await axios.get(`${HOST}/api/users/${email}`)
-  return response.data
-}
-
-export default { create, getByEmail }
+export default { create }
