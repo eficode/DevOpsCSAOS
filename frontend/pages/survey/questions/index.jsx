@@ -46,6 +46,7 @@ const SurveyPage = () => {
 
   const isFinalPage = pageId === store.questionGroups.length
   const questionsToRender = store.questionGroups[pageId - 1]
+  console.log(store)
 
   useEffect(() => {
     ;(async () => {
