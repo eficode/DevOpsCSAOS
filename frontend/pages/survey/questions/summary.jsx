@@ -51,15 +51,13 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-
-  const notAnsweredQuestions = questions.filter(q => (
-    // ! must be === undefined as js interprets 0 as falsy and value
-    // of a selected option can be 0
-    selections.find(s => s.questionId === q.id).value === undefined
-    )
+  const total = questions.length
+  const countOfAnsweredQuestions = store.selections.reduce(
+    (accumulator, selection) =>
+      selection.value !== undefined ? accumulator + 1 : accumulator,
+    0
   )
-  const allQuestionsAnswered = notAnsweredQuestions.length === 0
-
+  const allQuestionsAnswered = countOfAnsweredQuestions === total
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered) {
@@ -97,7 +95,7 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar id={1} total={1} />
+      <ProgressBar answered={countOfAnsweredQuestions} total={total} />
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
@@ -105,7 +103,7 @@ const Summary = () => {
           {questions.map((question) => {
             let answerToQuestion = getKeyByValue(
               optionsToPointsMap,
-              selections.find(s => s.questionId === question.id).value
+              selections.find((s) => s.questionId === question.id).value
             )?.toLowerCase()
 
             if (!answerToQuestion) {

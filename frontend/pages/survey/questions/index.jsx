@@ -46,7 +46,7 @@ const SurveyPage = () => {
 
   const isFinalPage = pageId === store.questionGroups.length
   const questionsToRender = store.questionGroups[pageId - 1]
-  
+
   useEffect(() => {
     ;(async () => {
       if (store.questions.length === 0) {
@@ -65,14 +65,20 @@ const SurveyPage = () => {
     return <div>Loading questions...</div>
   }
 
-  console.log(store.selections)
-  
+  const countOfAnsweredQuestions = store.selections.reduce(
+    (accumulator, selection) =>
+      selection.value !== undefined ? accumulator + 1 : accumulator,
+    0
+  )
+
+  const total = store.questions.length
+
   return (
     <>
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar />
+      <ProgressBar answered={countOfAnsweredQuestions} total={total} />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
 
