@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Button from '@material-ui/core/Button';
 import Link from 'next/link'
 
 const linkStyle = `
@@ -19,6 +20,7 @@ const linkStyle = `
 
   cursor:pointer;
 `
+
 
 const StyledPrimaryLink = styled.div`
   background-color: ${({ theme }) => theme.colors.blueDianne};
@@ -42,12 +44,22 @@ const StyledSecondaryLink = styled.div`
   ${linkStyle}
 `
 
-const StyledLink = ({ children, type, href }) => {
-  if (type === 'primary') {
-    return (
-      <Link href={href}>
+
+
+  const StyledLink = ({ children, type, href }) => {
+    if (type === 'primary') {
+      return (
+        <>
         <StyledPrimaryLink>{children}</StyledPrimaryLink>
-      </Link>
+        <Link href={href} passHref>
+
+          <Button 
+            variant="contained" 
+            component="a">
+            {children}
+          </Button>
+        </Link>
+        </>
     )
   }
 
