@@ -8,6 +8,7 @@ import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
+import TotalResultChart from '../../components/totalResultChart'
 import { useStore } from '../../store'
 
 const Content = styled.div`
@@ -68,6 +69,7 @@ const Home = () => {
           <Link href="mailto:devops@leipalaari.fi" type="primary">
             Contact us!
           </Link>
+
           <Categories>
             {store.resultsPerCategory.map((result, index) => (
               <CategoryResult
@@ -79,6 +81,7 @@ const Home = () => {
               />
             ))}
           </Categories>
+          <TotalResultChart data={store.resultsPerCategory} />
         </Content>
       </InnerContentWrapper>
     </>
