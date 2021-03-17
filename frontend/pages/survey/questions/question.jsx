@@ -136,7 +136,7 @@ const Question = () => {
           </StyledLink>
         ) : null}
         </NavigationGroup>
-        {isFinalQuestion ? <Link href={summaryPageHref}>Review</Link> : null}
+        {isFinalQuestion ? <StyledLink type="primary" href={summaryPageHref}>Review</StyledLink> : null}
       </InnerContentWrapper>
     </>
   )
