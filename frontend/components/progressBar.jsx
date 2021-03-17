@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 const BarBackground = styled.div`
   display: flex;
@@ -28,13 +29,19 @@ const ProgressLine = styled.div`
   width: ${({ progress }) => progress}%;
 `
 
+const ProgressWrapper = styled.div`
+  .MuiLinearProgress{
+    
+  }
+`;
+
 /*
   USAGE:
   - show progress: insert id and total props
   - bar component without progress (non-survey pages): leave props undefined
 */
 
-const ProgressBar = ({ id, total }) => {
+export const ProgressBar = ({ id, total }) => {
   if (!id && !total) {
     id = 0
     total = 100
@@ -43,11 +50,14 @@ const ProgressBar = ({ id, total }) => {
   const progress = (id / total) * 100
 
   return (
-    <BarBackground>
+    <>
+    {/* <BarBackground>
       <InnerLine>
         <ProgressLine progress={progress} />
       </InnerLine>
-    </BarBackground>
+    </BarBackground> */}
+      {/* <LinearProgress /> */}
+      </>
   )
 }
 
