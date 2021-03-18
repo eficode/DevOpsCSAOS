@@ -95,7 +95,7 @@ describe('Sending answers', () => {
     
     global.alert = jest.fn()
     act(() => {
-      useStore.setState({ selections: changeSelections([1, 1, 1,1]) })
+      useStore.setState({ selections: changeSelections(new Array(questions.length).fill(1)) })
     })
 
     const button = screen.getByRole('button', { name: 'Submit answers' })

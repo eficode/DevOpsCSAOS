@@ -10,21 +10,19 @@ import { useStore } from '../../store'
 
 import SurveyPage from '../../pages/survey/questions/index'
 import ThemeWrapper from '../testutils/themeWrapper'
-import { questions } from '../testutils/mockQuestions'
+import { questions, initializedSelections } from '../testutils/utils'
 
 nextRouter.useRouter = jest.fn()
 
 describe('Question rendering', () => {
   beforeEach(() => {
-    const currentState = useStore.getState()
     useStore.setState({
-      ...currentState,
-      questions: questions,
-<<<<<<< HEAD
-=======
-      questionGroups: chunk(questions, questions.length / 2),
->>>>>>> 30b94c477b8681c845f6e9611f075f37e88c0bd3
+      questions,
+      questionGroups: chunk(questions, questions.length / 3),
+      selections: initializedSelections,
     })
+
+    console.log(useStore.getState().questionGroups)
 
     useRouter.mockImplementation(() => ({
       route: '/survey/questions/?id=1',
@@ -46,11 +44,7 @@ describe('Question rendering', () => {
   it('The question whose id is in route is rendered', () => {
     render(
       <ThemeWrapper>
-<<<<<<< HEAD
-        <Question />
-=======
         <SurveyPage />
->>>>>>> 30b94c477b8681c845f6e9611f075f37e88c0bd3
       </ThemeWrapper>
     )
     expect(screen.getByText('Oletko ruisleipä?'))
@@ -59,11 +53,7 @@ describe('Question rendering', () => {
   it('The right "Question q_id/survey_length" params are rendered', () => {
     render(
       <ThemeWrapper>
-<<<<<<< HEAD
-        <Question />
-=======
         <SurveyPage />
->>>>>>> 30b94c477b8681c845f6e9611f075f37e88c0bd3
       </ThemeWrapper>
     )
     expect(
@@ -92,7 +82,7 @@ describe('Navigation button conditional rendering', () => {
     expect(screen.queryByText('Back')).not.toBeInTheDocument()
   })
 
-  it('Mid-survey question renders links with texts Back and Next', () => {
+  it.only('Mid-survey question renders links with texts Back and Next', () => {
     useRouter.mockImplementation(() => ({
       route: '/survey/questions/?id=2',
       pathname: 'survey/questions/?id=2',
