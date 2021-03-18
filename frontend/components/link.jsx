@@ -3,7 +3,10 @@ import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import Link from 'next/link'
 
-const linkStyle = `
+/**
+ * Shared Link styles
+ */
+const StyledBaseLink = styled.a`
   font-family: Montserrat;
   font-weight: bold;
   font-size: 14px;
@@ -11,68 +14,56 @@ const linkStyle = `
   margin: 10px;
   min-width: 120px;
   height: 45px;
-  text-align:center;
+  text-align: center;
   line-height: 45px;
   border-radius: 5px;
   border-width: 0px;
   margin: 50px 25px 15px 25px;
   padding: 0 20px;
-
-  cursor:pointer;
+  cursor: pointer;
 `
 
-
-const StyledPrimaryLink = styled.div`
+/**
+ * Variants of our generic styled Link component
+ *  */
+const StyledPrimaryLink = styled(StyledBaseLink)`
   background-color: ${({ theme }) => theme.colors.blueDianne};
   color: white;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.easternBlue};
   }
-
-  ${linkStyle}
 `
 
-const StyledSecondaryLink = styled.div`
+const StyledSecondaryLink = styled(StyledBaseLink)`
   background-color: ${({ theme }) => theme.colors.cararra};
   color: ${({ theme }) => theme.colors.nevada};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.silver};
   }
-
-  ${linkStyle}
 `
 
-
-
-  const StyledLink = ({ children, type, href }) => {
-    if (type === 'primary') {
-      return (
-        <>
+const StyledLink = ({ children, type, href }) => {
+  if (type === 'primary') {
+    return (
+      <Link href={href} passHref>
         <StyledPrimaryLink>{children}</StyledPrimaryLink>
-        <Link href={href} passHref>
-
-          <Button 
-            variant="contained" 
-            component="a">
-            {children}
-          </Button>
         </Link>
-        </>
     )
   }
 
   if (type === 'secondary') {
     return (
-      <Link href={href}>
+      <Link href={href} passHref>
         <StyledSecondaryLink>{children}</StyledSecondaryLink>
       </Link>
     )
   }
 
   console.warn('custom link only has primary and secondary types')
-  return <></>
+
+  return <Link href={href}>{children}</Link>
 }
 
 export default StyledLink

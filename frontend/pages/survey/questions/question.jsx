@@ -5,11 +5,12 @@ import { useStore } from '../../../store'
 
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import Option from '../../../components/option'
-import NavigationButtons from '../../../components/navigationButtons'
 import ProgressBar from '../../../components/progressBar'
 import { getAll as getAllQuestions } from '../../../services/questions'
 import { useRouter, withRouter } from '../../../components/staticRouting'
-import Button from '../../../components/button'
+import Link from 'next/link'
+import StyledLink from '../../../components/link'
+import NavigationGroup from '../../../components/navigationGroup'
 
 const OptionsWrapper = styled.div`
   display: grid;
@@ -54,8 +55,14 @@ const Question = () => {
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
 
   const questionId = Number(router.query.id)
+  const nextQuestionHref = `/survey/questions/question/?id=${questionId + 1}`
+  const previousQuestionHref = `/survey/questions/question/?id=${
+    questionId - 1
+  }`
   const summaryPageHref = '/survey/questions/summary'
   const isFinalQuestion = questionId === questions.length
+  const isFirstQuestion = questionId === 1
+  const storeHasQuestions = store.questions.length > 0
 
   useEffect(() => {
     ;(async () => {
@@ -65,16 +72,24 @@ const Question = () => {
       }
     })()
   }, [])
-  const onReviewClick = () => {
-    router.push(summaryPageHref)
-  }
+
   const updateSelections = (pointValue) => {
     const newSelections = [...store.selections]
     newSelections[questionId - 1] = pointValue
     store.setSelections(newSelections)
   }
+
+  const handleAnswerSelection = (pointsAssociatedWithOption) => {
+    updateSelections(pointsAssociatedWithOption)
+    if (!isFinalQuestion) {
+      router.push(nextQuestionHref, null, {
+        shallow: true,
+      })
+    }
+  }
+
   // this needs to be changed, but is here for placeholder
-  if (store.questions.length === 0) {
+  if (!storeHasQuestions) {
     return <div>Loading questions...</div>
   }
 
@@ -94,7 +109,6 @@ const Question = () => {
         <OptionsWrapper>
           {Object.keys(optionsToPointsMap).map((optionLabel) => {
             const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
-
             return (
               <Option
                 key={pointsAssociatedWithOption}
@@ -103,20 +117,26 @@ const Question = () => {
                   store.selections[questionId - 1] ===
                   pointsAssociatedWithOption
                 }
-                onClick={() => updateSelections(pointsAssociatedWithOption)}
+                onClick={() =>
+                  handleAnswerSelection(pointsAssociatedWithOption)
+                }
               />
             )
           })}
         </OptionsWrapper>
-        <NavigationButtons
-          currentQuestionId={questionId}
-          surveyLength={questions.length}
-        />
-        {isFinalQuestion ? (
-          <Button onClick={() => onReviewClick()} type="button">
-            Review
-          </Button>
+        <NavigationGroup>
+        {!isFirstQuestion ? (
+          <StyledLink href={previousQuestionHref} passHref type="secondary">
+            Previous
+          </StyledLink>
         ) : null}
+        {!isFinalQuestion ? (
+          <StyledLink href={nextQuestionHref} passHref type="primary">
+            Next
+          </StyledLink>
+        ) : null}
+        </NavigationGroup>
+        {isFinalQuestion ? <StyledLink type="primary" href={summaryPageHref}>Review</StyledLink> : null}
       </InnerContentWrapper>
     </>
   )
