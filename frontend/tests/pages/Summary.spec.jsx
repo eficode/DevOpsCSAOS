@@ -11,9 +11,13 @@ import { useStore } from '../../store'
 
 import Summary from '../../pages/survey/questions/summary'
 import ThemeWrapper from '../testutils/themeWrapper'
-import { questions } from '../testutils/mockQuestions'
+import { questions, initializedSelections, changeSelections } from '../testutils/utils'
 
 nextRouter.useRouter = jest.fn()
+
+beforeEach(() => {
+  useStore.setState({questions, selections: initializedSelections})
+})
 
 describe('Component rendering', () => {
   useRouter.mockImplementation(() => ({
@@ -39,10 +43,7 @@ describe('Answer summary listing', () => {
         <Summary />
       </ThemeWrapper>,
     )
-    act(() => {
-      useStore.setState({questions})
-    })
-    
+
     questions.forEach(q => {
       expect(screen.getByText(q.text)).toBeInTheDocument()
     })
@@ -54,9 +55,9 @@ describe('Answer summary listing', () => {
         <Summary />
       </ThemeWrapper>,
     )
+
     act(() => {
-      useStore.setState({ questions })
-      useStore.setState({ selections: [-1, 2, 4]})
+      useStore.setState({ selections: changeSelections([-1, 2, 4])})
     })
 
     expect(screen.getByText(questions[0].text)).toHaveTextContent("You haven't answered this question")
@@ -73,7 +74,7 @@ describe('Sending answers', () => {
       </ThemeWrapper>,
     )
     act(() => {
-      useStore.setState({ selections: [1] })
+      useStore.setState({ selections:  changeSelections([1, undefined, undefined])})
     })
 
     global.alert = jest.fn()
@@ -94,7 +95,7 @@ describe('Sending answers', () => {
     
     global.alert = jest.fn()
     act(() => {
-      useStore.setState({ selections: new Array(questions.length).fill(1) })
+      useStore.setState({ selections: changeSelections([1, 1, 1,1]) })
     })
 
     const button = screen.getByRole('button', { name: 'Submit answers' })
