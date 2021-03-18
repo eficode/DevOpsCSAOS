@@ -5,9 +5,10 @@ import userEvent from '@testing-library/user-event'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
+import chunk from 'lodash/chunk'
 import { useStore } from '../../store'
 
-import Question from '../../pages/survey/questions/question'
+import SurveyPage from '../../pages/survey/questions/index'
 import ThemeWrapper from '../testutils/themeWrapper'
 import { questions } from '../testutils/mockQuestions'
 
@@ -19,11 +20,15 @@ describe('Question rendering', () => {
     useStore.setState({
       ...currentState,
       questions: questions,
+<<<<<<< HEAD
+=======
+      questionGroups: chunk(questions, questions.length / 2),
+>>>>>>> 30b94c477b8681c845f6e9611f075f37e88c0bd3
     })
 
     useRouter.mockImplementation(() => ({
-      route: '/survey/questions/question/?id=1',
-      pathname: 'survey/questions/question/?id=1',
+      route: '/survey/questions/?id=1',
+      pathname: 'survey/questions/?id=1',
       query: { id: '1' },
       asPath: '',
     }))
@@ -32,7 +37,7 @@ describe('Question rendering', () => {
   it('Component is rendered', () => {
     render(
       <ThemeWrapper>
-        <Question />
+        <SurveyPage />
       </ThemeWrapper>
     )
     expect(screen.getByText('DevOps Assessment Tool')).toBeInTheDocument()
@@ -41,7 +46,11 @@ describe('Question rendering', () => {
   it('The question whose id is in route is rendered', () => {
     render(
       <ThemeWrapper>
+<<<<<<< HEAD
         <Question />
+=======
+        <SurveyPage />
+>>>>>>> 30b94c477b8681c845f6e9611f075f37e88c0bd3
       </ThemeWrapper>
     )
     expect(screen.getByText('Oletko ruisleipä?'))
@@ -50,7 +59,11 @@ describe('Question rendering', () => {
   it('The right "Question q_id/survey_length" params are rendered', () => {
     render(
       <ThemeWrapper>
+<<<<<<< HEAD
         <Question />
+=======
+        <SurveyPage />
+>>>>>>> 30b94c477b8681c845f6e9611f075f37e88c0bd3
       </ThemeWrapper>
     )
     expect(
@@ -68,38 +81,51 @@ describe('Navigation button conditional rendering', () => {
     })
   })
 
+  it('Not last question renders only link with text Next', () => {
+    render(
+      <ThemeWrapper>
+        <SurveyPage />
+      </ThemeWrapper>
+    )
+    //.not. does not work with getByText
+    expect(screen.queryByText('Next')).toBeInTheDocument()
+    expect(screen.queryByText('Back')).not.toBeInTheDocument()
+  })
+
   it('Mid-survey question renders links with texts Back and Next', () => {
     useRouter.mockImplementation(() => ({
-      route: '/survey/questions/question/?id=2',
-      pathname: 'survey/questions/question/?id=2',
+      route: '/survey/questions/?id=2',
+      pathname: 'survey/questions/?id=2',
       query: { id: '2' },
       asPath: '',
     }))
 
     render(
       <ThemeWrapper>
-        <Question />
+        <SurveyPage />
       </ThemeWrapper>
     )
 
-    expect(screen.queryByText('Previous')).toBeInTheDocument()
+    expect(screen.queryByText('Next')).toBeInTheDocument()
+    expect(screen.queryByText('Back')).toBeInTheDocument()
   })
 
   it('Last question renders link with text Back and link to summary', () => {
     useRouter.mockImplementation(() => ({
-      route: '/survey/questions/question/?id=3',
-      pathname: 'survey/questions/question/?id=3',
+      route: '/survey/questions/?id=3',
+      pathname: 'survey/questions/?id=3',
       query: { id: '3' },
       asPath: '',
     }))
 
     render(
       <ThemeWrapper>
-        <Question />
+        <SurveyPage />
       </ThemeWrapper>
     )
 
-    expect(screen.queryByText('Previous')).toBeInTheDocument()
+    expect(screen.queryByText('Next')).not.toBeInTheDocument()
+    expect(screen.queryByText('Back')).toBeInTheDocument()
     expect(screen.queryByText('Review')).toBeInTheDocument()
   })
 })
@@ -116,7 +142,7 @@ describe('Selecting option', () => {
   it('Clicking option changes selection in state', () => {
     render(
       <ThemeWrapper>
-        <Question />
+        <SurveyPage />
       </ThemeWrapper>
     )
 

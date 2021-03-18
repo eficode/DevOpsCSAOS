@@ -34,9 +34,12 @@ const store = (set) => ({
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions) => {
     const initialSelectionsWithQuestionIds = []
-    questions.forEach(q => {
-      initialSelectionsWithQuestionIds.push({questionId: q.id, value: undefined})
-    });
+    questions.forEach((q) => {
+      initialSelectionsWithQuestionIds.push({
+        questionId: q.id,
+        value: undefined,
+      })
+    })
 
     /* question grouping on pages can be modified here.
       current (arbitrary) grouping logic: divide questions on 2
@@ -47,11 +50,15 @@ const store = (set) => ({
     set(() => ({
       questions,
       selections: initialSelectionsWithQuestionIds,
-      questionGroups: chunkedQuestions
+      questionGroups: chunkedQuestions,
     }))
   },
   clear: () => set(() => ({
-    questions: [], email: '', selections: [], resultsPerCategory: [], resultText: '',
+    questions: [],
+    email: '',
+    selections: [],
+    resultsPerCategory: [],
+    resultText: '',
   })),
   setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
   setResultText: (text) => set(() => ({ resultText: text })),
@@ -59,8 +66,9 @@ const store = (set) => ({
   setMaxResult: (score) => set(() => ({ maxResult: score })),
 })
 
-export const useStore = create(persist(store,
-  {
+export const useStore = create(
+  persist(store, {
     name: 'devops assessment tool store',
     getStorage: () => sessionStorage, // use sessionStorage
-  }))
+  }),
+)

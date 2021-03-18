@@ -34,13 +34,13 @@ const ProgressLine = styled.div`
   - bar component without progress (non-survey pages): leave props undefined
 */
 
-const ProgressBar = ({ id, total }) => {
-  if (!id && !total) {
-    id = 0
+const ProgressBar = ({ answered, total }) => {
+  if (!answered && !total) {
+    answered = 0
     total = 100
   }
 
-  const progress = (id / total) * 100
+  const progress = (answered / total) * 100
 
   return (
     <BarBackground>

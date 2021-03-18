@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
-import chunk from 'lodash/chunk'
 
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import QuestionGrouper from '../../../components/questionGrouper'
@@ -11,22 +10,6 @@ import { getAll as getAllQuestions } from '../../../services/questions'
 import { useRouter, withRouter } from '../../../components/staticRouting'
 import StyledLink from '../../../components/link'
 import NavigationGroup from '../../../components/navigationGroup'
-
-const OptionsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 50% 50% 50%;
-  grid-template-rows: 60px 60px;
-  column-gap: 40px;
-  row-gap: 30px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  justify-content: center;
-  width: 50%;
-
-  button {
-    cursor: pointer;
-  }
-`
 
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -62,12 +45,7 @@ const SurveyPage = () => {
     })()
   }, [])
 
-  const updateSelections = (pointValue) => {
-    const newSelections = [...store.selections]
-    newSelections[questionId - 1] = pointValue
-    store.setSelections(newSelections)
-  }
-
+  // this needs to be updated take multi-question page into account
   const handleAnswerSelection = (pointsAssociatedWithOption) => {
     updateSelections(pointsAssociatedWithOption)
     if (!isFinalQuestion) {
@@ -76,20 +54,27 @@ const SurveyPage = () => {
       })
     }
   }
+  console.log(store.selections)
 
   // this needs to be changed, but is here for placeholder
   if (!storeHasQuestions) {
     return <div>Loading questions...</div>
   }
 
-  
-  
+  const countOfAnsweredQuestions = store.selections.reduce(
+    (accumulator, selection) =>
+      selection.value !== undefined ? accumulator + 1 : accumulator,
+    0
+  )
+
+  const total = store.questions.length
+
   return (
     <>
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar />
+      <ProgressBar answered={countOfAnsweredQuestions} total={total} />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
 

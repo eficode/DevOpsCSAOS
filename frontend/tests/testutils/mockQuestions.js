@@ -26,4 +26,13 @@ export const questions = [
     updatedAt: '2021-02-18T23:31:40.000Z',
     Category: { name: 'Perjantaifiilikset' },
   },
+  {
+    id: '3',
+    text: 'Tykkäätkö korvapuustista?',
+    weight: 7,
+    categoryId: 2,
+    createdAt: '2021-02-18T23:31:40.000Z',
+    updatedAt: '2021-02-18T23:31:40.000Z',
+    Category: { name: 'Pullat' },
+  },
 ]
