@@ -43,7 +43,6 @@ Answer all questions
     [Arguments]   @{OPTIONS}
     FOR    ${index}    IN RANGE    0    ${SURVEY_LENGTH} - 1
         Click question option button    ${OPTIONS}[${index}]
-        Click next button
     END
     Click question option button    ${OPTIONS}[2]
 

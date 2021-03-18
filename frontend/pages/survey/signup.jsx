@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Head from 'next/head'
+import { isEmail } from 'validator'
 
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import Button from '../../components/button'
 import ProgressBar from '../../components/progressBar'
 import { useStore } from '../../store'
-import { getByEmail } from '../../services/users'
+
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Montserrat;
@@ -50,8 +51,13 @@ const SignUpForm = () => {
 
   const updateEmail = async (event) => {
     event.preventDefault()
-    store.setEmail(emailInput)
-    router.push(firstQuestionHref)
+    
+    if (!isEmail(emailInput)) {
+      alert('Please provide a valid email address')
+    } else {
+      store.setEmail(emailInput)
+      router.push(firstQuestionHref)
+    }
   }
 
   return (
@@ -65,7 +71,6 @@ const SignUpForm = () => {
         <FormTitle>Add your contact details to get started</FormTitle>
         <DetailsForm id="email-input-field" onSubmit={updateEmail}>
           <DetailsInput
-            type="email"
             id="email"
             name="email"
             placeholder="Email"
