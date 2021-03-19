@@ -30,7 +30,7 @@ Main Page Should Be Open
     Title Should Be    DevOps Capability Survey
 
 Questions Page Should Be Open
-    Location Should Contain  ${MAIN_URL}/survey/questions/question/?id=1
+    Location Should Contain  ${MAIN_URL}/survey/questions/?id=1
 
 Signup Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/signup
