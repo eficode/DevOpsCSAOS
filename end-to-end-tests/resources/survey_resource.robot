@@ -45,7 +45,7 @@ Submit Disabled When Some Questions Not Answered
 Answer all questions
     [Arguments]   @{OPTIONS}
     Click question option button    ${OPTIONS}[0]
-    Click next button
+    Click next button     2
     Click question option button    ${OPTIONS}[1]
 
 Summary Page Should Contain Selected Answers
@@ -65,7 +65,7 @@ Open survey and insert credentials
     Click get started button
     Insert Email    ${VALID_EMAIL}
     Click begin button
-    Sleep           1
+    Sleep   1
 
 Click question option button 
     [Arguments]   ${option_id}

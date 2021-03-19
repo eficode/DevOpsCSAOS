@@ -9,7 +9,6 @@ ${PORT}           5001
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run, headlessfirefox to run headless
 ${BROWSER}                firefox
-${DELAY}                  1
 ${MAIN_URL}               http://${SERVER}
 ${VALID_EMAIL}            test2222@test.com
 
@@ -23,8 +22,6 @@ ${GO_TO_RESULTS}    Submit answers
 
 Open Browser To Main Page
     Open Browser    ${MAIN_URL}/    ${BROWSER}
-    Maximize Browser Window
-    Set Selenium Speed    ${DELAY}
 
 Main Page Should Be Open
     Title Should Be    DevOps Capability Survey
@@ -43,20 +40,24 @@ Result Page Should Be Open
 
 Click get started button
     Click Element    //*[contains(text(), '${START_SURVEY}')]
-    Sleep         1
+    Wait Until Location Contains    ${MAIN_URL}/survey/signup
+
+Click begin button to display alert
+    Click Element    //*[contains(text(),'${BEGIN}')]
 
 Click begin button
     Click Element    //*[contains(text(),'${BEGIN}')]  
-    Sleep         1 
+    Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=1
 
 Click next button
+    [Arguments]   ${next_page_id}
     Click Element    //*[contains(text(), '${NEXT}')]
-    Sleep         1
+    Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=${next_page_id}
 
 Click answer summary button
     Click Element   //*[contains(text(), '${GO_TO_SUMMARY}')]
-    Sleep       1
+    Wait Until Location Contains    ${MAIN_URL}/survey/questions/summary
 
 Click go to results
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
-    Sleep       1
+    Wait Until Location Contains    ${MAIN_URL}/survey/result
