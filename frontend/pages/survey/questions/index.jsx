@@ -32,7 +32,7 @@ const SurveyPage = () => {
     pageId - 1
   }`
   const summaryPageHref = '/survey/questions/summary'
-  const isFinalPage = pageId === 2
+  const isFinalPage = pageId === store.questionGroups.length
   const isFirstPage = pageId === 1
   const storeHasQuestions = store.questions.length > 0
   
@@ -54,7 +54,6 @@ const SurveyPage = () => {
       })
     }
   }
-  console.log(store.selections)
 
   // this needs to be changed, but is here for placeholder
   if (!storeHasQuestions) {

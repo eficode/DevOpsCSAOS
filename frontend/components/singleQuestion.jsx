@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useStore } from '../store'
+import { questions } from '../tests/testutils/utils'
 import Option from './option'
 
 const QuestionWrapper = styled.div`
