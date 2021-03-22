@@ -42,10 +42,10 @@ Click get started button
     Click Element    //*[contains(text(), '${START_SURVEY}')]
     Wait Until Location Contains    ${MAIN_URL}/survey/signup
 
-Click begin button to display alert
+Click Begin Button
     Click Element    //*[contains(text(),'${BEGIN}')]
 
-Click begin button
+Click Begin Button And Wait For Survey To Open
     Click Element    //*[contains(text(),'${BEGIN}')]  
     Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=1
 
