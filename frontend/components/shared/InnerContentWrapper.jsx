@@ -1,9 +1,13 @@
 import styled from 'styled-components'
 
-export const InnerContentWrapper = styled.div`
+/**
+ * Don't change to a div! Will not work (unknown reason -.-). 
+ * */
+export const InnerContentWrapper = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   align-items: center;
   width: 90%;
   max-height: 100%;
@@ -13,5 +17,8 @@ export const InnerContentWrapper = styled.div`
   background-color: white;
   border-radius: 0.5rem;
   /* flex: 1; */
+  
+
+
 `
 export default InnerContentWrapper

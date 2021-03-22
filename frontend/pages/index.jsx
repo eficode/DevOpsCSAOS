@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
 import Link from '../components/link'
 import ProgressBar from '../components/progressBar'
+import { LinearProgress } from '@material-ui/core'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -24,7 +25,6 @@ const Home = () => (
     <Head>
       <title>DevOps Capability Survey</title>
     </Head>
-    <ProgressBar />
     <InnerContentWrapper>
       <Heading>DevOps Assessment Tool</Heading>
       <Main>
@@ -33,6 +33,7 @@ const Home = () => (
         <Link href='/survey/signup' type='primary'>
           Get started
         </Link>
+
       </Main>
     </InnerContentWrapper>
   </>
