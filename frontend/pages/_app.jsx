@@ -9,28 +9,25 @@ import theme from '../styles/theme'
 import '../public/fonts/fonts.css'
 import { StylesProvider } from '@material-ui/styles'
 
-
-
 function MyApp({ Component, pageProps }) {
-
   useEffect(() => {
     // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
+    const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
+      jssStyles.parentElement.removeChild(jssStyles)
     }
-  }, []);
-  
+  }, [])
+
   return (
     <>
       <GlobalStyles />
       <StylesProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <ProgressBar />
-        <ContentWrapper>
-          <Component {...pageProps} />
-        </ContentWrapper>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          {/* <ProgressBar /> */}
+          <ContentWrapper>
+            <Component {...pageProps} />
+          </ContentWrapper>
+        </ThemeProvider>
       </StylesProvider>
     </>
   )

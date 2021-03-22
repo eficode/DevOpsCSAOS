@@ -30,10 +30,9 @@ const ProgressLine = styled.div`
 `
 
 const ProgressWrapper = styled.div`
-  .MuiLinearProgress{
-    
+  .MuiLinearProgress {
   }
-`;
+`
 
 /*
   USAGE:
@@ -51,13 +50,13 @@ export const ProgressBar = ({ id, total }) => {
 
   return (
     <>
-    {/* <BarBackground>
-      <InnerLine>
-        <ProgressLine progress={progress} />
-      </InnerLine>
-    </BarBackground> */}
-      {/* <LinearProgress /> */}
-      </>
+      <BarBackground>
+        <InnerLine>
+          <ProgressLine progress={progress} />
+        </InnerLine>
+      </BarBackground>
+      {/* <LinearProgress variant="determinate" value={progress} /> */}
+    </>
   )
 }
 
