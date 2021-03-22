@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
@@ -41,9 +41,9 @@ const Title = styled.h2`
   margin: 10px 0 30px 0;
 `
 
-function getKeyByValue(object, value) {
-  return Object.keys(object).find((key) => object[key] === value)
-}
+const getKeyByValue = (object, value) => (
+  Object.keys(object).find((key) => object[key] === value)
+)
 
 const Summary = () => {
   const selections = useStore((state) => state.selections)
@@ -52,12 +52,7 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-  const total = questions.length
-
-  useEffect(() => {
-    store.setVisitedSummary(true)
-  }, [])
- 
+  const total = questions.length 
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {

@@ -19,7 +19,6 @@ const initialUserResult = 0
 const initialMaxResult = 0
 
 const initialQuestionGroups = []
-const initialVisitedSummary = false
 
 const store = (set) => ({
   questions: initialQuestions,
@@ -31,7 +30,6 @@ const store = (set) => ({
   resultText: initialResultText,
   userResult: initialUserResult,
   maxResult: initialMaxResult,
-  visitedSummary: initialVisitedSummary,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions) => {
@@ -66,12 +64,11 @@ const store = (set) => ({
   setResultText: (text) => set(() => ({ resultText: text })),
   setUserResult: (score) => set(() => ({ userResult: score })),
   setMaxResult: (score) => set(() => ({ maxResult: score })),
-  setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
 })
 
 export const useStore = create(
   persist(store, {
     name: 'devops assessment tool store',
-    getStorage: () => sessionStorage, // use sessionStorage
+    getStorage: () => sessionStorage,
   }),
 )

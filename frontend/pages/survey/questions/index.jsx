@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import { useStore } from '../../../store'
@@ -22,7 +22,6 @@ const Heading = styled.h3`
 const SurveyPage = () => {
   const router = useRouter()
   const store = useStore()
-  const [answeredQuestionsCount, setAnsweredQuestionsCount] = useState(0)
 
   const pageId = Number(router.query.id)
   const questionsToRender = store.questionGroups[pageId-1]
@@ -46,28 +45,42 @@ const SurveyPage = () => {
     })()
   }, [])
 
-  useEffect(() => {
-    setAnsweredQuestionsCount(countOfAnsweredQuestions(store.selections))
-
-    if (!store.visitedSummary) {
-      const selectionsOfRenderedQuestions = store.selections.filter(s => 
-        questionsToRender.map(q => q.id).includes(s.questionId)  
-      )
-  
-      if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
-        const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref
-        router.push(urlToTransistionTo, null, {
-          shallow: true,
-        })
+  const updateSelectionsInStore = (questionId, pointValue) => {
+    const prevSelections = [...store.selections]
+    const newSelections = prevSelections.map(selection => {
+      if (selection.questionId === questionId) {
+        return {questionId: selection.questionId, value: pointValue}
       }
-    }
-    
-  }, [store.selections])
+      return selection
+    })
 
-  // this needs to be changed, but is here for placeholder
+    store.setSelections(newSelections)
+    return newSelections
+  }
+
+  const redirectToNextPageIfCurrentPageCompleted = (newSelections) => {
+    const selectionsOfRenderedQuestions = newSelections.filter(s => 
+      questionsToRender.map(q => q.id).includes(s.questionId)  
+    )
+
+    if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
+      const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref
+      router.push(urlToTransistionTo, null, {
+        shallow: true,
+      })
+    }
+  }
+
+  const onOptionClick = (questionId, pointValue) => {
+    const newSelections = updateSelectionsInStore(questionId, pointValue)
+    redirectToNextPageIfCurrentPageCompleted(newSelections)    
+  }
+
   if (!storeHasQuestions) {
     return <div>Loading questions...</div>
   }
+
+  const answeredQuestionsCount = countOfAnsweredQuestions(store.selections)
 
   return (
     <>
@@ -78,7 +91,10 @@ const SurveyPage = () => {
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
 
-        <QuestionGrouper questions={questionsToRender}> </QuestionGrouper>
+        <QuestionGrouper
+          questions={questionsToRender}
+          onOptionClick={onOptionClick}
+        />
         
         <NavigationGroup>
         {!isFirstPage ? (
