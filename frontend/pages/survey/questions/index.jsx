@@ -25,8 +25,6 @@ const SurveyPage = () => {
   const pageId = Number(router.query.id)
   const questionsToRender = store.questionGroups[pageId-1]
 
-  const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
-
   const nextPageHref = `/survey/questions/?id=${pageId + 1}`
   const previousPageHref = `/survey/questions/?id=${
     pageId - 1
@@ -45,15 +43,25 @@ const SurveyPage = () => {
     })()
   }, [])
 
-  // this needs to be updated take multi-question page into account
-  const handleAnswerSelection = (pointsAssociatedWithOption) => {
-    updateSelections(pointsAssociatedWithOption)
-    if (!isFinalQuestion) {
-      router.push(nextQuestionHref, null, {
+
+  useEffect(() => {
+    const selectionsOfRenderedQuestions = store.selections.filter(s => 
+      questionsToRender.map(q => q.id).includes(s.questionId)  
+    )
+    const countOfAnsweredQuestions = store.selections.reduce(
+      (accumulator, selection) =>
+        selection.value !== undefined ? accumulator + 1 : accumulator,
+      0
+    )
+    const allQuestionsAnsweredOnPage =
+      countOfAnsweredQuestions === selectionsOfRenderedQuestions.length
+    if (allQuestionsAnsweredOnPage) {
+      router.push(nextPageHref, null, {
         shallow: true,
       })
     }
-  }
+  }, store.selections)
+
 
   // this needs to be changed, but is here for placeholder
   if (!storeHasQuestions) {
