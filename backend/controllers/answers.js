@@ -1,14 +1,39 @@
 /* eslint-disable prettier/prettier */
 const answersRouter = require('express').Router()
-const { User, Answer, Question, Category } = require('../models')
-const { resultsPerCategory } = require('../helpers/answerResults')
+const { User, User_answer, Question, Category, Question_answer, Survey, sequelize } = require('../models')
+
+const { verifyUserAnswers, deleteUserSurveyAnswers, getResults } = require('./helpers/answers')
 
 answersRouter.post('/', async (req, res) => {
-  const { email, answers } = req.body
-  const allQuestions = await Question.findAll({ raw: true })
-  const allCategories = await Category.findAll({ raw: true })
+  const { email, user_answers, surveyId } = req.body
+  
+  const survey = await Survey.findAll({
+    where: { id: surveyId }
+  })
 
-  let userResult
+  if(!survey) {
+    return res.status(500).json("SurveyId is invalid")
+  }
+
+  const verificationResult = await verifyUserAnswers(user_answers, surveyId)
+
+  if(verificationResult.unAnsweredQuestions.length > 0) {
+
+    return res.status(500).json({
+      message: "Some questions don't have answers",
+      questions: verificationResult.unAnsweredQuestions
+    })
+  }
+
+  if(verificationResult.duplicates.length > 0) {
+
+    return res.status(500).json({
+      message: "Some questions are answered more than once",
+      questions: verificationResult.duplicates
+    })
+  }
+
+  let results = await getResults(surveyId, user_answers)
 
   try {
     if (email) {
@@ -20,41 +45,26 @@ answersRouter.post('/', async (req, res) => {
       if (existingUser) {
         userId = existingUser.id
       } else {
+        
         const user = await User.create({ email })
         userId = user.id
       }
 
-      const answersToQuestions = answers.map((answer) => ({
-        // eslint-disable-next-line node/no-unsupported-features/es-syntax
-        ...answer,
-        userId,
-      }))
+      const answersToQuestions = user_answers.map((answer) => ({
+        userId: userId,
+        questionAnswerId: answer,
+      }))    
 
-      if (!existingUser) {
-        await Answer.bulkCreate(answersToQuestions)
-      } else {
-        answersToQuestions.forEach(answer =>
-           Answer.update(
-            { value: answer.value },
-            { where: { questionId: answer.questionId, userId: answer.userId } }
-        )) 
+      if (existingUser) {
+        await deleteUserSurveyAnswers(surveyId, userId)
       }
+      
+      await User_answer.bulkCreate(answersToQuestions)      
     }
-
-    userResult = await resultsPerCategory(allCategories, allQuestions, answers)
-    return res.status(200).json({ results: userResult })
+    
+    return res.status(200).json({ results: results })
   } catch (err) {
-    console.log(err)
     return res.status(500).json(err)
-  }
-})
-
-answersRouter.get('/', async (req, res) => {
-  try {
-    const answers = await Answer.findAll()
-    return res.json(answers)
-  } catch (e) {
-    return res.status(500).json({ error: 'Unable to fetch answers' })
   }
 })
 

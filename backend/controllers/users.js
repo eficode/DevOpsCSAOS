@@ -25,14 +25,5 @@ usersRouter.get('/:email', async (req, res) => {
   }
 })
 
-// get all users
-usersRouter.get('/', async (req, res) => {
-  try {
-    const users = await User.findAll()
-    return res.json(users)
-  } catch (e) {
-    return res.status(500).json({ error: 'Unable to fetch users' })
-  }
-})
 
 module.exports = usersRouter

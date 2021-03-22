@@ -8,6 +8,27 @@
       "surveyId": 1,
       "cutoff_from_maxpoints": 1.0,
       "text": "Olet ruisleipä"
+    },
+    {
+      "surveyId": 1,
+      "cutoff_from_maxpoints": 0.7,
+      "text": "Olet ihan vaan leipä."
+    },
+    {
+      "surveyId": 2,
+      "cutoff_from_maxpoints": 0.5,
+      "text": "Olet korppu."
+    },
+    {
+      "surveyId": 2,
+      "cutoff_from_maxpoints": 1.0,
+      "text": "Olet ruisleipä"
+    },
+    {
+      "surveyId": 2,
+      "cutoff_from_maxpoints": 0.7,
+      "text": "Olet ihan vaan leipä."
     }
-  ]
+
+]
   

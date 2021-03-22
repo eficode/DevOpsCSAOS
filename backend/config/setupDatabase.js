@@ -1,11 +1,7 @@
 const categories = require('./initialData/categories.json')
 const questions = require('./initialData/questions.json')
-const users = require('./initialData/users.json')
 const question_answers = require('./initialData/question_answers.json')
 const survey_results = require('./initialData/survey_results.json')
-const organizations = require('./initialData/organizations.json')
-const survey_user_groups = require('./initialData/survey_user_groups.json')
-const user_answers = require('./initialData/user_answers.json')
 const category_results = require('./initialData/category_results.json')
 const surveys = require('./initialData/surveys.json')
 
@@ -13,13 +9,9 @@ const {
   sequelize,
   Question,
   Category,
-  User,
-  Organization,
   Question_answer,
   Survey_result,
-  Survey_user_group,
   Survey,
-  User_answer,
   Category_result,
 } = require('../models')
 
@@ -30,6 +22,7 @@ const {
 */
 const initDatabase = async () => {
   await sequelize.sync({ force: true })
+  
   await Survey.bulkCreate(surveys)
   await Survey_result.bulkCreate(survey_results)
   await Category.bulkCreate(categories)

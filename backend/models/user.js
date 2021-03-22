@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ User_answer, Survey_user_group }) {
       // define association here
       this.hasMany(User_answer, { foreignKey: 'userId' })
-      this.belongsTo(Survey_user_group, { foreignKey: 'id' })
+      this.belongsTo(Survey_user_group, { foreignKey: 'groupId' })
     }
     // eslint-disable-next-line prettier/prettier
   }
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       groupId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
       },
     },
     {

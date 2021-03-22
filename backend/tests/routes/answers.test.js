@@ -3,200 +3,245 @@
 const request = require('supertest')
 const app = require('../../app.js')
 const { initDatabase } = require('../../config/setupDatabase')
-const { Answer } = require('../../models')
-const { User } = require('../../models')
+const { Question, User, User_answer, Question_answer } = require('../../models')
+const user_answer = require('../../models/user_answer.js')
 
-const testAnswers = [
-  {
-    questionId: 'a4d65e0b-b2c3-426d-91f3-86c2e92bcfcb',
-    value: 2,
-  },
-  {
-    questionId: 'dbfd2098-f95b-4d82-946a-c8c0dcf10423',
-    value: 1,
-  },
-  {
-    questionId: '1675ec77-5a78-4318-a414-2545d9f068e3',
-    value: 3,
-  },
-  {
-    questionId: 'deea43fc-06ba-4aed-bc0d-fea0991aa05f',
-    value: 4,
-  },
-  {
-    questionId: 'faf69b1c-66d5-11eb-ae93-0242ac130002',
-    value: 4,
-  },
-  {
-    questionId: 'f9f3e2b1-3ed3-46df-8c9c-4cef635697fa',
-    value: 4,
-  },
-  {
-    questionId: '59431e74-0ae6-4def-a87b-4fae82514187',
-    value: 4,
-  },
-  {
-    questionId: '6eb134f0-65fa-44bc-baad-14f0eeb0d743',
-    value: 4,
-  },
-  {
-    questionId: '7da6e20b-53e7-4efa-92d3-ef88f0ec1169',
-    value: 4,
-  },
-  {
-    questionId: 'd254d70b-f26b-44f6-a48b-44b3435e0a26',
-    value: 4,
-  },
-]
 
-const testAnswers2 = [
-  {
-    questionId: 'a4d65e0b-b2c3-426d-91f3-86c2e92bcfcb',
-    value: 4,
-  },
-  {
-    questionId: 'dbfd2098-f95b-4d82-946a-c8c0dcf10423',
-    value: 3,
-  },
-  {
-    questionId: '1675ec77-5a78-4318-a414-2545d9f068e3',
-    value: 3,
-  },
-  {
-    questionId: 'deea43fc-06ba-4aed-bc0d-fea0991aa05f',
-    value: 4,
-  },
-  {
-    questionId: 'faf69b1c-66d5-11eb-ae93-0242ac130002',
-    value: 4,
-  },
-  {
-    questionId: 'f9f3e2b1-3ed3-46df-8c9c-4cef635697fa',
-    value: 4,
-  },
-  {
-    questionId: '59431e74-0ae6-4def-a87b-4fae82514187',
-    value: 4,
-  },
-  {
-    questionId: '6eb134f0-65fa-44bc-baad-14f0eeb0d743',
-    value: 4,
-  },
-  {
-    questionId: '7da6e20b-53e7-4efa-92d3-ef88f0ec1169',
-    value: 4,
-  },
-  {
-    questionId: 'd254d70b-f26b-44f6-a48b-44b3435e0a26',
-    value: 4,
-  },
-]
+
+const survey1TestAnswers = [ 100, 103 ]
+const survey1TestAnswers2 = [ 101, 102 ]
+const survey2TestAnswers = [ 200, 202]
+const survey1Id = 1
+const survey2Id = 2
 
 beforeAll(async () => {
   await initDatabase()
 })
 
-describe('GET /api/answers', () => {
-  it('Returns correct number of answers', async (done) => {
-    const response = await request(app).get('/api/answers')
-    expect(response.body).toHaveLength(10)
-    done()
-  })
-})
 
 describe('POST /api/answers', () => {
   it('User can submit answers without email', async (done) => {
     const response = await request(app).post('/api/answers').send({
-      answers: testAnswers,
+      user_answers: survey1TestAnswers,
+      surveyId: survey1Id,
     })
     expect(response.status).toBe(200)
-    expect(response.body.results.length).toEqual(4)
+
     done()
   })
+
+
+
 
   it('User can submit answers with new email', async (done) => {
     const response = await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      answers: testAnswers,
+      user_answers: survey1TestAnswers,
+      surveyId: survey1Id,
     })
     expect(response.status).toBe(200)
-    expect(response.body.results.length).toEqual(4)
     done()
   })
 
   it('User can submit answers with existing email', async (done) => {
     const response1 = await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      answers: testAnswers,
+      user_answers: survey1TestAnswers,
+      surveyId: survey1Id,
     })
 
     const response2 = await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      answers: testAnswers2,
+      user_answers: survey1TestAnswers2,
+      surveyId: survey1Id,
     })
+
     expect(response2.status).toBe(200)
-    expect(response2.body.results.length).toEqual(4)
-    expect(response1.body.results[0].userResult).not.toEqual(
-      response2.body.results[0].userResult
+
+    expect(response1.body.results.surveyResult.userPoints).not.toEqual(
+      response2.body.results.surveyResult.userPoints
     )
     done()
   })
 
-  it('User has only one answer set in database', async (done) => {
+  it('User has only one answer set in database per survey', async (done) => {
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      answers: testAnswers,
+      user_answers: survey1TestAnswers,
+      surveyId: survey1Id,
     })
     const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
-    const firstAnswers = await Answer.findAll({
+    const firstAnswers = await User_answer.findAll({
       where: { userId: user.id },
     })
-    expect(firstAnswers.length).toEqual(10)
+    expect(firstAnswers.length).toEqual(2)
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      answers: testAnswers2,
+      user_answers: survey1TestAnswers2,
+      surveyId: survey1Id,
     })
-    const secondAnswers = await Answer.findAll({
+    const secondAnswers = await User_answer.findAll({
       where: { userId: user.id },
     })
-    expect(secondAnswers.length).toEqual(10)
+    expect(secondAnswers.length).toEqual(2)
     done()
   })
 
-  it('The answers are updated if user exists', async (done) => {
+  it('Same user can have many answer sets: one answer set per survey', async (done) => {
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      answers: testAnswers,
-    })
-    await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: testAnswers2,
+      user_answers: survey1TestAnswers,
+      surveyId: survey1Id,
     })
     const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
-    const secondAnswers = await Answer.findAll({
+    const firstAnswers = await User_answer.findAll({
       where: { userId: user.id },
     })
-    secondAnswers.forEach((answer1) => {
-      const answer2 = testAnswers2.find(
-        (answer) => answer.questionId === answer1.questionId
-      )
-      expect(answer1.value).toBe(answer2.value)
+    expect(firstAnswers.length).toEqual(2)
+    await request(app).post('/api/answers').send({
+      email: 'testv2@gmail.com',
+      user_answers: survey2TestAnswers,
+      surveyId: survey2Id,
     })
+    
+    const secondAnswers = await User_answer.findAll({
+      where: { userId: user.id },
+    })
+    expect(secondAnswers.length).toEqual(4)
+    done()
+  })
+
+  it('If user answers to already answered survey, answers are updated', async (done) => {
+    await request(app).post('/api/answers').send({
+      email: 'testv2@gmail.com',
+      user_answers: survey1TestAnswers,
+      surveyId: survey1Id,
+    })
+    const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
+
+    const allUserAnswers = await User_answer.findAll({
+          attributes: ['id'],
+          include : [
+            {
+              model : Question_answer,
+              attributes: ['text', 'id'],
+              include: [
+                {
+                  model: Question,
+                  attributes: ['id', 'surveyId']
+                }
+              ],
+            }
+          ],
+          where: {
+            userId: user.id,
+          },
+          raw: true,
+          nest: true
+    })
+
+    
+
+    const survey1AnswersInDatabase = allUserAnswers
+      .filter(user_answer => user_answer.Question_answer.Question.surveyId === survey1Id)
+    
+
+    survey1TestAnswers.forEach(answer => 
+      expect(survey1AnswersInDatabase
+        .find(answerInDatabase => answerInDatabase.Question_answer.id === answer)
+      )
+      .not
+      .toBe(undefined)
+    )
+    await request(app).post('/api/answers').send({
+      email: 'testv2@gmail.com',
+      user_answers: survey1TestAnswers2,
+      surveyId: survey1Id,
+    })
+    
+   
+
+    const newUserAnswers = await User_answer.findAll({
+      attributes: ['id'],
+      include : [
+        {
+          model : Question_answer,
+          attributes: ['text', 'id'],
+          include: [
+            {
+              model: Question,
+              attributes: ['id', 'surveyId']
+            }
+          ],
+        }
+      ],
+      where: {
+        userId: user.id,
+      },
+      raw: true,
+      nest: true
+    })
+
+    const survey1NewAnswersInDatabase = newUserAnswers
+      .filter(user_answer => user_answer.Question_answer.Question.surveyId === survey1Id)
+
+    survey1TestAnswers.forEach(answer => 
+      expect(survey1NewAnswersInDatabase
+        .find(answerInDatabase => answerInDatabase.Question_answer.id === answer)
+      )
+      .toBe(undefined)
+    )
+
+    survey1TestAnswers2.forEach(answer => 
+      expect(survey1NewAnswersInDatabase
+        .find(answerInDatabase => answerInDatabase.Question_answer.id === answer)
+      )
+      .not
+      .toBe(undefined)
+    )
+    done()
+  })
+
+  it('Returns correct survey result', async (done) => {
+    const response = await request(app).post('/api/answers').send({
+      email: 'test100@gmail.com',
+      user_answers: survey1TestAnswers,
+      surveyId: survey1Id,
+    })
+
+    
+
+    const { results } = response.body
+    const { surveyResult } = results
+    
+    expect(surveyResult.text).toBe("Olet ruisleipä")
+
     done()
   })
 
   it('Returns data in expected form', async (done) => {
     const response = await request(app).post('/api/answers').send({
       email: 'test100@gmail.com',
-      answers: testAnswers,
+      user_answers: survey1TestAnswers,
+      surveyId: survey1Id,
     })
     expect(response.status).toBe(200)
     expect(response.body.results).not.toEqual(null)
     const { results } = response.body
-    results.forEach((categoryResult) => {
-      expect(categoryResult.categoryId).not.toEqual(null)
-      expect(categoryResult.maxCategoryResult).not.toEqual(null)
-      expect(categoryResult.userResult).not.toEqual(null)
+    
+    const surveyResult = results.surveyResult
+    expect(surveyResult.maxPoints).not.toBe(undefined)
+    expect(surveyResult.userPoints).not.toBe(undefined)
+    expect(surveyResult.text).not.toBe(undefined)
+
+    const categoryResults = results.categoryResults
+    expect(categoryResults.length).toBeGreaterThan(0)
+
+    categoryResults.forEach((categoryResult) => {
+      expect(categoryResult.id).not.toEqual(undefined)
+      expect(categoryResult.name).not.toEqual(undefined)
+      expect(categoryResult.userPoints).not.toEqual(undefined)
+      expect(categoryResult.maxPoints).not.toEqual(undefined)
     })
     done()
   })
