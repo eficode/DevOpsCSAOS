@@ -5,7 +5,7 @@ Library           SeleniumLibrary
 
 *** Variables ***
 
-${SURVEY_LENGTH}          3
+${SURVEY_LENGTH}          2
 
 ${STRONGLY_AGREE}                 Strongly agree
 ${AGREE}                          Agree
@@ -18,19 +18,22 @@ ${AGREE_IN_SUMMARY}               You agree
 ${NEUTRAL_IN_SUMMARY}             You feel neutral
 ${DISAGREE_IN_SUMMARY}            You disagree
 ${STRONGLY_DISAGREE_IN_SUMMARY}   You strongly disagree
-${NOT_ANSWERED_IN_SUMMARY}        You haven's answered this question
+${NOT_ANSWERED_IN_SUMMARY}        You haven't answered this question
 
-@{TEST_ANSWERS}                 ${AGREE}    ${NEUTRAL}    ${STRONGLY_DISAGREE}
-@{TEST_ANSWERS_IN_SUMMARY}      ${AGREE_IN_SUMMARY}       ${NEUTRAL_IN_SUMMARY}   ${STRONGLY_DISAGREE_IN_SUMMARY}
-@{UPDATED_ANSWERS_IN_SUMMARY}   ${AGREE_IN_SUMMARY}       ${NEUTRAL_IN_SUMMARY}   ${STRONGLY_AGREE_IN_SUMMARY}
+# SeleniumLibrary has little support locating option buttons
+# (many 'Agree' buttons etc. and no way found to locate other buttons than the first)
+@{TEST_ANSWERS}                 ${AGREE}    ${NEUTRAL}
+@{TEST_ANSWERS_IN_SUMMARY}      ${AGREE_IN_SUMMARY}       ${NOT_ANSWERED_IN_SUMMARY}     ${NEUTRAL_IN_SUMMARY}    ${NOT_ANSWERED_IN_SUMMARY}
+@{UPDATED_ANSWERS_IN_SUMMARY}   ${AGREE_IN_SUMMARY}       ${NOT_ANSWERED_IN_SUMMARY}     ${STRONGLY_AGREE_IN_SUMMARY}    ${NOT_ANSWERED_IN_SUMMARY}
 @{MID_SURVEY_UNANSWERED}        ${AGREE}    ${EMPTY}      ${NEUTRAL}
 @{FIRST_QUESTION_UNANSWERED}    ${EMPTY}    ${AGREE}      ${DISAGREE}
 @{LAST_QUESTION_UNANSWERED}     ${DISAGREE} ${NEUTRAL}    ${EMPTY}
 
+@{QUESTIONS}    ${QUESTION_1}     ${QUESTION_2}     ${QUESTION_3}     ${QUESTION_4}
 ${QUESTION_1}     Ajatus vihrealla nurmella villisti kierimisesta viehattaa minua
 ${QUESTION_2}     Suutani kuivaa tavalla, jonka voi taltuttaa vain poreileva juoma
 ${QUESTION_3}     Auringon nayttaytyessa ajatukseni singahtavat vappupirskeunelmiin valittomasti
-@{QUESTIONS}      ${QUESTION_1}   ${QUESTION_2}   ${QUESTION_3}
+${QUESTION_4}     Bilejalka vipeltaa jo vimmatusti
 
 *** Keywords ***
 Submit Disabled When Some Questions Not Answered
@@ -41,10 +44,9 @@ Submit Disabled When Some Questions Not Answered
 
 Answer all questions
     [Arguments]   @{OPTIONS}
-    FOR    ${index}    IN RANGE    0    ${SURVEY_LENGTH} - 1
-        Click question option button    ${OPTIONS}[${index}]
-    END
-    Click question option button    ${OPTIONS}[2]
+    Click question option button    ${OPTIONS}[0]
+    Click next button     2
+    Click question option button    ${OPTIONS}[1]
 
 Summary Page Should Contain Selected Answers
     [Arguments]  @{ANSWERS_IN_SUMMARY}
@@ -63,8 +65,8 @@ Open survey and insert credentials
     Click get started button
     Insert Email    ${VALID_EMAIL}
     Click begin button
-    Sleep           1
+    Sleep   1
 
 Click question option button 
-    [Arguments]     ${option_id}
-    Click Element   //*[contains(text(), '${option_id}')]
+    [Arguments]   ${option_id}
+    Click Element	  //*[contains(text(), '${option_id}')]

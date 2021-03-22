@@ -42,7 +42,7 @@ const SignUpForm = () => {
   const [emailInput, setEmailInput] = useState('')
   const router = useRouter()
   const store = useStore()
-  const firstQuestionHref = '/survey/questions/question/?id=1'
+  const firstQuestionHref = '/survey/questions/?id=1'
 
   const handleEmailChange = (event) => {
     event.preventDefault()

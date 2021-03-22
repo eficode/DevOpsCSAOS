@@ -40,13 +40,13 @@ const ProgressWrapper = styled.div`
   - bar component without progress (non-survey pages): leave props undefined
 */
 
-export const ProgressBar = ({ id, total }) => {
-  if (!id && !total) {
-    id = 0
+export const ProgressBar = ({ answered, total }) => {
+  if (!answered && !total) {
+    answered = 0
     total = 100
   }
 
-  const progress = (id / total) * 100
+  const progress = (answered / total) * 100
 
   return (
     <>
