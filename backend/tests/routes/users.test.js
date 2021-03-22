@@ -9,13 +9,6 @@ beforeAll(async () => {
   await initDatabase()
 })
 
-describe('GET /api/users', () => {
-  it('Returns correct number of users', async (done) => {
-    const response = await request(app).get('/api/users')
-    expect(response.body).toHaveLength(2)
-    done()
-  })
-})
 
 describe('POST /api/users', () => {
   it('Creates a new user with valid email', async (done) => {
@@ -44,10 +37,4 @@ describe('POST /api/users', () => {
   })
 })
 
-describe('GET /api/users', () => {
-  it('Returns correct number of users after creating a new user', async (done) => {
-    const response = await request(app).get('/api/users')
-    expect(response.body).toHaveLength(3)
-    done()
-  })
-})
+
