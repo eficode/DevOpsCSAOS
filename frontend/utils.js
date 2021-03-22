@@ -1,16 +1,14 @@
-
 /*
   util to count the number of answered questions
 */
-export const countOfAnsweredQuestions = (selections) => {
-  return (
-    selections.reduce(
-      (accumulator, selection) =>
-        selection.value !== undefined ? accumulator + 1 : accumulator,
-      0
-    )
+export const countOfAnsweredQuestions = (selections) => (
+  selections.reduce(
+    (accumulator, selection) => (
+      selection.value !== undefined ? accumulator + 1 : accumulator
+    ),
+    0,
   )
-}
+)
 
 /*
   util to check whether all selections are made (not undefined)
