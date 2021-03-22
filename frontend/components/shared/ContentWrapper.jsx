@@ -4,10 +4,9 @@ export const ContentWrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 4rem;
-  margin: 0 auto;
+  margin: 10% 20%;
   font-family: Merriweather;
-  max-width: 1900px;
+  max-width: 2000px;
 
   p {
     text-align: center;
@@ -27,3 +26,5 @@ export const ContentWrapper = styled.main`
   }
 `
 export default ContentWrapper
+
+//margin for over 1000px in width
