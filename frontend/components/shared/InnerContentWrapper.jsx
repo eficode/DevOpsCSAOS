@@ -17,8 +17,6 @@ export const InnerContentWrapper = styled.section`
   background-color: white;
   border-radius: 0.5rem;
   /* flex: 1; */
-  
-
-
 `
+
 export default InnerContentWrapper
