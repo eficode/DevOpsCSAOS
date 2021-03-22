@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
@@ -53,6 +53,11 @@ const Summary = () => {
   const store = useStore()
   const router = useRouter()
   const total = questions.length
+
+  useEffect(() => {
+    store.setVisitedSummary(true)
+  }, [])
+ 
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {

@@ -49,16 +49,19 @@ const SurveyPage = () => {
   useEffect(() => {
     setAnsweredQuestionsCount(countOfAnsweredQuestions(store.selections))
 
-    const selectionsOfRenderedQuestions = store.selections.filter(s => 
-      questionsToRender.map(q => q.id).includes(s.questionId)  
-    )
-
-    if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
-      const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref
-      router.push(urlToTransistionTo, null, {
-        shallow: true,
-      })
+    if (!store.visitedSummary) {
+      const selectionsOfRenderedQuestions = store.selections.filter(s => 
+        questionsToRender.map(q => q.id).includes(s.questionId)  
+      )
+  
+      if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
+        const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref
+        router.push(urlToTransistionTo, null, {
+          shallow: true,
+        })
+      }
     }
+    
   }, [store.selections])
 
   // this needs to be changed, but is here for placeholder
