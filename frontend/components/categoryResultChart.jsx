@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactSpeedometer from 'react-d3-speedometer'
-import { ResponsiveContainer } from 'recharts'
 
 const CategoryResultChart = ({ userResult, maxResult }) => (
   <>
