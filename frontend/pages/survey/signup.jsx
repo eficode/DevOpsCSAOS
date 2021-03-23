@@ -9,13 +9,7 @@ import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper
 import Button from '../../components/button'
 import ProgressBar from '../../components/progressBar'
 import { useStore } from '../../store'
-
-const Heading = styled.h3`
-  color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Montserrat;
-  font-size: 16px;
-  margin-bottom: 10px;
-`
+import Heading from '../../components/heading'
 
 const FormTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -68,7 +62,7 @@ const SignUpForm = () => {
       </Head>
       <ProgressBar />
       <InnerContentWrapper>
-        <Heading>DevOps Assessment Tool</Heading>
+        <Heading component="h3">DevOps Assessment Tool</Heading>
         <FormTitle>Add your contact details to get started</FormTitle>
         <DetailsForm id="email-input-field" onSubmit={updateEmail}>
           <DetailsInput
