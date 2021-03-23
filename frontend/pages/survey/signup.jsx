@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import TextField from '@material-ui/core/TextField'
 import Head from 'next/head'
 import { isEmail } from 'validator'
 
@@ -29,7 +30,7 @@ const DetailsForm = styled.form`
   margin: 50px 0 50px 0;
 `
 
-const DetailsInput = styled.input`
+const DetailsInput = styled(TextField)`
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
   font-family: Montserrat;
   padding: 10px 20px;
@@ -51,7 +52,7 @@ const SignUpForm = () => {
 
   const updateEmail = async (event) => {
     event.preventDefault()
-    
+
     if (!isEmail(emailInput)) {
       alert('Please provide a valid email address')
     } else {
@@ -72,10 +73,11 @@ const SignUpForm = () => {
         <DetailsForm id="email-input-field" onSubmit={updateEmail}>
           <DetailsInput
             id="email"
+            as="input"
             name="email"
-            placeholder="Email"
             value={emailInput}
             onChange={handleEmailChange}
+            placeholder="Email"
             required
           />
           <Button id="submit-email-button" type="submit">
