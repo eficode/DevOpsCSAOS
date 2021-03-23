@@ -1,8 +1,40 @@
 import React from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
+import { withStyles } from '@material-ui/core/styles'
 import { Button as MUIButton } from '@material-ui/core'
+import theme from '../styles/theme'
 
-const ButtonWrapper = styled.div`
+const StyledButton = withStyles({
+  root: {
+    backgroundColor: theme.colors.blueDianne,
+    color: 'white',
+
+    '&:hover': {
+      backgroundColor: theme.colors.easternBlue,
+    },
+
+    fontFamily: 'Montserrat',
+    fontWeight: 'bold',
+    fontSize: '14px',
+    textDecoration: 'none',
+    borderRadius: '5px',
+    borderWidth: '0px',
+    marginTop: '40px',
+    minWidth: '120px',
+    lineHeight: '45px',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    textTransform: 'capitalize',
+
+    cursor: 'pointer',
+
+    '.MuiTouchRipple-root': {
+      display: 'none',
+    },
+  },
+})(MUIButton)
+
+/* const ButtonWrapper = styled.div`
   .MuiButtonBase-root {
     background-color: ${({ theme }) => theme.colors.blueDianne};
     color: white;
@@ -30,25 +62,25 @@ const ButtonWrapper = styled.div`
       display: none;
     }
   }
-`
+` */
 const Button = ({ children, type, onClick }) => {
   if (type === 'button') {
     return (
-      <ButtonWrapper>
-        <MUIButton onClick={onClick} type="button">
-          {children}
-        </MUIButton>
-      </ButtonWrapper>
+      // <ButtonWrapper>
+      <StyledButton onClick={onClick} type="button">
+        {children}
+      </StyledButton>
+      // </ButtonWrapper>
     )
   }
 
   if (type === 'submit') {
     return (
-      <ButtonWrapper>
-        <MUIButton onClick={onClick} type="submit">
-          {children}
-        </MUIButton>
-      </ButtonWrapper>
+      // <ButtonWrapper>
+      <StyledButton onClick={onClick} type="submit">
+        {children}
+      </StyledButton>
+      // </ButtonWrapper>
     )
   }
 
