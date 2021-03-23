@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import theme from '../styles/theme'
 
 const BarBackground = styled.div`
   display: flex;
@@ -22,16 +23,11 @@ const InnerLine = styled.div`
   margin-left: 5%;
 `
 
-const ProgressLine = styled.div`
+const ProgressLine = styled(LinearProgress)`
   background-color: ${({ theme }) => theme.colors.gold};
   height: 0.3rem;
   border-radius: 0.1rem;
   width: ${({ progress }) => progress}%;
-`
-
-const ProgressWrapper = styled.div`
-  .MuiLinearProgress {
-  }
 `
 
 /*
@@ -52,10 +48,13 @@ export const ProgressBar = ({ answered, total }) => {
     <>
       <BarBackground>
         <InnerLine>
-          <ProgressLine progress={progress} />
+          <ProgressLine
+            variant="determinate"
+            color={theme.colors.gold}
+            progress={progress}
+          />
         </InnerLine>
       </BarBackground>
-      {/* <LinearProgress variant="determinate" value={progress} /> */}
     </>
   )
 }
