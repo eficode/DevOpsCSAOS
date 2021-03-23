@@ -23,6 +23,6 @@ describe('Category Result Component', () => {
     expect(screen.getByRole('article')).toHaveTextContent(
       'Hyvin on pullat uunissa',
     )
-    expect(screen.getByRole('article')).toHaveTextContent('15/25')
+    expect(screen.getByRole('article')).toHaveTextContent('15 / 25')
   })
 })
