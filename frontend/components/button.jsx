@@ -22,6 +22,7 @@ const ButtonWrapper = styled.div`
     line-height: 45px;
     padding-left: 10px;
     padding-right: 10px;
+    text-transform: capitalize;
 
     cursor: pointer;
 
