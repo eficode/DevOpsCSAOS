@@ -1,10 +1,10 @@
 import React from 'react'
 import SingleQuestion from './singleQuestion'
 
-const QuestionGrouper = ({ questions }) => (
+const QuestionGrouper = ({ questions, onOptionClick }) => (
   <>
     {questions.map((question) => (
-        <SingleQuestion key={question.id} question={question} />
+        <SingleQuestion key={question.id} question={question} onOptionClick={onOptionClick} />
     ))}
   </>
 )

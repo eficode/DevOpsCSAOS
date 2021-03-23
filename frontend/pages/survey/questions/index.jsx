@@ -10,6 +10,7 @@ import { getAll as getAllQuestions } from '../../../services/questions'
 import { useRouter, withRouter } from '../../../components/staticRouting'
 import StyledLink from '../../../components/link'
 import NavigationGroup from '../../../components/navigationGroup'
+import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
 
 const Heading = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -25,13 +26,12 @@ const SurveyPage = () => {
   const pageId = Number(router.query.id)
   const questionsToRender = store.questionGroups[pageId-1]
 
-  const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
-
   const nextPageHref = `/survey/questions/?id=${pageId + 1}`
   const previousPageHref = `/survey/questions/?id=${
     pageId - 1
   }`
   const summaryPageHref = '/survey/questions/summary'
+
   const isFinalPage = pageId === store.questionGroups.length
   const isFirstPage = pageId === 1
   const storeHasQuestions = store.questions.length > 0
@@ -45,39 +45,56 @@ const SurveyPage = () => {
     })()
   }, [])
 
-  // this needs to be updated take multi-question page into account
-  const handleAnswerSelection = (pointsAssociatedWithOption) => {
-    updateSelections(pointsAssociatedWithOption)
-    if (!isFinalQuestion) {
-      router.push(nextQuestionHref, null, {
+  const updateSelectionsInStore = (questionId, pointValue) => {
+    const prevSelections = [...store.selections]
+    const newSelections = prevSelections.map(selection => {
+      if (selection.questionId === questionId) {
+        return {questionId: selection.questionId, value: pointValue}
+      }
+      return selection
+    })
+
+    store.setSelections(newSelections)
+    return newSelections
+  }
+
+  const redirectToNextPageIfCurrentPageCompleted = (newSelections) => {
+    const selectionsOfRenderedQuestions = newSelections.filter(s => 
+      questionsToRender.map(q => q.id).includes(s.questionId)  
+    )
+
+    if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
+      const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref
+      router.push(urlToTransistionTo, null, {
         shallow: true,
       })
     }
   }
 
-  // this needs to be changed, but is here for placeholder
+  const onOptionClick = (questionId, pointValue) => {
+    const newSelections = updateSelectionsInStore(questionId, pointValue)
+    redirectToNextPageIfCurrentPageCompleted(newSelections)    
+  }
+
   if (!storeHasQuestions) {
     return <div>Loading questions...</div>
   }
 
-  const countOfAnsweredQuestions = store.selections.reduce(
-    (accumulator, selection) =>
-      selection.value !== undefined ? accumulator + 1 : accumulator,
-    0
-  )
-
-  const total = store.questions.length
+  const answeredQuestionsCount = countOfAnsweredQuestions(store.selections)
 
   return (
     <>
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar answered={countOfAnsweredQuestions} total={total} />
+      <ProgressBar answered={answeredQuestionsCount} total={store.questions.length} />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
 
-        <QuestionGrouper questions={questionsToRender}> </QuestionGrouper>
+        <QuestionGrouper
+          questions={questionsToRender}
+          onOptionClick={onOptionClick}
+        />
         
         <NavigationGroup>
         {!isFirstPage ? (

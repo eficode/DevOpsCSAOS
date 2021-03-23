@@ -69,6 +69,6 @@ const store = (set) => ({
 export const useStore = create(
   persist(store, {
     name: 'devops assessment tool store',
-    getStorage: () => sessionStorage, // use sessionStorage
+    getStorage: () => sessionStorage,
   }),
 )
