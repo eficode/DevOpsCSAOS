@@ -1,12 +1,27 @@
 [
     {
         "questionId": 1,
+        "text": "Strongly agree",
+        "points": 9
+    },
+    {
+        "questionId": 1,
         "text": "Agree",
-        "points": 5
+        "points": 4
+    },
+    {
+        "questionId": 1,
+        "text": "Neutral",
+        "points": 3
     },
     {
         "questionId": 1,
         "text": "Disagree",
+        "points": 2
+    },
+    {
+        "questionId": 1,
+        "text": "Strongly disagree",
         "points": 0
     },
     {
@@ -15,7 +30,6 @@
         "points": 8
     },
     {
-        "id": 103,
         "questionId": 2,
         "text": "Disagree",
         "points": 10

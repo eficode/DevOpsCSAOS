@@ -6,16 +6,15 @@ questionsRouter.get('/:surveyId', async (req, res) => {
   try {
     const questions = await Question.findAll({
       include: [
-        { model: Category, attributes: ['id', 'name'] },
+        { model: Category, attributes: ['id', 'name', 'description'] },
         { model: Question_answer, attributes: ['id', 'text'] },
       ],
       where: {
         surveyId: surveyId,
       },
     })
-    return res.json(questions)
+    return res.status(200).json(questions)
   } catch (e) {
-    console.log(e)
     return res.status(500).json({ error: 'Unable to fetch questions' })
   }
 })

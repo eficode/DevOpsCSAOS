@@ -5,7 +5,7 @@ const { User, User_answer, Survey } = require('../models')
 const { verifyUserAnswers, deleteUserSurveyAnswers, getResults } = require('./helpers/answers')
 
 answersRouter.post('/', async (req, res) => {
-  const { email, userAnswers, surveyId } = req.body
+  const { email, answers, surveyId } = req.body
   
   const survey = await Survey.findAll({
     where: { id: surveyId }
@@ -15,7 +15,7 @@ answersRouter.post('/', async (req, res) => {
     return res.status(500).json("SurveyId is invalid")
   }
 
-  const verificationResult = await verifyUserAnswers(userAnswers, surveyId)
+  const verificationResult = await verifyUserAnswers(answers, surveyId)
 
   if(verificationResult.unAnsweredQuestions.length > 0) {
 
@@ -33,7 +33,7 @@ answersRouter.post('/', async (req, res) => {
     })
   }
 
-  const results = await getResults(surveyId, userAnswers)
+  const results = await getResults(surveyId, answers)
 
   try {
     if (email) {
@@ -50,7 +50,7 @@ answersRouter.post('/', async (req, res) => {
         userId = user.id
       }
 
-      const answersToQuestions = userAnswers.map((answer) => ({
+      const answersToQuestions = answers.map((answer) => ({
         userId: userId,
         questionAnswerId: answer,
       }))    

@@ -20,7 +20,7 @@ const getResults = async (surveyId, user_answers) => {
         include: [
           {
             model: Category,
-            attributes: ['name', 'id'],
+            attributes: ['name', 'id', 'description'],
           },
         ],
       },
@@ -42,8 +42,7 @@ const getResults = async (surveyId, user_answers) => {
     )
     if (!isCategoryInList) {
       categoryResults.push({
-        id: question.Question.Category.id,
-        name: question.Question.Category.name,
+        ...question.Question.Category,
         userPoints: 0,
         maxPoints: question.points,
       })
