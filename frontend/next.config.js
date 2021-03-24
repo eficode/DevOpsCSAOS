@@ -9,5 +9,4 @@ module.exports = withTM({
     PORT: process.env.PORT,
   },
   trailingSlash: true,
-}
 })
