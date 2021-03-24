@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
+import chunk from 'lodash/chunk'
 
 const initialQuestions = []
 const initialSelections = []
@@ -17,20 +18,13 @@ const initialResultText = ''
 const initialUserResult = 0
 const initialMaxResult = 0
 
-/*
-  selections: array of length 0 to survey length
-  contains empty or undefined if question unanswered
-
-  (store is updated both through setSelections etc and
-    store.setState not using setter functions -> 0 or
-    -1 representing no selection is harder to implement
-    + unnecessary as undef does the same job)
-*/
+const initialQuestionGroups = []
 
 const store = (set) => ({
   questions: initialQuestions,
   email: initialEmail,
   selections: initialSelections,
+  questionGroups: initialQuestionGroups,
   resultsPerCategory: initialResultsPerCategory,
   optionsToPointsMap,
   resultText: initialResultText,
@@ -39,12 +33,32 @@ const store = (set) => ({
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions) => {
+    const initialSelectionsWithQuestionIds = []
+    questions.forEach((q) => {
+      initialSelectionsWithQuestionIds.push({
+        questionId: q.id,
+        value: undefined,
+      })
+    })
+
+    /* question grouping on pages can be modified here.
+      current (arbitrary) grouping logic: divide questions on 2
+      equal-length (or n and n+1-question if odd number) pages.
+    */
+    const chunkedQuestions = chunk(questions, questions.length / 2)
+
     set(() => ({
       questions,
+      selections: initialSelectionsWithQuestionIds,
+      questionGroups: chunkedQuestions,
     }))
   },
   clear: () => set(() => ({
-    questions: [], email: '', selections: [], resultsPerCategory: [], resultText: '',
+    questions: [],
+    email: '',
+    selections: [],
+    resultsPerCategory: [],
+    resultText: '',
   })),
   setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
   setResultText: (text) => set(() => ({ resultText: text })),
@@ -52,8 +66,9 @@ const store = (set) => ({
   setMaxResult: (score) => set(() => ({ maxResult: score })),
 })
 
-export const useStore = create(persist(store,
-  {
+export const useStore = create(
+  persist(store, {
     name: 'devops assessment tool store',
-    getStorage: () => sessionStorage, // use sessionStorage
-  }))
+    getStorage: () => sessionStorage,
+  }),
+)

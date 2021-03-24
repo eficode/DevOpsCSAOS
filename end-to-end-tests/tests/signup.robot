@@ -9,7 +9,6 @@ ${VALID_EMAIL}            test2222@test.com
 ${EMAIL_WITHOUT_AT_SIGN}  mail.mail.com
 ${LONG_EMAIL}             aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-
 *** Test Cases ***
 
 User can't sign up with invalid email

@@ -16,7 +16,7 @@ Signup With Email
     Open Browser To Main Page
     Click get started button
     Insert Email    ${email}
-    Click Begin button
+    Click Begin Button
 
 Signup With Invalid Email Should Fail
     [Arguments]      ${email}

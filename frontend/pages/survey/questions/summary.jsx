@@ -9,6 +9,7 @@ import ProgressBar from '../../../components/progressBar'
 import Button from '../../../components/button'
 import { sendResult } from '../../../services/results'
 import { sendAnswers } from '../../../services/answers'
+import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
 
 const Content = styled.div`
   display: flex;
@@ -40,9 +41,9 @@ const Title = styled.h2`
   margin: 10px 0 30px 0;
 `
 
-function getKeyByValue(object, value) {
-  return Object.keys(object).find((key) => object[key] === value)
-}
+const getKeyByValue = (object, value) => (
+  Object.keys(object).find((key) => object[key] === value)
+)
 
 const Summary = () => {
   const selections = useStore((state) => state.selections)
@@ -51,35 +52,17 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-
-  /*
-      new checker: boolean variable updating on every change in store
-      reduce function checks that no selection is undef,
-      length checker is needed as selections arr can be shorter than survey
-    */
-
-  const allQuestionsAnswered = store.selections.length === questions.length
-  && store.selections.reduce((allAnswered, selection) => {
-    if (selection == null || !allAnswered) {
-      return false
-    }
-    return true
-  } , true)
+  const total = questions.length 
 
   const handleSubmit = async () => {
-    if (!allQuestionsAnswered) {
+    if (!allQuestionsAnswered(store.selections)) {
       alert('Please answer all of the questions to proceed')
       return
     }
 
-    const answersForBackend = questions.map((question, index) => ({
-      questionId: question.id,
-      value: store.selections[index],
-    }))
-
     const email = store.email === '' ? undefined : store.email
 
-    const { results } = await sendAnswers(email, answersForBackend)
+    const { results } = await sendAnswers(email, store.selections)
 
     store.setResultsPerCategory(results)
 
@@ -107,15 +90,15 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar id={1} total={1} />
+      <ProgressBar answered={countOfAnsweredQuestions} total={total} />
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
           {/* we're assuming that questions are always available */}
-          {questions.map((question, index) => {
+          {questions.map((question) => {
             let answerToQuestion = getKeyByValue(
               optionsToPointsMap,
-              selections[index]
+              selections.find((s) => s.questionId === question.id).value
             )?.toLowerCase()
 
             if (!answerToQuestion) {
