@@ -3,7 +3,6 @@
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest')
 const app = require('../../app.js')
-const { initDatabase } = require('../../config/setupDatabase')
 const { clearDBAndCreateDummyData } = require('../../testUtils/setupTestDb')
 const { Question, User, User_answer, Question_answer } = require('../../models')
 
@@ -20,7 +19,7 @@ beforeAll(async () => {
 describe('POST /api/answers', () => {
   it('User can submit answers without email', async (done) => {
     const response = await request(app).post('/api/answers').send({
-      user_answers: survey1TestAnswers,
+      userAnswers: survey1TestAnswers,
       surveyId: survey1Id,
     })
     expect(response.status).toBe(200)
@@ -31,7 +30,7 @@ describe('POST /api/answers', () => {
   it('User can submit answers with new email', async (done) => {
     const response = await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      user_answers: survey1TestAnswers,
+      userAnswers: survey1TestAnswers,
       surveyId: survey1Id,
     })
     expect(response.status).toBe(200)
@@ -41,13 +40,13 @@ describe('POST /api/answers', () => {
   it('User can submit answers with existing email', async (done) => {
     const response1 = await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      user_answers: survey1TestAnswers,
+      userAnswers: survey1TestAnswers,
       surveyId: survey1Id,
     })
 
     const response2 = await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      user_answers: survey1TestAnswers2,
+      userAnswers: survey1TestAnswers2,
       surveyId: survey1Id,
     })
 
@@ -62,7 +61,7 @@ describe('POST /api/answers', () => {
   it('User has only one answer set in database per survey', async (done) => {
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      user_answers: survey1TestAnswers,
+      userAnswers: survey1TestAnswers,
       surveyId: survey1Id,
     })
     const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
@@ -72,7 +71,7 @@ describe('POST /api/answers', () => {
     expect(firstAnswers.length).toEqual(2)
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      user_answers: survey1TestAnswers2,
+      userAnswers: survey1TestAnswers2,
       surveyId: survey1Id,
     })
     const secondAnswers = await User_answer.findAll({
@@ -85,7 +84,7 @@ describe('POST /api/answers', () => {
   it('Same user can have many answer sets: one answer set per survey', async (done) => {
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      user_answers: survey1TestAnswers,
+      userAnswers: survey1TestAnswers,
       surveyId: survey1Id,
     })
     const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
@@ -95,7 +94,7 @@ describe('POST /api/answers', () => {
     expect(firstAnswers.length).toEqual(2)
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      user_answers: survey2TestAnswers,
+      userAnswers: survey2TestAnswers,
       surveyId: survey2Id,
     })
 
@@ -109,7 +108,7 @@ describe('POST /api/answers', () => {
   it('If user answers to already answered survey, answers are updated', async (done) => {
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      user_answers: survey1TestAnswers,
+      userAnswers: survey1TestAnswers,
       surveyId: survey1Id,
     })
     const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
@@ -149,7 +148,7 @@ describe('POST /api/answers', () => {
     )
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
-      user_answers: survey1TestAnswers2,
+      userAnswers: survey1TestAnswers2,
       surveyId: survey1Id,
     })
 
@@ -200,7 +199,7 @@ describe('POST /api/answers', () => {
   it('Returns correct survey result', async (done) => {
     const response = await request(app).post('/api/answers').send({
       email: 'test100@gmail.com',
-      user_answers: survey1TestAnswers,
+      userAnswers: survey1TestAnswers,
       surveyId: survey1Id,
     })
 
@@ -215,7 +214,7 @@ describe('POST /api/answers', () => {
   it('Returns data in expected form', async (done) => {
     const response = await request(app).post('/api/answers').send({
       email: 'test100@gmail.com',
-      user_answers: survey1TestAnswers,
+      userAnswers: survey1TestAnswers,
       surveyId: survey1Id,
     })
     expect(response.status).toBe(200)

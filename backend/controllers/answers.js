@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 const answersRouter = require('express').Router()
-const { User, User_answer, Question, Category, Question_answer, Survey, sequelize } = require('../models')
+const { User, User_answer, Survey } = require('../models')
 
 const { verifyUserAnswers, deleteUserSurveyAnswers, getResults } = require('./helpers/answers')
 
 answersRouter.post('/', async (req, res) => {
-  const { email, user_answers, surveyId } = req.body
+  const { email, userAnswers, surveyId } = req.body
   
   const survey = await Survey.findAll({
     where: { id: surveyId }
@@ -15,7 +15,7 @@ answersRouter.post('/', async (req, res) => {
     return res.status(500).json("SurveyId is invalid")
   }
 
-  const verificationResult = await verifyUserAnswers(user_answers, surveyId)
+  const verificationResult = await verifyUserAnswers(userAnswers, surveyId)
 
   if(verificationResult.unAnsweredQuestions.length > 0) {
 
@@ -33,7 +33,7 @@ answersRouter.post('/', async (req, res) => {
     })
   }
 
-  const results = await getResults(surveyId, user_answers)
+  const results = await getResults(surveyId, userAnswers)
 
   try {
     if (email) {
@@ -50,7 +50,7 @@ answersRouter.post('/', async (req, res) => {
         userId = user.id
       }
 
-      const answersToQuestions = user_answers.map((answer) => ({
+      const answersToQuestions = userAnswers.map((answer) => ({
         userId: userId,
         questionAnswerId: answer,
       }))    
