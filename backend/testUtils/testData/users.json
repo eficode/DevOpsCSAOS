@@ -1,0 +1,9 @@
+[
+  {
+    "email": "testaaja1@email.com"
+  },
+  {
+    "email": "testaaja2@email.com",
+    "organizationId": "TestOrganization"
+  }
+]

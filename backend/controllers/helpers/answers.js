@@ -147,14 +147,14 @@ const deleteUserSurveyAnswers = async (surveyId, userId) => {
   })
 
   let allUserSurveyAnswers = allUserAnswers.filter(
-    (user_answer) => user_answer.Question_answer.Question.surveyId === surveyId
+    (userAnswer) => userAnswer.Question_answer.Question.surveyId === surveyId
   )
   allUserSurveyAnswers = allUserSurveyAnswers.map((answer) => answer.id)
 
   await User_answer.destroy({ where: { id: allUserSurveyAnswers } })
 }
 
-const verifyUserAnswers = async (user_answers, surveyId) => {
+const verifyUserAnswers = async (userAnswers, surveyId) => {
   const allSurveyQuestions = await Question.findAll({
     attributes: ['id', 'surveyId', 'text', 'categoryId'],
     where: {
@@ -166,7 +166,7 @@ const verifyUserAnswers = async (user_answers, surveyId) => {
 
   const userQuestionAnswers = await Question_answer.findAll({
     where: {
-      id: user_answers,
+      id: userAnswers,
     },
     order: [['questionId', 'ASC']],
     raw: true,

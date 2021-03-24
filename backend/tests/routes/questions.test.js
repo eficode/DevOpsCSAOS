@@ -2,10 +2,10 @@
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest')
 const app = require('../../app.js')
-const { initDatabase } = require('../../config/setupDatabase')
+const { clearDBAndCreateDummyData } = require('../../testUtils/setupTestDb')
 
 beforeAll(async () => {
-  await initDatabase()
+  await clearDBAndCreateDummyData()
 })
 const surveyId = 1
 describe('GET /api/questions', () => {

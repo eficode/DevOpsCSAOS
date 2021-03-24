@@ -4,6 +4,7 @@
 const request = require('supertest')
 const app = require('../../app.js')
 const { initDatabase } = require('../../config/setupDatabase')
+const { clearDBAndCreateDummyData } = require('../../testUtils/setupTestDb')
 const { Question, User, User_answer, Question_answer } = require('../../models')
 
 const survey1TestAnswers = [100, 103]
@@ -13,7 +14,7 @@ const survey1Id = 1
 const survey2Id = 2
 
 beforeAll(async () => {
-  await initDatabase()
+  await clearDBAndCreateDummyData()
 })
 
 describe('POST /api/answers', () => {
