@@ -37,9 +37,10 @@ const store = (set) => ({
     questions.forEach((q) => {
       initialSelectionsWithQuestionIds.push({
         questionId: q.id,
-        value: undefined,
+        answerId: undefined,
       })
     })
+    
 
     /* question grouping on pages can be modified here.
       current (arbitrary) grouping logic: divide questions on 2

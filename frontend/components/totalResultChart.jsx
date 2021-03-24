@@ -28,8 +28,6 @@ const segmentColors = [
 ]
 function getColor(userResult, maxResult) {
   const percentage = userResult / maxResult
-  console.log(percentage)
-
   if (percentage <= 0.142) {
     return segmentColors[0]
   }
@@ -54,6 +52,7 @@ function getColor(userResult, maxResult) {
   return 'FFFFFF'
 }
 const TotalResultChart = ({ data }) => (
+  
   <>
     <ResultsTitle>Compare your results</ResultsTitle>
     <ResponsiveContainer height={450} width="70%">
@@ -72,20 +71,23 @@ const TotalResultChart = ({ data }) => (
         <XAxis dataKey="name" />
         <Tooltip cursor={{ fill: 'transparent' }} />
 
-        <Bar dataKey="userResult" barSize={30} name="Your result">
+        <Bar 
+          dataKey="userPoints" 
+          barSize={30} 
+          name="Your result">
           {data.map((entry) => (
-            <Cell fill={getColor(entry.userResult, entry.maxCategoryResult)} />
+            <Cell fill={getColor(entry.userPoints, entry.maxPoints)} />
           ))}
         </Bar>
 
         <Bar
-          dataKey="maxCategoryResult"
+          dataKey="maxPoints"
           fill="#148AB3"
           barSize={30}
           name="Peer average placeholder"
         />
         <Bar
-          dataKey="maxCategoryResult"
+          dataKey="maxPoints"
           barSize={30}
           fill="#5cd175"
           name="Max"
