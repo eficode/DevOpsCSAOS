@@ -33,7 +33,7 @@ answersRouter.post('/', async (req, res) => {
     })
   }
 
-  let results = await getResults(surveyId, user_answers)
+  const results = await getResults(surveyId, user_answers)
 
   try {
     if (email) {

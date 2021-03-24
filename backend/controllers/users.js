@@ -25,5 +25,4 @@ usersRouter.get('/:email', async (req, res) => {
   }
 })
 
-
 module.exports = usersRouter

@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ Question, Survey_result, Survey_user_group }) {
       // define association here
       this.hasMany(Question, { foreignKey: 'surveyId' })
-      this.hasMany(Survey_result, { foreignKey: 'surveyId'})
-      this.hasMany(Survey_user_group, {foreignKey: 'surveyId'})
+      this.hasMany(Survey_result, { foreignKey: 'surveyId' })
+      this.hasMany(Survey_user_group, { foreignKey: 'surveyId' })
     }
     // eslint-disable-next-line prettier/prettier
   }

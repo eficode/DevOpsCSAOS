@@ -7,16 +7,16 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate( { Category }) {
+    static associate({ Category }) {
       // define association here
-      this.belongsTo(Category, { foreignKey: 'categoryId'} )
+      this.belongsTo(Category, { foreignKey: 'categoryId' })
     }
   }
   Category_result.init(
     {
       categoryId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       text: {
         type: DataTypes.STRING,
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
           max: 1,
           min: 0,
         },
-      }
+      },
     },
     {
       sequelize,

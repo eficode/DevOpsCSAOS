@@ -7,20 +7,20 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate( { Survey }) {
+    static associate({ Survey }) {
       // define association here
-      this.belongsTo(Survey, { foreignKey: 'surveyId'} )
+      this.belongsTo(Survey, { foreignKey: 'surveyId' })
     }
   }
   Survey_result.init(
     {
       surveyId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       text: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       cutoff_from_maxpoints: {
         type: DataTypes.FLOAT,
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
           max: 1,
           min: 0,
         },
-      }
+      },
     },
     {
       sequelize,

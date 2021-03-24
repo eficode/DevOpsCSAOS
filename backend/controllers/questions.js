@@ -7,11 +7,11 @@ questionsRouter.get('/:surveyId', async (req, res) => {
     const questions = await Question.findAll({
       include: [
         { model: Category, attributes: ['id', 'name'] },
-        { model: Question_answer, attributes: ['id', 'text']}
+        { model: Question_answer, attributes: ['id', 'text'] },
       ],
       where: {
-        surveyId: surveyId
-      }
+        surveyId: surveyId,
+      },
     })
     return res.json(questions)
   } catch (e) {
@@ -19,7 +19,5 @@ questionsRouter.get('/:surveyId', async (req, res) => {
     return res.status(500).json({ error: 'Unable to fetch questions' })
   }
 })
-
-
 
 module.exports = questionsRouter
