@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import CategoryResultChart from './categoryResultChart'
 
 export const CategoryResultContainer = styled.article`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px 0 120px 0;
+  margin: 35px 0 60px 0;
   column-gap: 60px;
 `
 
@@ -13,7 +14,7 @@ export const CategoryText = styled.div`
   font-family: Merriweather;
   font-size: 13px;
   line-height: 2.2;
-  width: 70%;
+  width: 65%;
   text-align: justify;
   text-justify: auto;
 `
@@ -26,15 +27,11 @@ export const CategoryTitle = styled.h3`
 
 export const CategoryImage = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  width: 30%;
-`
-
-export const Placeholder = styled.div`
-  width: 200px;
-  height: 200px;
-  background: ${({ theme }) => theme.colors.nevada};
+  width: 35%;
+  min-height: 200px;
+  margin-bottom: -100px;
 `
 
 const CategoryResult = ({
@@ -49,16 +46,12 @@ const CategoryResult = ({
       <CategoryResultContainer>
         <CategoryText>
           <CategoryTitle>
-            {category}
-            {' '}
-            {userResult}
-            /
-            {maxResult}
+            {category} {userResult} / {maxResult}
           </CategoryTitle>
           {description}
         </CategoryText>
         <CategoryImage>
-          <Placeholder />
+          <CategoryResultChart userResult={userResult} maxResult={maxResult} />
         </CategoryImage>
       </CategoryResultContainer>
     )
@@ -66,15 +59,11 @@ const CategoryResult = ({
   return (
     <CategoryResultContainer>
       <CategoryImage>
-        <Placeholder />
+        <CategoryResultChart userResult={userResult} maxResult={maxResult} />
       </CategoryImage>
       <CategoryText>
         <CategoryTitle>
-          {category}
-          {' '}
-          {userResult}
-          /
-          {maxResult}
+          {category} {userResult} / {maxResult}
         </CategoryTitle>
         {description}
       </CategoryText>
