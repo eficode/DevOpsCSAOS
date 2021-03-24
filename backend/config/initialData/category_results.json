@@ -8,15 +8,5 @@
       "text": "Olet kaurakeksi",
       "categoryId": 1,
       "cutoff_from_maxpoints": 1.0
-    },
-    {
-      "text": "Olet päärynä",
-      "categoryId": 20,
-      "cutoff_from_maxpoints": 0.5
-    },
-    {
-      "text": "Olet kaurakeksi",
-      "categoryId": 20,
-      "cutoff_from_maxpoints": 1.0
     }
 ]
