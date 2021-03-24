@@ -9,7 +9,6 @@ beforeAll(async () => {
   await initDatabase()
 })
 
-
 describe('POST /api/users', () => {
   it('Creates a new user with valid email', async (done) => {
     const userData = { email: 'test@gmail.com' }
@@ -36,5 +35,3 @@ describe('POST /api/users', () => {
     done()
   })
 })
-
-

@@ -1,23 +1,20 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-undef */
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest')
 const app = require('../../app.js')
 const { initDatabase } = require('../../config/setupDatabase')
 const { Question, User, User_answer, Question_answer } = require('../../models')
-const user_answer = require('../../models/user_answer.js')
 
-
-
-const survey1TestAnswers = [ 100, 103 ]
-const survey1TestAnswers2 = [ 101, 102 ]
-const survey2TestAnswers = [ 200, 202]
+const survey1TestAnswers = [100, 103]
+const survey1TestAnswers2 = [101, 102]
+const survey2TestAnswers = [200, 202]
 const survey1Id = 1
 const survey2Id = 2
 
 beforeAll(async () => {
   await initDatabase()
 })
-
 
 describe('POST /api/answers', () => {
   it('User can submit answers without email', async (done) => {
@@ -29,9 +26,6 @@ describe('POST /api/answers', () => {
 
     done()
   })
-
-
-
 
   it('User can submit answers with new email', async (done) => {
     const response = await request(app).post('/api/answers').send({
@@ -103,7 +97,7 @@ describe('POST /api/answers', () => {
       user_answers: survey2TestAnswers,
       surveyId: survey2Id,
     })
-    
+
     const secondAnswers = await User_answer.findAll({
       where: { userId: user.id },
     })
@@ -120,84 +114,84 @@ describe('POST /api/answers', () => {
     const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
 
     const allUserAnswers = await User_answer.findAll({
-          attributes: ['id'],
-          include : [
+      attributes: ['id'],
+      include: [
+        {
+          model: Question_answer,
+          attributes: ['text', 'id'],
+          include: [
             {
-              model : Question_answer,
-              attributes: ['text', 'id'],
-              include: [
-                {
-                  model: Question,
-                  attributes: ['id', 'surveyId']
-                }
-              ],
-            }
+              model: Question,
+              attributes: ['id', 'surveyId'],
+            },
           ],
-          where: {
-            userId: user.id,
-          },
-          raw: true,
-          nest: true
+        },
+      ],
+      where: {
+        userId: user.id,
+      },
+      raw: true,
+      nest: true,
     })
 
-    
+    const survey1AnswersInDatabase = allUserAnswers.filter(
+      (user_answer) =>
+        user_answer.Question_answer.Question.surveyId === survey1Id
+    )
 
-    const survey1AnswersInDatabase = allUserAnswers
-      .filter(user_answer => user_answer.Question_answer.Question.surveyId === survey1Id)
-    
-
-    survey1TestAnswers.forEach(answer => 
-      expect(survey1AnswersInDatabase
-        .find(answerInDatabase => answerInDatabase.Question_answer.id === answer)
-      )
-      .not
-      .toBe(undefined)
+    survey1TestAnswers.forEach((answer) =>
+      expect(
+        survey1AnswersInDatabase.find(
+          (answerInDatabase) => answerInDatabase.Question_answer.id === answer
+        )
+      ).not.toBe(undefined)
     )
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
       user_answers: survey1TestAnswers2,
       surveyId: survey1Id,
     })
-    
-   
 
     const newUserAnswers = await User_answer.findAll({
       attributes: ['id'],
-      include : [
+      include: [
         {
-          model : Question_answer,
+          model: Question_answer,
           attributes: ['text', 'id'],
           include: [
             {
               model: Question,
-              attributes: ['id', 'surveyId']
-            }
+              attributes: ['id', 'surveyId'],
+            },
           ],
-        }
+        },
       ],
       where: {
         userId: user.id,
       },
       raw: true,
-      nest: true
+      nest: true,
     })
 
-    const survey1NewAnswersInDatabase = newUserAnswers
-      .filter(user_answer => user_answer.Question_answer.Question.surveyId === survey1Id)
-
-    survey1TestAnswers.forEach(answer => 
-      expect(survey1NewAnswersInDatabase
-        .find(answerInDatabase => answerInDatabase.Question_answer.id === answer)
-      )
-      .toBe(undefined)
+    const survey1NewAnswersInDatabase = newUserAnswers.filter(
+      (user_answer) =>
+        user_answer.Question_answer.Question.surveyId === survey1Id
     )
 
-    survey1TestAnswers2.forEach(answer => 
-      expect(survey1NewAnswersInDatabase
-        .find(answerInDatabase => answerInDatabase.Question_answer.id === answer)
-      )
-      .not
-      .toBe(undefined)
+    survey1TestAnswers.forEach((answer) =>
+      expect(
+        survey1NewAnswersInDatabase.find(
+          (answerInDatabase) => answerInDatabase.Question_answer.id === answer
+        )
+      ).toBe(undefined)
+    )
+
+    survey1TestAnswers2.forEach((answer) =>
+      expect(
+        survey1NewAnswersInDatabase.find(
+          (answerInDatabase) => answerInDatabase.Question_answer.id === answer
+        )
+      ).not.toBe(undefined)
     )
     done()
   })
@@ -209,12 +203,10 @@ describe('POST /api/answers', () => {
       surveyId: survey1Id,
     })
 
-    
-
     const { results } = response.body
     const { surveyResult } = results
-    
-    expect(surveyResult.text).toBe("Olet ruisleipä")
+
+    expect(surveyResult.text).toBe('Olet ruisleipä')
 
     done()
   })
@@ -228,13 +220,13 @@ describe('POST /api/answers', () => {
     expect(response.status).toBe(200)
     expect(response.body.results).not.toEqual(null)
     const { results } = response.body
-    
-    const surveyResult = results.surveyResult
+
+    const { surveyResult } = results
     expect(surveyResult.maxPoints).not.toBe(undefined)
     expect(surveyResult.userPoints).not.toBe(undefined)
     expect(surveyResult.text).not.toBe(undefined)
 
-    const categoryResults = results.categoryResults
+    const { categoryResults } = results
     expect(categoryResults.length).toBeGreaterThan(0)
 
     categoryResults.forEach((categoryResult) => {

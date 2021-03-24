@@ -22,7 +22,6 @@ const {
 */
 const initDatabase = async () => {
   await sequelize.sync({ force: true })
-  
   await Survey.bulkCreate(surveys)
   await Survey_result.bulkCreate(survey_results)
   await Category.bulkCreate(categories)

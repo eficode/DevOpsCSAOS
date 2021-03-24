@@ -15,5 +15,3 @@ describe('GET /api/questions', () => {
     done()
   })
 })
-
-
