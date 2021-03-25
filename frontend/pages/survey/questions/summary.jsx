@@ -9,6 +9,7 @@ import ProgressBar from '../../../components/progressBar'
 import Button from '../../../components/button'
 import { sendResult } from '../../../services/results'
 import { sendAnswers } from '../../../services/answers'
+import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
 
 const Content = styled.div`
   display: flex;
@@ -44,9 +45,9 @@ const Title = styled.h2`
   }
 `
 
-function getKeyByValue(object, value) {
-  return Object.keys(object).find((key) => object[key] === value)
-}
+const getKeyByValue = (object, value) => (
+  Object.keys(object).find((key) => object[key] === value)
+)
 
 const Summary = () => {
   const selections = useStore((state) => state.selections)
@@ -55,16 +56,10 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-  const total = questions.length
-  const countOfAnsweredQuestions = store.selections.reduce(
-    (accumulator, selection) =>
-      selection.value !== undefined ? accumulator + 1 : accumulator,
-    0
-  )
-  const allQuestionsAnswered = countOfAnsweredQuestions === total
+  const total = questions.length 
 
   const handleSubmit = async () => {
-    if (!allQuestionsAnswered) {
+    if (!allQuestionsAnswered(store.selections)) {
       alert('Please answer all of the questions to proceed')
       return
     }

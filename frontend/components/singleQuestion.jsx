@@ -60,21 +60,10 @@ const QuestionSeparator = styled.div`
   }
 `
 
-const SingleQuestion = ({ question }) => {
+const SingleQuestion = ({ question, onOptionClick }) => {
   const store = useStore()
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
-  const currentSelection = store.selections.find(s => s.questionId === question.id).value
-
-  const updateSelections = (pointValue) => {
-    const prevSelections = [...store.selections]
-    const newSelections = prevSelections.map(selection => {
-      if (selection.questionId === question.id) {
-        return {questionId: selection.questionId, value: pointValue}
-      }
-      return selection
-    })
-    store.setSelections(newSelections)
-  }
+  const currentSelection = store.selections.find(s => s.questionId === question.id).value  
 
   return (
     <>
@@ -93,7 +82,7 @@ const SingleQuestion = ({ question }) => {
                 selected={
                   currentSelection === pointsAssociatedWithOption
                 }
-                onClick={() => updateSelections(pointsAssociatedWithOption)}
+                onClick={() => onOptionClick(question.id, pointsAssociatedWithOption)}
               />
             )
           })}
