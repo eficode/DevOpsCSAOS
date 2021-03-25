@@ -1,8 +1,5 @@
 import styled from 'styled-components'
 
-/**
- * Don't change to a div! Will not work (unknown reason -.-). 
- * */
 export const InnerContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -26,14 +23,9 @@ export const InnerContentWrapper = styled.div`
   }
   
   margin: 0;
-  padding: 7% 8%;
+  padding: 7% 0;
   background-color: white;
   border-radius: 0.5rem;
 `
 
 export default InnerContentWrapper
-
-
-/*
-  
-*/

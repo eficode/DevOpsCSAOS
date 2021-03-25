@@ -16,6 +16,10 @@ const Heading = styled.h3`
   font-family: Montserrat;
   font-size: 16px;
   margin-bottom: 10px;
+
+  @media screen and (max-width: 800px) {
+    margin: 30px 0 -30px 0;
+  }
 `
 
 const SurveyPage = () => {
