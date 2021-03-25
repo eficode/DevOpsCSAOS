@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 import { useStore } from '../../../store'
 
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
@@ -35,9 +36,9 @@ const SurveyPage = () => {
   const isFinalPage = pageId === store.questionGroups.length
   const isFirstPage = pageId === 1
   const storeHasQuestions = store.questions.length > 0
-  
+
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (store.questions.length === 0) {
         const response = await getAllQuestions()
         store.setQuestions(response)
@@ -59,8 +60,8 @@ const SurveyPage = () => {
   }
 
   const redirectToNextPageIfCurrentPageCompleted = (newSelections) => {
-    const selectionsOfRenderedQuestions = newSelections.filter(s => 
-      questionsToRender.map(q => q.id).includes(s.questionId)  
+    const selectionsOfRenderedQuestions = newSelections.filter((s) =>
+      questionsToRender.map(q => q.id).includes(s.questionId)
     )
 
     if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
@@ -73,7 +74,7 @@ const SurveyPage = () => {
 
   const onOptionClick = (questionId, pointValue) => {
     const newSelections = updateSelectionsInStore(questionId, pointValue)
-    redirectToNextPageIfCurrentPageCompleted(newSelections)    
+    redirectToNextPageIfCurrentPageCompleted(newSelections)
   }
 
   if (!storeHasQuestions) {
@@ -83,7 +84,12 @@ const SurveyPage = () => {
   const answeredQuestionsCount = countOfAnsweredQuestions(store.selections)
 
   return (
-    <>
+    <motion.div
+      key={pageId}
+      initial={{ opacity: 0, x: 1000 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -1000 }}
+    >
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
@@ -110,7 +116,7 @@ const SurveyPage = () => {
         </NavigationGroup>
         {isFinalPage ? <StyledLink type="primary" href={summaryPageHref}>Review</StyledLink> : null}
       </InnerContentWrapper>
-    </>
+    </motion.div>
   )
 }
 

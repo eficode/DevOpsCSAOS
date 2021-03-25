@@ -2,6 +2,7 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
 import Link from '../components/link'
@@ -22,20 +23,27 @@ const Main = styled.main`
 
 const Home = () => (
   <>
-    <Head>
-      <title>DevOps Capability Survey</title>
-    </Head>
-    <InnerContentWrapper>
-      <Heading>DevOps Assessment Tool</Heading>
-      <Main>
-        <h2>Welcome!</h2>
-        <p>Test your DevOps capabilities here.</p>
-        <Link href='/survey/signup' type='primary'>
-          Get started
-        </Link>
+    <motion.div
+      key="siteIndex"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, x: -1000 }}
+    >
+      <Head>
+        <title>DevOps Capability Survey</title>
+      </Head>
+      <InnerContentWrapper>
+        <Heading>DevOps Assessment Tool</Heading>
+        <Main>
+          <h2>Welcome!</h2>
+          <p>Test your DevOps capabilities here.</p>
+          <Link href='/survey/signup' type='primary'>
+            Get started
+          </Link>
 
-      </Main>
-    </InnerContentWrapper>
+        </Main>
+      </InnerContentWrapper>
+    </motion.div>
   </>
 )
 

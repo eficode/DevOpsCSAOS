@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
 import Head from 'next/head'
@@ -86,7 +87,12 @@ const Summary = () => {
   }
 
   return (
-    <>
+    <motion.div
+      key="summary"
+      initial={{ opacity: 0, x: 1000 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -1000 }}
+    >
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
@@ -125,7 +131,7 @@ const Summary = () => {
           </Button>
         </Content>
       </InnerContentWrapper>
-    </>
+    </motion.div>
   )
 }
 

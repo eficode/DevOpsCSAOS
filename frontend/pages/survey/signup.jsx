@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 import Head from 'next/head'
 import { isEmail } from 'validator'
 
@@ -61,7 +62,12 @@ const SignUpForm = () => {
   }
 
   return (
-    <>
+    <motion.div
+      key="signup"
+      initial={{ opacity: 0, x: 1500 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -1500 }}
+    >
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
@@ -83,7 +89,7 @@ const SignUpForm = () => {
           </Button>
         </DetailsForm>
       </InnerContentWrapper>
-    </>
+    </motion.div>
   )
 }
 
