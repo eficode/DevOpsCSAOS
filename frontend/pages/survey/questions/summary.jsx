@@ -38,6 +38,10 @@ const Title = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
   margin: 10px 0 30px 0;
+
+  @media screen and (max-width: 650px) {
+    margin: 30px 0 30px 0;
+  }
 `
 
 function getKeyByValue(object, value) {
