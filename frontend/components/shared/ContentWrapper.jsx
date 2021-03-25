@@ -6,7 +6,7 @@ export const ContentWrapper = styled.main`
   align-items: center;
   margin: 5% 20%;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1400px) {
     margin: 5% 10%;
   }
 

@@ -15,7 +15,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 80%;
   background-color: white;
   border-radius: 0.5rem;
 `
