@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
 import Link from '../../components/link'
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
-import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
@@ -55,11 +54,22 @@ const ResultsText = styled.h4`
 `
 
 const Home = () => {
+  const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
 
-  const { userResult } = store
-  const { maxResult } = store
-  const { resultText } = store
+  const { userResult, maxResult, resultText } = store
+
+  console.log(store.resultsPerCategory)
+
+  useEffect(() => {
+    const handleResize = () => {
+      window.innerWidth <= 800 ?
+        setRenderMobileLayout(true) :
+        setRenderMobileLayout(false)
+    }
+
+    window.addEventListener('resize', handleResize)
+  }, [])
 
   return (
     <>
@@ -80,6 +90,8 @@ const Home = () => {
           <Categories>
             {store.resultsPerCategory.map((result, index) => (
               <CategoryResult
+                key={result.categoryId}
+                renderMobileLayout={renderMobileLayout}
                 userResult={result.userResult}
                 maxResult={result.maxCategoryResult}
                 category={result.name}
