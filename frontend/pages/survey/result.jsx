@@ -26,6 +26,10 @@ const Heading = styled.h3`
   font-family: Montserrat;
   font-size: 16px;
   margin-bottom: 10px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 20px;
+  }
 `
 
 const ResultsTitle = styled.h2`
