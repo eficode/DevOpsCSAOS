@@ -26,33 +26,17 @@ const segmentColors = [
   '#9edb6b',
   '#5cd175',
 ]
-function getColor(userResult, maxResult) {
-  const percentage = userResult / maxResult
-  console.log(percentage)
 
-  if (percentage <= 0.142) {
-    return segmentColors[0]
-  }
-  if (percentage <= 0.284) {
-    return segmentColors[1]
-  }
-  if (percentage <= 0.426) {
-    return segmentColors[2]
-  }
-  if (percentage <= 0.568) {
-    return segmentColors[3]
-  }
-  if (percentage <= 0.691) {
-    return segmentColors[4]
-  }
-  if (percentage <= 0.833) {
-    return segmentColors[5]
-  }
-  if (percentage <= 1) {
-    return segmentColors[6]
-  }
-  return 'FFFFFF'
+const percentageTopLimitsOfColors = [
+  0.142, 0.284, 0.426, 0.568, 0.691, 0.833, 1
+]
+
+const getColor = (userResult, maxResult) => {
+  const percentage = userResult / maxResult
+  
+  return segmentColors[percentageTopLimitsOfColors.findIndex((limit) => userResult / maxResult <= limit)]
 }
+
 const TotalResultChart = ({ data }) => (
   <>
     <ResultsTitle>Compare your results</ResultsTitle>
