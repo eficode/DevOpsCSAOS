@@ -1,5 +1,4 @@
-const breakpoints =
-{
+const breakpoints = {
   wideDesktop: '1400px',
   mediumDesktop: '1200px',
   narrowDesktop: '1000px',
