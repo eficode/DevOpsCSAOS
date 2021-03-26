@@ -36,7 +36,7 @@ const getColor = (userResult, maxResult) => (
   segmentColors[percentageTopLimitsOfColors.findIndex((limit) => userResult / maxResult <= limit)]
 )
 
-const TotalResultChart = ({ data }) => (
+const TotalResultChart = ({ data, renderMobileLayout }) => (
   <>
     <ResultsTitle>Compare your results</ResultsTitle>
     <ResponsiveContainer height={450} width="70%">

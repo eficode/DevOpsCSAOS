@@ -100,7 +100,10 @@ const Home = () => {
               />
             ))}
           </Categories>
-          <TotalResultChart data={store.resultsPerCategory} />
+          <TotalResultChart
+            data={store.resultsPerCategory}
+            renderMobileLayout={renderMobileLayout}
+          />
         </Content>
       </InnerContentWrapper>
     </>
