@@ -36,45 +36,90 @@ const getColor = (userResult, maxResult) => (
   segmentColors[percentageTopLimitsOfColors.findIndex((limit) => userResult / maxResult <= limit)]
 )
 
-const TotalResultChart = ({ data, renderMobileLayout }) => (
-  <>
-    <ResultsTitle>Compare your results</ResultsTitle>
-    <ResponsiveContainer height={450} width="70%">
-      <BarChart
-        width={850}
-        height={500}
-        data={data}
-        margin={{
-          top: 40,
-          right: 5,
-          left: 5,
-          bottom: 5,
-        }}
-        barGap={8}
-      >
-        <XAxis dataKey="name" />
-        <Tooltip cursor={{ fill: 'transparent' }} />
+const TotalResultChart = ({ data, renderMobileLayout }) => {
+  if (renderMobileLayout) {
+    return (
+      <>
+      <ResultsTitle>Compare your results</ResultsTitle>
+      <ResponsiveContainer height={450} width="70%">
+        <BarChart
+          width={850}
+          height={500}
+          data={data}
+          margin={{
+            top: 40,
+            right: 5,
+            left: 5,
+            bottom: 5,
+          }}
+          barGap={8}
+        >
+          <XAxis dataKey="name" />
+          <Tooltip cursor={{ fill: 'transparent' }} />
 
-        <Bar dataKey="userResult" barSize={30} name="Your result">
-          {data.map((entry) => (
-            <Cell fill={getColor(entry.userResult, entry.maxCategoryResult)} key={entry.categoryId} />
-          ))}
-        </Bar>
+          <Bar dataKey="userResult" barSize={30} name="Your result">
+            {data.map((entry) => (
+              <Cell fill={getColor(entry.userResult, entry.maxCategoryResult)} key={entry.categoryId} />
+            ))}
+          </Bar>
 
-        <Bar
-          dataKey="maxCategoryResult"
-          fill="#148AB3"
-          barSize={30}
-          name="Peer average placeholder"
-        />
-        <Bar
-          dataKey="maxCategoryResult"
-          barSize={30}
-          fill="#5cd175"
-          name="Max"
-        />
-      </BarChart>
-    </ResponsiveContainer>
-  </>
-)
+          <Bar
+            dataKey="maxCategoryResult"
+            fill="#148AB3"
+            barSize={30}
+            name="Peer average placeholder"
+          />
+          <Bar
+            dataKey="maxCategoryResult"
+            barSize={30}
+            fill="#5cd175"
+            name="Max"
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </> 
+    )
+  } else {
+    return (
+      <>
+      <ResultsTitle>Compare your results</ResultsTitle>
+      <ResponsiveContainer height={450} width="70%">
+        <BarChart
+          width={850}
+          height={500}
+          data={data}
+          margin={{
+            top: 40,
+            right: 5,
+            left: 5,
+            bottom: 5,
+          }}
+          barGap={8}
+        >
+          <XAxis dataKey="name" />
+          <Tooltip cursor={{ fill: 'transparent' }} />
+
+          <Bar dataKey="userResult" barSize={30} name="Your result">
+            {data.map((entry) => (
+              <Cell fill={getColor(entry.userResult, entry.maxCategoryResult)} key={entry.categoryId} />
+            ))}
+          </Bar>
+
+          <Bar
+            dataKey="maxCategoryResult"
+            fill="#148AB3"
+            barSize={30}
+            name="Peer average placeholder"
+          />
+          <Bar
+            dataKey="maxCategoryResult"
+            barSize={30}
+            fill="#5cd175"
+            name="Max"
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </> )
+  }
+}
 export default TotalResultChart
