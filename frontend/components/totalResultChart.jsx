@@ -31,11 +31,10 @@ const percentageTopLimitsOfColors = [
   0.142, 0.284, 0.426, 0.568, 0.691, 0.833, 1
 ]
 
-const getColor = (userResult, maxResult) => {
-  const percentage = userResult / maxResult
-  
-  return segmentColors[percentageTopLimitsOfColors.findIndex((limit) => userResult / maxResult <= limit)]
-}
+// findIndex returns index of first item in array to satisfy criterion given
+const getColor = (userResult, maxResult) => (
+  segmentColors[percentageTopLimitsOfColors.findIndex((limit) => userResult / maxResult <= limit)]
+)
 
 const TotalResultChart = ({ data }) => (
   <>

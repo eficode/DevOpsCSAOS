@@ -36,8 +36,15 @@ const ResultsTitle = styled.h2`
 `
 
 const Categories = styled.div`
-  margin: auto;
   width: 70%;
+
+  @media screen and (max-width: 650px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 490px) {
+    width: 110%;
+  }
 `
 
 const ResultsText = styled.h4`
