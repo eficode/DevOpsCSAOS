@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
 import Link from '../../components/link'
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
-import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
@@ -55,14 +54,24 @@ const ResultsText = styled.h4`
 `
 
 const Home = () => {
+  const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
   console.log(store)
 
-  const { userResult } = store
-  const { maxResult } = store
-  const { resultText } = store
-  const { resultsPerCategory } = store
-  
+  const { userResult, maxResult, resultText, resultsPerCategory  } = store
+
+  console.log(store.resultsPerCategory)
+
+  useEffect(() => {
+    const handleResize = () => {
+      window.innerWidth <= 800 ?
+        setRenderMobileLayout(true) :
+        setRenderMobileLayout(false)
+    }
+
+    window.addEventListener('resize', handleResize)
+  }, [])
+
   return (
     <>
       <Head>
@@ -82,8 +91,15 @@ const Home = () => {
           <Categories>
             {resultsPerCategory.map((result, index) => (
               <CategoryResult
+<<<<<<< HEAD
                 userResult={result.userPoints}
                 maxResult={result.maxPoints}
+=======
+                key={result.categoryId}
+                renderMobileLayout={renderMobileLayout}
+                userResult={result.userResult}
+                maxResult={result.maxCategoryResult}
+>>>>>>> removed key missing from list items -console warns from result
                 category={result.name}
                 description={result.description}
                 index={index}

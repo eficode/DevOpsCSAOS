@@ -66,7 +66,10 @@ const TotalResultChart = ({ data }) => (
 
         <Bar dataKey="userPoints" barSize={30} name="Your result">
           {data.map((entry) => (
-            <Cell fill={getColor(entry.userPoints, entry.maxPoints)} />
+            <Cell
+              fill={getColor(entry.userResult, entry.maxCategoryResult)}
+              key={entry.categoryId}
+            />
           ))}
         </Bar>
 
