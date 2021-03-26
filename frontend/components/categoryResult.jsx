@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import CategoryResultChart from './categoryResultChart'
 
@@ -8,6 +8,10 @@ export const CategoryResultContainer = styled.article`
   align-items: center;
   margin: 35px 0 60px 0;
   column-gap: 60px;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column; 
+  }
 `
 
 export const CategoryText = styled.div`
@@ -41,32 +45,42 @@ const CategoryResult = ({
   description,
   index,
 }) => {
-  if (index % 2 === 0) {
-    return (
-      <CategoryResultContainer>
+  const [renderMobileLayout, setRenderMobileLayout] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      window.innerWidth <= 800 ?
+        setRenderMobileLayout(true) :
+        setRenderMobileLayout(false)
+    }
+
+    window.addEventListener('resize', handleResize)
+  }, [window.innerWidth])
+
+  // if mobile should be rendered, the toggle disables the desktop feature 
+  // that puts speedometer on alternating sides of the text
+  // -> speedometer goes above text in every categoryresult
+  return (
+    <CategoryResultContainer>
+      {(index % 2 === 0 && !renderMobileLayout) && 
         <CategoryText>
           <CategoryTitle>
             {category} {userResult} / {maxResult}
           </CategoryTitle>
           {description}
         </CategoryText>
-        <CategoryImage>
-          <CategoryResultChart userResult={userResult} maxResult={maxResult} />
-        </CategoryImage>
-      </CategoryResultContainer>
-    )
-  }
-  return (
-    <CategoryResultContainer>
+      }
       <CategoryImage>
         <CategoryResultChart userResult={userResult} maxResult={maxResult} />
       </CategoryImage>
-      <CategoryText>
-        <CategoryTitle>
-          {category} {userResult} / {maxResult}
-        </CategoryTitle>
-        {description}
-      </CategoryText>
+      {(index % 2 !== 0 || renderMobileLayout) && 
+        <CategoryText>
+          <CategoryTitle>
+            {category} {userResult} / {maxResult}
+          </CategoryTitle>
+          {description}
+        </CategoryText>
+      }
     </CategoryResultContainer>
   )
 }
