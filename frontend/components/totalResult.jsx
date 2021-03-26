@@ -14,7 +14,7 @@ export const ResultCircle = styled.div`
   margin-bottom: 30px;
 
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.mediumMobile}) {
     width: 180px;
     height: 180px;
   }

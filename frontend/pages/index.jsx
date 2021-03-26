@@ -11,7 +11,6 @@ import { LinearProgress } from '@material-ui/core'
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
   margin: 30px 30px;
-
 `
 
 const Main = styled.main`
@@ -36,7 +35,6 @@ const Home = () => (
         <Link href='/survey/signup' type='primary'>
           Get started
         </Link>
-
       </Main>
     </InnerContentWrapper>
   </>

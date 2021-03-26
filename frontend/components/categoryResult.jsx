@@ -9,7 +9,7 @@ export const CategoryResultContainer = styled.article`
   margin: 35px 0 60px 0;
   column-gap: 60px;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
     flex-direction: column; 
   }
 `

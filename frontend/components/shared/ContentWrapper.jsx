@@ -6,11 +6,11 @@ export const ContentWrapper = styled.main`
   align-items: center;
   margin: 5% 20%;
 
-  @media screen and (max-width: 1400px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideDesktop}) {
     margin: 5% 10%;
   }
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.mediumMobile}) {
     margin: 5% 0%;
   }
   

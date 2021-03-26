@@ -18,7 +18,7 @@ const Heading = styled.h3`
   font-size: 16px;
   margin-bottom: 10px;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
     margin: 30px 0 -30px 0;
   }
 `

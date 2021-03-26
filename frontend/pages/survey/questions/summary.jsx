@@ -40,7 +40,7 @@ const Title = styled.h2`
   font-family: Merriweather;
   margin: 10px 0 30px 0;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
     margin: 30px 0 30px 0;
   }
 `
