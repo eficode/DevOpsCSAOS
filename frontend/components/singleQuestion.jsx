@@ -7,12 +7,12 @@ const QuestionWrapper = styled.div`
   margin: 50px 0;
   display: grid;
   
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: ${({theme}) => theme.breakpoints.wideMobile}) {
     grid-template-columns: 240px 240px;
     column-gap: 30px;
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
     grid-template-rows: 30% 70%;
     width: 80%;
   }
@@ -39,7 +39,7 @@ const TitleWrapper = styled.div`
   align-content: center;
   min-width: 240px;
 
-  @media screen and (min-width: 1400px) {
+  @media screen and (min-width: ${({theme}) => theme.breakpoints.wideDesktop}) {
     justify-content: left;
   }
 `
@@ -55,7 +55,7 @@ const QuestionSeparator = styled.div`
   width: 45%;
   height: 2px;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
     margin-top: 40px;
   }
 `

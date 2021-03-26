@@ -45,6 +45,8 @@ const getColor = (userResult, maxResult) =>
     )
   ]
 
+// responsiveness TODO: make chart responsive (<800 px in mobile layout)
+// the chart could be a horizontal bar chart?
 const TotalResultChart = ({ data, renderMobileLayout }) => {
   if (renderMobileLayout) {
     return (

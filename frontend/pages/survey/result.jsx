@@ -27,7 +27,7 @@ const Heading = styled.h3`
   font-size: 16px;
   margin-bottom: 10px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
     margin-top: 20px;
   }
 `
@@ -41,11 +41,11 @@ const ResultsTitle = styled.h2`
 const Categories = styled.div`
   width: 70%;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
     width: 90%;
   }
 
-  @media screen and (max-width: 490px) {
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.narrowMobile}) {
     width: 110%;
   }
 `
