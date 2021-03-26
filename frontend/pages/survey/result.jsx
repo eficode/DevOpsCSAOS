@@ -58,15 +58,15 @@ const Home = () => {
   const store = useStore()
   console.log(store)
 
-  const { userResult, maxResult, resultText, resultsPerCategory  } = store
+  const { userResult, maxResult, resultText, resultsPerCategory } = store
 
   console.log(store.resultsPerCategory)
 
   useEffect(() => {
     const handleResize = () => {
-      window.innerWidth <= 800 ?
-        setRenderMobileLayout(true) :
-        setRenderMobileLayout(false)
+      window.innerWidth <= 800
+        ? setRenderMobileLayout(true)
+        : setRenderMobileLayout(false)
     }
 
     window.addEventListener('resize', handleResize)
@@ -89,24 +89,22 @@ const Home = () => {
           </Link>
 
           <Categories>
-            {resultsPerCategory.map((result, index) => (
+            {resultsPerCategory.map((result, index, idx) => (
               <CategoryResult
-<<<<<<< HEAD
-                userResult={result.userPoints}
-                maxResult={result.maxPoints}
-=======
-                key={result.categoryId}
+                key={idx}
                 renderMobileLayout={renderMobileLayout}
                 userResult={result.userResult}
                 maxResult={result.maxCategoryResult}
->>>>>>> removed key missing from list items -console warns from result
                 category={result.name}
                 description={result.description}
                 index={index}
               />
             ))}
           </Categories>
-          <TotalResultChart data={resultsPerCategory} />
+          <TotalResultChart
+            data={store.resultsPerCategory}
+            renderMobileLayout={renderMobileLayout}
+          />
         </Content>
       </InnerContentWrapper>
     </>

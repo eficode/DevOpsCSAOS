@@ -45,7 +45,7 @@ const getColor = (userResult, maxResult) =>
     )
   ]
 
-const TotalResultChart = ({ data }) => (
+const TotalResultChart = ({ data, renderMobileLayout }) => (
   <>
     <ResultsTitle>Compare your results</ResultsTitle>
     <ResponsiveContainer height={450} width="70%">
