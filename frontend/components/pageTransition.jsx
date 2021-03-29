@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const duration = 0.8
+const duration = 0.3
 
 const variants = {
   initial: {
