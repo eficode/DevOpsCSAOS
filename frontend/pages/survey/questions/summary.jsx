@@ -41,9 +41,8 @@ const Title = styled.h2`
   margin: 10px 0 30px 0;
 `
 
-const getKeyByValue = (object, value) => (
+const getKeyByValue = (object, value) =>
   Object.keys(object).find((key) => object[key] === value)
-)
 
 const Summary = () => {
   const selections = useStore((state) => state.selections)
@@ -52,7 +51,7 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-  const total = questions.length 
+  const total = questions.length
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
@@ -94,32 +93,32 @@ const Summary = () => {
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
-          {/* we're assuming that questions are always available */}
-          {questions.map((question) => {
-            let answerToQuestion = getKeyByValue(
-              optionsToPointsMap,
-              selections.find((s) => s.questionId === question.id).value
-            )?.toLowerCase()
+          {questions &&
+            questions.map((question) => {
+              let answerToQuestion = getKeyByValue(
+                optionsToPointsMap,
+                selections.find((s) => s.questionId === question.id).value
+              )?.toLowerCase()
 
-            if (!answerToQuestion) {
-              answerToQuestion = "haven't answered this question."
-            }
+              if (!answerToQuestion) {
+                answerToQuestion = "haven't answered this question."
+              }
 
-            if (answerToQuestion === 'neutral') {
-              answerToQuestion = 'feel neutral'
-            }
+              if (answerToQuestion === 'neutral') {
+                answerToQuestion = 'feel neutral'
+              }
 
-            const QuestionText = `${question.text}`
-            const AnswerText = `You ${answerToQuestion}`
+              const QuestionText = `${question.text}`
+              const AnswerText = `You ${answerToQuestion}`
 
-            return (
-              <QuestionAnswerWrapper key={question.id}>
-                {QuestionText}
-                <br />
-                <span>{AnswerText}</span>
-              </QuestionAnswerWrapper>
-            )
-          })}
+              return (
+                <QuestionAnswerWrapper key={question.id}>
+                  {QuestionText}
+                  <br />
+                  <span>{AnswerText}</span>
+                </QuestionAnswerWrapper>
+              )
+            })}
           <Button type="submit" onClick={handleSubmit}>
             Submit answers
           </Button>
