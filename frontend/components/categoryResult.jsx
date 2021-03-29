@@ -9,8 +9,9 @@ export const CategoryResultContainer = styled.article`
   margin: 35px 0 60px 0;
   column-gap: 60px;
 
-  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
-    flex-direction: column; 
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    flex-direction: column;
   }
 `
 
@@ -36,6 +37,11 @@ export const CategoryImage = styled.div`
   width: 35%;
   min-height: 200px;
   margin-bottom: -100px;
+
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    width: 50%;
+  }
 `
 
 const CategoryResult = ({
@@ -44,31 +50,31 @@ const CategoryResult = ({
   category,
   description,
   index,
-  renderMobileLayout
+  renderMobileLayout,
 }) => (
-  // if mobile should be rendered, the toggle disables the desktop feature 
+  // if mobile should be rendered, the toggle disables the desktop feature
   // that puts speedometer on alternating sides of the text
   // -> speedometer goes above text in every categoryresult
   <CategoryResultContainer>
-    {(index % 2 === 0 && !renderMobileLayout) && 
+    {index % 2 === 0 && !renderMobileLayout && (
       <CategoryText>
         <CategoryTitle>
           {category} {userResult} / {maxResult}
         </CategoryTitle>
         {description}
       </CategoryText>
-    }
+    )}
     <CategoryImage>
       <CategoryResultChart userResult={userResult} maxResult={maxResult} />
     </CategoryImage>
-    {(index % 2 !== 0 || renderMobileLayout) && 
+    {(index % 2 !== 0 || renderMobileLayout) && (
       <CategoryText>
         <CategoryTitle>
           {category} {userResult} / {maxResult}
         </CategoryTitle>
         {description}
       </CategoryText>
-    }
+    )}
   </CategoryResultContainer>
 )
 

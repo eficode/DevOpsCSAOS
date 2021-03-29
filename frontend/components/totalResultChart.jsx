@@ -52,23 +52,27 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
     return (
       <>
         <ResultsTitle>Compare your results</ResultsTitle>
-        <ResponsiveContainer height={450} width="70%">
+        <ResponsiveContainer height={450} width="85%">
           <BarChart
-            width={850}
-            height={500}
+            layout="vertical"
+            width={500}
+            height={850}
             data={data}
             margin={{
-              top: 40,
-              right: 5,
-              left: 5,
+              top: 5,
+              right: 15,
+              left: 15,
               bottom: 5,
             }}
-            barGap={8}
+            barGap={6}
+            barCategoryGap="10%"
           >
-            <XAxis dataKey="name" />
+            <YAxis dataKey="name" type="category" />
+            <XAxis type="number" hide />
+
             <Tooltip cursor={{ fill: 'transparent' }} />
 
-            <Bar dataKey="userResult" barSize={30} name="Your result">
+            <Bar dataKey="userResult" name="Your result">
               {data.map((entry) => (
                 <Cell
                   fill={getColor(entry.userResult, entry.maxCategoryResult)}
@@ -80,15 +84,9 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
             <Bar
               dataKey="maxCategoryResult"
               fill="#148AB3"
-              barSize={30}
               name="Peer average placeholder"
             />
-            <Bar
-              dataKey="maxCategoryResult"
-              barSize={30}
-              fill="#5cd175"
-              name="Max"
-            />
+            <Bar dataKey="maxCategoryResult" fill="#5cd175" name="Max" />
           </BarChart>
         </ResponsiveContainer>
       </>
