@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
 import Head from 'next/head'
@@ -42,9 +41,8 @@ const Title = styled.h2`
   margin: 10px 0 30px 0;
 `
 
-const getKeyByValue = (object, value) => (
+const getKeyByValue = (object, value) =>
   Object.keys(object).find((key) => object[key] === value)
-)
 
 const Summary = () => {
   const selections = useStore((state) => state.selections)
@@ -53,7 +51,7 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-  const total = questions.length 
+  const total = questions.length
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
@@ -87,12 +85,7 @@ const Summary = () => {
   }
 
   return (
-    <motion.div
-      key="summary"
-      initial={{ opacity: 0, x: 1000 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -1000 }}
-    >
+    <>
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
@@ -131,7 +124,7 @@ const Summary = () => {
           </Button>
         </Content>
       </InnerContentWrapper>
-    </motion.div>
+    </>
   )
 }
 

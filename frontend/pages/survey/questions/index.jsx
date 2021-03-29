@@ -25,12 +25,10 @@ const SurveyPage = () => {
   const store = useStore()
 
   const pageId = Number(router.query.id)
-  const questionsToRender = store.questionGroups[pageId-1]
+  const questionsToRender = store.questionGroups[pageId - 1]
 
   const nextPageHref = `/survey/questions/?id=${pageId + 1}`
-  const previousPageHref = `/survey/questions/?id=${
-    pageId - 1
-  }`
+  const previousPageHref = `/survey/questions/?id=${pageId - 1}`
   const summaryPageHref = '/survey/questions/summary'
 
   const isFinalPage = pageId === store.questionGroups.length
@@ -38,7 +36,7 @@ const SurveyPage = () => {
   const storeHasQuestions = store.questions.length > 0
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (store.questions.length === 0) {
         const response = await getAllQuestions()
         store.setQuestions(response)
@@ -48,9 +46,9 @@ const SurveyPage = () => {
 
   const updateSelectionsInStore = (questionId, pointValue) => {
     const prevSelections = [...store.selections]
-    const newSelections = prevSelections.map(selection => {
+    const newSelections = prevSelections.map((selection) => {
       if (selection.questionId === questionId) {
-        return {questionId: selection.questionId, value: pointValue}
+        return { questionId: selection.questionId, value: pointValue }
       }
       return selection
     })
@@ -61,7 +59,7 @@ const SurveyPage = () => {
 
   const redirectToNextPageIfCurrentPageCompleted = (newSelections) => {
     const selectionsOfRenderedQuestions = newSelections.filter((s) =>
-      questionsToRender.map(q => q.id).includes(s.questionId)
+      questionsToRender.map((q) => q.id).includes(s.questionId)
     )
 
     if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
@@ -84,16 +82,14 @@ const SurveyPage = () => {
   const answeredQuestionsCount = countOfAnsweredQuestions(store.selections)
 
   return (
-    <motion.div
-      key={pageId}
-      initial={{ opacity: 0, x: 1000 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -1000 }}
-    >
+    <>
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar answered={answeredQuestionsCount} total={store.questions.length} />
+      <ProgressBar
+        answered={answeredQuestionsCount}
+        total={store.questions.length}
+      />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
 
@@ -101,22 +97,26 @@ const SurveyPage = () => {
           questions={questionsToRender}
           onOptionClick={onOptionClick}
         />
-        
+
         <NavigationGroup>
-        {!isFirstPage ? (
-          <StyledLink href={previousPageHref} passHref type="secondary">
-            Previous
-          </StyledLink>
-        ) : null}
-        {!isFinalPage ? (
-          <StyledLink href={nextPageHref} passHref type="primary">
-            Next
-          </StyledLink>
-        ) : null}
+          {!isFirstPage ? (
+            <StyledLink href={previousPageHref} passHref type="secondary">
+              Previous
+            </StyledLink>
+          ) : null}
+          {!isFinalPage ? (
+            <StyledLink href={nextPageHref} passHref type="primary">
+              Next
+            </StyledLink>
+          ) : null}
         </NavigationGroup>
-        {isFinalPage ? <StyledLink type="primary" href={summaryPageHref}>Review</StyledLink> : null}
+        {isFinalPage ? (
+          <StyledLink type="primary" href={summaryPageHref}>
+            Review
+          </StyledLink>
+        ) : null}
       </InnerContentWrapper>
-    </motion.div>
+    </>
   )
 }
 

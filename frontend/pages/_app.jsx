@@ -1,14 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import { StylesProvider } from '@material-ui/styles'
-import { AnimatePresence } from 'framer-motion'
 import { ContentWrapper } from '../components/shared/ContentWrapper'
-import { ProgressBar } from '../components/progressBar'
 import GlobalStyles from '../styles/global'
 import theme from '../styles/theme'
 import '../public/fonts/fonts.css'
+import PageTransition from '../components/pageTransition'
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -20,17 +19,18 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <>
       <GlobalStyles />
       <StylesProvider injectFirst>
         <ThemeProvider theme={theme}>
-          {/* <ProgressBar /> */}
-          <ContentWrapper>
-            <Component {...pageProps} />
-          </ContentWrapper>
+          <PageTransition>
+            <ContentWrapper>
+              <Component {...pageProps} />
+            </ContentWrapper>
+          </PageTransition>
         </ThemeProvider>
       </StylesProvider>
-    </AnimatePresence>
+    </>
   )
 }
 
