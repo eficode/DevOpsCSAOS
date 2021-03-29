@@ -4,18 +4,7 @@ E2E config:
 setup: seed database w test data
 teardown: empty all tables + close browser and/or empty sessionstorage
 
-e2e test suites:
-1. app launches correctly [DONE]
-  * main page can be accessed
-  * email can be given in signup (checks connection to backend)
-
-2. signup / email validation [DONE]
-  * valid email accepted
-  * email without @ not accepted
-  * empty input not accepted
-  * overy long input not accepted
-  * email already in database not accepted**
-
+test left to do:
 3. survey
   * click all q's on different option -> summary is correct [DONE]
   * click some q's, go back, change choice -> summary is correct [DONE]

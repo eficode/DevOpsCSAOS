@@ -30,12 +30,17 @@ Changing An Answer Updates Summary
   Summary Page Should Contain Selected Answers    @{UPDATED_ANSWERS_IN_SUMMARY}
   [Teardown]    Close Application
 
-# BUG: test inputs options to be chosen in email input field
+# BUG: selenium does not allow identifying option buttons....
 # Answers Can Be Submitted When All Questions Are Answered
 #  [Setup]       Seed Database With Test Data
-#  [Template]    Signup With Invalid Email Should Fail
+#  [Template]    Complete survey and submit answers
+#  ${START_OF_SURVEY_UNANSWERED}
 #  ${MID_SURVEY_UNANSWERED}
+#  ${END_OF_SURVEY_UNANSWERED}
 #  [Teardown]    Close Application
 
-
 # Clicking Contact In Result Opens Email With Sender And Recipient Auto-filled
+
+# User is auto-redirected to next page when all questions on page are answered
+
+# User is not auto-redirected to next page in survey after summary has been visited
