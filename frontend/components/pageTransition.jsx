@@ -1,21 +1,32 @@
 import * as React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const duration = 0.3
+/**
+ * https://www.framer.com/api/motion/types/
+ *  */
+
+const duration = 0.5
+const delay = 0.5
 
 const variants = {
   initial: {
+    // starts invisible
     opacity: 0,
   },
   enter: {
+    // becomes visible
     opacity: 1,
     transition: {
+      // when using variants, children animations will start after this duration (in seconds)
       duration: duration,
-      delay: duration,
+      // delay the animation by this duration (in seconds). Defaults to 0.
+      delay: delay,
+      // schedule transition with relation to its children (i.e. run this before children transitions)
       when: 'beforeChildren',
     },
   },
   exit: {
+    // as the component leaves, it becomes invisible
     opacity: 0,
     transition: { duration: duration },
   },
