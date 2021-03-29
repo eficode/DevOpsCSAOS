@@ -29,9 +29,6 @@ Main Page Should Be Open
 Questions Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/?id=1
 
-Signup Page Should Be Open
-    Location Should Contain  ${MAIN_URL}/survey/signup
-
 Summary Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/summary
 
@@ -40,13 +37,6 @@ Result Page Should Be Open
 
 Click get started button
     Click Element    //*[contains(text(), '${START_SURVEY}')]
-    Wait Until Location Contains    ${MAIN_URL}/survey/signup
-
-Click Begin Button
-    Click Element    //*[contains(text(),'${BEGIN}')]
-
-Click Begin Button And Wait For Survey To Open
-    Click Element    //*[contains(text(),'${BEGIN}')]  
     Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=1
 
 Click next button

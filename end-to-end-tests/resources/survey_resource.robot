@@ -56,16 +56,13 @@ Summary Page Should Contain Selected Answers
 
 Complete survey and go to summary
     [Arguments]   @{answers}
-    Open survey and insert credentials
+    Open survey
     Answer all questions      @{answers}
     Click answer summary button
 
-Open survey and insert credentials
+Open survey
     Open Browser To Main Page
     Click get started button
-    Insert Email    ${VALID_EMAIL}
-    Click begin button
-    Sleep   1
 
 Click question option button 
     [Arguments]   ${option_id}

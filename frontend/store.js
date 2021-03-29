@@ -5,7 +5,7 @@ import chunk from 'lodash/chunk'
 
 const initialQuestions = []
 const initialSelections = []
-const initialEmail = ''
+const initialEmail = 'this.is.a@placeholder.email'
 const initialResultsPerCategory = []
 const optionsToPointsMap = {
   'Strongly agree': 4,
