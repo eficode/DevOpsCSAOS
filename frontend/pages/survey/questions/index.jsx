@@ -77,7 +77,7 @@ const SurveyPage = () => {
       after summary has been visited and the user refines/modifies answers,
       auto-redirect would be weird
     */
-    if (!store.setVisitedSummary()) {
+    if (!store.visitedSummary) {
       redirectToNextPageIfCurrentPageCompleted(newSelections)    
     }
   }

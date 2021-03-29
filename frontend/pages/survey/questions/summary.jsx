@@ -10,6 +10,7 @@ import Button from '../../../components/button'
 import { sendResult } from '../../../services/results'
 import { sendAnswers } from '../../../services/answers'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
+import StyledLink from '../../../components/link'
 
 const Content = styled.div`
   display: flex;
@@ -53,6 +54,8 @@ const Summary = () => {
   const store = useStore()
   const router = useRouter()
   const total = questions.length 
+
+  const lastQuestionHref = `/survey/questions/?id=${store.questionGroups.length}`
 
   useEffect(() => {
     store.setVisitedSummary(true)
@@ -124,6 +127,9 @@ const Summary = () => {
               </QuestionAnswerWrapper>
             )
           })}
+          <StyledLink type='secondary' href={lastQuestionHref}>
+            Back to survey
+          </StyledLink>
           <Button type="submit" onClick={handleSubmit}>
             Submit answers
           </Button>
