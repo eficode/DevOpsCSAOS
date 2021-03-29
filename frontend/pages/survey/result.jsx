@@ -1,11 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 
 import Link from '../../components/link'
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
-import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
@@ -56,12 +54,7 @@ const Home = () => {
   const { resultText } = store
 
   return (
-    <motion.div
-      key="result"
-      initial={{ opacity: 0, x: 1000 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -1000 }}
-    >
+    <>
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
@@ -90,7 +83,7 @@ const Home = () => {
           <TotalResultChart data={store.resultsPerCategory} />
         </Content>
       </InnerContentWrapper>
-    </motion.div>
+    </>
   )
 }
 
