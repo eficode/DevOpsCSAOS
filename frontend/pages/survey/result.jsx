@@ -7,7 +7,8 @@ import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
-import TotalResultChart from '../../components/totalResultChart'
+import TotalResultBarChart from '../../components/totalResultBarChart'
+import TotalResultRadarChart from '../../components/totalResultRadarChart'
 import { useStore } from '../../store'
 import Heading from '../../components/heading'
 
@@ -49,7 +50,7 @@ const Home = () => {
   const store = useStore()
   console.log(store)
 
-  const { userResult, maxResult, resultText, resultsPerCategory } = store
+  const { userResult, maxResult, resultText, resultsPerCategory, featureToggleSwitch } = store
 
   console.log(store.resultsPerCategory)
 
@@ -97,10 +98,22 @@ const Home = () => {
               />
             ))}
           </Categories>
-          <TotalResultChart
-            data={store.resultsPerCategory}
-            renderMobileLayout={renderMobileLayout}
-          />
+          {(() => {
+         if (featureToggleSwitch === 'A') {
+              return (
+              <TotalResultBarChart
+              data={store.resultsPerCategory}
+              renderMobileLayout={renderMobileLayout}
+            />
+            )
+      
+    } else if (featureToggleSwitch === 'B') {
+      return (
+        <TotalResultRadarChart
+        data={store.resultsPerCategory}
+      />
+      )
+    }})()}
         </Content>
       </InnerContentWrapper>
     </>

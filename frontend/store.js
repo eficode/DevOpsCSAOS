@@ -2,6 +2,7 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import chunk from 'lodash/chunk'
+import { version } from 'react'
 
 const initialQuestions = []
 const initialSelections = []
@@ -19,6 +20,7 @@ const initialUserResult = 0
 const initialMaxResult = 0
 const initialQuestionGroups = []
 const initialVisitedSummary = false
+const initialFeatureToggleSwitch = 'A'
 
 const store = (set) => ({
   questions: initialQuestions,
@@ -31,9 +33,10 @@ const store = (set) => ({
   userResult: initialUserResult,
   maxResult: initialMaxResult,
   visitedSummary: initialVisitedSummary,
+  featureToggleSwitch: initialFeatureToggleSwitch,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
-  setQuestions: (questions) => {
+  setQuestions: (questions, featureToggleSwitch) => {
     const initialSelectionsWithQuestionIds = []
     questions.forEach((q) => {
       initialSelectionsWithQuestionIds.push({
@@ -46,7 +49,18 @@ const store = (set) => ({
       current (arbitrary) grouping logic: divide questions on 2
       equal-length (or n and n+1-question if odd number) pages.
     */
-    const chunkedQuestions = chunk(questions, questions.length / 2)
+    // let chunkedQuestions = [chunk(questions, questions.length / 2)]
+
+    let chunkedQuestions = []
+    
+    console.log('Hello before if')
+    if (featureToggleSwitch === 'A') {
+      // All questions divided to 2 pages
+      chunkedQuestions = chunk(questions, questions.length / 2)
+    } else if (featureToggleSwitch === 'B') {
+      // 1 question per page
+      chunkedQuestions = chunk(questions, 3)
+    }
 
     set(() => ({
       questions,
@@ -54,23 +68,34 @@ const store = (set) => ({
       questionGroups: chunkedQuestions,
     }))
   },
-  clear: () => set(() => ({
-    questions: [],
-    email: '',
-    selections: [],
-    resultsPerCategory: [],
-    resultText: '',
-  })),
-  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
+  clear: () =>
+    set(() => ({
+      questions: [],
+      email: '',
+      selections: [],
+      resultsPerCategory: [],
+      resultText: '',
+      featureToggleSwitch: 'A',
+    })),
+    resetVersion: () =>
+      set(() => ({
+      featureToggleSwitch: 'A',
+      questions: [],
+      questionGroups: [],
+    })),
+  setResultsPerCategory: (results) =>
+    set(() => ({ resultsPerCategory: results })),
   setResultText: (text) => set(() => ({ resultText: text })),
   setUserResult: (score) => set(() => ({ userResult: score })),
   setMaxResult: (score) => set(() => ({ maxResult: score })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
+  setFeatureToggleSwitch: (value) =>
+    set(() => ({ featureToggleSwitch: value })),
 })
 
 export const useStore = create(
   persist(store, {
     name: 'devops assessment tool store',
     getStorage: () => sessionStorage,
-  }),
+  })
 )
