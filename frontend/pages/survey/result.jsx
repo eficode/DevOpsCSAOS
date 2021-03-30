@@ -60,6 +60,7 @@ const ResultsText = styled.h4`
 const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
+  console.log(store)
 
   const { userResult, maxResult, resultText } = store
 
@@ -92,7 +93,7 @@ const Home = () => {
           </Link>
 
           <Categories>
-            {store.resultsPerCategory.map((result, index) => (
+            {resultsPerCategory.map((result, index) => (
               <CategoryResult
                 key={result.categoryId}
                 renderMobileLayout={renderMobileLayout}
@@ -104,10 +105,12 @@ const Home = () => {
               />
             ))}
           </Categories>
+
           <TotalResultChart
             data={store.resultsPerCategory}
             renderMobileLayout={renderMobileLayout}
           />
+              
         </Content>
       </InnerContentWrapper>
     </>

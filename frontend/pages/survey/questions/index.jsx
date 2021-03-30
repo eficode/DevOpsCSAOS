@@ -26,7 +26,7 @@ const Heading = styled.h3`
 const SurveyPage = () => {
   const router = useRouter()
   const store = useStore()
-
+  
   const pageId = Number(router.query.id)
   const questionsToRender = store.questionGroups[pageId-1]
 
@@ -43,20 +43,30 @@ const SurveyPage = () => {
   useEffect(() => {
     ;(async () => {
       if (store.questions.length === 0) {
-        const response = await getAllQuestions()
-        store.setQuestions(response)
+        try {
+          const surveyId = 1
+          const response = await getAllQuestions(surveyId)
+          
+          store.setQuestions(response)
+        } catch (error) {
+          console.log(error)
+        }
+        // 
       }
     })()
   }, [])
 
-  const updateSelectionsInStore = (questionId, pointValue) => {
+  const updateSelectionsInStore = (questionId, answerId) => {
     const prevSelections = [...store.selections]
     const newSelections = prevSelections.map(selection => {
+      
       if (selection.questionId === questionId) {
-        return {questionId: selection.questionId, value: pointValue}
+        return {questionId: selection.questionId, answerId: answerId}
       }
       return selection
     })
+
+    console.log(newSelections)
 
     store.setSelections(newSelections)
     return newSelections
@@ -75,8 +85,8 @@ const SurveyPage = () => {
     }
   }
 
-  const onOptionClick = (questionId, pointValue) => {
-    const newSelections = updateSelectionsInStore(questionId, pointValue)
+  const onOptionClick = (questionId, answerId) => {
+    const newSelections = updateSelectionsInStore(questionId, answerId)
     /*
       after summary has been visited and the user refines/modifies answers,
       auto-redirect would be weird

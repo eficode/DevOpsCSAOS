@@ -1,9 +1,9 @@
-const categories = require('./initialData/categories.json')
-const questions = require('./initialData/questions.json')
-const question_answers = require('./initialData/question_answers.json')
-const survey_results = require('./initialData/survey_results.json')
-const category_results = require('./initialData/category_results.json')
-const surveys = require('./initialData/surveys.json')
+const categories = require('./testData/categories.json')
+const questions = require('./testData/questions.json')
+const question_answers = require('./testData/question_answers.json')
+const survey_results = require('./testData/survey_results.json')
+const category_results = require('./testData/category_results.json')
+const surveys = require('./testData/surveys.json')
 
 const {
   sequelize,
@@ -20,7 +20,7 @@ const {
   Following code ensures that app has data during build-time before robot
   inserts seed data (testData copied from seed_database.sql)
 */
-const initDatabase = async () => {
+const clearDBAndCreateDummyData = async () => {
   await sequelize.sync({ force: true })
   await Survey.bulkCreate(surveys)
   await Survey_result.bulkCreate(survey_results)
@@ -30,4 +30,4 @@ const initDatabase = async () => {
   await Question_answer.bulkCreate(question_answers)
 }
 
-module.exports = { initDatabase }
+module.exports = { clearDBAndCreateDummyData }

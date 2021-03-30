@@ -137,4 +137,5 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
     </>
   )
 }
+
 export default TotalResultChart

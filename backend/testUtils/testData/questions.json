@@ -12,9 +12,15 @@
     "categoryId": 1
   },
   {
-    "id": 3,
-    "text": "Oletko leipä?",
-    "surveyId": 1,
-    "categoryId": 2
+    "id": 11,
+    "text": "Oletko kaurakeksi?",
+    "surveyId": 2,
+    "categoryId": 20
+  },
+  {
+    "id": 12,
+    "text": "Oletko dominokeksi?",
+    "surveyId": 2,
+    "categoryId": 20
   }
 ]

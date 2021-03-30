@@ -7,27 +7,12 @@ Library           SeleniumLibrary
 
 ${SURVEY_LENGTH}          2
 
-${STRONGLY_AGREE}                 Strongly agree
-${AGREE}                          Agree
-${NEUTRAL}                        Neutral
-${DISAGREE}                       Disagree
-${STRONGLY_DISAGREE}              Strongly disagree
-
-${STRONGLY_AGREE_IN_SUMMARY}      You strongly agree
-${AGREE_IN_SUMMARY}               You agree
-${NEUTRAL_IN_SUMMARY}             You feel neutral
-${DISAGREE_IN_SUMMARY}            You disagree
-${STRONGLY_DISAGREE_IN_SUMMARY}   You strongly disagree
+${ANSWER_IN_SUMMARY}              You answered:
 ${NOT_ANSWERED_IN_SUMMARY}        You haven't answered this question
 
-# SeleniumLibrary has little support locating option buttons
-# (many 'Agree' buttons etc. and no way found to locate other buttons than the first)
-@{TEST_ANSWERS}                 ${AGREE}    ${NEUTRAL}
-@{TEST_ANSWERS_IN_SUMMARY}      ${AGREE_IN_SUMMARY}       ${NOT_ANSWERED_IN_SUMMARY}     ${NEUTRAL_IN_SUMMARY}    ${NOT_ANSWERED_IN_SUMMARY}
-@{UPDATED_ANSWERS_IN_SUMMARY}   ${AGREE_IN_SUMMARY}       ${NOT_ANSWERED_IN_SUMMARY}     ${STRONGLY_AGREE_IN_SUMMARY}    ${NOT_ANSWERED_IN_SUMMARY}
-@{MID_SURVEY_UNANSWERED}        ${AGREE}    ${EMPTY}      ${NEUTRAL}
-@{FIRST_QUESTION_UNANSWERED}    ${EMPTY}    ${AGREE}      ${DISAGREE}
-@{LAST_QUESTION_UNANSWERED}     ${DISAGREE} ${NEUTRAL}    ${EMPTY}
+@{TEST_ANSWERS}                 Ehdottomasti        Aina
+@{TEST_ANSWERS_IN_SUMMARY}      ${ANSWER_IN_SUMMARY} Ehdottomasti       ${NOT_ANSWERED_IN_SUMMARY}         ${ANSWER_IN_SUMMARY} Aina        ${NOT_ANSWERED_IN_SUMMARY}
+@{UPDATED_ANSWERS_IN_SUMMARY}   ${ANSWER_IN_SUMMARY} Ehdottomasti       ${NOT_ANSWERED_IN_SUMMARY}     ${ANSWER_IN_SUMMARY} Harvoin    ${NOT_ANSWERED_IN_SUMMARY}
 
 @{QUESTIONS}    ${QUESTION_1}     ${QUESTION_2}     ${QUESTION_3}     ${QUESTION_4}
 ${QUESTION_1}     Ajatus vihrealla nurmella villisti kierimisesta viehattaa minua
