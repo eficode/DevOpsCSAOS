@@ -49,6 +49,7 @@ const ResultsText = styled.h4`
 
 const Home = () => {
   const store = useStore()
+  console.log(store)
 
   const { userResult } = store
   const { maxResult } = store

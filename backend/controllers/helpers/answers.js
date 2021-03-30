@@ -89,27 +89,20 @@ const getResults = async (user_answers, surveyId) => {
     )
 
     const pointsOutOfMaxCategory = category.userPoints / category.maxPoints
-    const { text: categoryResultText } = await Category_result.findOne({
-      attributes: ['text', 'cutoff_from_maxpoints'],
-      where: {
-        cutoff_from_maxpoints: { [Op.gte]: pointsOutOfMaxCategory },
-        categoryId: category.id,
-      },
-      order: [['cutoff_from_maxpoints', 'ASC']],
-      raw: true,
-    })
+    
 
     categoryResults = categoryResults.map((categ) =>
       categ.id === category.id
         ? {
             ...category,
             userPoints: userPointsInCategory,
-            text: categoryResultText,
+            text: '',
           }
         : { ...categ }
     )
+    
   })
-
+  
   const userSurveyResult = categoryResults.reduce(
     (accumulator, currentValue) =>
       accumulator + Number(currentValue.userPoints),

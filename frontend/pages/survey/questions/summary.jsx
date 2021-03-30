@@ -73,7 +73,7 @@ const Summary = () => {
     const { results } = await sendAnswers(email, answersForBackend, surveyId)
     console.log(results)
     store.setResultsPerCategory(results.categoryResults)
-
+    console.log(results)
     store.setUserResult(results.surveyResult.userPoints)
 
 
