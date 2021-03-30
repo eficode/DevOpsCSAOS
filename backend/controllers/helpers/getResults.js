@@ -31,12 +31,9 @@ const getResults = async (user_answers, surveyId) => {
     nest: true,
   })
 
-  let categoryResults = []
-  const surveyMaxResult = bestAnswerPerQuestion.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.points,
-    0
-  )
+  const surveyMaxResult = await calculateMaxPointsOfSurvey(surveyId)
 
+  let categoryResults = []
   bestAnswerPerQuestion.forEach((question) => {
     const isCategoryInList = categoryResults.find(
       (category) => category.id === question.Question.Category.id
@@ -81,12 +78,11 @@ const getResults = async (user_answers, surveyId) => {
     const answersInCategory = userAnswers.filter(
       (question) => question.Question.Category.id === category.id
     )
+
     const userPointsInCategory = answersInCategory.reduce(
       (accumulator, currentValue) => accumulator + Number(currentValue.points),
       0
     )
-
-    const pointsOutOfMaxCategory = category.userPoints / category.maxPoints
 
     categoryResults = categoryResults.map((categ) =>
       categ.id === category.id
@@ -128,5 +124,45 @@ const getResults = async (user_answers, surveyId) => {
 
   return results
 }
+
+const calculateMaxPointsOfSurvey = async (surveyId) => {
+  const bestAnswerPerQuestion = await Question_answer.findAll({
+    attributes: [[sequelize.fn('max', sequelize.col('points')), 'points']],
+    include: [
+      {
+        model: Question,
+        where: {
+          surveyId: surveyId,
+        },
+        include: [
+          {
+            model: Category,
+            attributes: ['name', 'id', 'description'],
+          },
+        ],
+      },
+    ],
+    group: ['Question.id', 'Question.Category.id'],
+    raw: true,
+    nest: true,
+  })
+
+  
+  const surveyMaxResult = bestAnswerPerQuestion.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.points,
+    0
+  )
+
+  return surveyMaxResult
+}
+
+/*
+  OOOOKKOOOOOOOOO VITTU!
+
+  surveyresultti, categoryresultti
+
+
+
+*/
 
 module.exports = { getResults }
