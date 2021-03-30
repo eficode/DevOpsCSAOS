@@ -14,6 +14,9 @@ const getResults = async (user_answers, surveyId) => {
 
   const surveyMaxResult = await calculateMaxPointsOfSurvey(bestAnswerPerQuestion)
 
+  // What is this db fetch for? Don't we have the answers in user_answers already?
+  const userAnswers = await findUserAnswers(user_answers)
+
   let categoryResults = []
   bestAnswerPerQuestion.forEach((question) => {
     const isCategoryInList = categoryResults.find(
@@ -34,26 +37,6 @@ const getResults = async (user_answers, surveyId) => {
     }
   })
 
-  const userAnswers = await Question_answer.findAll({
-    attributes: [[sequelize.fn('sum', sequelize.col('points')), 'points']],
-    include: [
-      {
-        model: Question,
-        attributes: ['text', 'id'],
-        include: [
-          {
-            model: Category,
-          },
-        ],
-      },
-    ],
-    where: {
-      id: user_answers,
-    },
-    group: ['Question.Category.id', 'Question.id'],
-    raw: true,
-    nest: true,
-  })
 
   categoryResults.forEach(async (category) => {
     const answersInCategory = userAnswers.filter(
@@ -138,13 +121,29 @@ const calculateMaxPointsOfSurvey = async (bestAnswerPerQuestion) => (
   )
 )
 
-/*
-  OOOOKKOOOOOOOOO VITTU!
+const findUserAnswers = async (user_answers) => {
+  const userAnswers = await Question_answer.findAll({
+    attributes: [[sequelize.fn('sum', sequelize.col('points')), 'points']],
+    include: [
+      {
+        model: Question,
+        attributes: ['text', 'id'],
+        include: [
+          {
+            model: Category,
+          },
+        ],
+      },
+    ],
+    where: {
+      id: user_answers,
+    },
+    group: ['Question.Category.id', 'Question.id'],
+    raw: true,
+    nest: true,
+  })
 
-  surveyresultti, categoryresultti
-
-
-
-*/
+  return userAnswers
+}
 
 module.exports = { getResults }
