@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
@@ -10,6 +10,7 @@ import Button from '../../../components/button'
 import { sendResult } from '../../../services/results'
 import { sendAnswers } from '../../../services/answers'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
+import StyledLink from '../../../components/link'
 
 const Content = styled.div`
   display: flex;
@@ -45,9 +46,8 @@ const Title = styled.h2`
   }
 `
 
-const getKeyByValue = (object, value) => (
+const getKeyByValue = (object, value) =>
   Object.keys(object).find((key) => object[key] === value)
-)
 
 const Summary = () => {
   const selections = useStore((state) => state.selections)
@@ -56,7 +56,13 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-  const total = questions.length 
+  const total = questions.length
+
+  const lastQuestionHref = `/survey/questions/?id=${store.questionGroups.length}`
+
+  useEffect(() => {
+    store.setVisitedSummary(true)
+  }, [])
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
@@ -98,32 +104,35 @@ const Summary = () => {
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
-          {/* we're assuming that questions are always available */}
-          {questions.map((question) => {
-            let answerToQuestion = getKeyByValue(
-              optionsToPointsMap,
-              selections.find((s) => s.questionId === question.id).value
-            )?.toLowerCase()
+          {questions &&
+            questions.map((question) => {
+              let answerToQuestion = getKeyByValue(
+                optionsToPointsMap,
+                selections.find((s) => s.questionId === question.id).value
+              )?.toLowerCase()
 
-            if (!answerToQuestion) {
-              answerToQuestion = "haven't answered this question."
-            }
+              if (!answerToQuestion) {
+                answerToQuestion = "haven't answered this question."
+              }
 
-            if (answerToQuestion === 'neutral') {
-              answerToQuestion = 'feel neutral'
-            }
+              if (answerToQuestion === 'neutral') {
+                answerToQuestion = 'feel neutral'
+              }
 
-            const QuestionText = `${question.text}`
-            const AnswerText = `You ${answerToQuestion}`
+              const QuestionText = `${question.text}`
+              const AnswerText = `You ${answerToQuestion}`
 
-            return (
-              <QuestionAnswerWrapper key={question.id}>
-                {QuestionText}
-                <br />
-                <span>{AnswerText}</span>
-              </QuestionAnswerWrapper>
-            )
-          })}
+              return (
+                <QuestionAnswerWrapper key={question.id}>
+                  {QuestionText}
+                  <br />
+                  <span>{AnswerText}</span>
+                </QuestionAnswerWrapper>
+              )
+            })}
+          <StyledLink type='secondary' href={lastQuestionHref}>
+            Back to survey
+          </StyledLink>
           <Button type="submit" onClick={handleSubmit}>
             Submit answers
           </Button>

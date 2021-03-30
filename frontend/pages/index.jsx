@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
 import Link from '../components/link'
 import ProgressBar from '../components/progressBar'
-import { LinearProgress } from '@material-ui/core'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
@@ -32,7 +31,7 @@ const Home = () => (
       <Main>
         <p>Welcome!</p>
         <p>Test your DevOps capabilities here.</p>
-        <Link href='/survey/signup' type='primary'>
+        <Link href='/survey/questions/?id=1' type='primary'>
           Get started
         </Link>
       </Main>
