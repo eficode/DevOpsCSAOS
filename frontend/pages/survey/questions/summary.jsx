@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
@@ -9,6 +9,7 @@ import ProgressBar from '../../../components/progressBar'
 import Button from '../../../components/button'
 import { sendAnswers } from '../../../services/answers'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
+import StyledLink from '../../../components/link'
 
 const Content = styled.div`
   display: flex;
@@ -40,9 +41,8 @@ const Title = styled.h2`
   margin: 10px 0 30px 0;
 `
 
-const getKeyByValue = (object, value) => (
+const getKeyByValue = (object, value) =>
   Object.keys(object).find((key) => object[key] === value)
-)
 
 const Summary = () => {
   const selections = useStore((state) => state.selections)
@@ -51,7 +51,13 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-  const total = questions.length 
+  const total = questions.length
+
+  const lastQuestionHref = `/survey/questions/?id=${store.questionGroups.length}`
+
+  useEffect(() => {
+    store.setVisitedSummary(true)
+  }, [])
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
@@ -88,8 +94,8 @@ const Summary = () => {
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
-          {/* we're assuming that questions are always available */}
-          {questions.map((question) => {
+          {questions &&
+            questions.map((question) => {
             let answerText
             let currentAnswerId = selections.find((s) => s.questionId === question.id).answerId
             
@@ -102,7 +108,6 @@ const Summary = () => {
 
             const QuestionText = `${question.text}`
             
-
             return (
               <QuestionAnswerWrapper key={question.id}>
                 {QuestionText}
@@ -111,6 +116,9 @@ const Summary = () => {
               </QuestionAnswerWrapper>
             )
           })}
+          <StyledLink type='secondary' href={lastQuestionHref}>
+            Back to survey
+          </StyledLink>
           <Button type="submit" onClick={handleSubmit}>
             Submit answers
           </Button>

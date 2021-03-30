@@ -83,7 +83,13 @@ const SurveyPage = () => {
 
   const onOptionClick = (questionId, answerId) => {
     const newSelections = updateSelectionsInStore(questionId, answerId)
-    // redirectToNextPageIfCurrentPageCompleted(newSelections)    
+    /*
+      after summary has been visited and the user refines/modifies answers,
+      auto-redirect would be weird
+    */
+    if (!store.visitedSummary) {
+      redirectToNextPageIfCurrentPageCompleted(newSelections)    
+    }
   }
 
   if (!storeHasQuestions) {
