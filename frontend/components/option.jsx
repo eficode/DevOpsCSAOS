@@ -23,12 +23,20 @@ const SelectedOption = styled.button`
   border-width: 0px;
 `
 
-const Option = ({ label, selected, onClick }) => {
+const Option = ({ id, label, selected, onClick }) => {
   if (selected) {
-    return <SelectedOption onClick={onClick}>{label}</SelectedOption>
+    return (
+      <SelectedOption id={id} onClick={onClick}>
+        {label}
+      </SelectedOption>
+    )
   }
 
-  return <NotSelectedOption onClick={onClick}>{label}</NotSelectedOption>
+  return (
+    <NotSelectedOption id={id} onClick={onClick}>
+      {label}
+    </NotSelectedOption>
+  )
 }
 
 export default Option
