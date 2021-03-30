@@ -74,19 +74,17 @@ const Summary = () => {
     const email = store.email === '' ? undefined : store.email
     const answersForBackend = store.selections.map(selection => selection.answerId)
     
-    const { results } = await sendAnswers(email, answersForBackend, surveyId)
-    console.log(results)
-    store.setResultsPerCategory(results.categoryResults)
-    console.log(results)
-    store.setUserResult(results.surveyResult.userPoints)
-
-
-    store.setMaxResult(results.surveyResult.maxPoints)
-
-
-    store.setResultText(results.surveyResult.text)
-
-    router.push('/survey/result')
+    try {
+      const results = await sendAnswers(email, answersForBackend, surveyId)
+    
+      store.setResultsPerCategory(results.categoryResults)
+      store.setUserResult(results.surveyResult.userPoints)
+      store.setMaxResult(results.surveyResult.maxPoints)
+      store.setResultText(results.surveyResult.text)
+      router.push('/survey/result')
+    } catch (e) {
+      alert(`Something went wrong while submitting answers: ${e.message}`)
+    }
   }
 
   return (
