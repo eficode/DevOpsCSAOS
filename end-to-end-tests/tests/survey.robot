@@ -17,7 +17,7 @@ Changing An Answer Updates Summary
   Complete survey and go to summary     @{TEST_ANSWERS}
   Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
   Go Back
-  Click question option button   ${STRONGLY_AGREE}
+  Click question option button   Harvoin
   Click answer summary button
   Summary Page Should Contain Selected Answers    @{UPDATED_ANSWERS_IN_SUMMARY}
   [Teardown]    Close Application

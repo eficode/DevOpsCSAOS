@@ -37,7 +37,7 @@ Result Page Should Be Open
 
 Click get started button
     Click Element    //*[contains(text(), '${START_SURVEY}')]
-    Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=1
+    Wait Until Element Is Not Visible    //*[contains(text(), 'Loading questions')]
 
 Click next button
     [Arguments]   ${next_page_id}
