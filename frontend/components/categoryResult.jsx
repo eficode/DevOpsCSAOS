@@ -8,6 +8,11 @@ export const CategoryResultContainer = styled.article`
   align-items: center;
   margin: 35px 0 60px 0;
   column-gap: 60px;
+
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    flex-direction: column;
+  }
 `
 
 export const CategoryText = styled.div`
@@ -32,6 +37,11 @@ export const CategoryImage = styled.div`
   width: 35%;
   min-height: 200px;
   margin-bottom: -100px;
+
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    width: 50%;
+  }
 `
 
 const CategoryResult = ({
@@ -40,35 +50,32 @@ const CategoryResult = ({
   category,
   description,
   index,
-}) => {
-  if (index % 2 === 0) {
-    return (
-      <CategoryResultContainer>
-        <CategoryText>
-          <CategoryTitle>
-            {category} {userResult} / {maxResult}
-          </CategoryTitle>
-          {description}
-        </CategoryText>
-        <CategoryImage>
-          <CategoryResultChart userResult={userResult} maxResult={maxResult} />
-        </CategoryImage>
-      </CategoryResultContainer>
-    )
-  }
-  return (
-    <CategoryResultContainer>
-      <CategoryImage>
-        <CategoryResultChart userResult={userResult} maxResult={maxResult} />
-      </CategoryImage>
+  renderMobileLayout,
+}) => (
+  // if mobile should be rendered, the toggle disables the desktop feature
+  // that puts speedometer on alternating sides of the text
+  // -> speedometer goes above text in every categoryresult
+  <CategoryResultContainer>
+    {index % 2 === 0 && !renderMobileLayout && (
       <CategoryText>
         <CategoryTitle>
           {category} {userResult} / {maxResult}
         </CategoryTitle>
         {description}
       </CategoryText>
-    </CategoryResultContainer>
-  )
-}
+    )}
+    <CategoryImage>
+      <CategoryResultChart userResult={userResult} maxResult={maxResult} />
+    </CategoryImage>
+    {(index % 2 !== 0 || renderMobileLayout) && (
+      <CategoryText>
+        <CategoryTitle>
+          {category} {userResult} / {maxResult}
+        </CategoryTitle>
+        {description}
+      </CategoryText>
+    )}
+  </CategoryResultContainer>
+)
 
 export default CategoryResult
