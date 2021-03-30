@@ -103,7 +103,7 @@ const Summary = () => {
               answerText = "You haven't answered this question."
             } else {
               const selectedAnswerText = question.Question_answers.find((a) => a.id === currentAnswerId).text
-              answerText = `You answered "${selectedAnswerText}"` 
+              answerText = `You answered: ${selectedAnswerText}` 
             }
 
             const QuestionText = `${question.text}`

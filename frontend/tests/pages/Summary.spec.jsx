@@ -11,7 +11,8 @@ import { useStore } from '../../store'
 
 import Summary from '../../pages/survey/questions/summary'
 import ThemeWrapper from '../testutils/themeWrapper'
-import { questions, initializedSelections, changeSelections } from '../testutils/utils'
+import { initializedSelections, changeSelections } from '../testutils/utils'
+import { questions } from '../testutils/testdata'
 
 nextRouter.useRouter = jest.fn()
 
@@ -57,12 +58,14 @@ describe('Answer summary listing', () => {
     )
 
     act(() => {
-      useStore.setState({ selections: changeSelections([-1, 2, 4])})
+      useStore.setState({ selections: changeSelections([101, 202, undefined, 401, 501])})
     })
 
-    expect(screen.getByText(questions[0].text)).toHaveTextContent("You haven't answered this question")
-    expect(screen.getByText(questions[1].text)).toHaveTextContent('You feel neutral')
-    expect(screen.getByText(questions[2].text)).toHaveTextContent('You strongly agree')
+    expect(screen.getByText(questions[0].text)).toHaveTextContent(`You answered: Strongly agree`)
+    expect(screen.getByText(questions[1].text)).toHaveTextContent('You answered: En tiiä ehkä huomenna')
+    expect(screen.getByText(questions[2].text)).toHaveTextContent("You haven't answered this question.")
+    expect(screen.getByText(questions[3].text)).toHaveTextContent('You answered: Jooooo')
+    expect(screen.getByText(questions[4].text)).toHaveTextContent('You answered: Yes')
   })
 })
 
@@ -74,7 +77,7 @@ describe('Sending answers', () => {
       </ThemeWrapper>,
     )
     act(() => {
-      useStore.setState({ selections:  changeSelections([1, undefined, undefined])})
+      useStore.setState({ selections:  changeSelections([101, undefined, undefined, 402, undefined])})
     })
 
     global.alert = jest.fn()
@@ -93,9 +96,10 @@ describe('Sending answers', () => {
       </ThemeWrapper>,
     )
     
+    const selectionsOfQuestions = [102, 201, 301, 401, 501]
     global.alert = jest.fn()
     act(() => {
-      useStore.setState({ selections: changeSelections(new Array(questions.length).fill(1)) })
+      useStore.setState({ selections: changeSelections(selectionsOfQuestions) })
     })
 
     const button = screen.getByRole('button', { name: 'Submit answers' })
