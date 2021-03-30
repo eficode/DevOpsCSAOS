@@ -33,7 +33,8 @@ answersRouter.post('/', async (req, res) => {
     })
   }
 
-  const results = await getResults(surveyId, answers)
+  const results = await getResults(answers, surveyId)
+  
 
   try {
     if (email) {
@@ -56,7 +57,7 @@ answersRouter.post('/', async (req, res) => {
       }))    
 
       if (existingUser) {
-        await deleteUserSurveyAnswers(surveyId, userId)
+        await deleteUserSurveyAnswers(userId, surveyId)
       }
       
       await User_answer.bulkCreate(answersToQuestions)      

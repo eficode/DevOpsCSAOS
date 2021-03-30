@@ -52,9 +52,6 @@ describe('POST /api/answers', () => {
 
     expect(response2.status).toBe(200)
 
-    expect(response1.body.results.surveyResult.userPoints).not.toEqual(
-      response2.body.results.surveyResult.userPoints
-    )
     done()
   })
 
@@ -206,7 +203,7 @@ describe('POST /api/answers', () => {
     const { results } = response.body
     const { surveyResult } = results
 
-    expect(surveyResult.text).toBe('Olet ruisleipä')
+    expect(surveyResult.text).toBe('Olet korppu.')
 
     done()
   })
@@ -234,6 +231,7 @@ describe('POST /api/answers', () => {
       expect(categoryResult.name).not.toEqual(undefined)
       expect(categoryResult.userPoints).not.toEqual(undefined)
       expect(categoryResult.maxPoints).not.toEqual(undefined)
+      expect(categoryResult.text).not.toEqual(undefined)
     })
     done()
   })

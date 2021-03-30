@@ -10,5 +10,11 @@
     "text": "Oletko kauraleipä?",
     "surveyId": 1,
     "categoryId": 1
+  },
+  {
+    "id": 3,
+    "text": "Oletko leipä?",
+    "surveyId": 1,
+    "categoryId": 2
   }
 ]
