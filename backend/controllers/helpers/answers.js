@@ -89,7 +89,6 @@ const getResults = async (user_answers, surveyId) => {
     )
 
     const pointsOutOfMaxCategory = category.userPoints / category.maxPoints
-    
 
     categoryResults = categoryResults.map((categ) =>
       categ.id === category.id
@@ -100,9 +99,8 @@ const getResults = async (user_answers, surveyId) => {
           }
         : { ...categ }
     )
-    
   })
-  
+
   const userSurveyResult = categoryResults.reduce(
     (accumulator, currentValue) =>
       accumulator + Number(currentValue.userPoints),
