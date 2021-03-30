@@ -41,6 +41,7 @@ export const CategoryImage = styled.div`
   @media screen and (max-width: ${({ theme }) =>
       theme.breakpoints.wideMobile}) {
     width: 50%;
+    margin-bottom: -80px;
   }
 `
 
