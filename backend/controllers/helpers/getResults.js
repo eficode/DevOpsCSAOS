@@ -10,28 +10,9 @@ const {
 const getResults = async (user_answers, surveyId) => {
   const { Op } = Sequelize
 
-  const bestAnswerPerQuestion = await Question_answer.findAll({
-    attributes: [[sequelize.fn('max', sequelize.col('points')), 'points']],
-    include: [
-      {
-        model: Question,
-        where: {
-          surveyId: surveyId,
-        },
-        include: [
-          {
-            model: Category,
-            attributes: ['name', 'id', 'description'],
-          },
-        ],
-      },
-    ],
-    group: ['Question.id', 'Question.Category.id'],
-    raw: true,
-    nest: true,
-  })
+  const bestAnswerPerQuestion = await findAnswerWithHighestPointsPerQuestion(surveyId)
 
-  const surveyMaxResult = await calculateMaxPointsOfSurvey(surveyId)
+  const surveyMaxResult = await calculateMaxPointsOfSurvey(bestAnswerPerQuestion)
 
   let categoryResults = []
   bestAnswerPerQuestion.forEach((question) => {
@@ -125,8 +106,8 @@ const getResults = async (user_answers, surveyId) => {
   return results
 }
 
-const calculateMaxPointsOfSurvey = async (surveyId) => {
-  const bestAnswerPerQuestion = await Question_answer.findAll({
+const findAnswerWithHighestPointsPerQuestion = async (surveyId) => {
+  const highestScoringOptions = await Question_answer.findAll({
     attributes: [[sequelize.fn('max', sequelize.col('points')), 'points']],
     include: [
       {
@@ -147,14 +128,15 @@ const calculateMaxPointsOfSurvey = async (surveyId) => {
     nest: true,
   })
 
-  
-  const surveyMaxResult = bestAnswerPerQuestion.reduce(
+  return highestScoringOptions
+}
+
+const calculateMaxPointsOfSurvey = async (bestAnswerPerQuestion) => (
+  bestAnswerPerQuestion.reduce(
     (accumulator, currentValue) => accumulator + currentValue.points,
     0
   )
-
-  return surveyMaxResult
-}
+)
 
 /*
   OOOOKKOOOOOOOOO VITTU!
