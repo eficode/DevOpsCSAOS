@@ -38,7 +38,7 @@ const store = (set) => ({
     questions.forEach((q) => {
       initialSelectionsWithQuestionIds.push({
         questionId: q.id,
-        value: undefined,
+        answerId: undefined,
       })
     })
 

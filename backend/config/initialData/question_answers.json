@@ -1,0 +1,50 @@
+[
+    {
+        "id": 101,
+        "questionId": 1,
+        "text": "Strongly agree",
+        "points": 9
+    },
+    {
+        "id": 102,
+        "questionId": 1,
+        "text": "Agree",
+        "points": 4
+    },
+    {
+        "id": 103,
+        "questionId": 1,
+        "text": "Neutral",
+        "points": 3
+    },
+    {
+        "id": 104,
+        "questionId": 1,
+        "text": "Disagree",
+        "points": 2
+    },
+    {
+        "id": 105,
+        "questionId": 1,
+        "text": "Strongly disagree",
+        "points": 0
+    },
+    {
+        "id": 200,
+        "questionId": 2,
+        "text": "Agree",
+        "points": 8
+    },
+    {
+        "id": 201,
+        "questionId": 2,
+        "text": "Disagree",
+        "points": 10
+    },
+    {
+        "id": 301,
+        "questionId": 3,
+        "text": "Yes",
+        "points": 5
+    }
+]

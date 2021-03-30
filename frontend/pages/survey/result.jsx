@@ -49,11 +49,13 @@ const ResultsText = styled.h4`
 
 const Home = () => {
   const store = useStore()
+  console.log(store)
 
   const { userResult } = store
   const { maxResult } = store
   const { resultText } = store
-
+  const { resultsPerCategory } = store
+  
   return (
     <>
       <Head>
@@ -71,17 +73,17 @@ const Home = () => {
           </Link>
 
           <Categories>
-            {store.resultsPerCategory.map((result, index) => (
+            {resultsPerCategory.map((result, index) => (
               <CategoryResult
-                userResult={result.userResult}
-                maxResult={result.maxCategoryResult}
+                userResult={result.userPoints}
+                maxResult={result.maxPoints}
                 category={result.name}
                 description={result.description}
                 index={index}
               />
             ))}
           </Categories>
-          <TotalResultChart data={store.resultsPerCategory} />
+          <TotalResultChart data={resultsPerCategory} />
         </Content>
       </InnerContentWrapper>
     </>
