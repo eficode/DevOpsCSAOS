@@ -58,8 +58,6 @@ const getResults = async (user_answers, surveyId) => {
     }
   })
 
-  
-
   const userAnswers = await Question_answer.findAll({
     attributes: [[sequelize.fn('sum', sequelize.col('points')), 'points']],
     include: [
@@ -98,19 +96,20 @@ const getResults = async (user_answers, surveyId) => {
         categoryId: category.id,
       },
       order: [['cutoff_from_maxpoints', 'ASC']],
-      raw: true
+      raw: true,
     })
-    
 
-    categoryResults = categoryResults.map((categ) => {
-      
-      return categ.id === category.id
-      ? { ...category, userPoints: userPointsInCategory, text: categoryResultText }
-      : { ...categ }
-    }
+    categoryResults = categoryResults.map((categ) =>
+      categ.id === category.id
+        ? {
+            ...category,
+            userPoints: userPointsInCategory,
+            text: categoryResultText,
+          }
+        : { ...categ }
     )
   })
-  
+
   const userSurveyResult = categoryResults.reduce(
     (accumulator, currentValue) =>
       accumulator + Number(currentValue.userPoints),
@@ -118,7 +117,7 @@ const getResults = async (user_answers, surveyId) => {
   )
 
   const pointsOutOfMax = userSurveyResult / surveyMaxResult
-  
+
   const surveyResult = await Survey_result.findOne({
     attributes: ['text', 'surveyId', 'cutoff_from_maxpoints'],
     where: {

@@ -1,5 +1,6 @@
 import chunk from 'lodash/chunk'
 import { questions } from './testdata'
+
 export const initializedSelections = questions.map((q) => (
   {
     questionId: q.id,
@@ -24,4 +25,3 @@ export const changeSelections = (newSelections) => {
     }
   })
 }
-

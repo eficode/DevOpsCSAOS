@@ -12,6 +12,4 @@ usersRouter.post('/', async (req, res) => {
   }
 })
 
-
-
 module.exports = usersRouter

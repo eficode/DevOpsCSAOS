@@ -41,7 +41,6 @@ const store = (set) => ({
         answerId: undefined,
       })
     })
-    
 
     /* question grouping on pages can be modified here.
       current (arbitrary) grouping logic: divide questions on 2
