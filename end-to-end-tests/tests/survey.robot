@@ -25,7 +25,7 @@ Changing An Answer Updates Summary
 Result Page Is Shown When All Answers Are Submitted
   [Setup]       Seed Database With Test Data
   Complete survey
-  Click go to results
+  Click go to results and wait
   Result Page Should Be Open
   [Teardown]    Close Application
 
