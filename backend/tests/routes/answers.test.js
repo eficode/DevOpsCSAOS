@@ -203,7 +203,7 @@ describe('POST /api/answers', () => {
     const { results } = response.body
     const { surveyResult } = results
 
-    expect(surveyResult.text).toBe('Olet korppu.')
+    expect(surveyResult.text).toBe('Olet ruisleipä')
 
     done()
   })
