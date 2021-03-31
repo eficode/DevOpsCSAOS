@@ -9,6 +9,7 @@ Resource        ../resources/survey_resource.robot
 Answering Questions Updates Summary
   [Setup]       Seed Database With Test Data
   Complete survey
+  Summary Page Should Be Open
   Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
   [Teardown]    Close Application
 
