@@ -15,7 +15,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 80%;
   background-color: white;
   border-radius: 0.5rem;
 `
@@ -39,6 +39,10 @@ const Title = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
   margin: 10px 0 30px 0;
+
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
+    margin: 30px 0 30px 0;
+  }
 `
 
 const getKeyByValue = (object, value) =>
