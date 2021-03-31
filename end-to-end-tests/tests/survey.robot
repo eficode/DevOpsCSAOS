@@ -29,11 +29,11 @@ Result Page Is Shown When All Answers Are Submitted
   Result Page Should Be Open
   [Teardown]    Close Application
 
-Result Page Is Not Shown When There Are Unanswered Questions
+Alert Is Shown Instead Of Result Page When There Are Unanswered Questions
   [Setup]       Seed Database With Test Data
   Open survey and answer some questions
   Click go to results
-  # Alert should be shown
+  Alert Should Be Present
   [Teardown]    Close Application
 
 # BUG: selenium does not allow identifying option buttons....

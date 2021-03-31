@@ -50,7 +50,7 @@ Click answer summary button
 
 Click go to results and wait
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
-    Wait Until Location Contains    ${MAIN_URL}/survey/result
+    Wait Until Location Contains    ${MAIN_URL}/survey/result       20
 
 Click go to results
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
