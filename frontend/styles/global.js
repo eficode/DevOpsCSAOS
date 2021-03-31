@@ -8,12 +8,15 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-      margin: 0;
       font-family: 'Source Serif Pro', serif;
       font-size: 18px;
       overflow-x: none;
+      height: 90%;
     }
 
+    #__next {
+      height: 100%;
+    }
 
     @media (min-width: 480px) {
       html {
@@ -27,7 +30,9 @@ const GlobalStyles = createGlobalStyle`
       }
     } 
 
-    html {background-color: #F0F0EC}
+    html {
+      background-color: #F0F0EC;
+    }
   `
 
 export default GlobalStyles

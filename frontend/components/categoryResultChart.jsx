@@ -21,7 +21,7 @@ const CategoryResultChart = ({ userResult, maxResult }) => (
         '#5cd175',
       ]}
       maxSegmentLabels={0}
-      valueTextFontSize={0}
+      valueTextFontSize="0"
       fluidWidth
       height={150}
     />
