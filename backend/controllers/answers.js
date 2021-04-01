@@ -35,29 +35,17 @@ answersRouter.post('/', async (req, res) => {
 
   try {
     if (email) {
-      let userId
-      const existingUser = await User.findOne({
+      let userInDb = await User.findOne({
         where: { email },
       })
 
-      if (existingUser) {
-        userId = existingUser.id
+      if (userInDb) {
+        await deleteUserSurveyAnswers(userInDb.id, surveyId)
       } else {
-        
-        const user = await User.create({ email })
-        userId = user.id
+        userInDb = await User.create({ email })
       }
 
-      const answersToQuestions = answers.map((answer) => ({
-        userId: userId,
-        questionAnswerId: answer,
-      }))    
-
-      if (existingUser) {
-        await deleteUserSurveyAnswers(userId, surveyId)
-      }
-      
-      await User_answer.bulkCreate(answersToQuestions)      
+      await saveAnswersToDatabase(answers, userInDb.id)
     }
     
     return res.status(200).json({ results: results })
@@ -65,5 +53,14 @@ answersRouter.post('/', async (req, res) => {
     return res.status(500).json(err)
   }
 })
+
+const saveAnswersToDatabase = async (answers, userId) => {
+  const answersToQuestions = answers.map((answer) => ({
+    userId,
+    questionAnswerId: answer,
+  }))
+
+  await User_answer.bulkCreate(answersToQuestions)
+}
 
 module.exports = answersRouter
