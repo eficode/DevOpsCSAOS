@@ -9,11 +9,8 @@ import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
 import TotalResultChart from '../../components/totalResultChart'
 import { useStore } from '../../store'
-<<<<<<< HEAD
 import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
-=======
 import Heading from '../../components/heading'
->>>>>>> main
 
 const Content = styled.section`
   display: flex;
@@ -71,32 +68,7 @@ const Home = () => {
       </Head>
       <ProgressBar id={1} total={1} />
       <InnerContentWrapper>
-<<<<<<< HEAD
-        <ContentAnimationWrapper>
-          <Content>
-            <Heading>DevOps Assessment Tool</Heading>
-              <ResultsTitle>Your Results</ResultsTitle>
-              <TotalResult userResult={userResult} maxResult={maxResult} />
-              <ResultsText>{resultText}</ResultsText>
-              <Link href="mailto:devops@leipalaari.fi" type="primary">
-                Contact us!
-              </Link>
-              <Categories>
-                {resultsPerCategory.map((result, index) => (
-                  <CategoryResult
-                    key={result.name}
-                    renderMobileLayout={renderMobileLayout}
-                    userResult={result.userPoints}
-                    maxResult={result.maxPoints}
-                    category={result.name}
-                    description={result.description}
-                    index={index}
-                  />
-                ))}
-              </Categories>
-              <TotalResultChart
-                data={store.resultsPerCategory}
-=======
+      <ContentAnimationWrapper>
         <Content>
           <StyledHeading component="h1" variant="h6" font="Montserrat">
             DevOps Assessment Tool
@@ -115,9 +87,10 @@ const Home = () => {
             {resultsPerCategory.map((result, index) => (
               <CategoryResult
                 key={result.name}
->>>>>>> main
                 renderMobileLayout={renderMobileLayout}
-              />
+              />))
+            }
+          </Categories>
           </Content>
         </ContentAnimationWrapper>
       </InnerContentWrapper>
