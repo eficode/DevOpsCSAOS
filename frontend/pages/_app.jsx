@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps }) {
       <GlobalStyles />
       <StylesProvider injectFirst>
         <ThemeProvider theme={theme}>
-            <ContentWrapper>
-              <Component {...pageProps} />
-            </ContentWrapper>
+          <ContentWrapper>
+            <Component {...pageProps} />
+          </ContentWrapper>
         </ThemeProvider>
       </StylesProvider>
     </>

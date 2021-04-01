@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import styled from 'styled-components'
-import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../../../store'
 import ContentAnimationWrapper from '../../../components/contentAnimationWrapper'
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
@@ -12,22 +10,12 @@ import { useRouter, withRouter } from '../../../components/staticRouting'
 import StyledLink from '../../../components/link'
 import NavigationGroup from '../../../components/navigationGroup'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
-
-const Heading = styled.h3`
-  color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Montserrat;
-  font-size: 16px;
-  margin-bottom: 10px;
-
-  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
-    margin: 30px 0 -30px 0;
-  }
-`
+import Heading from '../../../components/heading'
 
 const SurveyPage = () => {
   const router = useRouter()
   const store = useStore()
-  
+
   const pageId = Number(router.query.id)
   const questionsToRender = store.questionGroups[pageId - 1]
 
@@ -38,29 +26,27 @@ const SurveyPage = () => {
   const isFinalPage = pageId === store.questionGroups.length
   const isFirstPage = pageId === 1
   const storeHasQuestions = store.questions.length > 0
-  
+
   useEffect(() => {
     ;(async () => {
       if (store.questions.length === 0) {
         try {
           const surveyId = 1
           const response = await getAllQuestions(surveyId)
-          
+
           store.setQuestions(response)
         } catch (error) {
           console.log(error)
         }
-        // 
       }
     })()
   }, [])
 
   const updateSelectionsInStore = (questionId, answerId) => {
     const prevSelections = [...store.selections]
-    const newSelections = prevSelections.map(selection => {
-      
+    const newSelections = prevSelections.map((selection) => {
       if (selection.questionId === questionId) {
-        return {questionId: selection.questionId, answerId: answerId}
+        return { questionId: selection.questionId, answerId: answerId }
       }
       return selection
     })
@@ -89,7 +75,7 @@ const SurveyPage = () => {
       auto-redirect would be weird
     */
     if (!store.visitedSummary) {
-      redirectToNextPageIfCurrentPageCompleted(newSelections)    
+      redirectToNextPageIfCurrentPageCompleted(newSelections)
     }
   }
 
@@ -109,7 +95,9 @@ const SurveyPage = () => {
         total={store.questions.length}
       />
       <InnerContentWrapper>
-        <Heading>DevOps Assessment Tool</Heading>
+        <Heading component="h1" variant="h6">
+          DevOps Assessment Tool
+        </Heading>
         <ContentAnimationWrapper>
             <QuestionGrouper
               questions={questionsToRender}
