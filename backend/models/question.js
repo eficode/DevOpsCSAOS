@@ -7,19 +7,15 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Category, Answer }) {
+    static associate({ Category, Survey, Question_answer }) {
       // define association here
       this.belongsTo(Category, { foreignKey: 'categoryId' })
-      this.hasMany(Answer, { foreignKey: 'questionId' })
+      this.belongsTo(Survey, { foreignKey: 'surveyId' })
+      this.hasMany(Question_answer, { foreignKey: 'questionId' })
     }
   }
   Question.init(
     {
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-      },
       text: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -28,20 +24,16 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: { msg: "Question text can't be empty" },
         },
       },
-      weight: {
+      surveyId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notNull: { msg: 'Question must have weight for scoring' },
-          notEmpty: { msg: "Question scoring can't be empty" },
+          notNull: { msg: 'Question must have surveyId' },
+          notEmpty: { msg: "Question surveyId can't be empty" },
         },
       },
-      correctAnswer: {
-        type: DataTypes.ENUM('agree', 'disagree'),
-        defaultValue: 'agree',
-      },
       categoryId: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: { msg: 'Question must have categoryId' },

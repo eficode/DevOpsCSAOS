@@ -12,6 +12,12 @@ export const ResultCircle = styled.div`
   text-align: center;
   position: relative;
   margin-bottom: 30px;
+
+
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.mediumMobile}) {
+    width: 180px;
+    height: 180px;
+  }
 `
 
 export const Result = styled.span`

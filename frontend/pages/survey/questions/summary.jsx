@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
@@ -7,15 +7,15 @@ import Head from 'next/head'
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import ProgressBar from '../../../components/progressBar'
 import Button from '../../../components/button'
-import { sendResult } from '../../../services/results'
 import { sendAnswers } from '../../../services/answers'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
+import StyledLink from '../../../components/link'
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 80%;
   background-color: white;
   border-radius: 0.5rem;
 `
@@ -39,6 +39,10 @@ const Title = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
   margin: 10px 0 30px 0;
+
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
+    margin: 30px 0 30px 0;
+  }
 `
 
 const getKeyByValue = (object, value) =>
@@ -53,33 +57,33 @@ const Summary = () => {
   const router = useRouter()
   const total = questions.length
 
+  const lastQuestionHref = `/survey/questions/?id=${store.questionGroups.length}`
+
+  useEffect(() => {
+    store.setVisitedSummary(true)
+  }, [])
+
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
       alert('Please answer all of the questions to proceed')
       return
     }
 
+    const surveyId = 1
+
     const email = store.email === '' ? undefined : store.email
+    const answersForBackend = store.selections.map(selection => selection.answerId)
+    
+    const { results } = await sendAnswers(email, answersForBackend, surveyId)
+    store.setResultsPerCategory(results.categoryResults)
 
-    const { results } = await sendAnswers(email, store.selections)
+    store.setUserResult(results.surveyResult.userPoints)
 
-    store.setResultsPerCategory(results)
 
-    const userResult = results
-      .map((score) => score.userResult)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    store.setMaxResult(results.surveyResult.maxPoints)
 
-    store.setUserResult(userResult)
 
-    const maxResult = results
-      .map((score) => score.maxCategoryResult)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-
-    store.setMaxResult(maxResult)
-
-    const { resultText } = await sendResult(userResult)
-
-    store.setResultText(resultText)
+    store.setResultText(results.surveyResult.text)
 
     router.push('/survey/result')
   }
@@ -93,32 +97,31 @@ const Summary = () => {
       <InnerContentWrapper>
         <Content>
           <Title>Here are your current answers</Title>
-          {/* we're assuming that questions are always available */}
-          {questions.map((question) => {
-            let answerToQuestion = getKeyByValue(
-              optionsToPointsMap,
-              selections.find((s) => s.questionId === question.id).value
-            )?.toLowerCase()
-
-            if (!answerToQuestion) {
-              answerToQuestion = "haven't answered this question."
-            }
-
-            if (answerToQuestion === 'neutral') {
-              answerToQuestion = 'feel neutral'
+          {questions &&
+            questions.map((question) => {
+            let answerText
+            let currentAnswerId = selections.find((s) => s.questionId === question.id).answerId
+            
+            if (!currentAnswerId) {
+              answerText = "You haven't answered this question."
+            } else {
+              const selectedAnswerText = question.Question_answers.find((a) => a.id === currentAnswerId).text
+              answerText = `You answered: ${selectedAnswerText}` 
             }
 
             const QuestionText = `${question.text}`
-            const AnswerText = `You ${answerToQuestion}`
-
+            
             return (
               <QuestionAnswerWrapper key={question.id}>
                 {QuestionText}
                 <br />
-                <span>{AnswerText}</span>
+                <span>{answerText}</span>
               </QuestionAnswerWrapper>
             )
           })}
+          <StyledLink type='secondary' href={lastQuestionHref}>
+            Back to survey
+          </StyledLink>
           <Button type="submit" onClick={handleSubmit}>
             Submit answers
           </Button>

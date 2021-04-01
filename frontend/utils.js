@@ -4,7 +4,7 @@
 export const countOfAnsweredQuestions = (selections) => (
   selections.reduce(
     (accumulator, selection) => (
-      selection.value !== undefined ? accumulator + 1 : accumulator
+      selection.answerId !== undefined ? accumulator + 1 : accumulator
     ),
     0,
   )

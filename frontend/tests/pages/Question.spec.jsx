@@ -9,7 +9,8 @@ import { useStore } from '../../store'
 
 import SurveyPage from '../../pages/survey/questions/index'
 import ThemeWrapper from '../testutils/themeWrapper'
-import { questions, initializedSelections, initializedQuestionGroups } from '../testutils/utils'
+import { initializedSelections, initializedQuestionGroups } from '../testutils/utils'
+import { questions } from '../testutils/testdata'
 
 nextRouter.useRouter = jest.fn()
 
@@ -41,13 +42,14 @@ describe('Question rendering', () => {
     expect(screen.getByText('DevOps Assessment Tool')).toBeInTheDocument()
   })
 
-  it('The question whose id is in route is rendered', () => {
+  it('First page contains first two questions', () => {
     render(
       <ThemeWrapper>
         <SurveyPage />
       </ThemeWrapper>
     )
     expect(screen.getByText('Oletko ruisleipä?'))
+    expect(screen.getByText('Maistuisiko laskiaispulla?'))
   })
 })
 
@@ -135,12 +137,13 @@ describe('Selecting option', () => {
 
     const initialState = useStore.getState()
 
-    expect(initialState.selections[0].value).toBe(undefined)
+    expect(initialState.selections[0].answerId).toBe(undefined)
 
+    const idOfAgreeButton = 102
     const button = screen.getAllByRole('button', { name: 'Agree' })[0]
     userEvent.click(button)
 
     const stateAfterClick = useStore.getState()
-    expect(stateAfterClick.selections[0].value).toBe(3)
+    expect(stateAfterClick.selections[0].answerId).toBe(idOfAgreeButton)
   })
 })

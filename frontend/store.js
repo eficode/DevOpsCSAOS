@@ -5,7 +5,7 @@ import chunk from 'lodash/chunk'
 
 const initialQuestions = []
 const initialSelections = []
-const initialEmail = ''
+const initialEmail = 'this.is.a@placeholder.email'
 const initialResultsPerCategory = []
 const optionsToPointsMap = {
   'Strongly agree': 4,
@@ -17,8 +17,8 @@ const optionsToPointsMap = {
 const initialResultText = ''
 const initialUserResult = 0
 const initialMaxResult = 0
-
 const initialQuestionGroups = []
+const initialVisitedSummary = false
 
 const store = (set) => ({
   questions: initialQuestions,
@@ -30,6 +30,7 @@ const store = (set) => ({
   resultText: initialResultText,
   userResult: initialUserResult,
   maxResult: initialMaxResult,
+  visitedSummary: initialVisitedSummary,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions) => {
@@ -37,7 +38,7 @@ const store = (set) => ({
     questions.forEach((q) => {
       initialSelectionsWithQuestionIds.push({
         questionId: q.id,
-        value: undefined,
+        answerId: undefined,
       })
     })
 
@@ -64,6 +65,7 @@ const store = (set) => ({
   setResultText: (text) => set(() => ({ resultText: text })),
   setUserResult: (score) => set(() => ({ userResult: score })),
   setMaxResult: (score) => set(() => ({ maxResult: score })),
+  setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
 })
 
 export const useStore = create(

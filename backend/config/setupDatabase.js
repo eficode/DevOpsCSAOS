@@ -1,16 +1,18 @@
 const categories = require('./initialData/categories.json')
 const questions = require('./initialData/questions.json')
-const users = require('./initialData/users.json')
-const answers = require('./initialData/answers.json')
-const results = require('./initialData/results.json')
+const question_answers = require('./initialData/question_answers.json')
+const survey_results = require('./initialData/survey_results.json')
+const category_results = require('./initialData/category_results.json')
+const surveys = require('./initialData/surveys.json')
 
 const {
   sequelize,
   Question,
   Category,
-  User,
-  Answer,
-  Result,
+  Question_answer,
+  Survey_result,
+  Survey,
+  Category_result,
 } = require('../models')
 
 /*
@@ -20,11 +22,12 @@ const {
 */
 const initDatabase = async () => {
   await sequelize.sync({ force: true })
+  await Survey.bulkCreate(surveys)
+  await Survey_result.bulkCreate(survey_results)
   await Category.bulkCreate(categories)
-  await User.bulkCreate(users)
+  await Category_result.bulkCreate(category_results)
   await Question.bulkCreate(questions)
-  await Answer.bulkCreate(answers)
-  await Result.bulkCreate(results)
+  await Question_answer.bulkCreate(question_answers)
 }
 
 module.exports = { initDatabase }

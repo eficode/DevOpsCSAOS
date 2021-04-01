@@ -1,13 +1,37 @@
-INSERT INTO "Categories" VALUES ('e9c1b27e-b2f4-45e5-84c4-a6edfd37ac4f', 'olotila', 'kehollisessa yleistuntemuksessa vapuhtavia merkkeja voi tunnistaa yleisessa energisyydessa, menojalan vipatuksessa seka, parhaimmillaan, vienossa skumpan porinassa kurkunpaan alueella.', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Categories" VALUES ('884332d5-face-4517-afc0-852d74353ad4', 'mielentila', 'mielentilallisesti mikali vappu porisee korvien valissa, yleensa ilmenee jonkinasteista innostuneisuutta ja odottavaa tunnetta. Varsin tunnusmaista on myos erilaisten vappuun liittyvien mielikuvien ilmeneminen ajatuksiin, joskus jopa uniin asti.', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Surveys" VALUES (1, 'Kysely', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Survey_results" VALUES (1, 1, 'Vappufiiliksesi on heikko.', 0.5, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Survey_results" VALUES (2, 1, 'Hmmm... ihan siis, ihan siis jeppinen vappufiilis!', 0.7, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Survey_results" VALUES (3, 1, 'Hippulihei rillumarei! Asiallista vappumeisinkia!!', 1.0, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Questions" VALUES ('89b86846-878e-4c22-b018-fa56691e9d43', 'Ajatus vihrealla nurmella villisti kierimisesta viehattaa minua', 5, 'agree', '884332d5-face-4517-afc0-852d74353ad4', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Questions" VALUES ('d97b4cc3-c169-41e3-bd77-372b255896fd', 'Suutani kuivaa tavalla, jonka voi taltuttaa vain poreileva juoma', 3, 'agree', 'e9c1b27e-b2f4-45e5-84c4-a6edfd37ac4f', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Questions" VALUES ('fc29c75b-559c-4b1c-a8b6-b4453b35f3fa', 'Auringon nayttaytyessa ajatukseni singahtavat vappupirskeunelmiin valittomasti', 8, 'agree', '884332d5-face-4517-afc0-852d74353ad4' , '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Questions" VALUES ('5628490c-3cdb-4e47-82d1-2f9643ba3eb5', 'Bilejalka vipeltaa jo vimmatusti', 12, 'agree', 'e9c1b27e-b2f4-45e5-84c4-a6edfd37ac4f' , '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Categories" VALUES (10, 'Olotila', 'kehollisessa yleistuntemuksessa vapuhtavia merkkeja voi tunnistaa yleisessa energisyydessa, menojalan vipatuksessa seka, parhaimmillaan, vienossa skumpan porinassa kurkunpaan alueella.', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Category_results" VALUES (1, 10, 'Olet paaryna', 0.5, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Category_results" VALUES (2, 10, 'Olet leipa', 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Results" VALUES ('2cf1f17c-d5f1-4b15-81f1-52db3f58b9b6', 0, 35, 'Vappufiiliksesi on heikko.', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Results" VALUES ('d29bbf05-8358-44b7-a84b-9d1ce0129178', 35, 70, 'Hmmm... ihan siis, ihan siis jeppinen vappufiilis!', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Results" VALUES ('17544948-2e9a-48f3-8674-51172a17a04a', 70, 100, 'Hippulihei rillumarei! Asiallista vappumeisinkia!!', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Categories" VALUES (11 , 'Mielentila', 'mielentilallisesti mikali vappu porisee korvien valissa, yleensa ilmenee jonkinasteista innostuneisuutta ja odottavaa tunnetta. Varsin tunnusmaista on myos erilaisten vappuun liittyvien mielikuvien ilmeneminen ajatuksiin, joskus jopa uniin asti.', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Category_results" VALUES (3, 11, 'Mielentilasi on heikko', 0.5, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Category_results" VALUES (4, 11, 'Mielentilasi on vahva', 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Users" VALUES ('ec5c24de-9621-489d-aaaf-22fb5bc71846', 'maili@maili.com', 'organizaion', '2021-03-01T09:53:45+0000', '2021-03-01T09:53:45+0000');
+INSERT INTO "Questions" VALUES (1, 'Ajatus vihrealla nurmella villisti kierimisesta viehattaa minua', 1, 10, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (2, 'Suutani kuivaa tavalla, jonka voi taltuttaa vain poreileva juoma', 1, 10, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (3, 'Auringon nayttaytyessa ajatukseni singahtavat vappupirskeunelmiin valittomasti', 1, 10 , '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (4, 'Bilejalka vipeltaa jo vimmatusti', 1, 11, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+
+INSERT INTO "Question_answers" VALUES (101, 'Ehdottomasti', 10, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (102, 'Ehka', 5, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (103, 'Ei missaan tapauksessa', 1, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+
+INSERT INTO "Question_answers" VALUES (201, 'Ehdottomasti', 5, 2, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (202, 'Ehka', 3, 2, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (203, 'Ei missaan tapauksessa', 1, 2, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+
+INSERT INTO "Question_answers" VALUES (301, 'Aina', 5, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (302, 'Usein', 4, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (303, 'Silloin talloin', 3, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (304, 'Ei niin usein', 2, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (305, 'Harvoin', 1, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (306, 'Ei koskaan', 1, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+
+INSERT INTO "Question_answers" VALUES (401, 'Todellakin', 5, 4, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (402, 'No Ei', 5, 4, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+
+INSERT INTO "Users" VALUES (1, 'maili@maili.com', null, '2021-03-01T09:53:45+0000', '2021-03-01T09:53:45+0000', null);

@@ -5,10 +5,11 @@ import styled from 'styled-components'
 
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
 import Link from '../components/link'
+import ProgressBar from '../components/progressBar'
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.colors.blueDianne};
-  margin-top: 30px;
+  margin: 30px 30px;
 `
 
 const Main = styled.main`
@@ -22,13 +23,15 @@ const Home = () => (
   <>
     <Head>
       <title>DevOps Capability Survey</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </Head>
+    <ProgressBar />
     <InnerContentWrapper>
       <Heading>DevOps Assessment Tool</Heading>
       <Main>
-        <h2>Welcome!</h2>
+        <p>Welcome!</p>
         <p>Test your DevOps capabilities here.</p>
-        <Link href="/survey/signup" type="primary">
+        <Link href='/survey/questions/?id=1' type='primary'>
           Get started
         </Link>
       </Main>
