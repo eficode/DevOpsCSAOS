@@ -34,4 +34,4 @@ INSERT INTO "Question_answers" VALUES (306, 'Ei koskaan', 1, 3, '2021-02-26T14:1
 INSERT INTO "Question_answers" VALUES (401, 'Todellakin', 5, 4, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Question_answers" VALUES (402, 'No Ei', 5, 4, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Users" VALUES (1, 'maili@maili.com', null, '2021-03-01T09:53:45+0000', '2021-03-01T09:53:45+0000', null);
+INSERT INTO "Users" VALUES (1000, 'maili@maili.com', null, '2021-03-01T09:53:45+0000', '2021-03-01T09:53:45+0000', null);
