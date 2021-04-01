@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Button } from '@material-ui/core'
 
-const NotSelectedOption = styled.button`
+const NotSelectedOption = styled(Button)`
   background-color: ${({ theme }) => theme.colors.gold};
   border-radius: 3px;
   border-width: 0px;
@@ -9,19 +10,21 @@ const NotSelectedOption = styled.button`
   font-family: Montserrat;
   font-weight: bold;
   padding: 10px 15px;
+  text-transform: capitalize;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.amber};
   }
 `
 
-const SelectedOption = styled.button`
+const SelectedOption = styled(Button)`
   border-radius: 3px;
   background-color: ${({ theme }) => theme.colors.brandyPunch};
   font-size: 15px;
   font-family: Montserrat;
   font-weight: bold;
   border-width: 0px;
+  text-transform: capitalize;
 `
 
 const Option = ({ id, label, selected, onClick }) => {
