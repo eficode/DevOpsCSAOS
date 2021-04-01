@@ -63,9 +63,10 @@ const QuestionSeparator = styled.div`
 const SingleQuestion = ({ question, onOptionClick }) => {
   const store = useStore()
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
-  const currentSelection = store.selections.find(s => s.questionId === question.id).answerId  
+  const currentSelection = store.selections.find(
+    (s) => s.questionId === question.id
+  ).answerId
 
-  
   return (
     <>
       <QuestionWrapper>
@@ -73,18 +74,17 @@ const SingleQuestion = ({ question, onOptionClick }) => {
           <QuestionTitle>{question.text}</QuestionTitle>
         </TitleWrapper>
         <OptionsWrapper>
-        {question.Question_answers.map((answer) => {
-            
+          {question.Question_answers.map((answer) => {
             return (
               <Option
                 key={answer.id}
+                id={answer.id}
                 selected={answer.id === currentSelection}
                 label={answer.text}
                 onClick={() => onOptionClick(question.id, answer.id)}
               />
             )
           })}
-          
         </OptionsWrapper>
       </QuestionWrapper>
       <QuestionSeparator />

@@ -29,6 +29,12 @@ Main Page Should Be Open
 Questions Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/?id=1
 
+Second Page Of Survey Should Be Open
+    Location Should Contain  ${MAIN_URL}/survey/questions/?id=2
+
+Last Page Of Survey Should Be Open
+    Location Should Contain  ${MAIN_URL}/survey/questions/?id=${SURVEY_PAGE_COUNT}
+
 Summary Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/summary
 
@@ -48,6 +54,9 @@ Click answer summary button
     Click Element   //*[contains(text(), '${GO_TO_SUMMARY}')]
     Wait Until Location Contains    ${MAIN_URL}/survey/questions/summary
 
+Click go to results and wait
+    Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
+    Wait Until Location Contains    ${MAIN_URL}/survey/result       20
+
 Click go to results
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
-    Wait Until Location Contains    ${MAIN_URL}/survey/result
