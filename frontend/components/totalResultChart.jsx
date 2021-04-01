@@ -6,17 +6,11 @@ import {
   Cell,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from 'recharts'
+import Heading from './heading'
 
-const ResultsTitle = styled.h2`
-  color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Merriweather;
-  margin: 60px 0 10px 0;
-`
 const segmentColors = [
   '#ff5900',
   '#ffa200',
@@ -51,7 +45,9 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
   if (renderMobileLayout) {
     return (
       <>
-        <ResultsTitle>Compare your results</ResultsTitle>
+        <Heading component="h4" variant="h5">
+          Compare your results
+        </Heading>
         <ResponsiveContainer height={450} width="85%">
           <BarChart
             layout="vertical"
@@ -94,7 +90,9 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
   }
   return (
     <>
-      <ResultsTitle>Compare your results</ResultsTitle>
+      <Heading component="h4" variant="h5">
+        Compare your results
+      </Heading>
       <ResponsiveContainer height={450} width="70%">
         <BarChart
           width={850}

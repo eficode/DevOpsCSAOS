@@ -4,10 +4,9 @@ import styled from 'styled-components'
 
 const StyledHeading = styled(Typography)`
   color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 700;
+  font-family: ${(props) => props.font || 'Merriweather'};
   letter-spacing: normal;
+  font-weight: ${(props) => props.fontWeight || 700};
 `
 
 /**
