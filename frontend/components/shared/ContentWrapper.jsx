@@ -4,10 +4,20 @@ export const ContentWrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 4rem;
-  margin: 0 auto;
+  margin: 5% 20%;
+
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideDesktop}) {
+    margin: 5% 10%;
+  }
+
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.mediumMobile}) {
+    margin: 5% 0%;
+  }
+  
   font-family: Merriweather;
-  max-width: 1900px;
+  max-width: 2000px;
+  height: auto;
+  min-height: 100%;
 
   p {
     text-align: center;

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import theme from '../styles/theme'
 
-const BarBackground = styled.div`
+const BarBackground = styled.section`
   display: flex;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.blueDianne};

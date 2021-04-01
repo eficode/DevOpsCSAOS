@@ -1,27 +1,21 @@
 const questionsRouter = require('express').Router()
-const { Category, Question } = require('../models')
+const { Category, Question, Question_answer } = require('../models')
 
-questionsRouter.get('/', async (req, res) => {
+questionsRouter.get('/:surveyId', async (req, res) => {
+  const { surveyId } = req.params
   try {
     const questions = await Question.findAll({
-      include: [{ model: Category, attributes: ['name'] }],
+      include: [
+        { model: Category, attributes: ['id', 'name', 'description'] },
+        { model: Question_answer, attributes: ['id', 'text'] },
+      ],
+      where: {
+        surveyId: surveyId,
+      },
     })
-    return res.json(questions)
+    return res.status(200).json(questions)
   } catch (e) {
-    console.log(e)
     return res.status(500).json({ error: 'Unable to fetch questions' })
-  }
-})
-
-questionsRouter.get('/:id', async (req, res) => {
-  const { id } = req.params
-  try {
-    const question = await Question.findOne({
-      where: { id },
-    })
-    return res.json(question)
-  } catch (e) {
-    return res.status(500).send('That uuid does not exist')
   }
 })
 

@@ -1,22 +1,12 @@
 [
   {
-    "id": "ece8e9d0-653b-11eb-ae93-0242ac130002",
+    "id": 1,
     "name": "Jauhot",
     "description": "Jauho on yleisnimi hienojakoisille, jauhomaisille aineille ja puhekielessä eritoten viljalajien jyvistä jauhamalla saatava ravinnoksi käytettävä tuote. Sanoja jauho ja jauhe käytetään toisinaan synonyymeinä. Jauho on hienoin jyvistä jauhettu jauhatustuote, jonka karkeusaste vaihtelee. (Lähde: Wikipedia)"
   },
   {
-    "id": "faf6a13e-66d5-11eb-ae93-0242ac130002",
-    "name": "Tuote",
-    "description": "Tuote voi olla mikä tahansa, joka on tarjottavissa markkinoille ja tyydyttää kysynnän tai tarpeen. Jalostuksessa tuotteita aletaan tekemään raaka-aineista ja niistä syntyy aineellisia hyödykeitä. Tuote voi olla myös aineeton palvelu tai tietotekninen hyödyke. Kaupan kohteina olevia aineellisia hyödykkeitä kutsutaan tavaroiksi. (Lähde: Wikipedia)"
-  },
-  {
-    "id": "3bdac35f-db8f-4d73-9792-a179b3072e03",
-    "name": "Maidot",
-    "description": "Maidosta puhuttaessa tarkoitetaan yleensä juomana ja meijerituotteiden raaka-aineena käytettyä lehmän maitoa, jota lypsettiin 1,16 litraa päivässä jokaista maapallon asukasta kohden vuonna 2018. Lehmänmaidon lisäksi myös vuohen, lampaan ja vesipuhvelin maito ovat taloudellisesti merkittäviä. Myös hevosen, kamelin ja aasin maitoa on käytetty ihmisravintona. (Lähde: Wikipedia)"
-  },
-  {
-    "id": "faf6a4ae-66d5-11eb-ae93-0242ac130002",
-    "name": "Keksit",
-    "description": "Keksi on pieni, kuiva ja kevyt leivonnainen, joka pikkuleivästä poiketen yleensä valmistetaan tehdasmaisesti. Yleensä keksejä nautitaan välipalaksi, jälkiruoaksi tai kahvin tai teen kanssa. (Lähde: Wikipedia)"
+    "id": 2,
+    "name": "Leivät",
+    "description": "Leipä on leipä" 
   }
 ]

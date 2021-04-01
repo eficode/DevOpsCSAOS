@@ -9,7 +9,7 @@ const NotSelectedOption = styled(Button)`
   font-size: 15px;
   font-family: Montserrat;
   font-weight: bold;
-  text-transform: capitalize;
+  padding: 10px 15px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.amber};

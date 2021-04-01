@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
 import Link from '../../components/link'
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
-import Button from '../../components/button'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
+import TotalResultChart from '../../components/totalResultChart'
 import { useStore } from '../../store'
 
 const Content = styled.div`
@@ -26,6 +26,11 @@ const Heading = styled.h3`
   font-family: Montserrat;
   font-size: 16px;
   margin-bottom: 10px;
+
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    margin-top: 20px;
+  }
 `
 
 const ResultsTitle = styled.h2`
@@ -35,8 +40,17 @@ const ResultsTitle = styled.h2`
 `
 
 const Categories = styled.div`
-  margin: auto;
   width: 70%;
+
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.narrowMobile}) {
+    width: 110%;
+  }
 `
 
 const ResultsText = styled.h4`
@@ -47,11 +61,23 @@ const ResultsText = styled.h4`
 `
 
 const Home = () => {
+  const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
+  console.log(store)
 
-  const { userResult } = store
-  const { maxResult } = store
-  const { resultText } = store
+  const { userResult, maxResult, resultText, resultsPerCategory } = store
+
+  console.log(store.resultsPerCategory)
+
+  useEffect(() => {
+    const handleResize = () => {
+      window.innerWidth <= 800
+        ? setRenderMobileLayout(true)
+        : setRenderMobileLayout(false)
+    }
+
+    window.addEventListener('resize', handleResize)
+  }, [])
 
   return (
     <>
@@ -68,17 +94,24 @@ const Home = () => {
           <Link href="mailto:devops@leipalaari.fi" type="primary">
             Contact us!
           </Link>
+
           <Categories>
-            {store.resultsPerCategory.map((result, index) => (
+            {resultsPerCategory.map((result, index) => (
               <CategoryResult
-                userResult={result.userResult}
-                maxResult={result.maxCategoryResult}
+                key={result.name}
+                renderMobileLayout={renderMobileLayout}
+                userResult={result.userPoints}
+                maxResult={result.maxPoints}
                 category={result.name}
                 description={result.description}
                 index={index}
               />
             ))}
           </Categories>
+          <TotalResultChart
+            data={store.resultsPerCategory}
+            renderMobileLayout={renderMobileLayout}
+          />
         </Content>
       </InnerContentWrapper>
     </>

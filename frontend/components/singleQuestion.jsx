@@ -1,16 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useStore } from '../store'
-import { questions } from '../tests/testutils/utils'
 import Option from './option'
 
 const QuestionWrapper = styled.div`
-  width: 80%;
-  margin: 50px;
+  margin: 50px 0;
   display: grid;
-  grid-template-columns: 50% 50%;
-  justify-items: center;
-  align-items: center;
+  
+  @media screen and (min-width: ${({theme}) => theme.breakpoints.wideMobile}) {
+    grid-template-columns: 240px 240px;
+    column-gap: 30px;
+  }
+
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
+    grid-template-rows: 30% 70%;
+    width: 80%;
+  }
 `
 
 const OptionsWrapper = styled.div`
@@ -19,13 +24,23 @@ const OptionsWrapper = styled.div`
   grid-template-rows: 60px 60px 60px;
   column-gap: 10%;
   row-gap: 30px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  justify-content: center;
-  width: 80%;
+  justify-content: right;
+  width: 100%;
+  min-width: 240px;
 
   button {
     cursor: pointer;
+  }
+`
+
+const TitleWrapper = styled.div`
+  display: grid;
+  height: 100%;
+  align-content: center;
+  min-width: 240px;
+
+  @media screen and (min-width: ${({theme}) => theme.breakpoints.wideDesktop}) {
+    justify-content: left;
   }
 `
 
@@ -37,45 +52,39 @@ const QuestionTitle = styled.h2`
 
 const QuestionSeparator = styled.div`
   background-color: ${({ theme }) => theme.colors.silver};
-  width: 60%;
+  width: 45%;
   height: 2px;
+
+  @media screen and (max-width: ${({theme}) => theme.breakpoints.wideMobile}) {
+    margin-top: 40px;
+  }
 `
 
-const SingleQuestion = ({ question }) => {
+const SingleQuestion = ({ question, onOptionClick }) => {
   const store = useStore()
   const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
-  const currentSelection = store.selections.find(s => s.questionId === question.id).value
+  const currentSelection = store.selections.find(s => s.questionId === question.id).answerId  
 
-  const updateSelections = (pointValue) => {
-    const prevSelections = [...store.selections]
-    const newSelections = prevSelections.map(selection => {
-      if (selection.questionId === question.id) {
-        return {questionId: selection.questionId, value: pointValue}
-      }
-      return selection
-    })
-    store.setSelections(newSelections)
-  }
-
+  
   return (
     <>
       <QuestionWrapper>
-        <QuestionTitle>{question.text}</QuestionTitle>
+        <TitleWrapper>
+          <QuestionTitle>{question.text}</QuestionTitle>
+        </TitleWrapper>
         <OptionsWrapper>
-          {Object.keys(optionsToPointsMap).map((optionLabel) => {
-            const pointsAssociatedWithOption = optionsToPointsMap[optionLabel]
-
+        {question.Question_answers.map((answer) => {
+            
             return (
               <Option
-                key={pointsAssociatedWithOption}
-                label={optionLabel}
-                selected={
-                  currentSelection === pointsAssociatedWithOption
-                }
-                onClick={() => updateSelections(pointsAssociatedWithOption)}
+                key={answer.id}
+                selected={answer.id === currentSelection}
+                label={answer.text}
+                onClick={() => onOptionClick(question.id, answer.id)}
               />
             )
           })}
+          
         </OptionsWrapper>
       </QuestionWrapper>
       <QuestionSeparator />
