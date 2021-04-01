@@ -68,29 +68,29 @@ const Home = () => {
       </Head>
       <ProgressBar id={1} total={1} />
       <InnerContentWrapper>
-      <ContentAnimationWrapper>
-        <Content>
-          <StyledHeading component="h1" variant="h6" font="Montserrat">
-            DevOps Assessment Tool
-          </StyledHeading>
-          <StyledResultsLabel component="h2" variant="h5">
-            Your Results
-          </StyledResultsLabel>
-          <TotalResult userResult={userResult} maxResult={maxResult} />
-          <Heading component="h3" variant="" font="Montserrat">
-            {resultText}
-          </Heading>
-          <Link href="mailto:devops@leipalaari.fi" type="primary">
-            Contact us!
-          </Link>
-          <Categories>
-            {resultsPerCategory.map((result, index) => (
-              <CategoryResult
-                key={result.name}
-                renderMobileLayout={renderMobileLayout}
-              />))
-            }
-          </Categories>
+        <ContentAnimationWrapper>
+          <Content>
+            <StyledHeading component="h1" variant="h6" font="Montserrat">
+              DevOps Assessment Tool
+            </StyledHeading>
+            <StyledResultsLabel component="h2" variant="h5">
+              Your Results
+            </StyledResultsLabel>
+            <TotalResult userResult={userResult} maxResult={maxResult} />
+            <Heading component="h3" variant="" font="Montserrat">
+              {resultText}
+            </Heading>
+            <Link href="mailto:devops@leipalaari.fi" type="primary">
+              Contact us!
+            </Link>
+            <Categories>
+              {resultsPerCategory.map((result, index) => (
+                <CategoryResult
+                  key={result.name}
+                  renderMobileLayout={renderMobileLayout}
+                />))
+              }
+            </Categories>
           </Content>
         </ContentAnimationWrapper>
       </InnerContentWrapper>
