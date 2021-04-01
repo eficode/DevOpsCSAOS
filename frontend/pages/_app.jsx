@@ -7,7 +7,6 @@ import { ContentWrapper } from '../components/shared/ContentWrapper'
 import GlobalStyles from '../styles/global'
 import theme from '../styles/theme'
 import '../public/fonts/fonts.css'
-import PageTransition from '../components/pageTransition'
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -23,11 +22,9 @@ function MyApp({ Component, pageProps }) {
       <GlobalStyles />
       <StylesProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <PageTransition>
             <ContentWrapper>
               <Component {...pageProps} />
             </ContentWrapper>
-          </PageTransition>
         </ThemeProvider>
       </StylesProvider>
     </>

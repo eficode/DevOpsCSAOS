@@ -9,6 +9,7 @@ import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
 import TotalResultChart from '../../components/totalResultChart'
 import { useStore } from '../../store'
+import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
 
 const Content = styled.div`
   display: flex;
@@ -63,11 +64,8 @@ const ResultsText = styled.h4`
 const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
-  console.log(store)
 
   const { userResult, maxResult, resultText, resultsPerCategory } = store
-
-  console.log(store.resultsPerCategory)
 
   useEffect(() => {
     const handleResize = () => {
@@ -86,33 +84,34 @@ const Home = () => {
       </Head>
       <ProgressBar id={1} total={1} />
       <InnerContentWrapper>
-        <Content>
-          <Heading>DevOps Assessment Tool</Heading>
-          <ResultsTitle>Your Results</ResultsTitle>
-          <TotalResult userResult={userResult} maxResult={maxResult} />
-          <ResultsText>{resultText}</ResultsText>
-          <Link href="mailto:devops@leipalaari.fi" type="primary">
-            Contact us!
-          </Link>
-
-          <Categories>
-            {resultsPerCategory.map((result, index) => (
-              <CategoryResult
-                key={result.name}
+        <ContentAnimationWrapper>
+          <Content>
+            <Heading>DevOps Assessment Tool</Heading>
+              <ResultsTitle>Your Results</ResultsTitle>
+              <TotalResult userResult={userResult} maxResult={maxResult} />
+              <ResultsText>{resultText}</ResultsText>
+              <Link href="mailto:devops@leipalaari.fi" type="primary">
+                Contact us!
+              </Link>
+              <Categories>
+                {resultsPerCategory.map((result, index) => (
+                  <CategoryResult
+                    key={result.name}
+                    renderMobileLayout={renderMobileLayout}
+                    userResult={result.userPoints}
+                    maxResult={result.maxPoints}
+                    category={result.name}
+                    description={result.description}
+                    index={index}
+                  />
+                ))}
+              </Categories>
+              <TotalResultChart
+                data={store.resultsPerCategory}
                 renderMobileLayout={renderMobileLayout}
-                userResult={result.userPoints}
-                maxResult={result.maxPoints}
-                category={result.name}
-                description={result.description}
-                index={index}
               />
-            ))}
-          </Categories>
-          <TotalResultChart
-            data={store.resultsPerCategory}
-            renderMobileLayout={renderMobileLayout}
-          />
-        </Content>
+          </Content>
+        </ContentAnimationWrapper>
       </InnerContentWrapper>
     </>
   )

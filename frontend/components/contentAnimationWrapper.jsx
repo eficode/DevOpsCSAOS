@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-
+import { useRouter } from 'next/router'
 /**
  * https://www.framer.com/api/motion/types/
  *  */
@@ -32,29 +32,22 @@ const variants = {
   },
 }
 
-// Used for generating random universal unique id (uuid) key values for animated components
-function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == 'x' ? r : (r & 0x3) | 0x8
-    return v.toString(16)
-  })
-}
 
-export function PageTransition({ children }) {
+export function ContentAnimationWrapper({ children }) {
+  const router = useRouter()
   return (
-    <AnimatePresence>
-      <motion.div
-        key={uuidv4()}
-        variants={variants}
-        initial="initial"
-        animate="enter"
-        exit="exit"
-      >
-        {children}
-      </motion.div>
+      <AnimatePresence exitBeforeEnter>
+        <motion.div
+            key={router.asPath}
+            variants={variants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+        >
+            {children}
+        </motion.div>
     </AnimatePresence>
   )
 }
 
-export default PageTransition
+export default ContentAnimationWrapper

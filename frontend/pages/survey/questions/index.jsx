@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../../../store'
-
+import ContentAnimationWrapper from '../../../components/contentAnimationWrapper'
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import QuestionGrouper from '../../../components/questionGrouper'
 import ProgressBar from '../../../components/progressBar'
@@ -38,7 +38,7 @@ const SurveyPage = () => {
   const isFinalPage = pageId === store.questionGroups.length
   const isFirstPage = pageId === 1
   const storeHasQuestions = store.questions.length > 0
-
+  
   useEffect(() => {
     ;(async () => {
       if (store.questions.length === 0) {
@@ -110,11 +110,12 @@ const SurveyPage = () => {
       />
       <InnerContentWrapper>
         <Heading>DevOps Assessment Tool</Heading>
-
-        <QuestionGrouper
-          questions={questionsToRender}
-          onOptionClick={onOptionClick}
-        />
+        <ContentAnimationWrapper>
+            <QuestionGrouper
+              questions={questionsToRender}
+              onOptionClick={onOptionClick}
+            />
+        </ContentAnimationWrapper>
 
         <NavigationGroup>
           {!isFirstPage ? (
