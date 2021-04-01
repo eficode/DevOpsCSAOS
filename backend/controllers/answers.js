@@ -17,16 +17,14 @@ answersRouter.post('/', async (req, res) => {
 
   const verificationResult = await verifyUserAnswers(answers, surveyId)
 
-  if(verificationResult.unAnsweredQuestions.length > 0) {
-
+  if(verificationResult.unAnsweredQuestionsFound) {
     return res.status(500).json({
       message: "Some questions don't have answers",
       questions: verificationResult.unAnsweredQuestions
     })
   }
 
-  if(verificationResult.duplicates.length > 0) {
-
+  if(verificationResult.duplicatesFound) {
     return res.status(500).json({
       message: "Some questions are answered more than once",
       questions: verificationResult.duplicates
@@ -34,7 +32,6 @@ answersRouter.post('/', async (req, res) => {
   }
 
   const results = await getResults(answers, surveyId)
-  
 
   try {
     if (email) {

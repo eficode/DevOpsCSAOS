@@ -23,7 +23,6 @@ const verifyUserAnswers = async (userAnswers, surveyId) => {
   })
 
   const duplicates = []
-
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < userQuestionAnswers.length - 1; i++) {
     if (
@@ -36,20 +35,15 @@ const verifyUserAnswers = async (userAnswers, surveyId) => {
     }
   }
 
-  const unAnsweredQuestions = allSurveyQuestions.filter((question) => {
-    const found = userQuestionAnswers.find(
+  const unAnsweredQuestionsFound = allSurveyQuestions.find((question) => (
+    !userQuestionAnswers.find(
       (question_answer) => question_answer.questionId === question.id
     )
-
-    if (!found) {
-      return true
-    }
-    return false
-  })
+  ))
 
   return {
-    unAnsweredQuestions,
-    duplicates,
+    unAnsweredQuestionsFound,
+    duplicatesFound: duplicates.length !== 0,
   }
 }
 
