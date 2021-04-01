@@ -14,16 +14,11 @@ const getResults = async (user_answers, surveyId) => {
   const userAnswers = await findUserAnswers(user_answers)
 
   const surveyMaxResult = await calculateMaxPointsOfSurvey(bestAnswerPerQuestion)
-  const categoryResults = calculateMaxPointsAndUserPointsPerCategory(bestAnswerPerQuestion, userAnswers)
-
-  const userSurveyResult = categoryResults.reduce(
-    (accumulator, currentValue) =>
-      accumulator + Number(currentValue.userPoints),
-    0
-  )
-
+  const userSurveyResult = calculateSumOfUserPoints(userAnswers)
   const surveyResultText = await findSurveyResultTextMatchingUserScore(userSurveyResult, surveyMaxResult, Op, surveyId)
   
+  const categoryResults = calculateMaxPointsAndUserPointsPerCategory(bestAnswerPerQuestion, userAnswers)
+
   return {
     surveyResult: {
       text: surveyResultText,
@@ -152,3 +147,11 @@ const findSurveyResultTextMatchingUserScore = async (userSurveyResult, surveyMax
 
   return surveyResult.text
 }
+
+const calculateSumOfUserPoints = (userAnswers) => {
+  return userAnswers.reduce(
+    (accumulator, currentValue) => accumulator + Number(currentValue.points),
+    0
+  )
+}
+
