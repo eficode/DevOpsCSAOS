@@ -11,12 +11,9 @@ const getResults = async (user_answers, surveyId) => {
   const { Op } = Sequelize
 
   const bestAnswerPerQuestion = await findAnswerWithHighestPointsPerQuestion(surveyId)
-
-  const surveyMaxResult = await calculateMaxPointsOfSurvey(bestAnswerPerQuestion)
-
   const userAnswers = await findUserAnswers(user_answers)
 
-  // categoryResults: array of category items, each category object contains attributes userId and categoryId
+  const surveyMaxResult = await calculateMaxPointsOfSurvey(bestAnswerPerQuestion)
   const categoryResults = calculateMaxPointsAndUserPointsPerCategory(bestAnswerPerQuestion, userAnswers)
 
   const userSurveyResult = categoryResults.reduce(
@@ -25,28 +22,16 @@ const getResults = async (user_answers, surveyId) => {
     0
   )
 
-  const pointsOutOfMax = userSurveyResult / surveyMaxResult
-
-  const surveyResult = await Survey_result.findOne({
-    attributes: ['text', 'surveyId', 'cutoff_from_maxpoints'],
-    where: {
-      cutoff_from_maxpoints: { [Op.gte]: pointsOutOfMax },
-      surveyId: surveyId,
-    },
-    order: [['cutoff_from_maxpoints', 'ASC']],
-    raw: true,
-  })
-
-  const results = {
+  const surveyResultText = await findSurveyResultTextMatchingUserScore(userSurveyResult, surveyMaxResult, Op, surveyId)
+  
+  return {
     surveyResult: {
-      text: surveyResult.text,
+      text: surveyResultText,
       userPoints: userSurveyResult,
       maxPoints: surveyMaxResult,
     },
     categoryResults: categoryResults,
   }
-
-  return results
 }
 
 const findAnswerWithHighestPointsPerQuestion = async (surveyId) => {
@@ -108,9 +93,9 @@ const findUserAnswers = async (user_answers) => {
 
 module.exports = { getResults }
 
-function calculateMaxPointsAndUserPointsPerCategory(bestAnswerPerQuestion, userAnswers) {
+const calculateMaxPointsAndUserPointsPerCategory = (bestAnswerPerQuestion, userAnswers) => {
   let categoryResults = []
-  // here: user points and max points are calculated per category
+  // calculate max points per category
   bestAnswerPerQuestion.forEach((question) => {
     const isCategoryInList = categoryResults.find(
       (category) => category.id === question.Question.Category.id
@@ -129,7 +114,7 @@ function calculateMaxPointsAndUserPointsPerCategory(bestAnswerPerQuestion, userA
     }
   })
 
-
+  // find user answers per category and update category user results with these points
   categoryResults.forEach(async (category) => {
     const answersInCategory = userAnswers.filter(
       (question) => question.Question.Category.id === category.id
@@ -150,4 +135,20 @@ function calculateMaxPointsAndUserPointsPerCategory(bestAnswerPerQuestion, userA
     )
   })
   return categoryResults
+}
+
+const findSurveyResultTextMatchingUserScore = async (userSurveyResult, surveyMaxResult, Op, surveyId) => {
+  const pointsOutOfMax = userSurveyResult / surveyMaxResult
+
+  const surveyResult = await Survey_result.findOne({
+    attributes: ['text', 'surveyId', 'cutoff_from_maxpoints'],
+    where: {
+      cutoff_from_maxpoints: { [Op.gte]: pointsOutOfMax },
+      surveyId: surveyId,
+    },
+    order: [['cutoff_from_maxpoints', 'ASC']],
+    raw: true,
+  })
+
+  return surveyResult.text
 }
