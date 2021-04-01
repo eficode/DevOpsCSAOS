@@ -37,17 +37,17 @@ Alert Is Shown Instead Of Result Page When There Are Unanswered Questions
   Alert Should Be Present
   [Teardown]    Close Application
 
-# BUG: selenium does not allow identifying option buttons....
-# Answers Can Be Submitted When All Questions Are Answered
-#  [Setup]       Seed Database With Test Data
-#  [Template]    Complete survey and submit answers
-#  ${START_OF_SURVEY_UNANSWERED}
-#  ${MID_SURVEY_UNANSWERED}
-#  ${END_OF_SURVEY_UNANSWERED}
-#  [Teardown]    Close Application
+User Is Auto-redirected To Next Page When All Questions On Page Are Answered
+  [Setup]       Seed Database With Test Data
+  Open survey
+  Answer all questions on first page
+  Second page of survey should be open
+  [Teardown]    Close Application
 
-# Clicking Contact In Result Opens Email With Sender And Recipient Auto-filled
-
-# User is auto-redirected to next page when all questions on page are answered
-
-# User is not auto-redirected to next page in survey after summary has been visited
+User Is Not Auto-redirected To Next Page In Survey After Summary Has Been Visited
+  [Setup]       Seed Database With Test Data
+  Complete survey
+  Go Back
+  Select option   401
+  Last page of survey should be open
+  [Teardown]    Close Application

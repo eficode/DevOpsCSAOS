@@ -29,6 +29,12 @@ Main Page Should Be Open
 Questions Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/?id=1
 
+Second Page Of Survey Should Be Open
+    Location Should Contain  ${MAIN_URL}/survey/questions/?id=2
+
+Last Page Of Survey Should Be Open
+    Location Should Contain  ${MAIN_URL}/survey/questions/?id=${SURVEY_PAGE_COUNT}
+
 Summary Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/summary
 
