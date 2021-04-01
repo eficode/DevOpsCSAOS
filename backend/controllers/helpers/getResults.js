@@ -14,50 +14,10 @@ const getResults = async (user_answers, surveyId) => {
 
   const surveyMaxResult = await calculateMaxPointsOfSurvey(bestAnswerPerQuestion)
 
-  // What is this db fetch for? Don't we have the answers in user_answers already?
   const userAnswers = await findUserAnswers(user_answers)
 
-  let categoryResults = []
-  bestAnswerPerQuestion.forEach((question) => {
-    const isCategoryInList = categoryResults.find(
-      (category) => category.id === question.Question.Category.id
-    )
-    if (!isCategoryInList) {
-      categoryResults.push({
-        ...question.Question.Category,
-        userPoints: 0,
-        maxPoints: question.points,
-      })
-    } else {
-      categoryResults = categoryResults.map((category) =>
-        category.id === question.Question.Category.id
-          ? { ...category, maxPoints: category.maxPoints + question.points }
-          : { ...category }
-      )
-    }
-  })
-
-
-  categoryResults.forEach(async (category) => {
-    const answersInCategory = userAnswers.filter(
-      (question) => question.Question.Category.id === category.id
-    )
-
-    const userPointsInCategory = answersInCategory.reduce(
-      (accumulator, currentValue) => accumulator + Number(currentValue.points),
-      0
-    )
-
-    categoryResults = categoryResults.map((categ) =>
-      categ.id === category.id
-        ? {
-            ...category,
-            userPoints: userPointsInCategory,
-            text: '',
-          }
-        : { ...categ }
-    )
-  })
+  // categoryResults: array of category items, each category object contains attributes userId and categoryId
+  const categoryResults = calculateMaxPointsAndUserPointsPerCategory(bestAnswerPerQuestion, userAnswers)
 
   const userSurveyResult = categoryResults.reduce(
     (accumulator, currentValue) =>
@@ -147,3 +107,47 @@ const findUserAnswers = async (user_answers) => {
 }
 
 module.exports = { getResults }
+
+function calculateMaxPointsAndUserPointsPerCategory(bestAnswerPerQuestion, userAnswers) {
+  let categoryResults = []
+  // here: user points and max points are calculated per category
+  bestAnswerPerQuestion.forEach((question) => {
+    const isCategoryInList = categoryResults.find(
+      (category) => category.id === question.Question.Category.id
+    )
+    if (!isCategoryInList) {
+      categoryResults.push({
+        ...question.Question.Category,
+        userPoints: 0,
+        maxPoints: question.points,
+      })
+    } else {
+      categoryResults = categoryResults.map((category) => category.id === question.Question.Category.id
+        ? { ...category, maxPoints: category.maxPoints + question.points }
+        : { ...category }
+      )
+    }
+  })
+
+
+  categoryResults.forEach(async (category) => {
+    const answersInCategory = userAnswers.filter(
+      (question) => question.Question.Category.id === category.id
+    )
+
+    const userPointsInCategory = answersInCategory.reduce(
+      (accumulator, currentValue) => accumulator + Number(currentValue.points),
+      0
+    )
+
+    categoryResults = categoryResults.map((categ) => categ.id === category.id
+      ? {
+        ...category,
+        userPoints: userPointsInCategory,
+        text: '',
+      }
+      : { ...categ }
+    )
+  })
+  return categoryResults
+}
