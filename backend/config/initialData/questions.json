@@ -1,20 +1,104 @@
 [
   {
     "id": 1,
-    "text": "Oletko ruisleipä?",
+    "text": "Is your team continuously looking to improve?.",
     "surveyId": 1,
     "categoryId": 1
   },
   {
     "id": 2,
-    "text": "Oletko kauraleipä?",
+    "text": "Our team is cross-functional and autonomous.",
     "surveyId": 1,
     "categoryId": 1
   },
   {
     "id": 3,
-    "text": "Oletko leipä?",
+    "text": "Is everyone working towards a common goal?",
+    "surveyId": 1,
+    "categoryId": 1
+  },
+  {
+    "id": 4,
+    "text": "Failures are...",
+    "surveyId": 1,
+    "categoryId": 1
+  },
+  {
+    "id": 5,
+    "text": "Are you using some form of version control?",
     "surveyId": 1,
     "categoryId": 2
+  },
+  {
+    "id": 6,
+    "text": "We improve our product with ... patches.",
+    "surveyId": 1,
+    "categoryId": 2
+  },
+  {
+    "id": 7,
+    "text": "Our code increments go trought an automated QA&testing -pipeline",
+    "surveyId": 1,
+    "categoryId": 2
+  },
+  {
+    "id": 8,
+    "text": "We have configured a CI/CD pipeline for our work.",
+    "surveyId": 1,
+    "categoryId": 3
+  },
+  {
+    "id": 9,
+    "text": "We use container technologies to deliver our product.",
+    "surveyId": 1,
+    "categoryId": 3
+  },
+  {
+    "id": 10,
+    "text": "We use IaC (infrastructure as code) tool in deployment.",
+    "surveyId": 1,
+    "categoryId": 3
+  },
+  {
+    "id": 11,
+    "text": "I feel confident in using container technologies.",
+    "surveyId": 1,
+    "categoryId": 4
+  },
+  {
+    "id": 12,
+    "text": "I feel confident in using our testing tools.",
+    "surveyId": 1,
+    "categoryId": 4
+  },
+  {
+    "id": 13,
+    "text": "I feel confident in using version control.",
+    "surveyId": 1,
+    "categoryId": 4
+  },
+  {
+    "id": 14,
+    "text": "I feel confident in configuring a CI/CD pipeline.",
+    "surveyId": 1,
+    "categoryId": 4
+  },
+  {
+    "id": 15,
+    "text": "Our software is easy to test.",
+    "surveyId": 1,
+    "categoryId": 5
+  },
+  {
+    "id": 16,
+    "text": "Our software is modular and the architecture is flexible.",
+    "surveyId": 1,
+    "categoryId": 5
+  },
+  {
+    "id": 17,
+    "text": "Our code adheres to best standards and practices",
+    "surveyId": 1,
+    "categoryId": 5
   }
 ]
