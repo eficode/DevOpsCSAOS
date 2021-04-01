@@ -72,21 +72,21 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
 
             <Tooltip cursor={{ fill: 'transparent' }} />
 
-            <Bar dataKey="userResult" name="Your result">
-              {data.map((entry) => (
+            <Bar dataKey="userPoints" name="Your result">
+              {data.map((entry, index) => (
                 <Cell
-                  fill={getColor(entry.userResult, entry.maxCategoryResult)}
-                  key={entry.categoryId}
+                  fill={getColor(entry.userPoints, entry.maxPoints)}
+                  key={index}
                 />
               ))}
             </Bar>
 
             <Bar
-              dataKey="maxCategoryResult"
+              dataKey="maxPoints"
               fill="#148AB3"
               name="Peer average placeholder"
             />
-            <Bar dataKey="maxCategoryResult" fill="#5cd175" name="Max" />
+            <Bar dataKey="maxPoints" fill="#5cd175" name="Max" />
           </BarChart>
         </ResponsiveContainer>
       </>
@@ -111,27 +111,22 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
           <XAxis dataKey="name" />
           <Tooltip cursor={{ fill: 'transparent' }} />
 
-          <Bar dataKey="userResult" barSize={30} name="Your result">
-            {data.map((entry) => (
+          <Bar dataKey="userPoints" barSize={30} name="Your result">
+            {data.map((entry, index) => (
               <Cell
-                fill={getColor(entry.userResult, entry.maxCategoryResult)}
-                key={entry.categoryId}
+                fill={getColor(entry.userPoints, entry.maxPoints)}
+                key={index}
               />
             ))}
           </Bar>
 
           <Bar
-            dataKey="maxCategoryResult"
+            dataKey="maxPoints"
             fill="#148AB3"
             barSize={30}
             name="Peer average placeholder"
           />
-          <Bar
-            dataKey="maxCategoryResult"
-            barSize={30}
-            fill="#5cd175"
-            name="Max"
-          />
+          <Bar dataKey="maxPoints" barSize={30} fill="#5cd175" name="Max" />
         </BarChart>
       </ResponsiveContainer>
     </>

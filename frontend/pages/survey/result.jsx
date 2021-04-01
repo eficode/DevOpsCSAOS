@@ -96,12 +96,12 @@ const Home = () => {
           </Link>
 
           <Categories>
-            {resultsPerCategory.map((result, index, idx) => (
+            {resultsPerCategory.map((result, index) => (
               <CategoryResult
-                key={idx}
+                key={result.name}
                 renderMobileLayout={renderMobileLayout}
-                userResult={result.userResult}
-                maxResult={result.maxCategoryResult}
+                userResult={result.userPoints}
+                maxResult={result.maxPoints}
                 category={result.name}
                 description={result.description}
                 index={index}
