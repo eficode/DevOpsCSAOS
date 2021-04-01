@@ -1,7 +1,4 @@
-const {
-  Question,
-  Question_answer,
-} = require('../../models')
+const { Question, Question_answer } = require('../../models')
 
 const verifyUserAnswers = async (userAnswers, surveyId) => {
   const allSurveyQuestions = await Question.findAll({
@@ -35,11 +32,12 @@ const verifyUserAnswers = async (userAnswers, surveyId) => {
     }
   }
 
-  const unAnsweredQuestionsFound = allSurveyQuestions.find((question) => (
-    !userQuestionAnswers.find(
-      (question_answer) => question_answer.questionId === question.id
-    )
-  ))
+  const unAnsweredQuestionsFound = allSurveyQuestions.find(
+    (question) =>
+      !userQuestionAnswers.find(
+        (question_answer) => question_answer.questionId === question.id
+      )
+  )
 
   return {
     unAnsweredQuestionsFound,

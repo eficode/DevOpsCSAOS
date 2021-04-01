@@ -1,5 +1,4 @@
 const { Model } = require('sequelize')
-const survey_user_group = require('./survey_user_group')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {

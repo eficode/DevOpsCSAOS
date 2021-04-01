@@ -1,33 +1,45 @@
-/* eslint-disable prettier/prettier */
 const answersRouter = require('express').Router()
 const { User, User_answer, Survey } = require('../models')
 
-const { verifyUserAnswers, deleteUserSurveyAnswers, getResults } = require('./helpers/answers')
+const {
+  verifyUserAnswers,
+  deleteUserSurveyAnswers,
+  getResults,
+} = require('./helpers/answers')
+
+const saveAnswersToDatabase = async (answers, userId) => {
+  const answersToQuestions = answers.map((answer) => ({
+    userId,
+    questionAnswerId: answer,
+  }))
+
+  await User_answer.bulkCreate(answersToQuestions)
+}
 
 answersRouter.post('/', async (req, res) => {
   const { email, answers, surveyId } = req.body
-  
+
   const survey = await Survey.findAll({
-    where: { id: surveyId }
+    where: { id: surveyId },
   })
 
-  if(!survey) {
-    return res.status(500).json("SurveyId is invalid")
+  if (!survey) {
+    return res.status(500).json('SurveyId is invalid')
   }
 
   const verificationResult = await verifyUserAnswers(answers, surveyId)
 
-  if(verificationResult.unAnsweredQuestionsFound) {
+  if (verificationResult.unAnsweredQuestionsFound) {
     return res.status(500).json({
       message: "Some questions don't have answers",
-      questions: verificationResult.unAnsweredQuestions
+      questions: verificationResult.unAnsweredQuestions,
     })
   }
 
-  if(verificationResult.duplicatesFound) {
+  if (verificationResult.duplicatesFound) {
     return res.status(500).json({
-      message: "Some questions are answered more than once",
-      questions: verificationResult.duplicates
+      message: 'Some questions are answered more than once',
+      questions: verificationResult.duplicates,
     })
   }
 
@@ -47,20 +59,11 @@ answersRouter.post('/', async (req, res) => {
 
       await saveAnswersToDatabase(answers, userInDb.id)
     }
-    
+
     return res.status(200).json({ results: results })
   } catch (err) {
     return res.status(500).json(err)
   }
 })
-
-const saveAnswersToDatabase = async (answers, userId) => {
-  const answersToQuestions = answers.map((answer) => ({
-    userId,
-    questionAnswerId: answer,
-  }))
-
-  await User_answer.bulkCreate(answersToQuestions)
-}
 
 module.exports = answersRouter

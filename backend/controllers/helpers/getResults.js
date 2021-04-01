@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const Sequelize = require('sequelize')
 const {
   Question,
@@ -6,28 +7,6 @@ const {
   Survey_result,
   sequelize,
 } = require('../../models')
-
-const getResults = async (user_answers, surveyId) => {
-  const { Op } = Sequelize
-
-  const bestAnswerPerQuestion = await findAnswerWithHighestPointsPerQuestion(surveyId)
-  const userAnswers = await findUserAnswers(user_answers)
-
-  const surveyMaxResult = await calculateMaxPointsOfSurvey(bestAnswerPerQuestion)
-  const userSurveyResult = calculateSumOfUserPoints(userAnswers)
-  const surveyResultText = await findSurveyResultTextMatchingUserScore(userSurveyResult, surveyMaxResult, Op, surveyId)
-  
-  const categoryResults = calculateMaxPointsAndUserPointsPerCategory(bestAnswerPerQuestion, userAnswers)
-
-  return {
-    surveyResult: {
-      text: surveyResultText,
-      userPoints: userSurveyResult,
-      maxPoints: surveyMaxResult,
-    },
-    categoryResults: categoryResults,
-  }
-}
 
 const findAnswerWithHighestPointsPerQuestion = async (surveyId) => {
   const highestScoringOptions = await Question_answer.findAll({
@@ -54,12 +33,11 @@ const findAnswerWithHighestPointsPerQuestion = async (surveyId) => {
   return highestScoringOptions
 }
 
-const calculateMaxPointsOfSurvey = async (bestAnswerPerQuestion) => (
+const calculateMaxPointsOfSurvey = async (bestAnswerPerQuestion) =>
   bestAnswerPerQuestion.reduce(
     (accumulator, currentValue) => accumulator + currentValue.points,
     0
   )
-)
 
 const findUserAnswers = async (user_answers) => {
   const userAnswers = await Question_answer.findAll({
@@ -86,9 +64,10 @@ const findUserAnswers = async (user_answers) => {
   return userAnswers
 }
 
-module.exports = { getResults }
-
-const calculateMaxPointsAndUserPointsPerCategory = (bestAnswerPerQuestion, userAnswers) => {
+const calculateMaxPointsAndUserPointsPerCategory = (
+  bestAnswerPerQuestion,
+  userAnswers
+) => {
   let categoryResults = []
   // calculate max points per category
   bestAnswerPerQuestion.forEach((question) => {
@@ -102,9 +81,10 @@ const calculateMaxPointsAndUserPointsPerCategory = (bestAnswerPerQuestion, userA
         maxPoints: question.points,
       })
     } else {
-      categoryResults = categoryResults.map((category) => category.id === question.Question.Category.id
-        ? { ...category, maxPoints: category.maxPoints + question.points }
-        : { ...category }
+      categoryResults = categoryResults.map((category) =>
+        category.id === question.Question.Category.id
+          ? { ...category, maxPoints: category.maxPoints + question.points }
+          : { ...category }
       )
     }
   })
@@ -120,19 +100,25 @@ const calculateMaxPointsAndUserPointsPerCategory = (bestAnswerPerQuestion, userA
       0
     )
 
-    categoryResults = categoryResults.map((categ) => categ.id === category.id
-      ? {
-        ...category,
-        userPoints: userPointsInCategory,
-        text: '',
-      }
-      : { ...categ }
+    categoryResults = categoryResults.map((categ) =>
+      categ.id === category.id
+        ? {
+            ...category,
+            userPoints: userPointsInCategory,
+            text: '',
+          }
+        : { ...categ }
     )
   })
   return categoryResults
 }
 
-const findSurveyResultTextMatchingUserScore = async (userSurveyResult, surveyMaxResult, Op, surveyId) => {
+const findSurveyResultTextMatchingUserScore = async (
+  userSurveyResult,
+  surveyMaxResult,
+  Op,
+  surveyId
+) => {
   const pointsOutOfMax = userSurveyResult / surveyMaxResult
 
   const surveyResult = await Survey_result.findOne({
@@ -148,10 +134,44 @@ const findSurveyResultTextMatchingUserScore = async (userSurveyResult, surveyMax
   return surveyResult.text
 }
 
-const calculateSumOfUserPoints = (userAnswers) => {
-  return userAnswers.reduce(
+const calculateSumOfUserPoints = (userAnswers) =>
+  userAnswers.reduce(
     (accumulator, currentValue) => accumulator + Number(currentValue.points),
     0
   )
+
+const getResults = async (user_answers, surveyId) => {
+  const { Op } = Sequelize
+
+  const bestAnswerPerQuestion = await findAnswerWithHighestPointsPerQuestion(
+    surveyId
+  )
+  const userAnswers = await findUserAnswers(user_answers)
+
+  const surveyMaxResult = await calculateMaxPointsOfSurvey(
+    bestAnswerPerQuestion
+  )
+  const userSurveyResult = calculateSumOfUserPoints(userAnswers)
+  const surveyResultText = await findSurveyResultTextMatchingUserScore(
+    userSurveyResult,
+    surveyMaxResult,
+    Op,
+    surveyId
+  )
+
+  const categoryResults = calculateMaxPointsAndUserPointsPerCategory(
+    bestAnswerPerQuestion,
+    userAnswers
+  )
+
+  return {
+    surveyResult: {
+      text: surveyResultText,
+      userPoints: userSurveyResult,
+      maxPoints: surveyMaxResult,
+    },
+    categoryResults: categoryResults,
+  }
 }
 
+module.exports = { getResults }
