@@ -2,7 +2,6 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import chunk from 'lodash/chunk'
-import { version } from 'react'
 
 const initialQuestions = []
 const initialSelections = []
@@ -52,8 +51,7 @@ const store = (set) => ({
     // let chunkedQuestions = [chunk(questions, questions.length / 2)]
 
     let chunkedQuestions = []
-    
-    console.log('Hello before if')
+
     if (featureToggleSwitch === 'A') {
       // All questions divided to 2 pages
       chunkedQuestions = chunk(questions, questions.length / 2)
@@ -68,34 +66,30 @@ const store = (set) => ({
       questionGroups: chunkedQuestions,
     }))
   },
-  clear: () =>
-    set(() => ({
-      questions: [],
-      email: '',
-      selections: [],
-      resultsPerCategory: [],
-      resultText: '',
-      featureToggleSwitch: 'A',
-    })),
-    resetVersion: () =>
-      set(() => ({
-      featureToggleSwitch: 'A',
-      questions: [],
-      questionGroups: [],
-    })),
-  setResultsPerCategory: (results) =>
-    set(() => ({ resultsPerCategory: results })),
+  clear: () => set(() => ({
+    questions: [],
+    email: '',
+    selections: [],
+    resultsPerCategory: [],
+    resultText: '',
+    featureToggleSwitch: 'A',
+  })),
+  resetVersion: () => set(() => ({
+    featureToggleSwitch: 'A',
+    questions: [],
+    questionGroups: [],
+  })),
+  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
   setResultText: (text) => set(() => ({ resultText: text })),
   setUserResult: (score) => set(() => ({ userResult: score })),
   setMaxResult: (score) => set(() => ({ maxResult: score })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
-  setFeatureToggleSwitch: (value) =>
-    set(() => ({ featureToggleSwitch: value })),
+  setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
 })
 
 export const useStore = create(
   persist(store, {
     name: 'devops assessment tool store',
     getStorage: () => sessionStorage,
-  })
+  }),
 )

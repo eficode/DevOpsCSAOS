@@ -33,10 +33,10 @@ const SurveyPage = () => {
         try {
           const surveyId = 1
           const response = await getAllQuestions(surveyId)
-          
+
           store.setQuestions(response, store.featureToggleSwitch)
         } catch (error) {
-          console.log(error)
+          console.error(error)
         }
       }
     })()
@@ -50,8 +50,6 @@ const SurveyPage = () => {
       }
       return selection
     })
-
-    console.log(newSelections)
 
     store.setSelections(newSelections)
     return newSelections
