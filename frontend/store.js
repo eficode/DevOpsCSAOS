@@ -36,29 +36,10 @@ const store = (set) => ({
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions, featureToggleSwitch) => {
-    const initialSelectionsWithQuestionIds = []
-    questions.forEach((q) => {
-      initialSelectionsWithQuestionIds.push({
-        questionId: q.id,
-        answerId: undefined,
-      })
-    })
-
-    /* question grouping on pages can be modified here.
-      current (arbitrary) grouping logic: divide questions on 2
-      equal-length (or n and n+1-question if odd number) pages.
-    */
-    // let chunkedQuestions = [chunk(questions, questions.length / 2)]
-
-    let chunkedQuestions = []
-
-    if (featureToggleSwitch === 'A') {
-      // All questions divided to 2 pages
-      chunkedQuestions = chunk(questions, questions.length / 2)
-    } else if (featureToggleSwitch === 'B') {
-      // 1 question per page
-      chunkedQuestions = chunk(questions, 3)
-    }
+    const {
+      initialSelectionsWithQuestionIds,
+      chunkedQuestions,
+    } = divideQuestions(questions, featureToggleSwitch)
 
     set(() => ({
       questions,
@@ -66,30 +47,62 @@ const store = (set) => ({
       questionGroups: chunkedQuestions,
     }))
   },
-  clear: () => set(() => ({
-    questions: [],
-    email: '',
-    selections: [],
-    resultsPerCategory: [],
-    resultText: '',
-    featureToggleSwitch: 'A',
-  })),
-  resetVersion: () => set(() => ({
-    featureToggleSwitch: 'A',
-    questions: [],
-    questionGroups: [],
-  })),
-  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
+  clear: () =>
+    set(() => ({
+      questions: [],
+      email: '',
+      selections: [],
+      resultsPerCategory: [],
+      resultText: '',
+      featureToggleSwitch: 'A',
+    })),
+  resetVersion: () =>
+    set(() => ({
+      featureToggleSwitch: 'A',
+      questions: [],
+      questionGroups: [],
+    })),
+  setResultsPerCategory: (results) =>
+    set(() => ({ resultsPerCategory: results })),
   setResultText: (text) => set(() => ({ resultText: text })),
   setUserResult: (score) => set(() => ({ userResult: score })),
   setMaxResult: (score) => set(() => ({ maxResult: score })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
-  setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
+  setFeatureToggleSwitch: (value) =>
+    set(() => ({ featureToggleSwitch: value })),
 })
+
+export const divideQuestions = (questions, featureToggleSwitch) => {
+  const initialSelectionsWithQuestionIds = []
+  questions.forEach((q) => {
+    initialSelectionsWithQuestionIds.push({
+      questionId: q.id,
+      answerId: undefined,
+    })
+  })
+
+  /* question grouping on pages can be modified here.
+    current (arbitrary) grouping logic: divide questions on 2
+    equal-length (or n and n+1-question if odd number) pages.
+  */
+  // let chunkedQuestions = [chunk(questions, questions.length / 2)]
+
+  let chunkedQuestions = []
+
+  if (featureToggleSwitch === 'A') {
+    // All questions divided to 2 pages (or 3 if questions.length is odd)
+    chunkedQuestions = chunk(questions, questions.length / 2)
+  } else if (featureToggleSwitch === 'B') {
+    // 1 question per page
+    chunkedQuestions = chunk(questions, 1)
+  }
+
+  return { initialSelectionsWithQuestionIds, chunkedQuestions }
+}
 
 export const useStore = create(
   persist(store, {
     name: 'devops assessment tool store',
     getStorage: () => sessionStorage,
-  }),
+  })
 )
