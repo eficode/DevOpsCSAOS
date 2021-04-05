@@ -21,57 +21,6 @@ const initialQuestionGroups = []
 const initialVisitedSummary = false
 const initialFeatureToggleSwitch = 'A'
 
-const store = (set) => ({
-  questions: initialQuestions,
-  email: initialEmail,
-  selections: initialSelections,
-  questionGroups: initialQuestionGroups,
-  resultsPerCategory: initialResultsPerCategory,
-  optionsToPointsMap,
-  resultText: initialResultText,
-  userResult: initialUserResult,
-  maxResult: initialMaxResult,
-  visitedSummary: initialVisitedSummary,
-  featureToggleSwitch: initialFeatureToggleSwitch,
-  setEmail: (email) => set(() => ({ email })),
-  setSelections: (selections) => set(() => ({ selections })),
-  setQuestions: (questions, featureToggleSwitch) => {
-    const {
-      initialSelectionsWithQuestionIds,
-      chunkedQuestions,
-    } = divideQuestions(questions, featureToggleSwitch)
-
-    set(() => ({
-      questions,
-      selections: initialSelectionsWithQuestionIds,
-      questionGroups: chunkedQuestions,
-    }))
-  },
-  clear: () =>
-    set(() => ({
-      questions: [],
-      email: '',
-      selections: [],
-      resultsPerCategory: [],
-      resultText: '',
-      featureToggleSwitch: 'A',
-    })),
-  resetVersion: () =>
-    set(() => ({
-      featureToggleSwitch: 'A',
-      questions: [],
-      questionGroups: [],
-    })),
-  setResultsPerCategory: (results) =>
-    set(() => ({ resultsPerCategory: results })),
-  setResultText: (text) => set(() => ({ resultText: text })),
-  setUserResult: (score) => set(() => ({ userResult: score })),
-  setMaxResult: (score) => set(() => ({ maxResult: score })),
-  setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
-  setFeatureToggleSwitch: (value) =>
-    set(() => ({ featureToggleSwitch: value })),
-})
-
 export const divideQuestions = (questions, featureToggleSwitch) => {
   const initialSelectionsWithQuestionIds = []
   questions.forEach((q) => {
@@ -100,9 +49,56 @@ export const divideQuestions = (questions, featureToggleSwitch) => {
   return { initialSelectionsWithQuestionIds, chunkedQuestions }
 }
 
+const store = (set) => ({
+  questions: initialQuestions,
+  email: initialEmail,
+  selections: initialSelections,
+  questionGroups: initialQuestionGroups,
+  resultsPerCategory: initialResultsPerCategory,
+  optionsToPointsMap,
+  resultText: initialResultText,
+  userResult: initialUserResult,
+  maxResult: initialMaxResult,
+  visitedSummary: initialVisitedSummary,
+  featureToggleSwitch: initialFeatureToggleSwitch,
+  setEmail: (email) => set(() => ({ email })),
+  setSelections: (selections) => set(() => ({ selections })),
+  setQuestions: (questions, featureToggleSwitch) => {
+    const {
+      initialSelectionsWithQuestionIds,
+      chunkedQuestions,
+    } = divideQuestions(questions, featureToggleSwitch)
+
+    set(() => ({
+      questions,
+      selections: initialSelectionsWithQuestionIds,
+      questionGroups: chunkedQuestions,
+    }))
+  },
+  clear: () => set(() => ({
+    questions: [],
+    email: '',
+    selections: [],
+    resultsPerCategory: [],
+    resultText: '',
+    featureToggleSwitch: 'A',
+  })),
+  resetVersion: () => set(() => ({
+    featureToggleSwitch: 'A',
+    questions: [],
+    questionGroups: [],
+  })),
+  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
+  setResultText: (text) => set(() => ({ resultText: text })),
+  setUserResult: (score) => set(() => ({ userResult: score })),
+  setMaxResult: (score) => set(() => ({ maxResult: score })),
+  setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
+  setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
+})
+
 export const useStore = create(
   persist(store, {
     name: 'devops assessment tool store',
     getStorage: () => sessionStorage,
-  })
+  }),
 )
