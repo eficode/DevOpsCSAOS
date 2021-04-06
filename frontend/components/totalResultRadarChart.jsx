@@ -24,7 +24,6 @@ const TotalResultRadarChart = ({ data }) => {
         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
           <PolarGrid />
           <PolarAngleAxis dataKey="name" />
-          <PolarRadiusAxis angle={30} />
           <Radar
             name="Peer points placeholder"
             dataKey="maxPoints"
