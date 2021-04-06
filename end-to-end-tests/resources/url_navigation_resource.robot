@@ -47,6 +47,7 @@ Click get started button
 
 Click next button
     [Arguments]   ${next_page_id}
+    Wait Until Page Contains Element    //*[contains(text(), '${NEXT}')]
     Click Element    //*[contains(text(), '${NEXT}')]
     Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=${next_page_id}
 
