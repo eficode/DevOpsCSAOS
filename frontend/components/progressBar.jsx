@@ -50,6 +50,7 @@ export const ProgressBar = ({ answered, total }) => {
         <InnerLine>
           <ProgressLine
             variant="determinate"
+            value={progress}
             color={theme.colors.gold}
             progress={progress}
           />

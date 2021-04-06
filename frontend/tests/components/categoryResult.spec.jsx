@@ -9,24 +9,23 @@ describe('Category Result Component', () => {
   it('renders the component with correct text and result', () => {
     expect(1).toBe(1)
 
-    /*
-    render(
-      <ThemeWrapper>
-        <CategoryResult
-          userResult={15}
-          maxResult={25}
-          category="Pullat"
-          description="Hyvin on pullat uunissa"
-          index={1}
-        />
-      </ThemeWrapper>,
-    )
+  //   render(
+  //     <ThemeWrapper>
+  //       <CategoryResult
+  //         userResult={15}
+  //         maxResult={25}
+  //         category="Pullat"
+  //         description="Hyvin on pullat uunissa"
+  //         index={1}
+  //       />
+  //     </ThemeWrapper>
+  //   )
 
-    expect(screen.getByRole('article')).toBeInTheDocument()
-    expect(screen.getByRole('article')).toHaveTextContent(
-      'Hyvin on pullat uunissa',
-    )
-    expect(screen.getByRole('article')).toHaveTextContent('15/25')
-    */
+  //   expect(screen.getByRole('article')).toBeInTheDocument()
+  //   expect(screen.getByRole('article')).toHaveTextContent(
+  //     'Hyvin on pullat uunissa'
+  //   )
+  //   expect(screen.getByRole('article')).toHaveTextContent('15/25')
+  // 
   })
 })

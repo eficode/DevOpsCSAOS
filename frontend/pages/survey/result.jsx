@@ -7,7 +7,8 @@ import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
-import TotalResultChart from '../../components/totalResultChart'
+import TotalResultBarChart from '../../components/totalResultBarChart'
+import TotalResultRadarChart from '../../components/totalResultRadarChart'
 import { useStore } from '../../store'
 import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
@@ -49,7 +50,13 @@ const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
 
-  const { userResult, maxResult, resultText, resultsPerCategory } = store
+  const {
+    userResult,
+    maxResult,
+    resultText,
+    resultsPerCategory,
+    featureToggleSwitch,
+  } = store
 
   useEffect(() => {
     const handleResize = () => {
@@ -97,12 +104,21 @@ const Home = () => {
                 />
               ))}
             </Categories>
-            <TotalResultChart
-              data={store.resultsPerCategory}
-              renderMobileLayout={renderMobileLayout}
-            />
+            {(() => {
+              if (featureToggleSwitch === 'A') {
+                return (
+                  <TotalResultBarChart
+                    data={store.resultsPerCategory}
+                    renderMobileLayout={renderMobileLayout}
+                  />
+                )
+              }
+              if (featureToggleSwitch === 'B') {
+                return <TotalResultRadarChart data={store.resultsPerCategory} />
+              }
+            })()}
           </Content>
-       </ContentAnimationWrapper>
+        </ContentAnimationWrapper>
       </InnerContentWrapper>
     </>
   )

@@ -41,6 +41,7 @@ Answer all questions
     Select option   ${Q2_EHKA_ID}
     Wait Until Page Contains Element        id:${Q3_SILLOIN_TALLOIN_ID}
     Select option   ${Q3_SILLOIN_TALLOIN_ID}
+    Wait Until Page Contains Element        id:${Q4_TODELLAKIN_ID}
     Select option   ${Q4_TODELLAKIN_ID}
 
 Answer all questions on first page

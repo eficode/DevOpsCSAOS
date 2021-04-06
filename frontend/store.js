@@ -19,6 +19,35 @@ const initialUserResult = 0
 const initialMaxResult = 0
 const initialQuestionGroups = []
 const initialVisitedSummary = false
+const initialFeatureToggleSwitch = 'A'
+
+export const divideQuestions = (questions, featureToggleSwitch) => {
+  const initialSelectionsWithQuestionIds = []
+  questions.forEach((q) => {
+    initialSelectionsWithQuestionIds.push({
+      questionId: q.id,
+      answerId: undefined,
+    })
+  })
+
+  /* question grouping on pages can be modified here.
+    current (arbitrary) grouping logic: divide questions on 2
+    equal-length (or n and n+1-question if odd number) pages.
+  */
+  // let chunkedQuestions = [chunk(questions, questions.length / 2)]
+
+  let chunkedQuestions = []
+
+  if (featureToggleSwitch === 'A') {
+    // All questions divided to 2 pages
+    chunkedQuestions = chunk(questions, (questions.length / 2) + 1)
+  } else if (featureToggleSwitch === 'B') {
+    // 1 question per page
+    chunkedQuestions = chunk(questions, 1)
+  }
+
+  return { initialSelectionsWithQuestionIds, chunkedQuestions }
+}
 
 const store = (set) => ({
   questions: initialQuestions,
@@ -31,22 +60,14 @@ const store = (set) => ({
   userResult: initialUserResult,
   maxResult: initialMaxResult,
   visitedSummary: initialVisitedSummary,
+  featureToggleSwitch: initialFeatureToggleSwitch,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
-  setQuestions: (questions) => {
-    const initialSelectionsWithQuestionIds = []
-    questions.forEach((q) => {
-      initialSelectionsWithQuestionIds.push({
-        questionId: q.id,
-        answerId: undefined,
-      })
-    })
-
-    /* question grouping on pages can be modified here.
-      current (arbitrary) grouping logic: divide questions on 2
-      equal-length (or n and n+1-question if odd number) pages.
-    */
-    const chunkedQuestions = chunk(questions, questions.length / 2)
+  setQuestions: (questions, featureToggleSwitch) => {
+    const {
+      initialSelectionsWithQuestionIds,
+      chunkedQuestions,
+    } = divideQuestions(questions, featureToggleSwitch)
 
     set(() => ({
       questions,
@@ -60,12 +81,21 @@ const store = (set) => ({
     selections: [],
     resultsPerCategory: [],
     resultText: '',
+    visitedSummary: false,
+    featureToggleSwitch: 'A',
+  })),
+  resetVersion: () => set(() => ({
+    featureToggleSwitch: 'A',
+    questions: [],
+    questionGroups: [],
+    visitedSummary: false,
   })),
   setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
   setResultText: (text) => set(() => ({ resultText: text })),
   setUserResult: (score) => set(() => ({ userResult: score })),
   setMaxResult: (score) => set(() => ({ maxResult: score })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
+  setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
 })
 
 export const useStore = create(
