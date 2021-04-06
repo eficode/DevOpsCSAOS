@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { useStore } from '../../../store'
-
+import ContentAnimationWrapper from '../../../components/contentAnimationWrapper'
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import QuestionGrouper from '../../../components/questionGrouper'
 import ProgressBar from '../../../components/progressBar'
@@ -51,8 +51,6 @@ const SurveyPage = () => {
       return selection
     })
 
-    console.log(newSelections)
-
     store.setSelections(newSelections)
     return newSelections
   }
@@ -100,10 +98,12 @@ const SurveyPage = () => {
         <Heading component="h1" variant="h6">
           DevOps Assessment Tool
         </Heading>
-        <QuestionGrouper
-          questions={questionsToRender}
-          onOptionClick={onOptionClick}
-        />
+        <ContentAnimationWrapper>
+            <QuestionGrouper
+              questions={questionsToRender}
+              onOptionClick={onOptionClick}
+            />
+        </ContentAnimationWrapper>
 
         <NavigationGroup>
           {!isFirstPage ? (

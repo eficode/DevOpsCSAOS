@@ -2,11 +2,11 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
+import { StylesProvider } from '@material-ui/styles'
 import { ContentWrapper } from '../components/shared/ContentWrapper'
 import GlobalStyles from '../styles/global'
 import theme from '../styles/theme'
 import '../public/fonts/fonts.css'
-import { StylesProvider } from '@material-ui/styles'
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
