@@ -55,7 +55,7 @@ Open survey and answer some questions
     Click next button   2
     Wait Until Page Contains Element        id:${Q4_TODELLAKIN_ID}
     Select option   ${Q4_TODELLAKIN_ID}
-    Click answer summary button
+    
 
 Complete survey
     Open survey

@@ -8,7 +8,7 @@ ${HOST}           localhost
 ${PORT}           5001
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run, headlessfirefox to run headless
-${BROWSER}                firefox
+${BROWSER}                headlessfirefox
 ${MAIN_URL}               http://${SERVER}
 ${VALID_EMAIL}            test2222@test.com
 
@@ -52,13 +52,15 @@ Click next button
     Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=${next_page_id}
 
 Click answer summary button
-    Wait Until Page Contains Element        //*[contains(text(), '${GO_TO_SUMMARY}')]
+    Wait Until Page Contains Element    //*[contains(text(), '${GO_TO_SUMMARY}')]
     Click Element   //*[contains(text(), '${GO_TO_SUMMARY}')]
     Wait Until Location Contains    ${MAIN_URL}/survey/questions/summary
 
 Click go to results and wait
+    Wait Until Page Contains Element    //*[contains(text(), '${GO_TO_RESULTS}')]
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
     Wait Until Location Contains    ${MAIN_URL}/survey/result       20
 
 Click go to results
+    Wait Until Page Contains Element    //*[contains(text(), '${GO_TO_RESULTS}')]
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
