@@ -4,6 +4,7 @@ const {
   Question,
   Question_answer,
   Category,
+  Category_result,
   Survey_result,
   sequelize,
 } = require('../../models')
@@ -64,9 +65,9 @@ const findUserAnswers = async (user_answers) => {
   return userAnswers
 }
 
-const calculateMaxPointsAndUserPointsPerCategory = (
+const calculateMaxPointsAndUserPointsPerCategory = async (
   bestAnswerPerQuestion,
-  userAnswers
+  userAnswers,
 ) => {
   let categoryResults = []
   // calculate max points per category
@@ -90,7 +91,7 @@ const calculateMaxPointsAndUserPointsPerCategory = (
   })
 
   // find user answers per category and update category user results with these points
-  categoryResults.forEach(async (category) => {
+  await Promise.all(categoryResults.map(async (category) => {
     const answersInCategory = userAnswers.filter(
       (question) => question.Question.Category.id === category.id
     )
@@ -99,26 +100,31 @@ const calculateMaxPointsAndUserPointsPerCategory = (
       (accumulator, currentValue) => accumulator + Number(currentValue.points),
       0
     )
+    
+    // find right text matching user result
+    const categoryResultText = await findCategoryResultTextMatchingUserResult(userPointsInCategory,
+      category.maxPoints,
+      category.id)
 
     categoryResults = categoryResults.map((categ) =>
       categ.id === category.id
         ? {
             ...category,
             userPoints: userPointsInCategory,
-            text: '',
+            text: categoryResultText,
           }
         : { ...categ }
     )
-  })
+  }))
   return categoryResults
 }
 
 const findSurveyResultTextMatchingUserScore = async (
   userSurveyResult,
   surveyMaxResult,
-  Op,
   surveyId
 ) => {
+  const { Op } = Sequelize
   const pointsOutOfMax = userSurveyResult / surveyMaxResult
 
   const surveyResult = await Survey_result.findOne({
@@ -132,6 +138,27 @@ const findSurveyResultTextMatchingUserScore = async (
   })
 
   return surveyResult.text
+}
+
+const findCategoryResultTextMatchingUserResult = async (
+  userCategoryResult,
+  categoryMaxResult,
+  categoryId
+) => {
+  const { Op } = Sequelize
+  const pointsOutOfMax = userCategoryResult / categoryMaxResult
+
+  const categoryResult = await Category_result.findOne({
+    attributes: ['text', 'categoryId', 'cutoff_from_maxpoints'],
+    where: {
+      cutoff_from_maxpoints: { [Op.gte]: pointsOutOfMax },
+      categoryId: categoryId,
+    },
+    order: [['cutoff_from_maxpoints', 'ASC']],
+    raw: true,
+  })
+
+  return categoryResult.text
 }
 
 const calculateSumOfUserPoints = (userAnswers) =>
@@ -155,11 +182,10 @@ const getResults = async (user_answers, surveyId) => {
   const surveyResultText = await findSurveyResultTextMatchingUserScore(
     userSurveyResult,
     surveyMaxResult,
-    Op,
     surveyId
   )
 
-  const categoryResults = calculateMaxPointsAndUserPointsPerCategory(
+  const categoryResults = await calculateMaxPointsAndUserPointsPerCategory(
     bestAnswerPerQuestion,
     userAnswers
   )
