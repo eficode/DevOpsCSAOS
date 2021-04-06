@@ -1,9 +1,7 @@
-FROM node:10
+FROM node:14
 
 COPY . .
 
 RUN npm install
 
 CMD ["node", "server.js"]
-
-

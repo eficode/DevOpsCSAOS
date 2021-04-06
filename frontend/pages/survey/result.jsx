@@ -10,6 +10,7 @@ import CategoryResult from '../../components/categoryResult'
 import TotalResultBarChart from '../../components/totalResultBarChart'
 import TotalResultRadarChart from '../../components/totalResultRadarChart'
 import { useStore } from '../../store'
+import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
 
 const Content = styled.section`
@@ -49,7 +50,13 @@ const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
 
-  const { userResult, maxResult, resultText, resultsPerCategory, featureToggleSwitch } = store
+  const {
+    userResult,
+    maxResult,
+    resultText,
+    resultsPerCategory,
+    featureToggleSwitch,
+  } = store
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,50 +75,48 @@ const Home = () => {
       </Head>
       <ProgressBar id={1} total={1} />
       <InnerContentWrapper>
-        <Content>
-          <StyledHeading component="h1" variant="h6" font="Montserrat">
-            DevOps Assessment Tool
-          </StyledHeading>
-          <StyledResultsLabel component="h2" variant="h5">
-            Your Results
-          </StyledResultsLabel>
-          <TotalResult userResult={userResult} maxResult={maxResult} />
-          <Heading component="h3" variant="" font="Montserrat">
-            {resultText}
-          </Heading>
-          <Link href="mailto:devops@leipalaari.fi" type="primary">
-            Contact us!
-          </Link>
-          <Categories>
-            {resultsPerCategory.map((result, index) => (
-              <CategoryResult
-                key={result.name}
-                renderMobileLayout={renderMobileLayout}
-                userResult={result.userPoints}
-                maxResult={result.maxPoints}
-                category={result.name}
-                description={result.description}
-                index={index}
-              />
-            ))}
-          </Categories>
-          {(() => {
-         if (featureToggleSwitch === 'A') {
-              return (
-              <TotalResultBarChart
-              data={store.resultsPerCategory}
-              renderMobileLayout={renderMobileLayout}
-            />
-            )
-      
-    } else if (featureToggleSwitch === 'B') {
-      return (
-        <TotalResultRadarChart
-        data={store.resultsPerCategory}
-      />
-      )
-    }})()}
-        </Content>
+        <ContentAnimationWrapper>
+          <Content>
+            <StyledHeading component="h1" variant="h6" font="Montserrat">
+              DevOps Assessment Tool
+            </StyledHeading>
+            <StyledResultsLabel component="h2" variant="h5">
+              Your Results
+            </StyledResultsLabel>
+            <TotalResult userResult={userResult} maxResult={maxResult} />
+            <Heading component="h3" variant="" font="Montserrat">
+              {resultText}
+            </Heading>
+            <Link href="mailto:devops@leipalaari.fi" type="primary">
+              Contact us!
+            </Link>
+            <Categories>
+              {resultsPerCategory.map((result, index) => (
+                <CategoryResult
+                  key={result.name}
+                  renderMobileLayout={renderMobileLayout}
+                  userResult={result.userPoints}
+                  maxResult={result.maxPoints}
+                  category={result.name}
+                  description={result.description}
+                  index={index}
+                />
+              ))}
+            </Categories>
+            {(() => {
+              if (featureToggleSwitch === 'A') {
+                return (
+                  <TotalResultBarChart
+                    data={store.resultsPerCategory}
+                    renderMobileLayout={renderMobileLayout}
+                  />
+                )
+              } else if (featureToggleSwitch === 'B') {
+                return <TotalResultRadarChart data={store.resultsPerCategory} />
+              }
+            })()}
+          </Content>
+        </ContentAnimationWrapper>
       </InnerContentWrapper>
     </>
   )

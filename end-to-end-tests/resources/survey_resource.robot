@@ -39,6 +39,7 @@ Select option
 Answer all questions
     Select option   ${Q1_EHDOTTOMASTI_ID}
     Select option   ${Q2_EHKA_ID}
+    Wait Until Page Contains Element        id:${Q3_SILLOIN_TALLOIN_ID}
     Select option   ${Q3_SILLOIN_TALLOIN_ID}
     Select option   ${Q4_TODELLAKIN_ID}
 
@@ -50,6 +51,7 @@ Open survey and answer some questions
     Open survey
     Select option   ${Q2_EHKA_ID}
     Click next button   2
+    Wait Until Page Contains Element        id:${Q4_TODELLAKIN_ID}
     Select option   ${Q4_TODELLAKIN_ID}
     Click answer summary button
 
