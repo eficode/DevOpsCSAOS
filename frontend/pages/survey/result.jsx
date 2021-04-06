@@ -9,8 +9,9 @@ import ProgressBar from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
 import TotalResultChart from '../../components/totalResultChart'
 import { useStore } from '../../store'
+import Heading from '../../components/heading'
 
-const Content = styled.div`
+const Content = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,24 +20,6 @@ const Content = styled.div`
   width: 100%;
   background-color: white;
   border-radius: 0.5rem;
-`
-
-const Heading = styled.h3`
-  color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Montserrat;
-  font-size: 16px;
-  margin-bottom: 10px;
-
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
-    margin-top: 20px;
-  }
-`
-
-const ResultsTitle = styled.h2`
-  color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Merriweather;
-  margin: 10px 0 30px 0;
 `
 
 const Categories = styled.div`
@@ -53,11 +36,12 @@ const Categories = styled.div`
   }
 `
 
-const ResultsText = styled.h4`
-  color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Montserrat;
-  font-size: 22px;
-  padding-top: 20px;
+const StyledHeading = styled(Heading)`
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+`
+const StyledResultsLabel = styled(Heading)`
+  margin-bottom: 1rem;
 `
 
 const Home = () => {
@@ -87,14 +71,19 @@ const Home = () => {
       <ProgressBar id={1} total={1} />
       <InnerContentWrapper>
         <Content>
-          <Heading>DevOps Assessment Tool</Heading>
-          <ResultsTitle>Your Results</ResultsTitle>
+          <StyledHeading component="h1" variant="h6" font="Montserrat">
+            DevOps Assessment Tool
+          </StyledHeading>
+          <StyledResultsLabel component="h2" variant="h5">
+            Your Results
+          </StyledResultsLabel>
           <TotalResult userResult={userResult} maxResult={maxResult} />
-          <ResultsText>{resultText}</ResultsText>
+          <Heading component="h3" variant="" font="Montserrat">
+            {resultText}
+          </Heading>
           <Link href="mailto:devops@leipalaari.fi" type="primary">
             Contact us!
           </Link>
-
           <Categories>
             {resultsPerCategory.map((result, index) => (
               <CategoryResult
