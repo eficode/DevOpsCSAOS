@@ -91,8 +91,9 @@ const Summary = () => {
       </Head>
       <ProgressBar answered={countOfAnsweredQuestions} total={total} />
       <InnerContentWrapper>
-        <ContentAnimationWrapper>
+        
           <Content>
+          <ContentAnimationWrapper>
             <Heading component="h1" variant="h6">
               Here are your current answers
             </Heading>
@@ -122,6 +123,8 @@ const Summary = () => {
                   </QuestionAnswerWrapper>
                 )
               })}
+            
+            </ContentAnimationWrapper>
             <StyledLink type="secondary" href={lastQuestionHref}>
               Back to survey
             </StyledLink>
@@ -129,7 +132,7 @@ const Summary = () => {
               Submit answers
             </StyledButton>
           </Content>
-        </ContentAnimationWrapper>
+        
       </InnerContentWrapper>
     </>
   )
