@@ -47,11 +47,8 @@ const StyledResultsLabel = styled(Heading)`
 const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
-  console.log(store)
 
   const { userResult, maxResult, resultText, resultsPerCategory } = store
-
-  console.log(store.resultsPerCategory)
 
   useEffect(() => {
     const handleResize = () => {
