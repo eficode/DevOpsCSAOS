@@ -51,6 +51,7 @@ Click next button
     Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=${next_page_id}
 
 Click answer summary button
+    Wait Until Page Contains Element        //*[contains(text(), '${GO_TO_SUMMARY}')]
     Click Element   //*[contains(text(), '${GO_TO_SUMMARY}')]
     Wait Until Location Contains    ${MAIN_URL}/survey/questions/summary
 

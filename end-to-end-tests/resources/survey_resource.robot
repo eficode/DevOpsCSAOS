@@ -47,6 +47,7 @@ Answer all questions
 Answer all questions on first page
     Select option   ${Q1_EHDOTTOMASTI_ID}
     Select option   ${Q2_EHKA_ID}
+    Select option   ${Q3_SILLOIN_TALLOIN_ID}
 
 Open survey and answer some questions
     Open survey
