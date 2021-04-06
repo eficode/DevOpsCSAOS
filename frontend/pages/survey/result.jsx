@@ -90,6 +90,7 @@ const Home = () => {
                 maxResult={result.maxPoints}
                 category={result.name}
                 description={result.description}
+                resultText={result.text}
                 index={index}
               />
             ))}
