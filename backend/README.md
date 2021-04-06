@@ -12,7 +12,7 @@ $ psql
 check existing users (default superuser name postgres):
 
 ```
-postgres=# \dt
+postgres=# \du
 ```
 
 change superuser password (responds with ALTER USER):
