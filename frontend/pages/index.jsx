@@ -2,7 +2,7 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-
+import ContentAnimationWrapper from '../components/contentAnimationWrapper'
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
 import Link from '../components/link'
 import ProgressBar from '../components/progressBar'
@@ -23,6 +23,7 @@ const Home = () => (
     </Head>
     <ProgressBar />
     <InnerContentWrapper>
+      <ContentAnimationWrapper>
       <Heading component="h1" variant="h5">
         DevOps Assessment Tool
       </Heading>
@@ -33,6 +34,7 @@ const Home = () => (
           Get started
         </Link>
       </Main>
+      </ContentAnimationWrapper>
     </InnerContentWrapper>
   </>
 )
