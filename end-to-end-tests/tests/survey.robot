@@ -8,31 +8,46 @@ Resource        ../resources/survey_resource.robot
 
 Answering Questions Updates Summary
   [Setup]       Seed Database With Test Data
-  Complete survey and go to summary     @{TEST_ANSWERS}
+  Complete survey
+  Summary Page Should Be Open
   Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
   [Teardown]    Close Application
 
 Changing An Answer Updates Summary
   [Setup]       Seed Database With Test Data
-  Complete survey and go to summary     @{TEST_ANSWERS}
+  Complete survey
   Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
   Go Back
-  Click question option button   Harvoin
+  Select option   402
   Click answer summary button
   Summary Page Should Contain Selected Answers    @{UPDATED_ANSWERS_IN_SUMMARY}
   [Teardown]    Close Application
 
-# BUG: selenium does not allow identifying option buttons....
-# Answers Can Be Submitted When All Questions Are Answered
-#  [Setup]       Seed Database With Test Data
-#  [Template]    Complete survey and submit answers
-#  ${START_OF_SURVEY_UNANSWERED}
-#  ${MID_SURVEY_UNANSWERED}
-#  ${END_OF_SURVEY_UNANSWERED}
-#  [Teardown]    Close Application
+Result Page Is Shown When All Answers Are Submitted
+  [Setup]       Seed Database With Test Data
+  Complete survey
+  Click go to results and wait
+  Result Page Should Be Open
+  [Teardown]    Close Application
 
-# Clicking Contact In Result Opens Email With Sender And Recipient Auto-filled
+Alert Is Shown Instead Of Result Page When There Are Unanswered Questions
+  [Setup]       Seed Database With Test Data
+  Open survey and answer some questions
+  Click go to results
+  Alert Should Be Present
+  [Teardown]    Close Application
 
-# User is auto-redirected to next page when all questions on page are answered
+User Is Auto-redirected To Next Page When All Questions On Page Are Answered
+  [Setup]       Seed Database With Test Data
+  Open survey
+  Answer all questions on first page
+  Second page of survey should be open
+  [Teardown]    Close Application
 
-# User is not auto-redirected to next page in survey after summary has been visited
+User Is Not Auto-redirected To Next Page In Survey After Summary Has Been Visited
+  [Setup]       Seed Database With Test Data
+  Complete survey
+  Go Back
+  Select option   401
+  Last page of survey should be open
+  [Teardown]    Close Application

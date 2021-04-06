@@ -38,7 +38,7 @@ describe('POST /api/answers', () => {
   })
 
   it('User can submit answers with existing email', async (done) => {
-    const response1 = await request(app).post('/api/answers').send({
+    await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
       answers: survey1TestAnswers,
       surveyId: survey1Id,
