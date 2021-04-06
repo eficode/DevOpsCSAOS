@@ -4,7 +4,7 @@ const breakpoints = {
   narrowDesktop: '1000px',
   wideMobile: '800px',
   mediumMobile: '650px',
-  narroMobile: '490px',
+  narrowMobile: '490px',
 }
 
 export default breakpoints
