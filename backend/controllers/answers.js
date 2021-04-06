@@ -42,7 +42,6 @@ answersRouter.post('/', async (req, res) => {
       questions: verificationResult.duplicates,
     })
   }
-
   const results = await getResults(answers, surveyId)
 
   try {
@@ -59,7 +58,6 @@ answersRouter.post('/', async (req, res) => {
 
       await saveAnswersToDatabase(answers, userInDb.id)
     }
-
     return res.status(200).json({ results: results })
   } catch (err) {
     return res.status(500).json(err)
