@@ -86,18 +86,23 @@ const Home = () => {
             <Categories>
               {resultsPerCategory.map((result, index) => (
                 <CategoryResult
-                  key={index}
+                  key={result.name}
                   renderMobileLayout={renderMobileLayout}
                   userResult={result.userPoints}
                   maxResult={result.maxPoints}
                   category={result.name}
                   description={result.description}
+                  resultText={result.text}
                   index={index}
-                />))
-              }
+                />
+              ))}
             </Categories>
+            <TotalResultChart
+              data={store.resultsPerCategory}
+              renderMobileLayout={renderMobileLayout}
+            />
           </Content>
-        </ContentAnimationWrapper>
+       </ContentAnimationWrapper>
       </InnerContentWrapper>
     </>
   )

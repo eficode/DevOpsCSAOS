@@ -17,7 +17,6 @@ export const CategoryResultContainer = styled.article`
 
 export const CategoryText = styled.div`
   font-family: Merriweather;
-  font-size: 13px;
   line-height: 2.2;
   width: 65%;
   text-align: justify;
@@ -45,38 +44,47 @@ export const CategoryImage = styled.div`
   }
 `
 
+const CategoryDescription = styled.div`
+  font-size: 15px;
+`
+
 const CategoryResult = ({
   userResult,
   maxResult,
   category,
   description,
+  resultText,
   index,
   renderMobileLayout,
-}) => (
+}) => {
+  const CategoryTextContainer = () => {
+    return (
+      <CategoryText>
+        <CategoryTitle>
+          {category} {userResult} / {maxResult}
+        </CategoryTitle>
+        <CategoryDescription>
+          <strong>{description}</strong> {resultText}
+        </CategoryDescription>
+      </CategoryText>
+    )
+  }
   // if mobile should be rendered, the toggle disables the desktop feature
   // that puts speedometer on alternating sides of the text
   // -> speedometer goes above text in every categoryresult
-  <CategoryResultContainer>
-    {index % 2 === 0 && !renderMobileLayout && (
-      <CategoryText>
-        <CategoryTitle>
-          {category} {userResult} / {maxResult}
-        </CategoryTitle>
-        {description}
-      </CategoryText>
-    )}
-    <CategoryImage>
-      <CategoryResultChart userResult={userResult} maxResult={maxResult} />
-    </CategoryImage>
-    {(index % 2 !== 0 || renderMobileLayout) && (
-      <CategoryText>
-        <CategoryTitle>
-          {category} {userResult} / {maxResult}
-        </CategoryTitle>
-        {description}
-      </CategoryText>
-    )}
-  </CategoryResultContainer>
-)
+  return (
+    <CategoryResultContainer>
+      {index % 2 === 0 && !renderMobileLayout && (
+        <CategoryTextContainer />
+      )}
+      <CategoryImage>
+        <CategoryResultChart userResult={userResult} maxResult={maxResult} />
+      </CategoryImage>
+      {(index % 2 !== 0 || renderMobileLayout) && (
+        <CategoryTextContainer />
+      )}
+    </CategoryResultContainer>
+  )
+}
 
 export default CategoryResult
