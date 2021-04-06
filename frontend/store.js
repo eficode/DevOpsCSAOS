@@ -39,8 +39,8 @@ export const divideQuestions = (questions, featureToggleSwitch) => {
   let chunkedQuestions = []
 
   if (featureToggleSwitch === 'A') {
-    // All questions divided to 2 pages (or 3 if questions.length is odd)
-    chunkedQuestions = chunk(questions, questions.length / 2)
+    // All questions divided to 2 pages
+    chunkedQuestions = chunk(questions, (questions.length / 2) + 1)
   } else if (featureToggleSwitch === 'B') {
     // 1 question per page
     chunkedQuestions = chunk(questions, 1)
