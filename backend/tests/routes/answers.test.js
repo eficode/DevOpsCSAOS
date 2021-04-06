@@ -205,7 +205,7 @@ describe('POST /api/answers', () => {
 
     expect(surveyResult.text).toBe('Olet ruisleipä')
     expect(categoryResults[0].text).toBe('Olet kaurakeksi')
-    
+
     done()
   })
 
