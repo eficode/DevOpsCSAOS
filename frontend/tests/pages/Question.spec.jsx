@@ -5,11 +5,14 @@ import userEvent from '@testing-library/user-event'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
-import { useStore } from '../../store'
+import { useStore, divideQuestions } from '../../store'
 
 import SurveyPage from '../../pages/survey/questions/index'
 import ThemeWrapper from '../testutils/themeWrapper'
-import { initializedSelections, initializedQuestionGroups } from '../testutils/utils'
+import {
+  initializedSelections,
+  initializedQuestionGroups,
+} from '../testutils/utils'
 import { questions } from '../testutils/testdata'
 
 nextRouter.useRouter = jest.fn()
@@ -80,7 +83,6 @@ describe('Navigation button conditional rendering', () => {
       query: { id: '2' },
       asPath: '',
     }))
-    
 
     render(
       <ThemeWrapper>
@@ -145,5 +147,37 @@ describe('Selecting option', () => {
 
     const stateAfterClick = useStore.getState()
     expect(stateAfterClick.selections[0].answerId).toBe(idOfAgreeButton)
+  })
+})
+
+describe('Feature toggle B', () => {
+  beforeEach(() => {
+    const {
+      initialSelectionsWithQuestionIds,
+      chunkedQuestions,
+    } = divideQuestions(questions, 'B')
+    useStore.setState({
+      questions,
+      selections: initialSelectionsWithQuestionIds,
+      questionGroups: chunkedQuestions,
+    })
+    useRouter.mockImplementation(() => ({
+      route: '/survey/questions/?id=1',
+      pathname: 'survey/questions/?id=1',
+      query: { id: '1' },
+      asPath: '',
+    }))
+  })
+
+  it('First page contains only one question', () => {
+    render(
+      <ThemeWrapper>
+        <SurveyPage />
+      </ThemeWrapper>
+    )
+    expect(screen.getByText('Oletko ruisleipä?'))
+    expect(
+      screen.queryByText('Maistuisiko laskiaispulla?')
+    ).not.toBeInTheDocument()
   })
 })

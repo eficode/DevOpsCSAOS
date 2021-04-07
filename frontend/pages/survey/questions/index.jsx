@@ -34,9 +34,9 @@ const SurveyPage = () => {
           const surveyId = 1
           const response = await getAllQuestions(surveyId)
 
-          store.setQuestions(response)
+          store.setQuestions(response, store.featureToggleSwitch)
         } catch (error) {
-          console.log(error)
+          console.error(error)
         }
       }
     })()
@@ -46,7 +46,7 @@ const SurveyPage = () => {
     const prevSelections = [...store.selections]
     const newSelections = prevSelections.map((selection) => {
       if (selection.questionId === questionId) {
-        return { questionId: selection.questionId, answerId: answerId }
+        return { questionId: selection.questionId, answerId }
       }
       return selection
     })
@@ -99,10 +99,10 @@ const SurveyPage = () => {
           DevOps Assessment Tool
         </Heading>
         <ContentAnimationWrapper>
-            <QuestionGrouper
-              questions={questionsToRender}
-              onOptionClick={onOptionClick}
-            />
+          <QuestionGrouper
+            questions={questionsToRender}
+            onOptionClick={onOptionClick}
+          />
         </ContentAnimationWrapper>
 
         <NavigationGroup>
@@ -115,13 +115,12 @@ const SurveyPage = () => {
             <StyledLink href={nextPageHref} passHref type="primary">
               Next
             </StyledLink>
-          ) : null}
+          ) : (
+            <StyledLink href={summaryPageHref} passHref type="primary">
+              Review
+            </StyledLink>
+          )}
         </NavigationGroup>
-        {isFinalPage ? (
-          <StyledLink type="primary" href={summaryPageHref}>
-            Review
-          </StyledLink>
-        ) : null}
       </InnerContentWrapper>
     </>
   )
