@@ -20,10 +20,11 @@ module.exports = {
       '<rootDir>/__mocks__/fileMock.js',
   },
   setupFiles: ['<rootDir>/tests/setup.js'],
+  transformIgnorePatterns: ['/node_modules/(?!react-d3-speedometer)'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   testPathIgnorePatterns: ['/.next/', '/node_modules/', '/coverage/'],
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.(js?)$': 'babel-jest',
   },
-  transformIgnorePatterns: ['node_modules/(?!lodash-es/)'],
 }
