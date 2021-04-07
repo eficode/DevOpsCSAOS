@@ -40,10 +40,9 @@ export const divideQuestions = (questions, featureToggleSwitch) => {
 
   if (featureToggleSwitch === 'A') {
     // All questions divided to 2 pages, if uneven number of questions, first page gets +1 questions
-    chunkedQuestions =
-      questions.length % 2 === 0
-        ? chunk(questions, questions.length / 2)
-        : chunk(questions, questions.length / 2 + 1)
+    chunkedQuestions = questions.length % 2 === 0
+      ? chunk(questions, questions.length / 2)
+      : chunk(questions, questions.length / 2 + 1)
   } else if (featureToggleSwitch === 'B') {
     // 1 question per page
     chunkedQuestions = chunk(questions, 1)
@@ -78,36 +77,32 @@ const store = (set) => ({
       questionGroups: chunkedQuestions,
     }))
   },
-  clear: () =>
-    set(() => ({
-      questions: [],
-      email: '',
-      selections: [],
-      resultsPerCategory: [],
-      resultText: '',
-      visitedSummary: false,
-      featureToggleSwitch: 'A',
-    })),
-  resetVersion: () =>
-    set(() => ({
-      featureToggleSwitch: 'A',
-      questions: [],
-      questionGroups: [],
-      visitedSummary: false,
-    })),
-  setResultsPerCategory: (results) =>
-    set(() => ({ resultsPerCategory: results })),
+  clear: () => set(() => ({
+    questions: [],
+    email: '',
+    selections: [],
+    resultsPerCategory: [],
+    resultText: '',
+    visitedSummary: false,
+    featureToggleSwitch: 'A',
+  })),
+  resetVersion: () => set(() => ({
+    featureToggleSwitch: 'A',
+    questions: [],
+    questionGroups: [],
+    visitedSummary: false,
+  })),
+  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
   setResultText: (text) => set(() => ({ resultText: text })),
   setUserResult: (score) => set(() => ({ userResult: score })),
   setMaxResult: (score) => set(() => ({ maxResult: score })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
-  setFeatureToggleSwitch: (value) =>
-    set(() => ({ featureToggleSwitch: value })),
+  setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
 })
 
 export const useStore = create(
   persist(store, {
     name: 'devops assessment tool store',
     getStorage: () => sessionStorage,
-  })
+  }),
 )

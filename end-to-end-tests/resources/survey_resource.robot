@@ -47,7 +47,6 @@ Answer all questions
 Answer all questions on first page
     Select option   ${Q1_EHDOTTOMASTI_ID}
     Select option   ${Q2_EHKA_ID}
-    Select option   ${Q3_SILLOIN_TALLOIN_ID}
 
 Open survey and answer some questions
     Open survey
@@ -55,8 +54,8 @@ Open survey and answer some questions
     Click next button   2
     Wait Until Page Contains Element        id:${Q4_TODELLAKIN_ID}
     Select option   ${Q4_TODELLAKIN_ID}
+    Click answer summary button
     
-
 Complete survey
     Open survey
     Answer all questions
