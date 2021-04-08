@@ -15,7 +15,9 @@ const IndustrySelector = () => {
 
   return (
     <FormControl>
-      <InputLabel>Which field do you work in?</InputLabel>
+      <InputLabel >
+        Field?
+      </InputLabel>
       <Select
         value={industry}
         onChange={handleChange}
