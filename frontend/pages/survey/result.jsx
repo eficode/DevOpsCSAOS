@@ -45,6 +45,10 @@ const StyledHeading = styled(Heading)`
 const StyledResultsLabel = styled(Heading)`
   margin-bottom: 1rem;
 `
+const StyledResultHeading = styled(Heading)`
+  font-size: 1rem;
+  margin-top: 1rem;
+`
 
 const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
@@ -84,7 +88,7 @@ const Home = () => {
               Your Results
             </StyledResultsLabel>
             <TotalResult userResult={userResult} maxResult={maxResult} />
-            <Heading component="h3" variant="" font="Montserrat">
+            <Heading component="h3" variant="h6" font="Montserrat">
               {resultText}
             </Heading>
             <Link href="mailto:devops@leipalaari.fi" type="primary">
