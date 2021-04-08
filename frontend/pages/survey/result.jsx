@@ -8,6 +8,7 @@ import ProgressBar from '../../components/progressBar'
 import { useStore } from '../../store'
 import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
+import ShareResultsGroup from '../../components/shareResultsGroup'
 
 const Content = styled.section`
   display: flex;
@@ -63,7 +64,7 @@ const Home = () => {
               consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
               dolore eu fugiat nulla pariatur.
             </ResultSummaryText>
-            <p>TÄHÄN JAA FACES JA SILLEE</p>
+            <ShareResultsGroup/>
             <p>formi emailille...</p>
           </Content>
         </ContentAnimationWrapper>

@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
-import Heading from './heading'
+import Heading from '../heading'
 
 const segmentColors = [
   '#ff5900',
