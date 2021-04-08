@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { useStore } from '../../../store'
-
+import ContentAnimationWrapper from '../../../components/contentAnimationWrapper'
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import QuestionGrouper from '../../../components/questionGrouper'
 import ProgressBar from '../../../components/progressBar'
@@ -46,7 +46,7 @@ const SurveyPage = () => {
     const prevSelections = [...store.selections]
     const newSelections = prevSelections.map((selection) => {
       if (selection.questionId === questionId) {
-        return { questionId: selection.questionId, answerId: answerId }
+        return { questionId: selection.questionId, answerId }
       }
       return selection
     })
@@ -98,10 +98,12 @@ const SurveyPage = () => {
         <Heading component="h1" variant="h6">
           DevOps Assessment Tool
         </Heading>
-        <QuestionGrouper
-          questions={questionsToRender}
-          onOptionClick={onOptionClick}
-        />
+        <ContentAnimationWrapper>
+          <QuestionGrouper
+            questions={questionsToRender}
+            onOptionClick={onOptionClick}
+          />
+        </ContentAnimationWrapper>
 
         <NavigationGroup>
           {!isFirstPage ? (
@@ -113,13 +115,12 @@ const SurveyPage = () => {
             <StyledLink href={nextPageHref} passHref type="primary">
               Next
             </StyledLink>
-          ) : null}
+          ) : (
+            <StyledLink href={summaryPageHref} passHref type="primary">
+              Review
+            </StyledLink>
+          )}
         </NavigationGroup>
-        {isFinalPage ? (
-          <StyledLink type="primary" href={summaryPageHref}>
-            Review
-          </StyledLink>
-        ) : null}
       </InnerContentWrapper>
     </>
   )

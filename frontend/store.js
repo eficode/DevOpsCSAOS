@@ -39,8 +39,10 @@ export const divideQuestions = (questions, featureToggleSwitch) => {
   let chunkedQuestions = []
 
   if (featureToggleSwitch === 'A') {
-    // All questions divided to 2 pages
-    chunkedQuestions = chunk(questions, (questions.length / 2) + 1)
+    // All questions divided to 2 pages, if uneven number of questions, first page gets +1 questions
+    chunkedQuestions = questions.length % 2 === 0
+      ? chunk(questions, questions.length / 2)
+      : chunk(questions, questions.length / 2 + 1)
   } else if (featureToggleSwitch === 'B') {
     // 1 question per page
     chunkedQuestions = chunk(questions, 1)
@@ -81,12 +83,14 @@ const store = (set) => ({
     selections: [],
     resultsPerCategory: [],
     resultText: '',
+    visitedSummary: false,
     featureToggleSwitch: 'A',
   })),
   resetVersion: () => set(() => ({
     featureToggleSwitch: 'A',
     questions: [],
     questionGroups: [],
+    visitedSummary: false,
   })),
   setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
   setResultText: (text) => set(() => ({ resultText: text })),

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStore } from '../../../store'
 import Head from 'next/head'
-
+import ContentAnimationWrapper from '../../../components/contentAnimationWrapper'
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import ProgressBar from '../../../components/progressBar'
 import StyledButton from '../../../components/button'
@@ -49,7 +49,6 @@ const Title = styled.h2`
 
 const Summary = () => {
   const selections = useStore((state) => state.selections)
-  const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
   const questions = useStore((state) => state.questions)
 
   const store = useStore()
@@ -92,43 +91,48 @@ const Summary = () => {
       </Head>
       <ProgressBar answered={countOfAnsweredQuestions} total={total} />
       <InnerContentWrapper>
-        <Content>
-          <Heading component="h1" variant="h6">
-            Here are your current answers
-          </Heading>
-          {questions &&
-            questions.map((question) => {
-              let answerText
-              let currentAnswerId = selections.find(
-                (s) => s.questionId === question.id
-              ).answerId
+        
+          <Content>
+          <ContentAnimationWrapper>
+            <Heading component="h1" variant="h6">
+              Here are your current answers
+            </Heading>
+            {questions &&
+              questions.map((question) => {
+                let answerText
+                let currentAnswerId = selections.find(
+                  (s) => s.questionId === question.id
+                ).answerId
 
-              if (!currentAnswerId) {
-                answerText = "You haven't answered this question."
-              } else {
-                const selectedAnswerText = question.Question_answers.find(
-                  (a) => a.id === currentAnswerId
-                ).text
-                answerText = `You answered: ${selectedAnswerText}`
-              }
+                if (!currentAnswerId) {
+                  answerText = "You haven't answered this question."
+                } else {
+                  const selectedAnswerText = question.Question_answers.find(
+                    (a) => a.id === currentAnswerId
+                  ).text
+                  answerText = `You answered: ${selectedAnswerText}`
+                }
 
-              const QuestionText = `${question.text}`
+                const QuestionText = `${question.text}`
 
-              return (
-                <QuestionAnswerWrapper key={question.id}>
-                  {QuestionText}
-                  <br />
-                  <span>{answerText}</span>
-                </QuestionAnswerWrapper>
-              )
-            })}
-          <StyledLink type="secondary" href={lastQuestionHref}>
-            Back to survey
-          </StyledLink>
-          <StyledButton type="submit" onClick={handleSubmit}>
-            Submit answers
-          </StyledButton>
-        </Content>
+                return (
+                  <QuestionAnswerWrapper key={question.id}>
+                    {QuestionText}
+                    <br />
+                    <span>{answerText}</span>
+                  </QuestionAnswerWrapper>
+                )
+              })}
+            
+            </ContentAnimationWrapper>
+            <StyledLink type="secondary" href={lastQuestionHref}>
+              Back to survey
+            </StyledLink>
+            <StyledButton type="submit" onClick={handleSubmit}>
+              Submit answers
+            </StyledButton>
+          </Content>
+        
       </InnerContentWrapper>
     </>
   )

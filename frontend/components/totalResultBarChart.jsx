@@ -47,7 +47,7 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
         <Heading component="h4" variant="h5">
           Compare your results
         </Heading>
-        <ResponsiveContainer height={450} width="85%">
+        <ResponsiveContainer id="BarChartContainer" height={450} width="85%">
           <BarChart
             layout="vertical"
             width={500}
@@ -92,7 +92,7 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
       <Heading component="h4" variant="h5">
         Compare your results
       </Heading>
-      <ResponsiveContainer height={450} width="70%">
+      <ResponsiveContainer id="BarChartContainer" height={450} width="70%">
         <BarChart
           width={850}
           height={500}
