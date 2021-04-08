@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { FormControl, InputLabel, Input, FormHelperText } from '@material-ui/core';
 
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import TotalResult from '../../components/totalResult'
@@ -9,6 +10,7 @@ import { useStore } from '../../store'
 import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
 import ShareResultsGroup from '../../components/shareResultsGroup'
+import GetDetailedResultsForm from '../../components/getDetailedResultsForm';
 
 const Content = styled.section`
   display: flex;
@@ -64,8 +66,8 @@ const Home = () => {
               consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
               dolore eu fugiat nulla pariatur.
             </ResultSummaryText>
-            <ShareResultsGroup/>
-            <p>formi emailille...</p>
+            <ShareResultsGroup />
+            <GetDetailedResultsForm/>
           </Content>
         </ContentAnimationWrapper>
       </InnerContentWrapper>
