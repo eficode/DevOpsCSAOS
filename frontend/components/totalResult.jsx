@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 export const ResultCircle = styled.div`
   width: 200px;
@@ -13,8 +13,8 @@ export const ResultCircle = styled.div`
   position: relative;
   margin-bottom: 30px;
 
-
-  @media screen and (max-width: ${({theme}) => theme.breakpoints.mediumMobile}) {
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.mediumMobile}) {
     width: 180px;
     height: 180px;
   }
@@ -31,10 +31,8 @@ export const Result = styled.span`
 
 const TotalResult = ({ userResult, maxResult }) => (
   <ResultCircle>
-    <Result role="resultCircle">
-      {userResult}
-      /
-      {maxResult}
+    <Result>
+      {userResult}/{maxResult}
     </Result>
   </ResultCircle>
 )
