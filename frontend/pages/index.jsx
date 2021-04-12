@@ -9,7 +9,7 @@ import Link from '../components/link'
 import ProgressBar from '../components/progressBar'
 import Heading from '../components/heading'
 
-const Main = styled.main`
+const Section = styled.section`
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -40,13 +40,13 @@ const Home = () => {
           <Heading component="h1" variant="h5">
             DevOps Assessment Tool
           </Heading>
-          <Main>
+          <Section>
             <p>Welcome!</p>
             <p>Test your DevOps capabilities here.</p>
             <Link href="/survey/questions/?id=1" type="primary">
               Get started
             </Link>
-          </Main>
+          </Section>
         </ContentAnimationWrapper>
       </InnerContentWrapper>
     </>

@@ -1,7 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
-export const ResultCircle = styled.div`
+export const ResultCircle = styled.article`
+  display: grid;
+  place-items: center;
+
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -13,29 +16,16 @@ export const ResultCircle = styled.div`
   position: relative;
   margin-bottom: 30px;
 
-
-  @media screen and (max-width: ${({theme}) => theme.breakpoints.mediumMobile}) {
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.mediumMobile}) {
     width: 180px;
     height: 180px;
   }
 `
 
-export const Result = styled.span`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-`
-
 const TotalResult = ({ userResult, maxResult }) => (
   <ResultCircle>
-    <Result role="resultCircle">
-      {userResult}
-      /
-      {maxResult}
-    </Result>
+    {userResult}/{maxResult}
   </ResultCircle>
 )
 
