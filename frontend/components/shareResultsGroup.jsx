@@ -15,8 +15,8 @@ const ShareButtonGrouper = styled.div`
   }
 `
 // Linked In does not support any other parameters than url: https://github.com/nygardk/react-share/issues/385
-const ShareResultsGroup = ({ resultText, userResult, maxResult }) => {
-  const headerToShare = `According to our DevOps Self-Assessment Survey: ${resultText} You received ${userResult} / ${maxResult} points!`
+const ShareResultsGroup = ({ text, userPoints, maxPoints }) => {
+  const headerToShare = `According to our DevOps Self-Assessment Survey: ${text} You received ${userPoints} / ${maxPoints} points!`
 
   return (
     <ShareButtonGrouper>

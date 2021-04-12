@@ -4,79 +4,29 @@ import { render, screen } from '@testing-library/react'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
-import { useStore, divideQuestions } from '../../store'
-/*import ThemeWrapper from '../testutils/themeWrapper'
-import TotalResultBarChart from '../../components/totalResultBarChart'
-import TotalResultRadarChart from '../../components/totalResultRadarChart'
-import { questions } from '../testutils/testdata'
-import ResultPage from '../../pages/survey/result'*/
+import { useStore } from '../../store'
+import ThemeWrapper from '../testutils/themeWrapper'
+import ResultPage from '../../pages/survey/result'
 
 nextRouter.useRouter = jest.fn()
-jest.mock('react-d3-speedometer', () => () => 'gauge')
-global.ResizeObserver = jest.fn()
-ResizeObserver.mockImplementation(() => ({
-  disconnect: () => {},
-  observe: () => {},
-}))
-
-const resultsPerCategory = [
-  {
-    name: 'Culture',
-    description: '',
-    id: 1,
-    maxPoints: 25,
-    text: '',
-    userPoints: 20,
-  },
-  {
-    name: 'Workflow',
-    description: '',
-    id: 2,
-    maxPoints: 25,
-    text: '',
-    userPoints: 20,
-  },
-  {
-    name: 'Tools',
-    description: '',
-    id: 3,
-    maxPoints: 25,
-    text: '',
-    userPoints: 20,
-  },
-  {
-    name: 'Skills',
-    description: '',
-    id: 4,
-    maxPoints: 25,
-    text: '',
-    userPoints: 20,
-  },
-  {
-    name: 'Code',
-    description: '',
-    id: 5,
-    maxPoints: 25,
-    text: '',
-    userPoints: 20,
-  },
-]
 
 beforeEach(() => {
   useStore.setState({
-    resultsPerCategory,
-    resultText: 'You rock!',
-    userResult: 95,
-    maxResult: 100,
+    results: {
+      surveyResult: {
+        maxPoints: 100,
+        userPoints: 65,
+        text: 'You are a Pulla.',
+      },
+      categories: ['Jauhot', 'Leivat', 'Leivonnaiset'],
+      userBestInCategory: 'Leivat',
+      userWorstInCategory: 'Jauhot',
+    },
   })
 })
 
-// this version is no longer in use.
-/*describe('Radar chart is rendered with Feature toggle B', () => {
+describe('Top of page contains survey points and summary text of result', () => {
   beforeEach(() => {
-    useStore.setState({
-      featureToggleSwitch: 'B',
-    })
     useRouter.mockImplementation(() => ({
       route: 'survey/result/',
       pathname: 'survey/result',
@@ -84,35 +34,45 @@ beforeEach(() => {
     }))
   })
 
-  it('Result page contains radar chart', () => {
+  it('Page is rendered', () => {
     render(
       <ThemeWrapper>
         <ResultPage />
       </ThemeWrapper>
     )
-    expect(document.getElementById('RadarChartContainer')).toBeInTheDocument()
+    expect(screen.queryByText('Your Results')).toBeInTheDocument()
   })
-})
 
-describe('Bar chart is rendered with Feature toggle A', () => {
-  beforeEach(() => {
-    useStore.setState({
-      featureToggleSwitch: 'A',
-    })
-    useRouter.mockImplementation(() => ({
-      route: 'survey/result/',
-      pathname: 'survey/result',
-      asPath: '',
-    }))
-  })
-*/
-  it('Result page contains bar chart', () => {
-    /*render(
+  it('Points are displayed correctly', () => {
+    render(
       <ThemeWrapper>
         <ResultPage />
       </ThemeWrapper>
     )
-    expect(document.getElementById('BarChartContainer')).toBeInTheDocument()*/
-    expect(1).toBe(1)
+    expect(screen.queryByText('65/100')).toBeInTheDocument()
   })
 
+  it('User survey result text is rendered', () => {
+    render(
+      <ThemeWrapper>
+        <ResultPage />
+      </ThemeWrapper>
+    )
+    expect(screen.queryByText('You are a Pulla.')).toBeInTheDocument()
+  })
+
+  it('Page lists all categories, category with best and worst points in result summary', () => {
+    render(
+      <ThemeWrapper>
+        <ResultPage />
+      </ThemeWrapper>
+    )
+
+    expect(screen.getByTestId('summarytext')).toHaveTextContent(
+      'Jauhot, Leivat and Leivonnaiset'
+    )
+    expect(screen.getByTestId('summarytext')).toHaveTextContent(
+      'You had highest score in category Leivat, whereas your score in Jauhot was the lowest'
+    )
+  })
+})

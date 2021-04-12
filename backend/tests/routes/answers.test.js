@@ -201,10 +201,17 @@ describe('POST /api/answers', () => {
     })
 
     const { results } = response.body
-    const { surveyResult, categoryResults } = results
+    const {
+      surveyResult,
+      categories,
+      userBestInCategory,
+      userWorstInCategory,
+    } = results
 
     expect(surveyResult.text).toBe('Olet ruisleipä')
-    expect(categoryResults[0].text).toBe('Olet kaurakeksi')
+    expect(categories[0]).toBe('Jauhot')
+    expect(userBestInCategory).toBe('Jauhot')
+    expect(userWorstInCategory).toBe('Jauhot')
 
     done()
   })
@@ -224,16 +231,11 @@ describe('POST /api/answers', () => {
     expect(surveyResult.userPoints).not.toBe(undefined)
     expect(surveyResult.text).not.toBe(undefined)
 
-    const { categoryResults } = results
-    expect(categoryResults.length).toBeGreaterThan(0)
+    const { categories, userBestInCategory, userWorstInCategory } = results
+    expect(categories.length).toBeGreaterThan(0)
+    expect(userBestInCategory).not.toBe(undefined)
+    expect(userWorstInCategory).not.toBe(undefined)
 
-    categoryResults.forEach((categoryResult) => {
-      expect(categoryResult.id).not.toEqual(undefined)
-      expect(categoryResult.name).not.toEqual(undefined)
-      expect(categoryResult.userPoints).not.toEqual(undefined)
-      expect(categoryResult.maxPoints).not.toEqual(undefined)
-      expect(categoryResult.text).not.toEqual(undefined)
-    })
     done()
   })
 })
