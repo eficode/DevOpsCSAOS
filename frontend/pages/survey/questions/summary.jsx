@@ -81,7 +81,10 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar answered={countOfAnsweredQuestions} total={total} />
+      <ProgressBar
+        answered={countOfAnsweredQuestions(store.selections)}
+        total={total}
+      />
       <InnerContentWrapper>
         <Content>
           <ContentAnimationWrapper>
