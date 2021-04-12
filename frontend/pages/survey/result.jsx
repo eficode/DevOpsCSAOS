@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
-import Link from '../../components/link'
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
-import CategoryResult from '../../components/categoryResult'
-import TotalResultBarChart from '../../components/totalResultBarChart'
-import TotalResultRadarChart from '../../components/totalResultRadarChart'
 import { useStore } from '../../store'
 import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
+import ShareResultsGroup from '../../components/shareResultsGroup'
+import GetDetailedResultsForm from '../../components/getDetailedResultsForm';
 
 const Content = styled.section`
   display: flex;
@@ -19,23 +17,11 @@ const Content = styled.section`
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
+  padding-left: 15%;
+  padding-right: 15%;
   width: 100%;
   background-color: white;
   border-radius: 0.5rem;
-`
-
-const Categories = styled.div`
-  width: 70%;
-
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
-    width: 90%;
-  }
-
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.narrowMobile}) {
-    width: 110%;
-  }
 `
 
 const StyledHeading = styled(Heading)`
@@ -50,27 +36,12 @@ const StyledResultHeading = styled(Heading)`
   margin-top: 1rem;
 `
 
+const ResultSummaryText = styled.p`
+`
+
 const Home = () => {
-  const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
-
-  const {
-    userResult,
-    maxResult,
-    resultText,
-    resultsPerCategory,
-    featureToggleSwitch,
-  } = store
-
-  useEffect(() => {
-    const handleResize = () => {
-      window.innerWidth <= 800
-        ? setRenderMobileLayout(true)
-        : setRenderMobileLayout(false)
-    }
-
-    window.addEventListener('resize', handleResize)
-  }, [])
+  const { userResult, maxResult, resultText } = store
 
   return (
     <>
@@ -91,36 +62,15 @@ const Home = () => {
             <Heading component="h3" variant="h6" font="Montserrat">
               {resultText}
             </Heading>
-            <Link href="mailto:devops@leipalaari.fi" type="primary">
-              Contact us!
-            </Link>
-            <Categories>
-              {resultsPerCategory.map((result, index) => (
-                <CategoryResult
-                  key={result.name}
-                  renderMobileLayout={renderMobileLayout}
-                  userResult={result.userPoints}
-                  maxResult={result.maxPoints}
-                  category={result.name}
-                  description={result.description}
-                  resultText={result.text}
-                  index={index}
-                />
-              ))}
-            </Categories>
-            {(() => {
-              if (featureToggleSwitch === 'A') {
-                return (
-                  <TotalResultBarChart
-                    data={store.resultsPerCategory}
-                    renderMobileLayout={renderMobileLayout}
-                  />
-                )
-              }
-              if (featureToggleSwitch === 'B') {
-                return <TotalResultRadarChart data={store.resultsPerCategory} />
-              }
-            })()}
+            <ResultSummaryText>
+              hyvä saate mainostekstiLorem ipsum dolor sit amet, consectetur adipiscing elit, 
+              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
+              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
+              dolore eu fugiat nulla pariatur.
+            </ResultSummaryText>
+            <ShareResultsGroup />
+            <GetDetailedResultsForm/>
           </Content>
         </ContentAnimationWrapper>
       </InnerContentWrapper>
