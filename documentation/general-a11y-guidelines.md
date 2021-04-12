@@ -111,4 +111,3 @@ This can be done by:
 
   - this spec provides developers with guidelines, e.g. on how to properly describe web elements, and how to provide keyboard navigation
 
--
