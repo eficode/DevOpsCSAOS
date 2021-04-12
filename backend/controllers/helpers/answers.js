@@ -1,5 +1,10 @@
 const { verifyUserAnswers } = require('./verifyUserAnswers')
 const { deleteUserSurveyAnswers } = require('./deleteUserAnswers')
-const { getResults } = require('./getResults')
+const { getFullResults, getSummaryOfResults } = require('./getResults')
 
-module.exports = { verifyUserAnswers, deleteUserSurveyAnswers, getResults }
+module.exports = {
+  verifyUserAnswers,
+  deleteUserSurveyAnswers,
+  getFullResults,
+  getSummaryOfResults,
+}

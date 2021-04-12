@@ -6,7 +6,6 @@ import chunk from 'lodash/chunk'
 const initialQuestions = []
 const initialSelections = []
 const initialEmail = ''
-const initialResultsPerCategory = []
 const optionsToPointsMap = {
   'Strongly agree': 4,
   Agree: 3,
@@ -14,9 +13,7 @@ const optionsToPointsMap = {
   Disagree: 1,
   'Strongly disagree': 0,
 }
-const initialResultText = ''
-const initialUserResult = 0
-const initialMaxResult = 0
+const initialResults = undefined
 const initialQuestionGroups = []
 const initialVisitedSummary = false
 const initialFeatureToggleSwitch = 'A'
@@ -29,12 +26,6 @@ export const divideQuestions = (questions, featureToggleSwitch) => {
       answerId: undefined,
     })
   })
-
-  /* question grouping on pages can be modified here.
-    current (arbitrary) grouping logic: divide questions on 2
-    equal-length (or n and n+1-question if odd number) pages.
-  */
-  // let chunkedQuestions = [chunk(questions, questions.length / 2)]
 
   let chunkedQuestions = []
 
@@ -56,11 +47,8 @@ const store = (set) => ({
   email: initialEmail,
   selections: initialSelections,
   questionGroups: initialQuestionGroups,
-  resultsPerCategory: initialResultsPerCategory,
   optionsToPointsMap,
-  resultText: initialResultText,
-  userResult: initialUserResult,
-  maxResult: initialMaxResult,
+  results: initialResults,
   visitedSummary: initialVisitedSummary,
   featureToggleSwitch: initialFeatureToggleSwitch,
   setEmail: (email) => set(() => ({ email })),
@@ -92,10 +80,7 @@ const store = (set) => ({
     questionGroups: [],
     visitedSummary: false,
   })),
-  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
-  setResultText: (text) => set(() => ({ resultText: text })),
-  setUserResult: (score) => set(() => ({ userResult: score })),
-  setMaxResult: (score) => set(() => ({ maxResult: score })),
+  setResults: (results) => set(() => ({ results })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
   setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
 })

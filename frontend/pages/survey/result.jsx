@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
-import Link from '../../components/link'
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import TotalResult from '../../components/totalResult'
 import ProgressBar from '../../components/progressBar'
-import CategoryResult from '../../components/categoryResult'
-import TotalResultBarChart from '../../components/totalResultBarChart'
-import TotalResultRadarChart from '../../components/totalResultRadarChart'
 import { useStore } from '../../store'
 import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
+import ShareResultsGroup from '../../components/shareResultsGroup'
+import GetDetailedResultsForm from '../../components/getDetailedResultsForm'
 
 const Content = styled.section`
   display: flex;
@@ -19,58 +17,50 @@ const Content = styled.section`
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
+  padding-left: 15%;
+  padding-right: 15%;
   width: 100%;
   background-color: white;
   border-radius: 0.5rem;
-`
-
-const Categories = styled.div`
-  width: 70%;
-
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
-    width: 90%;
-  }
-
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.narrowMobile}) {
-    width: 110%;
-  }
 `
 
 const StyledHeading = styled(Heading)`
   font-size: 0.75rem;
   margin-bottom: 1rem;
 `
+
 const StyledResultsLabel = styled(Heading)`
   margin-bottom: 1rem;
 `
+
 const StyledResultHeading = styled(Heading)`
   font-size: 1rem;
   margin-top: 1rem;
 `
 
+const ResultSummaryText = styled.p``
+
 const Home = () => {
-  const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
 
-  const {
-    userResult,
-    maxResult,
-    resultText,
-    resultsPerCategory,
-    featureToggleSwitch,
-  } = store
+  if (!store.results) {
+    return <div>loading results...</div>
+  }
 
-  useEffect(() => {
-    const handleResize = () => {
-      window.innerWidth <= 800
-        ? setRenderMobileLayout(true)
-        : setRenderMobileLayout(false)
-    }
+  const { maxPoints, userPoints, text } = store.results.surveyResult
+  const { categories, userBestInCategory, userWorstInCategory } = store.results
 
-    window.addEventListener('resize', handleResize)
-  }, [])
+  const convertArrayOfCategoriesToString = () => {
+    let str = `${categories[0]}`
+    categories.slice(1, categories.length - 1).forEach((c) => {
+      str += `, ${c}`
+    })
+    str += ` and ${categories[categories.length - 1]}`
+
+    return str
+  }
+
+  const listOfCategories = convertArrayOfCategoriesToString()
 
   return (
     <>
@@ -87,40 +77,22 @@ const Home = () => {
             <StyledResultsLabel component="h2" variant="h5">
               Your Results
             </StyledResultsLabel>
-            <TotalResult userResult={userResult} maxResult={maxResult} />
+            <TotalResult userResult={userPoints} maxResult={maxPoints} />
             <Heading component="h3" variant="h6" font="Montserrat">
-              {resultText}
+              {text}
             </Heading>
-            <Link href="mailto:devops@leipalaari.fi" type="primary">
-              Contact us!
-            </Link>
-            <Categories>
-              {resultsPerCategory.map((result, index) => (
-                <CategoryResult
-                  key={result.name}
-                  renderMobileLayout={renderMobileLayout}
-                  userResult={result.userPoints}
-                  maxResult={result.maxPoints}
-                  category={result.name}
-                  description={result.description}
-                  resultText={result.text}
-                  index={index}
-                />
-              ))}
-            </Categories>
-            {(() => {
-              if (featureToggleSwitch === 'A') {
-                return (
-                  <TotalResultBarChart
-                    data={store.resultsPerCategory}
-                    renderMobileLayout={renderMobileLayout}
-                  />
-                )
-              }
-              if (featureToggleSwitch === 'B') {
-                return <TotalResultRadarChart data={store.resultsPerCategory} />
-              }
-            })()}
+            <ResultSummaryText data-testid="summarytext">
+              The tool assesses your DevOps capabilities in different categories
+              based on your answers. We have assessed your capabilities in
+              categories {listOfCategories}. You had highest score in category{' '}
+              {userBestInCategory}, whereas your score in {userWorstInCategory}{' '}
+              was the lowest. Fill in the form below to get your detailed
+              results by email and see how to improve your skills. You can also
+              compare your results with others in your business or in the
+              selected reference group.
+            </ResultSummaryText>
+            <ShareResultsGroup />
+            <GetDetailedResultsForm />
           </Content>
         </ContentAnimationWrapper>
       </InnerContentWrapper>
