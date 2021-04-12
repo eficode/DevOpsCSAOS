@@ -69,8 +69,12 @@ const Home = () => {
               consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
               dolore eu fugiat nulla pariatur.
             </ResultSummaryText>
-            <ShareResultsGroup />
-            <GetDetailedResultsForm/>
+            <ShareResultsGroup
+              resultText={resultText}
+              userResult={userResult}
+              maxResult={maxResult}
+            />
+            <GetDetailedResultsForm />
           </Content>
         </ContentAnimationWrapper>
       </InnerContentWrapper>
