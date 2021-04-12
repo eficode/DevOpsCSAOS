@@ -1,7 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import { FormControl, InputLabel, Input, FormHelperText } from '@material-ui/core';
 
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import TotalResult from '../../components/totalResult'
@@ -32,6 +31,10 @@ const StyledHeading = styled(Heading)`
 const StyledResultsLabel = styled(Heading)`
   margin-bottom: 1rem;
 `
+const StyledResultHeading = styled(Heading)`
+  font-size: 1rem;
+  margin-top: 1rem;
+`
 
 const ResultSummaryText = styled.p`
 `
@@ -56,7 +59,7 @@ const Home = () => {
               Your Results
             </StyledResultsLabel>
             <TotalResult userResult={userResult} maxResult={maxResult} />
-            <Heading component="h3" variant="" font="Montserrat">
+            <Heading component="h3" variant="h6" font="Montserrat">
               {resultText}
             </Heading>
             <ResultSummaryText>
