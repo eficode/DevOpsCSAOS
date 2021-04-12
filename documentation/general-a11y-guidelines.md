@@ -54,7 +54,7 @@ However, teaches a lot about good practices - similar to a code linter
   - uses axe under the hood
 - [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/)
   - created by [WebAIM](https://webaim.org/)
-  - provide an API → tool can either be run from their website or as a browser extension.
+  - provides an API → tool can either be run from their website or as a browser extension.
 
 ## Manual
 
@@ -64,7 +64,8 @@ This can be done by:
 
 - navigating with your keyboard
 - using a screen reader
-- turning your screen magnification way up (300%+)using a site with audio muted
+- turning your screen magnification way up (300%+)
+- using a site with audio muted
 - verifying that the **[prefers reduced motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)** setting is respected
 
 ## Hybrid
