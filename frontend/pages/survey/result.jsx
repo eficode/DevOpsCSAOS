@@ -81,13 +81,13 @@ const Home = () => {
             <Heading component="h3" variant="h6" font="Montserrat">
               {text}
             </Heading>
-            <ResultSummaryText>
+            <ResultSummaryText data-testid="summarytext">
               The tool assesses your DevOps capabilities in different categories
               based on your answers. We have assessed your capabilities in
               categories {listOfCategories}. You had highest score in category{' '}
               {userBestInCategory}, whereas your score in {userWorstInCategory}{' '}
               was the lowest. Fill in the form below to get your detailed
-              results by email to see how to improve your skills. You can also
+              results by email and see how to improve your skills. You can also
               compare your results with others in your business or in the
               selected reference group.
             </ResultSummaryText>
