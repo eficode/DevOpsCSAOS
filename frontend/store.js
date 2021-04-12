@@ -6,7 +6,6 @@ import chunk from 'lodash/chunk'
 const initialQuestions = []
 const initialSelections = []
 const initialEmail = ''
-const initialResultsPerCategory = []
 const optionsToPointsMap = {
   'Strongly agree': 4,
   Agree: 3,
@@ -14,9 +13,7 @@ const optionsToPointsMap = {
   Disagree: 1,
   'Strongly disagree': 0,
 }
-const initialResultText = ''
-const initialUserResult = 0
-const initialMaxResult = 0
+const initialResults = undefined
 const initialQuestionGroups = []
 const initialVisitedSummary = false
 const initialFeatureToggleSwitch = 'A'
@@ -30,19 +27,14 @@ export const divideQuestions = (questions, featureToggleSwitch) => {
     })
   })
 
-  /* question grouping on pages can be modified here.
-    current (arbitrary) grouping logic: divide questions on 2
-    equal-length (or n and n+1-question if odd number) pages.
-  */
-  // let chunkedQuestions = [chunk(questions, questions.length / 2)]
-
   let chunkedQuestions = []
 
   if (featureToggleSwitch === 'A') {
     // All questions divided to 2 pages, if uneven number of questions, first page gets +1 questions
-    chunkedQuestions = questions.length % 2 === 0
-      ? chunk(questions, questions.length / 2)
-      : chunk(questions, questions.length / 2 + 1)
+    chunkedQuestions =
+      questions.length % 2 === 0
+        ? chunk(questions, questions.length / 2)
+        : chunk(questions, questions.length / 2 + 1)
   } else if (featureToggleSwitch === 'B') {
     // 1 question per page
     chunkedQuestions = chunk(questions, 1)
@@ -56,11 +48,8 @@ const store = (set) => ({
   email: initialEmail,
   selections: initialSelections,
   questionGroups: initialQuestionGroups,
-  resultsPerCategory: initialResultsPerCategory,
   optionsToPointsMap,
-  resultText: initialResultText,
-  userResult: initialUserResult,
-  maxResult: initialMaxResult,
+  results: initialResults,
   visitedSummary: initialVisitedSummary,
   featureToggleSwitch: initialFeatureToggleSwitch,
   setEmail: (email) => set(() => ({ email })),
@@ -77,32 +66,32 @@ const store = (set) => ({
       questionGroups: chunkedQuestions,
     }))
   },
-  clear: () => set(() => ({
-    questions: [],
-    email: '',
-    selections: [],
-    resultsPerCategory: [],
-    resultText: '',
-    visitedSummary: false,
-    featureToggleSwitch: 'A',
-  })),
-  resetVersion: () => set(() => ({
-    featureToggleSwitch: 'A',
-    questions: [],
-    questionGroups: [],
-    visitedSummary: false,
-  })),
-  setResultsPerCategory: (results) => set(() => ({ resultsPerCategory: results })),
-  setResultText: (text) => set(() => ({ resultText: text })),
-  setUserResult: (score) => set(() => ({ userResult: score })),
-  setMaxResult: (score) => set(() => ({ maxResult: score })),
+  clear: () =>
+    set(() => ({
+      questions: [],
+      email: '',
+      selections: [],
+      resultsPerCategory: [],
+      resultText: '',
+      visitedSummary: false,
+      featureToggleSwitch: 'A',
+    })),
+  resetVersion: () =>
+    set(() => ({
+      featureToggleSwitch: 'A',
+      questions: [],
+      questionGroups: [],
+      visitedSummary: false,
+    })),
+  setResults: (results) => set(() => ({ results })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
-  setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
+  setFeatureToggleSwitch: (value) =>
+    set(() => ({ featureToggleSwitch: value })),
 })
 
 export const useStore = create(
   persist(store, {
     name: 'devops assessment tool store',
     getStorage: () => sessionStorage,
-  }),
+  })
 )

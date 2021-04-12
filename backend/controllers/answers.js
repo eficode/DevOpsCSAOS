@@ -4,7 +4,7 @@ const { User, User_answer, Survey } = require('../models')
 const {
   verifyUserAnswers,
   deleteUserSurveyAnswers,
-  getResults,
+  getSummaryOfResults,
 } = require('./helpers/answers')
 
 const saveAnswersToDatabase = async (answers, userId) => {
@@ -42,7 +42,8 @@ answersRouter.post('/', async (req, res) => {
       questions: verificationResult.duplicates,
     })
   }
-  const results = await getResults(answers, surveyId)
+
+  const results = await getSummaryOfResults(answers, surveyId)
 
   try {
     if (email) {
