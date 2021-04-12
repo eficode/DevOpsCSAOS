@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import {
   LinkedinShareButton,
   LinkedinIcon,
@@ -8,23 +9,29 @@ import {
   FacebookIcon,
 } from 'react-share'
 
-// this creates a linkedIn + twitter share buttons for url sharing. placeholder icon.
+const ShareButtonGrouper = styled.div`
+  button {
+    margin: 3px;
+  }
+`
+// Linked In does not support any other parameters than url: https://github.com/nygardk/react-share/issues/385
 const ShareResultsGroup = ({ resultText, userResult, maxResult }) => {
   const headerToShare = `According to our DevOps Self-Assessment Survey: ${resultText} You received ${userResult} / ${maxResult} points!`
+
   return (
-    <div>
+    <ShareButtonGrouper>
       <LinkedinShareButton url="https://ohtu-csaos-staging.herokuapp.com/">
         <LinkedinIcon size={32} round />
       </LinkedinShareButton>
 
-      <TwitterShareButton url="https://ohtu-csaos-staging.herokuapp.com/">
+      <TwitterShareButton title={headerToShare} url="https://ohtu-csaos-staging.herokuapp.com/">
         <TwitterIcon size={32} round />
       </TwitterShareButton>
 
       <FacebookShareButton quote={headerToShare} url="https://ohtu-csaos-staging.herokuapp.com/">
         <FacebookIcon size={32} round />
       </FacebookShareButton>
-    </div>
+    </ShareButtonGrouper>
   )
 }
 
