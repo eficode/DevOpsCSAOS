@@ -70,8 +70,10 @@ const Summary = () => {
     const surveyId = 1
 
     const email = store.email === '' ? undefined : store.email
-    const answersForBackend = store.selections.map(selection => selection.answerId)
-    
+    const answersForBackend = store.selections.map(
+      (selection) => selection.answerId
+    )
+
     try {
       const response = await sendAnswers(email, answersForBackend, surveyId)
       store.setResultsPerCategory(response.results.categoryResults)
@@ -89,10 +91,12 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar answered={countOfAnsweredQuestions} total={total} />
+      <ProgressBar
+        answered={countOfAnsweredQuestions(store.selections)}
+        total={total}
+      />
       <InnerContentWrapper>
-        
-          <Content>
+        <Content>
           <ContentAnimationWrapper>
             <Heading component="h1" variant="h6">
               Here are your current answers
@@ -123,16 +127,14 @@ const Summary = () => {
                   </QuestionAnswerWrapper>
                 )
               })}
-            
-            </ContentAnimationWrapper>
-            <StyledLink type="secondary" href={lastQuestionHref}>
-              Back to survey
-            </StyledLink>
-            <StyledButton type="submit" onClick={handleSubmit}>
-              Submit answers
-            </StyledButton>
-          </Content>
-        
+          </ContentAnimationWrapper>
+          <StyledLink type="secondary" href={lastQuestionHref}>
+            Back to survey
+          </StyledLink>
+          <StyledButton type="submit" onClick={handleSubmit}>
+            Submit answers
+          </StyledButton>
+        </Content>
       </InnerContentWrapper>
     </>
   )
