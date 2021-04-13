@@ -64,20 +64,20 @@ answersRouter.post('/', async (req, res) => {
     if (email) {
       // if user has answered with the same email + groupId combination previous answers get deleted.
       let userInDb = await User.findOne({
-        where: { email, groupId: survey_user_group.id },
+        where: { email, groupId: survey_user_group?.id || null },
       })
 
       if (userInDb) {
         await deleteUserSurveyAnswers(userInDb.id, surveyId)
       } else {
-        userInDb = await User.create({ email, groupId: survey_user_group.id })
+        userInDb = await User.create({ email, groupId: survey_user_group?.id })
       }
 
       await saveAnswersToDatabase(answers, userInDb.id)
     } else {
       const userInDb = await User.create({
-        email: email || null,
-        groupId: survey_user_group.id || null,
+        email: null,
+        groupId: survey_user_group?.id || null,
       })
       await saveAnswersToDatabase(answers, userInDb.id)
     }
