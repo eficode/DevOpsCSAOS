@@ -1,5 +1,5 @@
 const answersRouter = require('express').Router()
-const { User, User_answer, Survey } = require('../models')
+const { User, User_answer, Survey, Survey_user_group } = require('../models')
 
 const {
   verifyUserAnswers,
@@ -17,11 +17,26 @@ const saveAnswersToDatabase = async (answers, userId) => {
 }
 
 answersRouter.post('/', async (req, res) => {
-  const { email, answers, surveyId } = req.body
+  const { email, answers, surveyId, groupId } = req.body
 
   const survey = await Survey.findAll({
     where: { id: surveyId },
   })
+  let survey_user_group
+
+  if (groupId) {
+    survey_user_group = await Survey_user_group.findAll({
+      where: { url: groupId },
+      attributes: ['id'],
+      plain: true,
+    })
+
+    if (!survey_user_group) {
+      return res.status(500).json({
+        message: 'GroupId is invalid.',
+      })
+    }
+  }
 
   if (!survey) {
     return res.status(500).json('SurveyId is invalid')
@@ -47,21 +62,30 @@ answersRouter.post('/', async (req, res) => {
 
   try {
     if (email) {
+      // if user has answered with the same email + groupId combination previous answers get deleted.
       let userInDb = await User.findOne({
-        where: { email },
+        where: { email, groupId: survey_user_group.id },
       })
 
       if (userInDb) {
         await deleteUserSurveyAnswers(userInDb.id, surveyId)
       } else {
-        userInDb = await User.create({ email })
+        userInDb = await User.create({ email, groupId: survey_user_group.id })
       }
 
+      await saveAnswersToDatabase(answers, userInDb.id)
+    } else {
+      const userInDb = await User.create({
+        email: email || null,
+        groupId: survey_user_group.id || null,
+      })
       await saveAnswersToDatabase(answers, userInDb.id)
     }
     return res.status(200).json({ results: results })
   } catch (err) {
-    return res.status(500).json(err)
+    return res.status(500).json({
+      message: 'Saving answers failed',
+    })
   }
 })
 

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { useStore } from '../../../store'
 import Head from 'next/head'
+import { useStore } from '../../../store'
 import ContentAnimationWrapper from '../../../components/contentAnimationWrapper'
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import ProgressBar from '../../../components/progressBar'
@@ -60,12 +60,18 @@ const Summary = () => {
     const surveyId = 1
 
     const email = store.email === '' ? undefined : store.email
+    const groupId = store.groupId === '' ? undefined : store.groupId
     const answersForBackend = store.selections.map(
       (selection) => selection.answerId
     )
 
     try {
-      const response = await sendAnswers(email, answersForBackend, surveyId)
+      const response = await sendAnswers(
+        email,
+        answersForBackend,
+        surveyId,
+        groupId
+      )
       store.setResults(response.results)
       router.push('/survey/result')
     } catch (e) {

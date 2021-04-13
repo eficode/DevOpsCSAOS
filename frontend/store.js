@@ -17,6 +17,7 @@ const initialResults = undefined
 const initialQuestionGroups = []
 const initialVisitedSummary = false
 const initialFeatureToggleSwitch = 'A'
+const initialGroupId = ''
 
 export const divideQuestions = (questions, featureToggleSwitch) => {
   const initialSelectionsWithQuestionIds = []
@@ -51,6 +52,7 @@ const store = (set) => ({
   results: initialResults,
   visitedSummary: initialVisitedSummary,
   featureToggleSwitch: initialFeatureToggleSwitch,
+  groupId: initialGroupId,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions, featureToggleSwitch) => {
@@ -73,16 +75,19 @@ const store = (set) => ({
     resultText: '',
     visitedSummary: false,
     featureToggleSwitch: 'A',
+    groupId: '',
   })),
   resetVersion: () => set(() => ({
     featureToggleSwitch: 'A',
     questions: [],
     questionGroups: [],
     visitedSummary: false,
+    groupId: '',
   })),
   setResults: (results) => set(() => ({ results })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
   setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
+  setGroupId: (value) => set(() => ({ groupId: value })),
 })
 
 export const useStore = create(
