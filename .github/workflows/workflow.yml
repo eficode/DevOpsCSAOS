@@ -14,6 +14,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
           POSTGRES_DB: test_db
+          SECRET: ${{secrets.SECRET_FOR_TOKEN}}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -38,6 +39,7 @@ jobs:
           DB_HOST: localhost
           DB_PASS: postgres
           DB_USER: postgres
+          SECRET: ${{secrets.SECRET_FOR_TOKEN}}
           # createdb requires a password that has to be supplied as environment variable
           PGPASSWORD: postgres
           NODE_ENV: test
@@ -82,4 +84,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: 'ohtu-csaos-staging'
           heroku_email: ${{secrets.PROJECT_EMAIL}}
+          SECRET: ${{secrets.SECRET_FOR_TOKEN}}
           usedocker: true
