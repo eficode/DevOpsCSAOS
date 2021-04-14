@@ -52,8 +52,8 @@ const Home = () => {
 
   const convertArrayOfCategoriesToString = () => {
     let str = `${categories[0]}`
-    categories.slice(1, categories.length - 1).forEach((c) => {
-      str += `, ${c}`
+    categories.slice(1, categories.length - 1).forEach((category) => {
+      str += `, ${category}`
     })
     str += ` and ${categories[categories.length - 1]}`
 
@@ -91,7 +91,11 @@ const Home = () => {
               compare your results with others in your business or in the
               selected reference group.
             </ResultSummaryText>
-            <ShareResultsGroup />
+            <ShareResultsGroup
+              text={text}
+              userPoints={userPoints}
+              maxPoints={maxPoints}
+            />
             <GetDetailedResultsForm />
           </Content>
         </ContentAnimationWrapper>
