@@ -73,6 +73,7 @@ const Summary = () => {
         groupId
       )
       store.setResults(response.results)
+      store.setUserToken(response.token)
       router.push('/survey/result')
     } catch (e) {
       alert(`Something went wrong while submitting answers: ${e.message}`)

@@ -11,12 +11,35 @@ const survey1TestAnswers2 = [101, 102]
 const survey2TestAnswers = [200, 202]
 const survey1Id = 1
 const survey2Id = 2
+const userGroupUrl = 'testgroupId'
+const userGroupId = 1
 
-beforeAll(async () => {
+beforeEach(async () => {
   await clearDBAndCreateDummyData()
 })
 
 describe('POST /api/answers', () => {
+  it('Returns 500 if survey id is invalid', async (done) => {
+    const response = await request(app).post('/api/answers').send({
+      answers: survey1TestAnswers,
+      surveyId: 3765,
+    })
+    expect(response.status).toBe(500)
+
+    done()
+  })
+
+  it('Returns 500 if group id is invalid', async (done) => {
+    const response = await request(app).post('/api/answers').send({
+      answers: survey1TestAnswers,
+      surveyId: survey1Id,
+      groupId: 'dsafewgewf',
+    })
+    expect(response.status).toBe(500)
+
+    done()
+  })
+
   it('User can submit answers without email', async (done) => {
     const response = await request(app).post('/api/answers').send({
       answers: survey1TestAnswers,
@@ -55,7 +78,21 @@ describe('POST /api/answers', () => {
     done()
   })
 
-  it('User has only one answer set in database per survey', async (done) => {
+  it('If user submits a valid group id, id is saved to db', async (done) => {
+    const response = await request(app).post('/api/answers').send({
+      answers: survey1TestAnswers,
+      surveyId: survey1Id,
+      groupId: userGroupUrl,
+    })
+
+    const user = await User.findOne({ where: { groupId: userGroupId } })
+    expect(user).not.toBe(undefined)
+    expect(response.status).toBe(200)
+
+    done()
+  })
+
+  it('If user submits survey many times all answers are saved', async (done) => {
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
       answers: survey1TestAnswers,
@@ -74,11 +111,11 @@ describe('POST /api/answers', () => {
     const secondAnswers = await User_answer.findAll({
       where: { userId: user.id },
     })
-    expect(secondAnswers.length).toEqual(2)
+    expect(secondAnswers.length).toEqual(4)
     done()
   })
 
-  it('Same user can have many answer sets: one answer set per survey', async (done) => {
+  it('Same user can have many answer sets', async (done) => {
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
       answers: survey1TestAnswers,
@@ -102,7 +139,7 @@ describe('POST /api/answers', () => {
     done()
   })
 
-  it('If user answers to already answered survey, answers are updated', async (done) => {
+  it('If user answers to already answered survey, old answers are not overwritten', async (done) => {
     await request(app).post('/api/answers').send({
       email: 'testv2@gmail.com',
       answers: survey1TestAnswers,
@@ -180,7 +217,7 @@ describe('POST /api/answers', () => {
         survey1NewAnswersInDatabase.find(
           (answerInDatabase) => answerInDatabase.Question_answer.id === answer
         )
-      ).toBe(undefined)
+      ).not.toBe(undefined)
     )
 
     survey1TestAnswers2.forEach((answer) =>
@@ -235,6 +272,9 @@ describe('POST /api/answers', () => {
     expect(categories.length).toBeGreaterThan(0)
     expect(userBestInCategory).not.toBe(undefined)
     expect(userWorstInCategory).not.toBe(undefined)
+
+    const { token } = response.body
+    expect(token).not.toBe(undefined)
 
     done()
   })
