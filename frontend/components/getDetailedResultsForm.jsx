@@ -6,6 +6,7 @@ import IndustrySelector from './industrySelector'
 import Button from '../components/button'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
+
 const FormBackGround = styled.div`
   width: 85%;
   margin-top: 30px;
@@ -134,7 +135,7 @@ const GetDetailedResultsForm = () => {
   }
   
   return (
-    <FormBackGround>
+    <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
       <FormTitle>Get your detailed results</FormTitle>
       
         <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
