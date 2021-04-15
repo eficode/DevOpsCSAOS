@@ -17,7 +17,7 @@ const {
   Category_result,
   Survey_user_group,
   Organization,
-} = require('../models')
+} = require('../../models')
 
 /*
   currently app has to be started in test mode before running robot.

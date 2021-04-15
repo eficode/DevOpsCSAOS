@@ -103,7 +103,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       })
       validUser.groupId = newGroup.id
     }
-    
+
     await validUser.save()
     // send email to user here
     return res.status(200).json({})

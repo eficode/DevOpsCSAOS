@@ -1,6 +1,6 @@
 const userGroupRouter = require('express').Router()
-const { Survey_user_group } = require('../models')
 const validate = require('uuid-validate')
+const { Survey_user_group } = require('../models')
 
 userGroupRouter.get('/:groupid', async (req, res) => {
   const { groupid } = req.params
@@ -16,11 +16,10 @@ userGroupRouter.get('/:groupid', async (req, res) => {
         id: groupid,
       },
     })
-    if(!userGroup) {
+    if (!userGroup) {
       return res.status(200).json({ result: false })
-    } else {
-      return res.status(200).json({ result: true })
     }
+    return res.status(200).json({ result: true })
   } catch (e) {
     console.log(e)
     return res.status(500).json({ error: 'Unable to fetch user groups' })
