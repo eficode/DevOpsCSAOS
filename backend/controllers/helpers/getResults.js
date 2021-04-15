@@ -172,7 +172,7 @@ const calculateSumOfUserPoints = (userAnswers) =>
     0
   )
 
-const getResults = async (user_answers, surveyId) => {
+const getFullResults = async (user_answers, surveyId) => {
   const bestAnswerPerQuestion = await findAnswerWithHighestPointsPerQuestion(
     surveyId
   )
@@ -203,4 +203,59 @@ const getResults = async (user_answers, surveyId) => {
   }
 }
 
-module.exports = { getResults }
+const getSummaryOfResults = async (user_answers, surveyId) => {
+  const bestAnswerPerQuestion = await findAnswerWithHighestPointsPerQuestion(
+    surveyId
+  )
+  const userAnswers = await findUserAnswers(user_answers)
+
+  const surveyMaxResult = await calculateMaxPointsOfSurvey(
+    bestAnswerPerQuestion
+  )
+  const userSurveyResult = calculateSumOfUserPoints(userAnswers)
+  const surveyResultText = await findSurveyResultTextMatchingUserScore(
+    userSurveyResult,
+    surveyMaxResult,
+    surveyId
+  )
+
+  const categoryResults = await calculateMaxPointsAndUserPointsPerCategory(
+    bestAnswerPerQuestion,
+    userAnswers
+  )
+
+  const listOfCategories = categoryResults.map((c) => c.name)
+
+  let userWorstInCategory = categoryResults[0]
+  categoryResults.forEach((c) => {
+    if (
+      c.userPoints / c.maxPoints <
+      userWorstInCategory.userPoints / userWorstInCategory.maxPoints
+    ) {
+      userWorstInCategory = c
+    }
+  })
+
+  let userBestInCategory = categoryResults[0]
+  categoryResults.forEach((c) => {
+    if (
+      c.userPoints / c.maxPoints >
+      userBestInCategory.userPoints / userBestInCategory.maxPoints
+    ) {
+      userBestInCategory = c
+    }
+  })
+
+  return {
+    surveyResult: {
+      text: surveyResultText,
+      userPoints: userSurveyResult,
+      maxPoints: surveyMaxResult,
+    },
+    categories: listOfCategories,
+    userBestInCategory: userBestInCategory.name,
+    userWorstInCategory: userWorstInCategory.name,
+  }
+}
+
+module.exports = { getFullResults, getSummaryOfResults }

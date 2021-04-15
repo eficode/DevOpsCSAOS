@@ -9,7 +9,7 @@ import { useStore } from '../../store'
 import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
 import ShareResultsGroup from '../../components/shareResultsGroup'
-import GetDetailedResultsForm from '../../components/getDetailedResultsForm';
+import GetDetailedResultsForm from '../../components/getDetailedResultsForm'
 
 const Content = styled.section`
   display: flex;
@@ -28,20 +28,39 @@ const StyledHeading = styled(Heading)`
   font-size: 0.75rem;
   margin-bottom: 1rem;
 `
+
 const StyledResultsLabel = styled(Heading)`
   margin-bottom: 1rem;
 `
+
 const StyledResultHeading = styled(Heading)`
   font-size: 1rem;
   margin-top: 1rem;
 `
 
-const ResultSummaryText = styled.p`
-`
+const ResultSummaryText = styled.p``
 
 const Home = () => {
   const store = useStore()
-  const { userResult, maxResult, resultText } = store
+
+  if (!store.results) {
+    return <div>loading results...</div>
+  }
+
+  const { maxPoints, userPoints, text } = store.results.surveyResult
+  const { categories, userBestInCategory, userWorstInCategory } = store.results
+
+  const convertArrayOfCategoriesToString = () => {
+    let str = `${categories[0]}`
+    categories.slice(1, categories.length - 1).forEach((category) => {
+      str += `, ${category}`
+    })
+    str += ` and ${categories[categories.length - 1]}`
+
+    return str
+  }
+
+  const listOfCategories = convertArrayOfCategoriesToString()
 
   return (
     <>
@@ -58,19 +77,26 @@ const Home = () => {
             <StyledResultsLabel component="h2" variant="h5">
               Your Results
             </StyledResultsLabel>
-            <TotalResult userResult={userResult} maxResult={maxResult} />
+            <TotalResult userResult={userPoints} maxResult={maxPoints} />
             <Heading component="h3" variant="h6" font="Montserrat">
-              {resultText}
+              {text}
             </Heading>
-            <ResultSummaryText>
-              hyvä saate mainostekstiLorem ipsum dolor sit amet, consectetur adipiscing elit, 
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
-              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
-              dolore eu fugiat nulla pariatur.
+            <ResultSummaryText data-testid="summarytext">
+              The tool assesses your DevOps capabilities in different categories
+              based on your answers. We have assessed your capabilities in
+              categories {listOfCategories}. You had highest score in category{' '}
+              {userBestInCategory}, whereas your score in {userWorstInCategory}{' '}
+              was the lowest. Fill in the form below to get your detailed
+              results by email and see how to improve your skills. You can also
+              compare your results with others in your business or in the
+              selected reference group.
             </ResultSummaryText>
-            <ShareResultsGroup />
-            <GetDetailedResultsForm/>
+            <ShareResultsGroup
+              text={text}
+              userPoints={userPoints}
+              maxPoints={maxPoints}
+            />
+            <GetDetailedResultsForm />
           </Content>
         </ContentAnimationWrapper>
       </InnerContentWrapper>
