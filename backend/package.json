@@ -21,7 +21,8 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.4.0"
+    "sequelize": "^6.4.0",
+    "uuid-validate": "0.0.3"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

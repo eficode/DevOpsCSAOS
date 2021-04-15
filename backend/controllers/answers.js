@@ -21,7 +21,7 @@ answersRouter.post('/', async (req, res) => {
   })
 
   if (!survey) {
-    return res.status(500).json('SurveyId is invalid')
+    return res.status(400).json('SurveyId is invalid')
   }
 
   let survey_user_group
