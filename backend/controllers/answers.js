@@ -89,7 +89,7 @@ answersRouter.post('/', async (req, res) => {
     }
 
     await saveAnswersToDatabase(answers, userInDb.id)
-    const token = jwt.sign(userInDb.id, process.env.SECRET)
+    const token = jwt.sign(userInDb.id, process.env.SECRET_FOR_TOKEN)
 
     return res.status(200).json({ token, results: results })
   } catch (err) {

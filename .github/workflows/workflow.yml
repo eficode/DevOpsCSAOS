@@ -14,7 +14,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
           POSTGRES_DB: test_db
-          SECRET: ${{secrets.SECRET_FOR_TOKEN}}
+          SECRET_FOR_TOKEN: ${{secrets.SECRET_FOR_TOKEN}}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -39,14 +39,14 @@ jobs:
           DB_HOST: localhost
           DB_PASS: postgres
           DB_USER: postgres
-          SECRET: ${{secrets.SECRET_FOR_TOKEN}}
+          SECRET_FOR_TOKEN: ${{secrets.SECRET_FOR_TOKEN}}
           # createdb requires a password that has to be supplied as environment variable
           PGPASSWORD: postgres
           NODE_ENV: test
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
-        
+
   end-to-end-tests:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -61,7 +61,7 @@ jobs:
       - name: Wait for 10 seconds so that server is running and db initialized
         uses: jakejarvis/wait-action@master
         with:
-            time: '10s'
+          time: '10s'
       - name: Install python dependencies
         working-directory: ./end-to-end-tests
         run: |
@@ -73,7 +73,6 @@ jobs:
         working-directory: ./end-to-end-tests
         run: robot --variable DB_CONFIG_FILE:resources/compose.cfg --variable BROWSER:headlessfirefox tests
 
-
   deploy_to_staging:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -84,5 +83,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: 'ohtu-csaos-staging'
           heroku_email: ${{secrets.PROJECT_EMAIL}}
-          SECRET: ${{secrets.SECRET_FOR_TOKEN}}
+          SECRET_FOR_TOKEN: ${{secrets.SECRET_FOR_TOKEN}}
           usedocker: true
