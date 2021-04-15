@@ -16,20 +16,18 @@ services:
     build:
       context: ../
       dockerfile: ./Dockerfile
-      args: 
+      args:
         API_URL: http://localhost:5001
     image: devopscsaos
     command: bash -c "sleep 5s && node ./backend/server.js"
-    environment: 
+    environment:
       API_URL: http://localhost:5001
       NODE_ENV: endtoend
       DB_HOST: postgres-db
       DB_USER: testUser
       DB_PASS: password
+      SECRET_FOR_TOKEN: ${{secrets.SECRET_FOR_TOKEN}}
     ports:
       - 5001:5001
-    depends_on: 
+    depends_on:
       - postgres-db
-
-
-
