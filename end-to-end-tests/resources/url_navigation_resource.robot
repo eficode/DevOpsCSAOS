@@ -12,11 +12,13 @@ ${BROWSER}                headlessfirefox
 ${MAIN_URL}               http://${SERVER}
 ${VALID_EMAIL}            test2222@test.com
 
-${BEGIN}            Begin
-${START_SURVEY}     Get started
-${NEXT}             Next  
-${GO_TO_SUMMARY}    Review
-${GO_TO_RESULTS}    Submit answers
+${BEGIN}                Begin
+${START_SURVEY}         Get started
+${NEXT}                 Next  
+${GO_TO_SUMMARY}        Review
+${GO_TO_RESULTS}        Submit answers
+${TO_PRIVACY_POLICY}    privacy policy
+${BACK_TO_SURVEY}       Back to result page
 
 *** Keywords ***
 
@@ -41,6 +43,9 @@ Summary Page Should Be Open
 Result Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/result
 
+Privacy Policy Page Should Be Open
+    Location Should Contain  ${MAIN_URL}/privacy/
+
 Click get started button
     Click Element    //*[contains(text(), '${START_SURVEY}')]
     Wait Until Element Is Not Visible    //*[contains(text(), 'Loading questions')]
@@ -64,3 +69,11 @@ Click go to results and wait
 Click go to results
     Wait Until Page Contains Element    //*[contains(text(), '${GO_TO_RESULTS}')]
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
+
+Click privacy policy link and wait
+    Click Element   //*[contains(text(), '${TO_PRIVACY_POLICY}')]
+    Wait Until Location Contains    ${MAIN_URL}/privacy/
+
+Click back to results link and wait
+    Click Element   //*[contains(text(), '${BACK_TO_SURVEY}')]
+    Wait Until Location Contains    ${MAIN_URL}/survey/result 
