@@ -4,6 +4,7 @@
         "start:robot": "cd frontend/ && npm run build:tests && cd ../backend && npm run start-robot"
     },
     "dependencies": {
+        "@hubspot/api-client": "^3.4.1",
         "axios": "^0.21.1",
         "prettier": "^2.2.1",
         "social-media-icons-react": "^1.1.2"
