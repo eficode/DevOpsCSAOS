@@ -17,7 +17,7 @@ export const submitEmail = async (token, email, createNewGroup) => {
     email,
     token,
     createNewGroup,
-    surveyId
+    surveyId,
   })
   return response.data
 }
