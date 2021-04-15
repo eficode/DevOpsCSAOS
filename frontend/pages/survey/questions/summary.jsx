@@ -66,10 +66,7 @@ const Summary = () => {
 
     try {
       const response = await sendAnswers(email, answersForBackend, surveyId)
-      store.setResultsPerCategory(response.results.categoryResults)
-      store.setUserResult(response.results.surveyResult.userPoints)
-      store.setMaxResult(response.results.surveyResult.maxPoints)
-      store.setResultText(response.results.surveyResult.text)
+      store.setResults(response.results)
       router.push('/survey/result')
     } catch (e) {
       alert(`Something went wrong while submitting answers: ${e.message}`)
@@ -94,7 +91,7 @@ const Summary = () => {
             {questions &&
               questions.map((question) => {
                 let answerText
-                let currentAnswerId = selections.find(
+                const currentAnswerId = selections.find(
                   (s) => s.questionId === question.id
                 ).answerId
 
