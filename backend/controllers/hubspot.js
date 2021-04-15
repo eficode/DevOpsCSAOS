@@ -1,5 +1,5 @@
 const hubspotRouter = require('express').Router()
-//Authenticate via API Key
+// Authenticate via API Key
 const hubspot = require('@hubspot/api-client')
 
 const hubspotClient = new hubspot.Client({
@@ -10,7 +10,7 @@ if (!hubspotClient) {
   throw new Error('Failed to initialise HubSpot connection')
 }
 
-hubspotRouter.post('/contact', async (req, res) => {
+hubspotRouter.post('/contact', async (req) => {
   const { email } = req.body
 
   if (!email) {
@@ -28,7 +28,7 @@ hubspotRouter.post('/contact', async (req, res) => {
   try {
     return await hubspotClient.crm.contacts.basicApi.create(contactObj)
   } catch (error) {
-    console.error(error)
+    throw new Error(error)
   }
 })
 
