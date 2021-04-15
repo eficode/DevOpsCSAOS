@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isEmail } from 'validator'
+import Link from 'next/link'
 import Checkbox from '@material-ui/core/Checkbox' 
 import IndustrySelector from './industrySelector'
 import Button from '../components/button'
@@ -174,7 +175,7 @@ const GetDetailedResultsForm = () => {
                     color: "#1E3944",
                   }}
                 />
-                <CheckBoxText>Agree to the <a>privacy policy</a></CheckBoxText>
+                <CheckBoxText>Agree to the <Link href={'/privacy/'}>privacy policy</Link></CheckBoxText>
               </CheckboxContainer>
               </FieldWrapper>
             <Button id="submit-email-button" type="submit">
