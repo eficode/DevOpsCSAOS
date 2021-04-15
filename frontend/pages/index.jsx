@@ -21,10 +21,14 @@ const Home = () => {
 
   useEffect(() => {
     store.resetVersion()
-    const url = window.location.search
-    const version = new URLSearchParams(url).get('version')
+    const url = new URLSearchParams(window.location.search)
+    const version = url.get('version')
+    const groupId = url.get('groupId')
     if (version) {
       store.setFeatureToggleSwitch(version)
+    }
+    if (groupId) {
+      store.setGroupId(groupId)
     }
   }, [])
 

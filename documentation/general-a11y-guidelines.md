@@ -12,16 +12,19 @@ The goal of web accessibility is that all people can perceive, understand, navig
 
 - **Inclusivity - a wider range of users can use the service**
   - it's good to be empathetic
-  - often makes business sense since more users can = more business
-  - gives a better reputation, consequently avoiding a reputation-damaging one
-  - ensures compliance to regulation -> avoid fines, etc.
+  - often makes business sense since more users and happier users often means better business
+  - improves brand reputation, consequently preventing potential damage to reputation
+  - ensures compliance to regulation - avoid fines, etc.
 - **Cleaner HTML markup improves SEO**
-  - search engine bots see and consume HTML mark up.
-  - the better the mark up, the better the page ranking.
+  - Search Engine Optimisation (SEO) refers to the quality and quantity of website traffic to a website or a web page from search engines. The better the SEO, the better the site ranks in search engines, such as Googles.
+  - this is because search engine crawler bots consume HTML mark up and feed that to the algorithms
+  - consequently, the better the mark up, the better the page ranking
 - **Cleaner code that is easier to maintain**
-  - div soup can make reading code difficult
-  - semantic structure has the opposite effect
-  - it helps testing since changes to semantics = changes to functionality
+  - poorly written HTML (e.g. poorly structured, and non-semantic) can make reading and reasoning through code more difficult
+  - a clean, semantic structure has the opposite effect
+  - in addition, it helps testing
+    - changes to semantics should be considered changes to functionality
+    - as such, when the semantics of the mark up are changed, tests should be updated
 
 # What it covers
 
@@ -42,18 +45,24 @@ See: [https://madalyn.dev/blog/a11y-testing-coffee/](https://madalyn.dev/blog/a1
 
 ## Automated
 
-Not entirely comprehensive — "Automated testing can only reliably identify a small subset of accessibility violations (I’ve heard numbers between 10% and 30%)."- [https://engineering.linkedin.com/blog/2020/automated-accessibility-testing](https://engineering.linkedin.com/blog/2020/automated-accessibility-testing)
+Not entirely comprehensive — "Automated testing can only reliably identify a small subset of accessibility violations (~ 10% - 30%)."- [https://engineering.linkedin.com/blog/2020/automated-accessibility-testing](https://engineering.linkedin.com/blog/2020/automated-accessibility-testing)
 
-However, teaches a lot about good practices - similar to a code linter.
+However, it can teach a lot about good practices, similar to a code linter.
 
 Covers:
+
 - HTML/ARIA validation
+  - see the WAI-ARIA specification for more information on WAI-ARIA
 - Form labels
 - Color contrast
 - Accessible names
+  - ensures that HTML elements have accessible names
+  - mostly guaranteed by writing semantic HTML
 - Focus management
+  - sometimes necessary for complex user interactions, e.g. returning focus to where it was after a user was shown a modal
 - Specifying a language
-+ more
+
+* more
 
 List of tools:
 
@@ -62,32 +71,36 @@ List of tools:
 - [Accessibility Insights](https://accessibilityinsights.io/)
   - built by Microsoft
   - has Chrome extension and desktop app
-  - uses axe under the hood
+  - also uses axe under the hood
 - [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/)
   - created by [WebAIM](https://webaim.org/)
-  - provides an API → tool can either be run from their website or as a browser extension.
+  - provides an API, which means that the tool can either be run from their website or as a browser extension.
 
 ## Manual
 
-Since automated testing doesn't guarantee accessibility. The application may/should be inspected manually.
+Since automated testing doesn't guarantee accessibility, the application should be inspected manually to ensure accessibility.
 
-Covers: 
+Manual testing covers the following:
+
 - Focus order
+  - when navigating with a keyboard, users need to know which component currently has the input focus
+  - browsers indicate this visually by default, but it can be disrupted through programming choices (e.g. not using semantically correct elements) and scripts
+  - the goal is for the user to be able to navigate a page with a keyboard in an order that preserves its meaning (i.e. tabbing should not result in the user jumping to a random section of the page they're on) and allows them to perform all the necessary functions, e.g. submit form.
 - Text alternative quality
+  - i.e, the alt text on images should be of of good quality by textually conveying a representation of whatever the text is an alternative for, e.g. an image
+  - e.g. images that are purely for decorative purposes have their alt text set to "",
 - Screen reader testing
+  - done by using an actual screen reader, if available, such as NVDA for Windows or Voiceover for Mac.
 - Keyboard support
+  - tested by navigating the application with a keyboard only.
 - Contrast over images/gradients
 - Error identification
-
-This can be done by:
-
-- navigating with your keyboard
-- using a screen reader
+  - input errors are detected, identified, and reported to the user in clear text
 - turning your screen magnification way up (300%+)
 - using a site with audio muted
 - verifying that the **[prefers reduced motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)** setting is respected
 
-See Lighthouse accessibility audit & Accessibility insights extension for further suggestions for manual testing.
+**See Lighthouse accessibility audit suggestions in DevTools & Accessibility insights browser extension for further suggestions for manual testing.**
 
 ## Hybrid
 
@@ -132,4 +145,3 @@ See Lighthouse accessibility audit & Accessibility insights extension for furthe
 - **WAI** is the body responsible for the **WAI-ARIA specification** [https://www.w3.org/WAI/standards-guidelines/aria/](https://www.w3.org/WAI/standards-guidelines/aria/)
 
   - this spec provides developers with guidelines, e.g. on how to properly describe web elements, and how to provide keyboard navigation
-
