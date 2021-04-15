@@ -44,7 +44,18 @@ See: [https://madalyn.dev/blog/a11y-testing-coffee/](https://madalyn.dev/blog/a1
 
 Not entirely comprehensive — "Automated testing can only reliably identify a small subset of accessibility violations (I’ve heard numbers between 10% and 30%)."- [https://engineering.linkedin.com/blog/2020/automated-accessibility-testing](https://engineering.linkedin.com/blog/2020/automated-accessibility-testing)
 
-However, teaches a lot about good practices - similar to a code linter
+However, teaches a lot about good practices - similar to a code linter.
+
+Covers:
+- HTML/ARIA validation
+- Form labels
+- Color contrast
+- Accessible names
+- Focus management
+- Specifying a language
++ more
+
+List of tools:
 
 - [axe](https://www.deque.com/axe/) - this is what sits under *most* automated tooling. You can leverage it directly in your code using the [axe-core](https://github.com/dequelabs/axe-core) API or use their browser extensions to run on rendered pages.
 - [Lighthouse](https://developers.google.com/web/tools/lighthouse) includes accessibility auditing and runs axe. It’s shipped right in Chrome DevTools and **also has a [CI integration](https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/getting-started.md) you can add to your pipeline.**
@@ -60,6 +71,14 @@ However, teaches a lot about good practices - similar to a code linter
 
 Since automated testing doesn't guarantee accessibility. The application may/should be inspected manually.
 
+Covers: 
+- Focus order
+- Text alternative quality
+- Screen reader testing
+- Keyboard support
+- Contrast over images/gradients
+- Error identification
+
 This can be done by:
 
 - navigating with your keyboard
@@ -67,6 +86,8 @@ This can be done by:
 - turning your screen magnification way up (300%+)
 - using a site with audio muted
 - verifying that the **[prefers reduced motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)** setting is respected
+
+See Lighthouse accessibility audit & Accessibility insights extension for further suggestions for manual testing.
 
 ## Hybrid
 
