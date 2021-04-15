@@ -10,6 +10,7 @@ import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
 import ShareResultsGroup from '../../components/shareResultsGroup'
 import GetDetailedResultsForm from '../../components/getDetailedResultsForm'
+import theme from '../../styles/theme'
 
 const Content = styled.section`
   display: flex;
@@ -22,6 +23,13 @@ const Content = styled.section`
   width: 100%;
   background-color: white;
   border-radius: 0.5rem;
+
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+        padding-left: 8%;
+        padding-right: 8%;
+  }
+
 `
 
 const StyledHeading = styled(Heading)`
@@ -38,7 +46,16 @@ const StyledResultHeading = styled(Heading)`
   margin-top: 1rem;
 `
 
-const ResultSummaryText = styled.p``
+const ResultSummaryText = styled.section`
+  text-align: center;
+  padding: 15px 0 30px 0;
+  line-height: 1.6;
+  font-size: 16px;
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    text-align: left;
+  }
+`
 
 const Home = () => {
   const store = useStore()
@@ -82,13 +99,13 @@ const Home = () => {
               {text}
             </Heading>
             <ResultSummaryText data-testid="summarytext">
-              The tool assesses your DevOps capabilities in different categories
+              The tool assesses your DevOps capabilities in different categories 
               based on your answers. We have assessed your capabilities in
-              categories {listOfCategories}. You had highest score in category{' '}
-              {userBestInCategory}, whereas your score in {userWorstInCategory}{' '}
-              was the lowest. Fill in the form below to get your detailed
+              categories <strong>{listOfCategories}</strong>. Your highest score was in the category
+              <strong>{' '}{userBestInCategory}</strong>, whereas you scored lowest in <strong>{userWorstInCategory}</strong>.
+              Fill in the form below to get your detailed
               results by email and see how to improve your skills. You can also
-              compare your results with others in your business or in the
+              compare your results with others in your industry or in the
               selected reference group.
             </ResultSummaryText>
             <ShareResultsGroup
