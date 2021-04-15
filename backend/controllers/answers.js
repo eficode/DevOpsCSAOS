@@ -80,25 +80,30 @@ answersRouter.post('/emailsubmit', async (req, res) => {
   try {
     const userId = jwt.verify(token, process.env.SECRET_FOR_TOKEN)
 
+    // no email returns 400
     if (!email) {
-      return res.status(500).json({
+      return res.status(400).json({
         message: 'Email required for submit',
       })
     }
 
     const validUser = await User.findOne({ where: { id: userId } })
 
+    // invalid token returns 401
     if (!validUser) {
       return res.status(401).json({
         message: 'No user associated with token.',
       })
     }
+
+    // if createNewGroup is set, a new survey_user_group is created
     if (createNewGroup) {
       const { dataValues: newGroup } = await Survey_user_group.create({
         surveyId: surveyId,
       })
       validUser.groupId = newGroup.id
     }
+    
     await validUser.save()
     // send email to user here
     return res.status(200).json({})
