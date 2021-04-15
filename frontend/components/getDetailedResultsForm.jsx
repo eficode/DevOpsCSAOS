@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isEmail } from 'validator'
 import Checkbox from '@material-ui/core/Checkbox'
-
-import Button from '../components/button'
-import IndustrySelector from '../components/industrySelector'
+import { submitEmail } from '../services/answers'
+import Button from './button'
+import IndustrySelector from './industrySelector'
+import { useStore } from '../store'
 
 const FormBackGround = styled.div`
   width: 80%;
@@ -34,16 +35,17 @@ const DetailsInput = styled.input`
   margin: 0 0 10px 0;
 `
 
-const GroupLinkCheckBoxWrapper = styled.div`
-`
+const GroupLinkCheckBoxWrapper = styled.div``
 
 const CheckBoxText = styled.label`
   font-size: 13px;
 `
 
 const GetDetailedResultsForm = () => {
+  const store = useStore()
   const [emailInput, setEmailInput] = useState('')
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(true)
+  const [submitted, setSubmitted] = useState(false)
 
   const handleEmailChange = (event) => {
     event.preventDefault()
@@ -52,49 +54,60 @@ const GetDetailedResultsForm = () => {
 
   const updateEmail = async (event) => {
     event.preventDefault()
-    
+
     if (!isEmail(emailInput)) {
       alert('Please provide a valid email address')
     } else {
-      alert('This is a submit placeholder! add email sendin here!')
+      // for group generation you need to pass checkbox value and surveyID
+      // from store, add them to service and handle them in endpoint.
+      await submitEmail(store.userToken, emailInput).then(setSubmitted(true))
     }
   }
 
   const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
-  
+    setChecked(event.target.checked)
+  }
+  if (!submitted) {
+    return (
+      <FormBackGround>
+        <FormTitle>Get your detailed results</FormTitle>
+        <DetailsForm id="email-input-field" onSubmit={updateEmail}>
+          <DetailsInput
+            id="email"
+            name="email"
+            placeholder="Email"
+            value={emailInput}
+            onChange={handleEmailChange}
+            required
+          />
+          {emailInput && (
+            <>
+              <GroupLinkCheckBoxWrapper>
+                <Checkbox
+                  checked={checked}
+                  onChange={handleChange}
+                  name="checked"
+                  style={{
+                    color: '#1E3944',
+                  }}
+                />
+                <CheckBoxText>Create a group</CheckBoxText>
+              </GroupLinkCheckBoxWrapper>
+              <IndustrySelector />
+            </>
+          )}
+          <Button id="submit-email-button" type="submit">
+            Mail me!
+          </Button>
+        </DetailsForm>
+      </FormBackGround>
+    )
+  }
   return (
     <FormBackGround>
-      <FormTitle>Get your detailed results</FormTitle>
-      <DetailsForm id="email-input-field" onSubmit={updateEmail}>
-        <DetailsInput
-          id="email"
-          name="email"
-          placeholder="Email"
-          value={emailInput}
-          onChange={handleEmailChange}
-          required
-        />
-        {emailInput &&
-        <>
-          <GroupLinkCheckBoxWrapper>
-            <Checkbox
-              checked={checked}
-              onChange={handleChange}
-              name="checked"
-              style ={{
-                color: "#1E3944",
-              }}
-            />
-            <CheckBoxText>Create a group</CheckBoxText>
-          </GroupLinkCheckBoxWrapper>
-          <IndustrySelector />
-        </>}
-        <Button id="submit-email-button" type="submit">
-          Mail me!
-        </Button>
-      </DetailsForm>
+      <FormTitle>
+        Thank you! Check your email for detailed results and instructions.
+      </FormTitle>
     </FormBackGround>
   )
 }

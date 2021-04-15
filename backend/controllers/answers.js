@@ -14,7 +14,7 @@ const saveAnswersToDatabase = async (answers, userId) => {
 }
 
 answersRouter.post('/', async (req, res) => {
-  const { email, answers, surveyId, groupId } = req.body
+  const { answers, surveyId, groupId } = req.body
 
   const survey = await Survey.findOne({
     where: { id: surveyId },
@@ -59,35 +59,11 @@ answersRouter.post('/', async (req, res) => {
   const results = await getSummaryOfResults(answers, surveyId)
 
   try {
-    let userInDb
-    if (email) {
-      userInDb = survey_user_group
-        ? await User.findOne({
-            where: { email, groupId: survey_user_group.id },
-          })
-        : await User.findOne({
-            where: { email },
-          })
-
-      // if user with email and user group exists no new user is created, otherwise new user is created
-      if (!userInDb) {
-        userInDb = survey_user_group
-          ? await User.create({
-              where: { email, groupId: survey_user_group.id },
-            })
-          : (userInDb = await User.create({
-              email,
-            }))
-      }
-    } else {
-      // if anonymous user submits anwers with group id, id is saved to db
-      userInDb = survey_user_group
-        ? await User.create({
-            groupId: survey_user_group.id,
-          })
-        : await User.create({})
-    }
-
+    const userInDb = survey_user_group
+      ? await User.create({
+          groupId: survey_user_group.id,
+        })
+      : await User.create({})
     await saveAnswersToDatabase(answers, userInDb.id)
     const token = jwt.sign(userInDb.id, process.env.SECRET_FOR_TOKEN)
 
@@ -95,6 +71,36 @@ answersRouter.post('/', async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       message: 'Saving answers failed',
+    })
+  }
+})
+
+answersRouter.post('/emailsubmit', async (req, res) => {
+  const { token, email } = req.body
+  try {
+    const userId = jwt.verify(token, process.env.SECRET_FOR_TOKEN)
+
+    if (!email) {
+      return res.status(500).json({
+        message: 'Email required for submit',
+      })
+    }
+
+    const validUser = await User.findOne({ where: { id: userId } })
+
+    if (!validUser) {
+      return res.status(500).json({
+        message: 'No user associated with token.',
+      })
+    }
+
+    validUser.email = email
+    await validUser.save()
+
+    return res.status(200)
+  } catch (err) {
+    return res.status(500).json({
+      message: 'Updating user failed',
     })
   }
 })

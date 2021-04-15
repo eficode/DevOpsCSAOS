@@ -25,9 +25,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       group_name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notNull: { msg: 'Survey user group must have a name' },
           notEmpty: { msg: "Survey user group name can't be empty" },
         },
       },
