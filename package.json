@@ -6,6 +6,8 @@
     "dependencies": {
         "axios": "^0.21.1",
         "prettier": "^2.2.1",
-        "social-media-icons-react": "^1.1.2"
+        "social-media-icons-react": "^1.1.2",
+        "uuid": "^8.3.2",
+        "uuid-validate": "0.0.3"
     }
 }
