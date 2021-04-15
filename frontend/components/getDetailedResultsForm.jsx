@@ -3,20 +3,29 @@ import styled from 'styled-components'
 import { isEmail } from 'validator'
 import Checkbox from '@material-ui/core/Checkbox'
 import { submitEmail } from '../services/answers'
-import Button from './button'
 import IndustrySelector from './industrySelector'
 import { useStore } from '../store'
-
+import Button from '../components/button'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
+import IconButton from '@material-ui/core/IconButton'
 const FormBackGround = styled.div`
-  width: 80%;
+  width: 85%;
   margin-top: 30px;
   padding: 15px;
+  background: #99C2D0;
+  border-radius: 20px;
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    width: 95%;
+    padding: 5px;
+  }
 `
 
 const FormTitle = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
   margin: 10px;
+  padding-top: 30px;
 `
 
 const DetailsForm = styled.form`
@@ -33,26 +42,78 @@ const DetailsInput = styled.input`
   border-radius: 10px;
   border-width: 0px;
   margin: 0 0 10px 0;
+  ::placeholder {
+    color: #000;
+  }
+  color: #000;
+  width: 100%;
 `
 
-const GroupLinkCheckBoxWrapper = styled.div``
+const CheckboxContainer = styled.div`
+  margin-top: 10px;
+  a {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+`
+
+const FieldWrapper = styled.div`
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 10%;
+`
+
+const StyledCheckbox = styled(Checkbox)`
+  padding: 0;
+  margin-right: 5px;
+`
+
+const StyledIconButton = styled(IconButton)`
+  padding: 3px;
+  color: rgb(30, 57, 68);
+`
 
 const CheckBoxText = styled.label`
   font-size: 13px;
 `
 
+const Info = styled.div`
+  display: ${props => props.open ? "block" : "none"};
+  width: 200px;
+  background-color: ${({ theme }) => theme.colors.whiteSmoke};
+  position: absolute;
+  left: 46%;
+  z-index: 1;
+  font-size: 12px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px #999999;
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    left: 33%;
+  }
+`
+const StyledIcon = styled(InfoOutlinedIcon)`
+  
+`
+
+
 const GetDetailedResultsForm = () => {
   const store = useStore()
   const [emailInput, setEmailInput] = useState('')
-  const [checked, setChecked] = useState(true)
   const [submitted, setSubmitted] = useState(false)
+
+  const [createGroupChecked, setCreateGroupChecked] = useState(false)
+  const [agreeToPrivacyPolicyChecked, setAgreeToPrivacyPolicyChecked] = useState(false)
+  const [infoOpen, setInfoOpen] = useState(false)
 
   const handleEmailChange = (event) => {
     event.preventDefault()
     setEmailInput(event.target.value)
   }
 
-  const updateEmail = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
     if (!isEmail(emailInput)) {
@@ -62,52 +123,79 @@ const GetDetailedResultsForm = () => {
       // from store, add them to service and handle them in endpoint.
       await submitEmail(store.userToken, emailInput).then(setSubmitted(true))
     }
+    if(!agreeToPrivacyPolicyChecked) {
+      alert('You need to agree to the privacy policy')
+      return
+    }
+
+    // add submit to backend here
+  }
+  const handleCreateGroupChange = (event) => {
+    setCreateGroupChecked(event.target.checked)
   }
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked)
+  const handleAgreeToPolicyChange = (event) => {
+    setAgreeToPrivacyPolicyChecked(event.target.checked)
   }
-  if (!submitted) {
+
+  if (submitted) {
     return (
       <FormBackGround>
-        <FormTitle>Get your detailed results</FormTitle>
-        <DetailsForm id="email-input-field" onSubmit={updateEmail}>
-          <DetailsInput
-            id="email"
-            name="email"
-            placeholder="Email"
-            value={emailInput}
-            onChange={handleEmailChange}
-            required
-          />
-          {emailInput && (
-            <>
-              <GroupLinkCheckBoxWrapper>
-                <Checkbox
-                  checked={checked}
-                  onChange={handleChange}
-                  name="checked"
-                  style={{
-                    color: '#1E3944',
-                  }}
-                />
-                <CheckBoxText>Create a group</CheckBoxText>
-              </GroupLinkCheckBoxWrapper>
-              <IndustrySelector />
-            </>
-          )}
-          <Button id="submit-email-button" type="submit">
-            Mail me!
-          </Button>
-        </DetailsForm>
-      </FormBackGround>
-    )
-  }
-  return (
-    <FormBackGround>
       <FormTitle>
         Thank you! Check your email for detailed results and instructions.
       </FormTitle>
+      </FormBackGround>
+    )
+  }
+  
+  
+  return (
+    <FormBackGround>
+      <FormTitle>Get your detailed results</FormTitle>
+      
+        <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
+          <FieldWrapper>
+            <DetailsInput
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={emailInput}
+              onChange={handleEmailChange}
+              required
+            />
+            
+            <IndustrySelector />
+              <CheckboxContainer>
+                <StyledCheckbox
+                  checked={createGroupChecked}
+                  onChange={handleCreateGroupChange}
+                  name="checked"
+                  style ={{
+                    color: "#1E3944",
+                  }}
+                />
+                <CheckBoxText>Create a group</CheckBoxText>
+                <StyledIconButton aria-label="info" component="span" onClick={() => setInfoOpen(!infoOpen)} >
+                  <StyledIcon style={{ fontSize: 20 }}/>
+                </StyledIconButton>
+                <Info open={infoOpen}>By checking this box, you will be given a group link that you can share with your friends. You will be able to compare your results to the group average after your friends have taken the survey. </Info>
+              </CheckboxContainer>
+              <CheckboxContainer>
+                <StyledCheckbox
+                  checked={agreeToPrivacyPolicyChecked}
+                  onChange={handleAgreeToPolicyChange}
+                  name="checked"
+                  style ={{
+                    color: "#1E3944",
+                  }}
+                />
+                <CheckBoxText>Agree to the <a>privacy policy</a></CheckBoxText>
+              </CheckboxContainer>
+              </FieldWrapper>
+            <Button id="submit-email-button" type="submit">
+              Submit
+            </Button>
+        </DetailsForm>
     </FormBackGround>
   )
 }

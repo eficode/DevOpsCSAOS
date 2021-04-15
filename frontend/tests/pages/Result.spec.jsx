@@ -72,7 +72,7 @@ describe('Top of page contains survey points and summary text of result', () => 
       'Jauhot, Leivat and Leivonnaiset'
     )
     expect(screen.getByTestId('summarytext')).toHaveTextContent(
-      'You had highest score in category Leivat, whereas your score in Jauhot was the lowest'
+      'Your highest score was in the category Leivat, whereas you scored lowest in Jauhot'
     )
   })
 })
