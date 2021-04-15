@@ -6,13 +6,18 @@ import IndustrySelector from './industrySelector'
 import Button from '../components/button'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
-
 const FormBackGround = styled.div`
   width: 85%;
   margin-top: 30px;
   padding: 15px;
   background: #99C2D0;
   border-radius: 20px;
+
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    width: 95%;
+    padding: 5px;
+  }
 `
 
 const FormTitle = styled.h3`
@@ -60,7 +65,8 @@ const FieldWrapper = styled.div`
 `
 
 const StyledCheckbox = styled(Checkbox)`
-  padding: 0 5px 0 0;
+  padding: 0;
+  margin-right: 5px;
 `
 
 const StyledIconButton = styled(IconButton)`
@@ -74,8 +80,7 @@ const CheckBoxText = styled.label`
 
 const Info = styled.div`
   display: ${props => props.open ? "block" : "none"};
-  width: 130px;
-  height: 70px;
+  width: 200px;
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
   position: absolute;
   left: 46%;
@@ -83,6 +88,12 @@ const Info = styled.div`
   font-size: 12px;
   padding: 15px;
   border-radius: 10px;
+  box-shadow: 0px 5px 10px #999999;
+
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
+    left: 33%;
+  }
 `
 const StyledIcon = styled(InfoOutlinedIcon)`
   
@@ -98,7 +109,7 @@ const GetDetailedResultsForm = () => {
     setEmailInput(event.target.value)
   }
 
-  const updateEmail = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     
     if (!isEmail(emailInput)) {
@@ -106,6 +117,12 @@ const GetDetailedResultsForm = () => {
     } else {
       alert('This is a submit placeholder! add email sendin here!')
     }
+    if(!agreeToPrivacyPolicyChecked) {
+      alert('You need to agree to the privacy policy')
+      return
+    }
+
+    // add submit to backend here
   }
 
   const handleCreateGroupChange = (event) => {
@@ -120,7 +137,7 @@ const GetDetailedResultsForm = () => {
     <FormBackGround>
       <FormTitle>Get your detailed results</FormTitle>
       
-        <DetailsForm id="email-input-field" onSubmit={updateEmail}>
+        <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
           <FieldWrapper>
             <DetailsInput
               id="email"
@@ -145,7 +162,7 @@ const GetDetailedResultsForm = () => {
                 <StyledIconButton aria-label="info" component="span" onClick={() => setInfoOpen(!infoOpen)} >
                   <StyledIcon style={{ fontSize: 20 }}/>
                 </StyledIconButton>
-                <Info open={infoOpen}>Jotain</Info>
+                <Info open={infoOpen}>By checking this box, you will be given a group link that you can share with your friends. You will be able to compare your results to the group average after your friends have taken the survey. </Info>
               </CheckboxContainer>
               <CheckboxContainer>
                 <StyledCheckbox
