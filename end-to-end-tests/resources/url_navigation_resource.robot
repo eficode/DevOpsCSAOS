@@ -17,7 +17,7 @@ ${START_SURVEY}         Get started
 ${NEXT}                 Next  
 ${GO_TO_SUMMARY}        Review
 ${GO_TO_RESULTS}        Submit answers
-${TO_PRIVACY_POLICY}    privacy policy
+${TO_PRIVACY_POLICY}    Privacy policy
 ${BACK_TO_SURVEY}       Back to result page
 
 *** Keywords ***

@@ -175,7 +175,7 @@ const GetDetailedResultsForm = () => {
                     color: "#1E3944",
                   }}
                 />
-                <CheckBoxText>Agree to the <Link href={'/privacy/'}>privacy policy</Link></CheckBoxText>
+                <CheckBoxText>Agree to the <Link href={'/privacy/'}>Privacy policy</Link></CheckBoxText>
               </CheckboxContainer>
               </FieldWrapper>
             <Button id="submit-email-button" type="submit">

@@ -9,7 +9,7 @@ Resource        ../resources/survey_resource.robot
 Clicking Link To Privacy Policy Leads To Privacy Policy Page With Link Back To Results
   [Setup]       Seed Database With Test Data
   Complete survey and submit answers
-  Click privacy policy link and wait
+  Click Privacy policy link and wait
   Privacy Policy Page Should Be Open
   Click back to results link and wait
   Result Page Should Be Open
