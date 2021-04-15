@@ -96,6 +96,9 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       })
     }
 
+    // valid email is added to valid user
+    validUser.email = email
+
     // if createNewGroup is set, a new survey_user_group is created
     if (createNewGroup) {
       const { dataValues: newGroup } = await Survey_user_group.create({
