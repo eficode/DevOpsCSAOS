@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     // eslint-disable-next-line no-unused-vars
     static associate(models) {
       // define association here
-      this.belongsTo(models.Organization, { foreignKey: 'id' })
-      this.hasMany(models.User, { foreignKey: 'organizationId' })
-      this.belongsTo(models.Survey, { foreignKey: 'id' })
+      this.belongsTo(models.Organization, { foreignKey: 'organizationId' })
+      this.hasMany(models.User, { foreignKey: 'groupId' })
+      this.belongsTo(models.Survey, { foreignKey: 'surveyId' })
     }
   }
   Survey_user_group.init(
@@ -49,11 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       organizationId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          notNull: { msg: 'Survey user group must have organizationId' },
-          notEmpty: { msg: "Survey user group organizationId can't be empty" },
-        },
+        allowNull: true,
       },
     },
     {

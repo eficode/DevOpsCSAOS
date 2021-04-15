@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": 1,
+    "group_name": "Test group",
+    "url": "testgroupId",
+    "surveyId": 1,
+    "organizationId": 1
+  },
+  {
+    "id": 2,
+    "group_name": "Test group 2",
+    "url": "testgroupId2",
+    "surveyId": 1,
+    "organizationId": 2
+  }
+]
