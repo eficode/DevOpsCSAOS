@@ -11,10 +11,13 @@ export const sendAnswers = async (email, answers, surveyId, groupId) => {
   return response.data
 }
 
-export const submitEmail = async (token, email) => {
+export const submitEmail = async (token, email, createNewGroup) => {
+  const surveyId = 1
   const response = await axios.post(`${HOST}/api/answers/emailsubmit`, {
     email,
     token,
+    createNewGroup,
+    surveyId
   })
   return response.data
 }

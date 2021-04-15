@@ -25,7 +25,7 @@ const FormTitle = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
   margin: 10px;
-  padding-top: 30px;
+  padding-top: ${(props) => props.noPaddingTop ? `0px` : `30px`}
 `
 
 const DetailsForm = styled.form`
@@ -98,15 +98,16 @@ const StyledIcon = styled(InfoOutlinedIcon)`
   
 `
 
-
 const GetDetailedResultsForm = () => {
   const store = useStore()
   const [emailInput, setEmailInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
-
   const [createGroupChecked, setCreateGroupChecked] = useState(false)
   const [agreeToPrivacyPolicyChecked, setAgreeToPrivacyPolicyChecked] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
+
+  const userHasGroup = store.groupId !== ''
+  console.log(store.groupId)
 
   const handleEmailChange = (event) => {
     event.preventDefault()
@@ -118,16 +119,14 @@ const GetDetailedResultsForm = () => {
 
     if (!isEmail(emailInput)) {
       alert('Please provide a valid email address')
-    } else {
-      // for group generation you need to pass checkbox value and surveyID
-      // from store, add them to service and handle them in endpoint.
-      await submitEmail(store.userToken, emailInput).then(setSubmitted(true))
-    }
+      return
+    } 
     if(!agreeToPrivacyPolicyChecked) {
       alert('You need to agree to the privacy policy')
       return
     }
-
+    await submitEmail(store.userToken, emailInput, createGroupChecked)
+    setSubmitted(true)
     // add submit to backend here
   }
   const handleCreateGroupChange = (event) => {
@@ -141,61 +140,61 @@ const GetDetailedResultsForm = () => {
   if (submitted) {
     return (
       <FormBackGround>
-      <FormTitle>
-        Thank you! Check your email for detailed results and instructions.
-      </FormTitle>
+        <FormTitle noPaddingTop>
+          Thank you! Check your email for detailed results and instructions.
+        </FormTitle>
       </FormBackGround>
     )
   }
   
-  
   return (
     <FormBackGround>
       <FormTitle>Get your detailed results</FormTitle>
-      
-        <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
-          <FieldWrapper>
-            <DetailsInput
-              id="email"
-              name="email"
-              placeholder="Email"
-              value={emailInput}
-              onChange={handleEmailChange}
-              required
-            />
-            
-            <IndustrySelector />
-              <CheckboxContainer>
-                <StyledCheckbox
-                  checked={createGroupChecked}
-                  onChange={handleCreateGroupChange}
-                  name="checked"
-                  style ={{
-                    color: "#1E3944",
-                  }}
-                />
-                <CheckBoxText>Create a group</CheckBoxText>
-                <StyledIconButton aria-label="info" component="span" onClick={() => setInfoOpen(!infoOpen)} >
-                  <StyledIcon style={{ fontSize: 20 }}/>
-                </StyledIconButton>
-                <Info open={infoOpen}>By checking this box, you will be given a group link that you can share with your friends. You will be able to compare your results to the group average after your friends have taken the survey. </Info>
-              </CheckboxContainer>
-              <CheckboxContainer>
-                <StyledCheckbox
-                  checked={agreeToPrivacyPolicyChecked}
-                  onChange={handleAgreeToPolicyChange}
-                  name="checked"
-                  style ={{
-                    color: "#1E3944",
-                  }}
-                />
-                <CheckBoxText>Agree to the <a>privacy policy</a></CheckBoxText>
-              </CheckboxContainer>
-              </FieldWrapper>
-            <Button id="submit-email-button" type="submit">
-              Submit
-            </Button>
-        </DetailsForm>
+      <DetailsForm id="email-input-field" onSubmit={(event) => handleSubmit(event)}>
+        <FieldWrapper>
+          <DetailsInput
+            id="email"
+            name="email"
+            placeholder="Email"
+            value={emailInput}
+            onChange={handleEmailChange}
+            required
+          />
+          <IndustrySelector />
+          {
+            !userHasGroup &&
+            <CheckboxContainer>
+              <StyledCheckbox
+                checked={createGroupChecked}
+                onChange={handleCreateGroupChange}
+                name="checked"
+                style ={{
+                  color: "#1E3944",
+                }}
+              />
+              <CheckBoxText>Create a group</CheckBoxText>
+              <StyledIconButton aria-label="info" component="span" onClick={() => setInfoOpen(!infoOpen)} >
+                <StyledIcon style={{ fontSize: 20 }}/>
+              </StyledIconButton>
+              <Info open={infoOpen}>By checking this box, you will be given a group link that you can share with your friends. You will be able to compare your results to the group average after your friends have taken the survey. </Info>
+            </CheckboxContainer>
+          }
+          <CheckboxContainer>
+            <StyledCheckbox
+              checked={agreeToPrivacyPolicyChecked}
+              onChange={handleAgreeToPolicyChange}
+              name="checked"
+              style ={{
+                color: "#1E3944",
+              }}
+          />
+          <CheckBoxText>Agree to the <a>privacy policy</a></CheckBoxText>
+          </CheckboxContainer>
+        </FieldWrapper>
+        <Button id="submit-email-button" type="submit">
+          Submit
+        </Button>
+      </DetailsForm>
     </FormBackGround>
   )
 }

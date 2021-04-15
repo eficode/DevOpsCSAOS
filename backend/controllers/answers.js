@@ -28,13 +28,13 @@ answersRouter.post('/', async (req, res) => {
 
   if (groupId) {
     survey_user_group = await Survey_user_group.findAll({
-      where: { url: groupId },
+      where: { id: groupId },
       attributes: ['id'],
       plain: true,
     })
 
     if (!survey_user_group) {
-      return res.status(500).json({
+      return res.status(400).json({
         message: 'GroupId is invalid.',
       })
     }
@@ -43,14 +43,14 @@ answersRouter.post('/', async (req, res) => {
   const verificationResult = await verifyUserAnswers(answers, surveyId)
 
   if (verificationResult.unAnsweredQuestionsFound) {
-    return res.status(500).json({
+    return res.status(400).json({
       message: "Some questions don't have answers",
       questions: verificationResult.unAnsweredQuestions,
     })
   }
 
   if (verificationResult.duplicatesFound) {
-    return res.status(500).json({
+    return res.status(400).json({
       message: 'Some questions are answered more than once',
       questions: verificationResult.duplicates,
     })
@@ -76,7 +76,7 @@ answersRouter.post('/', async (req, res) => {
 })
 
 answersRouter.post('/emailsubmit', async (req, res) => {
-  const { token, email } = req.body
+  const { token, email, createNewGroup, surveyId } = req.body
   try {
     const userId = jwt.verify(token, process.env.SECRET_FOR_TOKEN)
 
@@ -89,16 +89,21 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     const validUser = await User.findOne({ where: { id: userId } })
 
     if (!validUser) {
-      return res.status(500).json({
+      return res.status(401).json({
         message: 'No user associated with token.',
       })
     }
-
-    validUser.email = email
+    if (createNewGroup) {
+      const { dataValues: newGroup } = await Survey_user_group.create({
+        surveyId: surveyId,
+      })
+      validUser.groupId = newGroup.id
+    }
     await validUser.save()
-
-    return res.status(200)
+    // send email to user here
+    return res.status(200).json({})
   } catch (err) {
+    console.log(err)
     return res.status(500).json({
       message: 'Updating user failed',
     })
