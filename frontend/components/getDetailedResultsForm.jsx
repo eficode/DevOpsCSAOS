@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isEmail } from 'validator'
+import Link from 'next/link'
 import Checkbox from '@material-ui/core/Checkbox' 
 import IndustrySelector from './industrySelector'
 import Button from '../components/button'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
+
 const FormBackGround = styled.div`
   width: 85%;
   margin-top: 30px;
@@ -134,7 +136,7 @@ const GetDetailedResultsForm = () => {
   }
   
   return (
-    <FormBackGround>
+    <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
       <FormTitle>Get your detailed results</FormTitle>
       
         <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
@@ -173,7 +175,7 @@ const GetDetailedResultsForm = () => {
                     color: "#1E3944",
                   }}
                 />
-                <CheckBoxText>Agree to the <a>privacy policy</a></CheckBoxText>
+                <CheckBoxText>Agree to the <Link href={'/privacy/'}>Privacy policy</Link></CheckBoxText>
               </CheckboxContainer>
               </FieldWrapper>
             <Button id="submit-email-button" type="submit">

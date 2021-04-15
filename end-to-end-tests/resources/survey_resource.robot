@@ -60,6 +60,11 @@ Complete survey
     Open survey
     Answer all questions
 
+Complete survey and submit answers
+    Open survey
+    Answer all questions
+    Click go to results and wait
+
 Summary Page Should Contain Selected Answers
     [Arguments]  @{ANSWERS_IN_SUMMARY}
     FOR   ${index}   IN RANGE  0   ${SURVEY_LENGTH} - 1
