@@ -129,7 +129,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
         userWithSameEmailAndGroup.groupId = newGroup.id
         await userWithSameEmailAndGroup.save()
       } else {
-        anonymousUser.email = email
+        anonymousUser.groupId = newGroup.id
         await anonymousUser.save()
       }
     }
