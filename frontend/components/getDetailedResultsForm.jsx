@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isEmail } from 'validator'
-import Checkbox from '@material-ui/core/Checkbox'
-import { submitEmail } from '../services/answers'
+import Link from 'next/link'
+import Checkbox from '@material-ui/core/Checkbox' 
 import IndustrySelector from './industrySelector'
 import { useStore } from '../store'
 import Button from '../components/button'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
+
 const FormBackGround = styled.div`
   width: 85%;
   margin-top: 30px;
@@ -128,7 +129,6 @@ const GetDetailedResultsForm = () => {
     const groupId = store.groupId === '' ? undefined : store.groupId
     await submitEmail(store.userToken, emailInput, createGroupChecked, groupId)
     setSubmitted(true)
-    // add submit to backend here
   }
   const handleCreateGroupChange = (event) => {
     setCreateGroupChecked(event.target.checked)
@@ -149,53 +149,52 @@ const GetDetailedResultsForm = () => {
   }
   
   return (
-    <FormBackGround>
+    <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
       <FormTitle>Get your detailed results</FormTitle>
-      <DetailsForm id="email-input-field" onSubmit={(event) => handleSubmit(event)}>
-        <FieldWrapper>
-          <DetailsInput
-            id="email"
-            name="email"
-            placeholder="Email"
-            value={emailInput}
-            onChange={handleEmailChange}
-            required
-          />
-          <IndustrySelector />
-          {
-            !userHasGroup &&
-            <CheckboxContainer>
-              <StyledCheckbox
-                checked={createGroupChecked}
-                onChange={handleCreateGroupChange}
-                name="checked"
-                style ={{
-                  color: "#1E3944",
-                }}
-              />
-              <CheckBoxText>Create a group</CheckBoxText>
-              <StyledIconButton aria-label="info" component="span" onClick={() => setInfoOpen(!infoOpen)} >
-                <StyledIcon style={{ fontSize: 20 }}/>
-              </StyledIconButton>
-              <Info open={infoOpen}>By checking this box, you will be given a group link that you can share with your friends. You will be able to compare your results to the group average after your friends have taken the survey. </Info>
-            </CheckboxContainer>
-          }
-          <CheckboxContainer>
-            <StyledCheckbox
-              checked={agreeToPrivacyPolicyChecked}
-              onChange={handleAgreeToPolicyChange}
-              name="checked"
-              style ={{
-                color: "#1E3944",
-              }}
-          />
-          <CheckBoxText>Agree to the <a>privacy policy</a></CheckBoxText>
-          </CheckboxContainer>
-        </FieldWrapper>
-        <Button id="submit-email-button" type="submit">
-          Submit
-        </Button>
-      </DetailsForm>
+      
+        <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
+          <FieldWrapper>
+            <DetailsInput
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={emailInput}
+              onChange={handleEmailChange}
+              required
+            />
+            
+            <IndustrySelector />
+              <CheckboxContainer>
+                <StyledCheckbox
+                  checked={createGroupChecked}
+                  onChange={handleCreateGroupChange}
+                  name="checked"
+                  style ={{
+                    color: "#1E3944",
+                  }}
+                />
+                <CheckBoxText>Create a group</CheckBoxText>
+                <StyledIconButton aria-label="info" component="span" onClick={() => setInfoOpen(!infoOpen)} >
+                  <StyledIcon style={{ fontSize: 20 }}/>
+                </StyledIconButton>
+                <Info open={infoOpen}>By checking this box, you will be given a group link that you can share with your friends. You will be able to compare your results to the group average after your friends have taken the survey. </Info>
+              </CheckboxContainer>
+              <CheckboxContainer>
+                <StyledCheckbox
+                  checked={agreeToPrivacyPolicyChecked}
+                  onChange={handleAgreeToPolicyChange}
+                  name="checked"
+                  style ={{
+                    color: "#1E3944",
+                  }}
+                />
+                <CheckBoxText>Agree to the <Link href={'/privacy/'}>Privacy policy</Link></CheckBoxText>
+              </CheckboxContainer>
+              </FieldWrapper>
+            <Button id="submit-email-button" type="submit">
+              Submit
+            </Button>
+        </DetailsForm>
     </FormBackGround>
   )
 }
