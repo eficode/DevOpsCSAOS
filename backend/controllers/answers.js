@@ -69,46 +69,71 @@ answersRouter.post('/', async (req, res) => {
 
     return res.status(200).json({ token, results: results })
   } catch (err) {
+    console.log(err)
     return res.status(500).json({
       message: 'Saving answers failed',
     })
   }
 })
 
-answersRouter.post('/emailsubmit', async (req, res) => {
-  const { token, email, createNewGroup, surveyId } = req.body
-  try {
-    const userId = jwt.verify(token, process.env.SECRET_FOR_TOKEN)
+const findUserMatchingTokenFromDb = async (token) => {
+  const anonymousUserId = jwt.verify(token, process.env.SECRET_FOR_TOKEN)
+  return User.findOne({
+    where: {
+      id: anonymousUserId,
+    },
+  })
+}
 
-    // no email returns 400
-    if (!email) {
+answersRouter.post('/emailsubmit', async (req, res) => {
+  const { token, email, createNewGroup, surveyId, groupId } = req.body
+  try {
+    // request body validation
+    if (!email || !token || !surveyId) {
       return res.status(400).json({
-        message: 'Email required for submit',
+        message: 'Email, token and survey id are required for submit',
       })
     }
 
-    const validUser = await User.findOne({ where: { id: userId } })
-
-    // invalid token returns 401
-    if (!validUser) {
+    const anonymousUser = await findUserMatchingTokenFromDb(token)
+    if (!anonymousUser) {
       return res.status(401).json({
         message: 'No user associated with token.',
       })
     }
 
-    // valid email is added to valid user
-    validUser.email = email
+    // update users table in db
+    const userWithSameEmailAndGroup = await User.findOne({
+      where: {
+        email: email,
+        groupId: groupId || null,
+      },
+    })
+    if (userWithSameEmailAndGroup) {
+      await User_answer.update(
+        { userId: userWithSameEmailAndGroup.id },
+        { where: { userId: anonymousUser.id } }
+      )
+      await User.destroy({ where: { id: anonymousUser.id } })
+    } else {
+      anonymousUser.email = email
+      await anonymousUser.save()
+    }
 
-    // if createNewGroup is set, a new survey_user_group is created
-    if (createNewGroup) {
+    // update user groups in db
+    if (createNewGroup && !groupId) {
       const { dataValues: newGroup } = await Survey_user_group.create({
         surveyId: surveyId,
       })
-      validUser.groupId = newGroup.id
+      if (userWithSameEmailAndGroup) {
+        userWithSameEmailAndGroup.groupId = newGroup.id
+        await userWithSameEmailAndGroup.save()
+      } else {
+        anonymousUser.email = email
+        await anonymousUser.save()
+      }
     }
 
-    await validUser.save()
-    // send email to user here
     return res.status(200).json({})
   } catch (err) {
     console.log(err)
