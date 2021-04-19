@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import {
-  InputLabel,
   MenuItem,
   FormControl,
   Select,
@@ -42,17 +41,14 @@ const IndustrySelector = (selectedIndustry, setSelectedIndustry) => {
         const industriesFromDb = await getIndustries()
         setIndustries(industriesFromDb)
       } catch (err) {
-        console.err(err)
+        console.log(err)
       }
     })()
   }, [])
 
   const handleChange = (event) => {
-    setSelectedIndustry(event.target.value)
-  }
-
-  if (!industries || industries.length === 0) {
-    return <></>
+    event.preventDefault()
+    console.log(event.target.value)
   }
 
   return (
@@ -66,13 +62,16 @@ const IndustrySelector = (selectedIndustry, setSelectedIndustry) => {
         <StyledMenuItem value={0} disabled>
           Select your industry
         </StyledMenuItem>
-        {industries.forEach((industry) => (
-          <StyledMenuItem value={industry.id}>{industry.name}</StyledMenuItem>
-        ))}
-        <StyledMenuItem value={1}>Software</StyledMenuItem>
-        <StyledMenuItem value={2}>Malware</StyledMenuItem>
-        <StyledMenuItem value={3}>Warfare</StyledMenuItem>
-        <StyledMenuItem value={4}>Other</StyledMenuItem>
+        <StyledMenuItem value={1} >
+          JEEEE
+        </StyledMenuItem>
+        {industries&&industries.map(i => {
+          return (
+            <StyledMenuItem value={i.id} >
+              {i.name}
+            </StyledMenuItem>
+          )
+        })}
       </StyledSelect>
     </StyledFormControl>
   )

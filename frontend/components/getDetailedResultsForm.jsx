@@ -107,7 +107,7 @@ const GetDetailedResultsForm = () => {
     setAgreeToPrivacyPolicyChecked,
   ] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
-  const [selectedIndustry, setSelectedIndustry] = useState('')
+  const [selectedIndustry, setSelectedIndustry] = useState(0)
 
   const handleEmailChange = (event) => {
     event.preventDefault()
