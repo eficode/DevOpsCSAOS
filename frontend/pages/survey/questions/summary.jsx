@@ -7,7 +7,7 @@ import ContentAnimationWrapper from '../../../components/contentAnimationWrapper
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import ProgressBar from '../../../components/progressBar'
 import StyledButton from '../../../components/button'
-import { sendAnswers } from '../../../services/answers'
+import { sendAnswers } from '../../../services/routes'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
 import StyledLink from '../../../components/link'
 import Heading from '../../../components/heading'

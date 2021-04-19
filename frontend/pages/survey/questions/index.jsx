@@ -5,7 +5,7 @@ import ContentAnimationWrapper from '../../../components/contentAnimationWrapper
 import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
 import QuestionGrouper from '../../../components/questionGrouper'
 import ProgressBar from '../../../components/progressBar'
-import { getAll as getAllQuestions } from '../../../services/questions'
+import { getAllQuestions } from '../../../services/routes'
 import { useRouter, withRouter } from '../../../components/staticRouting'
 import StyledLink from '../../../components/link'
 import NavigationGroup from '../../../components/navigationGroup'
@@ -28,7 +28,7 @@ const SurveyPage = () => {
   const storeHasQuestions = store.questions.length > 0
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (store.questions.length === 0) {
         try {
           const surveyId = 1
