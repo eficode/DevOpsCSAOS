@@ -125,7 +125,8 @@ const GetDetailedResultsForm = () => {
       alert('You need to agree to the privacy policy')
       return
     }
-    await submitEmail(store.userToken, emailInput, createGroupChecked)
+    const groupId = store.groupId === '' ? undefined : store.groupId
+    await submitEmail(store.userToken, emailInput, createGroupChecked, groupId)
     setSubmitted(true)
     // add submit to backend here
   }
