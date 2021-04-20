@@ -10,5 +10,8 @@ jobs:
         with:
           urls: |
             https://ohtu-csaos-staging.herokuapp.com/
+            https://ohtu-csaos-staging.herokuapp.com/survey/questions/?id=1/
+            https://ohtu-csaos-staging.herokuapp.com/survey/questions/summary/
+          budgetPath: ./budget.json # test performance budgets - currently set to arbitrarily high numbers due to Heroku spin-up latency
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
