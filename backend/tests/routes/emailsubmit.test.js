@@ -9,6 +9,8 @@ const app = require('../../app.js')
 const { Survey_user_group, User_answer, User } = require('../../models')
 
 const endpoint = '/api/answers/emailsubmit'
+jest.mock('../../controllers/helpers/hubspot')
+
 describe(`POST ${endpoint}`, () => {
   const { SECRET_FOR_TOKEN } = process.env
   const validEmail = 'abcdefg@gmail.com'
