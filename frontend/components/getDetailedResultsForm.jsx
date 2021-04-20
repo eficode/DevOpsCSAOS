@@ -2,18 +2,19 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isEmail } from 'validator'
 import Link from 'next/link'
-import Checkbox from '@material-ui/core/Checkbox' 
-import IndustrySelector from './industrySelector'
-import { useStore } from '../store'
-import Button from '../components/button'
+import Checkbox from '@material-ui/core/Checkbox'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
+import IndustrySelector from './industrySelector'
+import { useStore } from '../store'
+import Button from './button'
+import { submitEmail } from '../services/answers'
 
 const FormBackGround = styled.div`
   width: 85%;
   margin-top: 30px;
   padding: 15px;
-  background: #99C2D0;
+  background: #99c2d0;
   border-radius: 20px;
   @media screen and (max-width: ${({ theme }) =>
       theme.breakpoints.wideMobile}) {
@@ -26,7 +27,7 @@ const FormTitle = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
   margin: 10px;
-  padding-top: ${(props) => props.noPaddingTop ? `0px` : `30px`}
+  padding-top: ${(props) => (props.noPaddingTop ? '0px' : '30px')};
 `
 
 const DetailsForm = styled.form`
@@ -80,7 +81,7 @@ const CheckBoxText = styled.label`
 `
 
 const Info = styled.div`
-  display: ${props => props.open ? "block" : "none"};
+  display: ${(props) => (props.open ? 'block' : 'none')};
   width: 200px;
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
   position: absolute;
@@ -95,16 +96,17 @@ const Info = styled.div`
     left: 33%;
   }
 `
-const StyledIcon = styled(InfoOutlinedIcon)`
-  
-`
+const StyledIcon = styled(InfoOutlinedIcon)``
 
 const GetDetailedResultsForm = () => {
   const store = useStore()
   const [emailInput, setEmailInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [createGroupChecked, setCreateGroupChecked] = useState(false)
-  const [agreeToPrivacyPolicyChecked, setAgreeToPrivacyPolicyChecked] = useState(false)
+  const [
+    agreeToPrivacyPolicyChecked,
+    setAgreeToPrivacyPolicyChecked,
+  ] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
 
   const userHasGroup = store.groupId !== ''
@@ -121,8 +123,8 @@ const GetDetailedResultsForm = () => {
     if (!isEmail(emailInput)) {
       alert('Please provide a valid email address')
       return
-    } 
-    if(!agreeToPrivacyPolicyChecked) {
+    }
+    if (!agreeToPrivacyPolicyChecked) {
       alert('You need to agree to the privacy policy')
       return
     }
@@ -147,54 +149,70 @@ const GetDetailedResultsForm = () => {
       </FormBackGround>
     )
   }
-  
+
   return (
     <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
       <FormTitle>Get your detailed results</FormTitle>
-      
-        <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
-          <FieldWrapper>
-            <DetailsInput
-              id="email"
-              name="email"
-              placeholder="Email"
-              value={emailInput}
-              onChange={handleEmailChange}
-              required
+
+      <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
+        <FieldWrapper>
+          <DetailsInput
+            id="email"
+            name="email"
+            placeholder="Email"
+            value={emailInput}
+            onChange={handleEmailChange}
+            required
+          />
+
+          <IndustrySelector />
+          {store.groupId === '' ? (
+            <CheckboxContainer>
+              <StyledCheckbox
+                checked={createGroupChecked}
+                onChange={handleCreateGroupChange}
+                name="checked"
+                style={{
+                  color: '#1E3944',
+                }}
+              />
+              <CheckBoxText>Create a group</CheckBoxText>
+              <StyledIconButton
+                aria-label="info"
+                component="span"
+                onClick={() => setInfoOpen(!infoOpen)}
+              >
+                <StyledIcon style={{ fontSize: 20 }} />
+              </StyledIconButton>
+              <Info open={infoOpen}>
+                By checking this box, you will be given a group link that you
+                can share with your friends. You will be able to compare your
+                results to the group average after your friends have taken the
+                survey.{' '}
+              </Info>
+            </CheckboxContainer>
+          ) : (
+            <></>
+          )}
+
+          <CheckboxContainer>
+            <StyledCheckbox
+              checked={agreeToPrivacyPolicyChecked}
+              onChange={handleAgreeToPolicyChange}
+              name="checked"
+              style={{
+                color: '#1E3944',
+              }}
             />
-            
-            <IndustrySelector />
-              <CheckboxContainer>
-                <StyledCheckbox
-                  checked={createGroupChecked}
-                  onChange={handleCreateGroupChange}
-                  name="checked"
-                  style ={{
-                    color: "#1E3944",
-                  }}
-                />
-                <CheckBoxText>Create a group</CheckBoxText>
-                <StyledIconButton aria-label="info" component="span" onClick={() => setInfoOpen(!infoOpen)} >
-                  <StyledIcon style={{ fontSize: 20 }}/>
-                </StyledIconButton>
-                <Info open={infoOpen}>By checking this box, you will be given a group link that you can share with your friends. You will be able to compare your results to the group average after your friends have taken the survey. </Info>
-              </CheckboxContainer>
-              <CheckboxContainer>
-                <StyledCheckbox
-                  checked={agreeToPrivacyPolicyChecked}
-                  onChange={handleAgreeToPolicyChange}
-                  name="checked"
-                  style ={{
-                    color: "#1E3944",
-                  }}
-                />
-                <CheckBoxText>Agree to the <Link href={'/privacy/'}>Privacy policy</Link></CheckBoxText>
-              </CheckboxContainer>
-              </FieldWrapper>
-            <Button id="submit-email-button" type="submit">
-              Submit
-            </Button>
-        </DetailsForm>
+            <CheckBoxText>
+              Agree to the <Link href="/privacy/">Privacy policy</Link>
+            </CheckBoxText>
+          </CheckboxContainer>
+        </FieldWrapper>
+        <Button id="submit-email-button" type="submit">
+          Submit
+        </Button>
+      </DetailsForm>
     </FormBackGround>
   )
 }
