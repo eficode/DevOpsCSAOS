@@ -2,7 +2,7 @@
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest')
 const app = require('../../app.js')
-const { clearDBAndCreateDummyData } = require('../../testUtils/setupTestDb')
+const { clearDBAndCreateDummyData } = require('../testUtils/setupTestDb')
 const { User } = require('../../models')
 
 beforeAll(async () => {

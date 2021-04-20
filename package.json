@@ -1,10 +1,10 @@
 {
-  "scripts": {
-    "format": "prettier --write '**/*.js'",
-    "start:robot": "cd frontend/ && npm run build:tests && cd ../backend && npm run start-robot"
-  },
-  "dependencies": {
-    "axios": "^0.21.1",
-    "prettier": "^2.2.1"
-  }
+	"scripts": {
+		"format": "prettier --write '**/*.js'",
+		"start:robot": "cd frontend/ && npm run build:tests && cd ../backend && npm run start-robot"
+	},
+	"dependencies": {
+		"axios": "^0.21.1",
+		"prettier": "^2.2.1"
+	}
 }

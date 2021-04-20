@@ -1,13 +1,15 @@
 /* eslint-disable max-len */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { checkGroupId } from '../services/userGroups'
 import { useStore } from '../store'
 import ContentAnimationWrapper from '../components/contentAnimationWrapper'
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
 import Link from '../components/link'
 import ProgressBar from '../components/progressBar'
 import Heading from '../components/heading'
+import theme from '../styles/theme'
 
 const Section = styled.section`
   background-color: #fff;
@@ -16,22 +18,41 @@ const Section = styled.section`
   align-items: center;
 `
 
+const ErrorMessage = styled.div`
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.brandyPunch};
+  padding: 20px;
+  width: 80%;
+  font-size: 12px;
+  color: white;
+  margin-top: 20px;
+  line-height: 1.6;
+  
+`
+
 const Home = () => {
   const store = useStore()
-
+  const [showGroupIdInvalidText, setShowGroupIdInvalidText] = useState(false)
   useEffect(() => {
-    store.resetVersion()
-    const url = new URLSearchParams(window.location.search)
-    const version = url.get('version')
-    const groupId = url.get('groupId')
-    if (version) {
-      store.setFeatureToggleSwitch(version)
-    }
-    if (groupId) {
-      store.setGroupId(groupId)
-    }
+    ;(async () => {
+      store.resetVersion()
+      const url = new URLSearchParams(window.location.search)
+      const version = url.get('version')
+      const groupId = url.get('groupid')
+      if (version) {
+        store.setFeatureToggleSwitch(version)
+      }
+      if (groupId) {
+        const { result: isValidGroupId } = await checkGroupId(groupId)
+        if (isValidGroupId) {
+          store.setGroupId(groupId)
+        } else {
+          setShowGroupIdInvalidText(true)
+        }
+      }
+      
+    })()
   }, [])
-
   return (
     <>
       <Head>
@@ -50,6 +71,12 @@ const Home = () => {
             <Link href="/survey/questions/?id=1" type="primary">
               Get started
             </Link>
+            { showGroupIdInvalidText &&
+              <ErrorMessage>
+                Group id found with the URL is invalid for some reason :( <br/>
+                You can still complete the survey, but the results won't be added to the group.
+              </ErrorMessage>
+            }
           </Section>
         </ContentAnimationWrapper>
       </InnerContentWrapper>

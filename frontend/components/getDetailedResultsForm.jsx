@@ -4,6 +4,7 @@ import { isEmail } from 'validator'
 import Link from 'next/link'
 import Checkbox from '@material-ui/core/Checkbox' 
 import IndustrySelector from './industrySelector'
+import { useStore } from '../store'
 import Button from '../components/button'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
@@ -14,7 +15,6 @@ const FormBackGround = styled.div`
   padding: 15px;
   background: #99C2D0;
   border-radius: 20px;
-
   @media screen and (max-width: ${({ theme }) =>
       theme.breakpoints.wideMobile}) {
     width: 95%;
@@ -26,7 +26,7 @@ const FormTitle = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
   margin: 10px;
-  padding-top: 30px;
+  padding-top: ${(props) => props.noPaddingTop ? `0px` : `30px`}
 `
 
 const DetailsForm = styled.form`
@@ -52,7 +52,6 @@ const DetailsInput = styled.input`
 
 const CheckboxContainer = styled.div`
   margin-top: 10px;
-
   a {
     font-weight: bold;
     text-decoration: underline;
@@ -91,7 +90,6 @@ const Info = styled.div`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px #999999;
-
   @media screen and (max-width: ${({ theme }) =>
       theme.breakpoints.wideMobile}) {
     left: 33%;
@@ -102,10 +100,16 @@ const StyledIcon = styled(InfoOutlinedIcon)`
 `
 
 const GetDetailedResultsForm = () => {
+  const store = useStore()
   const [emailInput, setEmailInput] = useState('')
+  const [submitted, setSubmitted] = useState(false)
   const [createGroupChecked, setCreateGroupChecked] = useState(false)
   const [agreeToPrivacyPolicyChecked, setAgreeToPrivacyPolicyChecked] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
+
+  const userHasGroup = store.groupId !== ''
+  console.log(store.groupId)
+
   const handleEmailChange = (event) => {
     event.preventDefault()
     setEmailInput(event.target.value)
@@ -113,26 +117,35 @@ const GetDetailedResultsForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    
+
     if (!isEmail(emailInput)) {
       alert('Please provide a valid email address')
-    } else {
-      alert('This is a submit placeholder! add email sendin here!')
-    }
+      return
+    } 
     if(!agreeToPrivacyPolicyChecked) {
       alert('You need to agree to the privacy policy')
       return
     }
-
-    // add submit to backend here
+    const groupId = store.groupId === '' ? undefined : store.groupId
+    await submitEmail(store.userToken, emailInput, createGroupChecked, groupId)
+    setSubmitted(true)
   }
-
   const handleCreateGroupChange = (event) => {
     setCreateGroupChecked(event.target.checked)
   }
 
   const handleAgreeToPolicyChange = (event) => {
     setAgreeToPrivacyPolicyChecked(event.target.checked)
+  }
+
+  if (submitted) {
+    return (
+      <FormBackGround>
+        <FormTitle noPaddingTop>
+          Thank you! Check your email for detailed results and instructions.
+        </FormTitle>
+      </FormBackGround>
+    )
   }
   
   return (
