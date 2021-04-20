@@ -45,6 +45,8 @@ jobs:
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm install && npm test
+      - name: Lighthouse Check
+        uses: foo-software/lighthouse-check-action@v3.0.0
 
   end-to-end-tests:
     if: github.ref != 'refs/heads/main'

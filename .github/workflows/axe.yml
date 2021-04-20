@@ -1,25 +1,27 @@
-name: axe
-on:
-  push:
-    branches: [main, a11y-workflow]
-  pull_request:
-    branches: [main]
-jobs:
-  axe:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - name: Start backend
-        working-directory: ./backend
-        run: npm ci && npm run dev
-      - name: Start frontend
-        working-directory: ./frontend
-        run: npm ci && npm run dev & npx wait-on http://localhost:3000
-      - name: run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli@0.7.x
-          lhci autorun
+# name: a11y workflows
+
+# on:
+#   push:
+#     branches: [main, a11y-workflow]
+#   pull_request:
+#     branches: [main]
+
+# jobs:
+#   check-a11y:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Use Node.js 12.x
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: 12.x
+#       - name: Start backend
+#         working-directory: ./backend
+#         run: npm ci && npm run dev
+#       - name: Start frontend
+#         working-directory: ./frontend
+#         run: npm ci && npm run dev & npx wait-on http://localhost:3000
+#       - name: run Lighthouse CI
+#         run: |
+#           npm install -g @lhci/cli@0.7.x
+#           lhci autorun
