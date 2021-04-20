@@ -3,7 +3,7 @@
     "airbnb",
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
-    "plugin:jsx-a11y/strict"
+    "plugin:jsx-a11y/recommended"
   ],
   "rules": {
     "no-console": "off",
