@@ -19,7 +19,7 @@ jobs:
       - name: Start frontend
         working-directory: ./frontend
         run: npm ci && npm run dev & npx wait-on http://localhost:3000
-      - name: Run axe
+      - name: run Lighthouse CI
         run: |
-          npm install -g @axe-core/cli
-          axe http://localhost:3000 --exit
+          npm install -g @lhci/cli@0.7.x
+          lhci autorun
