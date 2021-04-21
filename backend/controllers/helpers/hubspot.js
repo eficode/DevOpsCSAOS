@@ -21,7 +21,7 @@ const SendHubspotMessage = async (
   const contactObj = {
     properties: {
       email,
-      group_invite_link: group_invite_link || '',
+      group_invite_link: group_invite_link || null,
       group_results_page_link: group_results_page_link || '',
     },
   }
