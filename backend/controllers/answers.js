@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const answersRouter = require('express').Router()
 const { User, User_answer, Survey, Survey_user_group } = require('../models')
-
+const { SendHubspotMessage } = require('./helpers/hubspot')
 const { verifyUserAnswers, getSummaryOfResults } = require('./helpers/answers')
 
 const saveAnswersToDatabase = async (answers, userId) => {
@@ -66,7 +66,6 @@ answersRouter.post('/', async (req, res) => {
       : await User.create({})
     await saveAnswersToDatabase(answers, userInDb.id)
     const token = jwt.sign(userInDb.id, process.env.SECRET_FOR_TOKEN)
-
     return res.status(200).json({ token, results: results })
   } catch (err) {
     console.log(err)
@@ -119,12 +118,13 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       anonymousUser.email = email
       await anonymousUser.save()
     }
-
+    let createdGroupId
     // update user groups in db
     if (createNewGroup && !groupId) {
       const { dataValues: newGroup } = await Survey_user_group.create({
         surveyId: surveyId,
       })
+      createdGroupId = newGroup.id
       if (userWithSameEmailAndGroup) {
         userWithSameEmailAndGroup.groupId = newGroup.id
         await userWithSameEmailAndGroup.save()
@@ -133,7 +133,12 @@ answersRouter.post('/emailsubmit', async (req, res) => {
         await anonymousUser.save()
       }
     }
-
+    const baseUrl = req.get('origin')
+    console.log(baseUrl)
+    const group_parameter = groupId || createdGroupId
+    const group_invite_link = `${baseUrl}/?groupid=${group_parameter}`
+    const group_results_page_link = ''
+    await SendHubspotMessage(email, group_invite_link, group_results_page_link)
     return res.status(200).json({})
   } catch (err) {
     console.log(err)
