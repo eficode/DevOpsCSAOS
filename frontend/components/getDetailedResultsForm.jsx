@@ -99,7 +99,7 @@ const Info = styled.div`
 `
 const StyledIcon = styled(InfoOutlinedIcon)``
 
-const GetDetailedResultsForm = () => {
+const GetDetailedResultsForm = ({ industries }) => {
   const [emailInput, setEmailInput] = useState('')
   const [createGroupChecked, setCreateGroupChecked] = useState(false)
   const [
@@ -152,6 +152,7 @@ const GetDetailedResultsForm = () => {
             required
           />
           <IndustrySelector
+            industries={industries}
             selectedIndustry={selectedIndustry}
             setSelectedIndustry={setSelectedIndustry}
           />

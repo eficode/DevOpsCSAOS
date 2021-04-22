@@ -19,6 +19,7 @@ const initialVisitedSummary = false
 const initialFeatureToggleSwitch = 'A'
 const initialGroupId = ''
 const initialToken = ''
+const initialIndustries = []
 
 export const divideQuestions = (questions, featureToggleSwitch) => {
   const initialSelectionsWithQuestionIds = []
@@ -55,6 +56,7 @@ const store = (set) => ({
   featureToggleSwitch: initialFeatureToggleSwitch,
   groupId: initialGroupId,
   userToken: initialToken,
+  industries: initialIndustries,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions, featureToggleSwitch) => {
@@ -78,6 +80,7 @@ const store = (set) => ({
     visitedSummary: false,
     featureToggleSwitch: 'A',
     groupId: '',
+    industries: [],
   })),
   resetVersion: () => set(() => ({
     featureToggleSwitch: 'A',
@@ -91,6 +94,7 @@ const store = (set) => ({
   setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
   setGroupId: (value) => set(() => ({ groupId: value })),
   setUserToken: (value) => set(() => ({ userToken: value })),
+  setIndustries: (industries) => set(() => ({ industries }))
 })
 
 export const useStore = create(

@@ -5,7 +5,7 @@ import {
   FormControl,
   Select,
 } from '@material-ui/core'
-import { getIndustries } from '../services/routes'
+
 
 const StyledFormControl = styled(FormControl)`
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
@@ -32,25 +32,31 @@ const StyledMenuItem = styled(MenuItem)`
   font-size: 14px;
 `
 
-const IndustrySelector = (selectedIndustry, setSelectedIndustry) => {
-  const [industries, setIndustries] = useState('')
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const industriesFromDb = await getIndustries()
-        setIndustries(industriesFromDb)
-      } catch (err) {
-        console.log(err)
-      }
-    })()
-  }, [])
+const IndustrySelector = ({ industries, selectedIndustry, setSelectedIndustry }) => {
 
   const handleChange = (event) => {
     event.preventDefault()
-    console.log(event.target.value)
   }
 
+
+  /*
+  <Select
+          labelId="demo-mutiple-name-label"
+          id="demo-mutiple-name"
+          multiple
+          value={personName}
+          onChange={handleChange}
+          input={<Input />}
+          MenuProps={MenuProps}
+        >
+          {names.map((name) => (
+            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+  */
+console.log(industries)
   return (
     <StyledFormControl>
       <StyledSelect
@@ -65,9 +71,9 @@ const IndustrySelector = (selectedIndustry, setSelectedIndustry) => {
         <StyledMenuItem value={1} >
           JEEEE
         </StyledMenuItem>
-        {industries&&industries.map(i => {
+        {industries && industries.map(i => {
           return (
-            <StyledMenuItem value={i.id} >
+            <StyledMenuItem key={i.id}>
               {i.name}
             </StyledMenuItem>
           )
