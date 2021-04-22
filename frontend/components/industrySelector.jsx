@@ -36,27 +36,9 @@ const IndustrySelector = ({ industries, selectedIndustry, setSelectedIndustry })
 
   const handleChange = (event) => {
     event.preventDefault()
+    setSelectedIndustry(event.target.value)
   }
 
-
-  /*
-  <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-  */
-console.log(industries)
   return (
     <StyledFormControl>
       <StyledSelect
@@ -65,15 +47,12 @@ console.log(industries)
         value={selectedIndustry}
         onChange={handleChange}
       >
-        <StyledMenuItem value={0} disabled>
+        <StyledMenuItem key={0} value={0}>
           Select your industry
-        </StyledMenuItem>
-        <StyledMenuItem value={1} >
-          JEEEE
         </StyledMenuItem>
         {industries && industries.map(i => {
           return (
-            <StyledMenuItem key={i.id}>
+            <StyledMenuItem key={i.id} value={i.id} name={i.name}>
               {i.name}
             </StyledMenuItem>
           )

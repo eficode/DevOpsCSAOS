@@ -1,11 +1,23 @@
 [
     {
-      "name": "software"
+      "name": "Operating systems"
     },
     {
-      "name": "malware"
+      "name": "Integrated systems"
     },
     {
-      "name": "warfare"
+      "name": "Applications"
+    },
+    {
+      "name": "Mobile applications"
+    },
+    {
+      "name": "Games"
+    },
+    {
+      "name": "Information security"
+    },
+    {
+      "name": "Platforms"
     }
 ]

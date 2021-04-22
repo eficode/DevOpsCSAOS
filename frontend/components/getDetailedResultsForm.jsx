@@ -127,6 +127,9 @@ const GetDetailedResultsForm = ({ industries }) => {
       return
     }
 
+    if(selectedIndustry === 0) {
+      // user has selected option Select your industry -> do not submit industry
+    }
     alert('This is a submit placeholder! add email sendin here!')
   }
 

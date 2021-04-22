@@ -41,11 +41,6 @@ const StyledResultsLabel = styled(Heading)`
   margin-bottom: 1rem;
 `
 
-const StyledResultHeading = styled(Heading)`
-  font-size: 1rem;
-  margin-top: 1rem;
-`
-
 const ResultSummaryText = styled.section`
   text-align: center;
   padding: 15px 0 30px 0;
@@ -81,9 +76,6 @@ const Home = () => {
   const { maxPoints, userPoints, text } = store.results.surveyResult
   const { categories, userBestInCategory, userWorstInCategory } = store.results
   const { industries } = store
-
-  console.log(store.industries)
-  console.log(industries)
 
   const convertArrayOfCategoriesToString = () => {
     let str = `${categories[0]}`
