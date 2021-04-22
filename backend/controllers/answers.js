@@ -136,7 +136,9 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     const baseUrl = req.get('origin')
     console.log(baseUrl)
     const group_parameter = groupId || createdGroupId
-    const group_invite_link = `${baseUrl}/?groupid=${group_parameter}`
+    const group_invite_link = group_parameter
+      ? `${baseUrl}/?groupid=${group_parameter}`
+      : ''
     const group_results_page_link = ''
     await SendHubspotMessage(email, group_invite_link, group_results_page_link)
     return res.status(200).json({})
