@@ -19,24 +19,16 @@ module.exports = (sequelize, DataTypes) => {
   Survey_user_group.init(
     {
       id: {
-        type: DataTypes.INTEGER,
-        defaultValue: DataTypes.INTEGER,
         primaryKey: true,
+        allowNull: false,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
       },
       group_name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notNull: { msg: 'Survey user group must have a name' },
           notEmpty: { msg: "Survey user group name can't be empty" },
-        },
-      },
-      url: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: { msg: 'Url must be defined' },
-          notEmpty: { msg: "Url can't be empty" },
         },
       },
       surveyId: {

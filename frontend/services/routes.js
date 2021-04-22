@@ -32,3 +32,20 @@ export const getIndustries = async () => {
   const response = await axios.get(`${HOST}/api/industries`)
   return response.data
 }
+
+export const checkGroupId = async (groupId) => {
+  const response = await axios.get(`${HOST}/api/user-groups/${groupId}`)
+  return response.data
+}
+
+export const submitEmail = async (token, email, createNewGroup, groupId) => {
+  const surveyId = 1
+  const response = await axios.post(`${HOST}/api/answers/emailsubmit`, {
+    email,
+    token,
+    createNewGroup,
+    surveyId,
+    groupId,
+  })
+  return response.data
+}

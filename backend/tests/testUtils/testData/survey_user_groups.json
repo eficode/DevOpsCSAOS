@@ -1,15 +1,13 @@
 [
   {
-    "id": 1,
+    "id": "f5fd31b0-2315-4757-9794-3c96e7ffb7ec",
     "group_name": "Test group",
-    "url": "testgroupId",
     "surveyId": 1,
     "organizationId": 1
   },
   {
-    "id": 2,
+    "id": "8e081c14-bf9a-41fc-9073-d3dd2eef7c15",
     "group_name": "Test group 2",
-    "url": "testgroupId2",
     "surveyId": 1,
     "organizationId": 2
   }

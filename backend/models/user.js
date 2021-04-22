@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       groupId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: true,
       },
       industryId: {

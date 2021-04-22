@@ -3,77 +3,45 @@
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest')
 const app = require('../../app.js')
-const { clearDBAndCreateDummyData } = require('../../testUtils/setupTestDb')
-const { Question, User, User_answer, Question_answer } = require('../../models')
+const { clearDBAndCreateDummyData } = require('../testUtils/setupTestDb')
+const { User } = require('../../models')
 
 const survey1TestAnswers = [100, 103]
-const survey1TestAnswers2 = [101, 102]
-const survey2TestAnswers = [200, 202]
 const survey1Id = 1
-const survey2Id = 2
-const userGroupUrl = 'testgroupId'
-const userGroupId = 1
+const userGroupId = 'f5fd31b0-2315-4757-9794-3c96e7ffb7ec'
 
 beforeEach(async () => {
   await clearDBAndCreateDummyData()
 })
 
 describe('POST /api/answers', () => {
-  it('Returns 500 if survey id is invalid', async (done) => {
+  it('Returns 400 if survey id is invalid', async (done) => {
     const response = await request(app).post('/api/answers').send({
       answers: survey1TestAnswers,
       surveyId: 3765,
     })
-    expect(response.status).toBe(500)
+    expect(response.status).toBe(400)
 
     done()
   })
 
-  it('Returns 500 if group id is invalid', async (done) => {
+  it('Returns 400 if group id is invalid', async (done) => {
     const response = await request(app).post('/api/answers').send({
       answers: survey1TestAnswers,
       surveyId: survey1Id,
-      groupId: 'dsafewgewf',
+      groupId: 'f5fd31b0-2315-4757-9794-3c96e7faaaaa',
     })
-    expect(response.status).toBe(500)
+    expect(response.status).toBe(400)
 
     done()
   })
 
-  it('User can submit answers without email', async (done) => {
+  it('Valid answers submit returns 200', async (done) => {
     const response = await request(app).post('/api/answers').send({
       answers: survey1TestAnswers,
       surveyId: survey1Id,
     })
     expect(response.status).toBe(200)
-
-    done()
-  })
-
-  it('User can submit answers with new email', async (done) => {
-    const response = await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: survey1TestAnswers,
-      surveyId: survey1Id,
-    })
-    expect(response.status).toBe(200)
-    done()
-  })
-
-  it('User can submit answers with existing email', async (done) => {
-    await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: survey1TestAnswers,
-      surveyId: survey1Id,
-    })
-
-    const response2 = await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: survey1TestAnswers2,
-      surveyId: survey1Id,
-    })
-
-    expect(response2.status).toBe(200)
 
     done()
   })
@@ -82,7 +50,7 @@ describe('POST /api/answers', () => {
     const response = await request(app).post('/api/answers').send({
       answers: survey1TestAnswers,
       surveyId: survey1Id,
-      groupId: userGroupUrl,
+      groupId: userGroupId,
     })
 
     const user = await User.findOne({ where: { groupId: userGroupId } })
@@ -92,147 +60,8 @@ describe('POST /api/answers', () => {
     done()
   })
 
-  it('If user submits survey many times all answers are saved', async (done) => {
-    await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: survey1TestAnswers,
-      surveyId: survey1Id,
-    })
-    const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
-    const firstAnswers = await User_answer.findAll({
-      where: { userId: user.id },
-    })
-    expect(firstAnswers.length).toEqual(2)
-    await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: survey1TestAnswers2,
-      surveyId: survey1Id,
-    })
-    const secondAnswers = await User_answer.findAll({
-      where: { userId: user.id },
-    })
-    expect(secondAnswers.length).toEqual(4)
-    done()
-  })
-
-  it('Same user can have many answer sets', async (done) => {
-    await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: survey1TestAnswers,
-      surveyId: survey1Id,
-    })
-    const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
-    const firstAnswers = await User_answer.findAll({
-      where: { userId: user.id },
-    })
-    expect(firstAnswers.length).toEqual(2)
-    await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: survey2TestAnswers,
-      surveyId: survey2Id,
-    })
-
-    const secondAnswers = await User_answer.findAll({
-      where: { userId: user.id },
-    })
-    expect(secondAnswers.length).toEqual(4)
-    done()
-  })
-
-  it('If user answers to already answered survey, old answers are not overwritten', async (done) => {
-    await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: survey1TestAnswers,
-      surveyId: survey1Id,
-    })
-    const user = await User.findOne({ where: { email: 'testv2@gmail.com' } })
-
-    const allanswers = await User_answer.findAll({
-      attributes: ['id'],
-      include: [
-        {
-          model: Question_answer,
-          attributes: ['text', 'id'],
-          include: [
-            {
-              model: Question,
-              attributes: ['id', 'surveyId'],
-            },
-          ],
-        },
-      ],
-      where: {
-        userId: user.id,
-      },
-      raw: true,
-      nest: true,
-    })
-
-    const survey1AnswersInDatabase = allanswers.filter(
-      (user_answer) =>
-        user_answer.Question_answer.Question.surveyId === survey1Id
-    )
-
-    survey1TestAnswers.forEach((answer) =>
-      expect(
-        survey1AnswersInDatabase.find(
-          (answerInDatabase) => answerInDatabase.Question_answer.id === answer
-        )
-      ).not.toBe(undefined)
-    )
-    await request(app).post('/api/answers').send({
-      email: 'testv2@gmail.com',
-      answers: survey1TestAnswers2,
-      surveyId: survey1Id,
-    })
-
-    const newanswers = await User_answer.findAll({
-      attributes: ['id'],
-      include: [
-        {
-          model: Question_answer,
-          attributes: ['text', 'id'],
-          include: [
-            {
-              model: Question,
-              attributes: ['id', 'surveyId'],
-            },
-          ],
-        },
-      ],
-      where: {
-        userId: user.id,
-      },
-      raw: true,
-      nest: true,
-    })
-
-    const survey1NewAnswersInDatabase = newanswers.filter(
-      (user_answer) =>
-        user_answer.Question_answer.Question.surveyId === survey1Id
-    )
-
-    survey1TestAnswers.forEach((answer) =>
-      expect(
-        survey1NewAnswersInDatabase.find(
-          (answerInDatabase) => answerInDatabase.Question_answer.id === answer
-        )
-      ).not.toBe(undefined)
-    )
-
-    survey1TestAnswers2.forEach((answer) =>
-      expect(
-        survey1NewAnswersInDatabase.find(
-          (answerInDatabase) => answerInDatabase.Question_answer.id === answer
-        )
-      ).not.toBe(undefined)
-    )
-    done()
-  })
-
   it('Returns correct survey result', async (done) => {
     const response = await request(app).post('/api/answers').send({
-      email: 'test100@gmail.com',
       answers: survey1TestAnswers,
       surveyId: survey1Id,
     })
@@ -255,7 +84,6 @@ describe('POST /api/answers', () => {
 
   it('Returns data in expected form', async (done) => {
     const response = await request(app).post('/api/answers').send({
-      email: 'test100@gmail.com',
       answers: survey1TestAnswers,
       surveyId: survey1Id,
     })

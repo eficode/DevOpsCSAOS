@@ -94,7 +94,7 @@ const store = (set) => ({
   setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
   setGroupId: (value) => set(() => ({ groupId: value })),
   setUserToken: (value) => set(() => ({ userToken: value })),
-  setIndustries: (industries) => set(() => ({ industries }))
+  setIndustries: (industries) => set(() => ({ industries })),
 })
 
 export const useStore = create(

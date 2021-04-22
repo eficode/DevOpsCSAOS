@@ -7,7 +7,7 @@
     "start": "cross-env NODE_ENV=production node server.js",
     "start-robot": "cross-env NODE_ENV=endtoend npx sequelize-cli db:migrate && cross-env NODE_ENV=endtoend node server.js",
     "dev": "cross-env NODE_ENV=development npx sequelize-cli db:migrate && nodemon server.js",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --detectOpenHandles --forceExit",
+    "test": "cross-env NODE_ENV=test SECRET_FOR_TOKEN=abcdefg jest --verbose --runInBand --detectOpenHandles --forceExit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "reset-test-db": "export NODE_ENV=test && (dropdb test_db || true) && createdb test_db && npx sequelize-cli db:migrate",
@@ -22,7 +22,8 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.4.0"
+    "sequelize": "^6.4.0",
+    "uuid-validate": "0.0.3"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

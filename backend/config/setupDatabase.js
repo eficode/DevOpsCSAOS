@@ -18,7 +18,7 @@ const {
   Category_result,
   Organization,
   Survey_user_group,
-  Industry
+  Industry,
 } = require('../models')
 
 /*

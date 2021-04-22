@@ -3,10 +3,12 @@ import styled from 'styled-components'
 import { isEmail } from 'validator'
 import Link from 'next/link'
 import Checkbox from '@material-ui/core/Checkbox'
-import IndustrySelector from './industrySelector'
 import Button from '../components/button'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
+import IndustrySelector from './industrySelector'
+import { useStore } from '../store'
+import { submitEmail } from '../services/routes'
 
 const FormBackGround = styled.div`
   width: 85%;
@@ -14,7 +16,6 @@ const FormBackGround = styled.div`
   padding: 15px;
   background: #99c2d0;
   border-radius: 20px;
-
   @media screen and (max-width: ${({ theme }) =>
       theme.breakpoints.wideMobile}) {
     width: 95%;
@@ -26,7 +27,7 @@ const FormTitle = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
   margin: 10px;
-  padding-top: 30px;
+  padding-top: ${(props) => (props.noPaddingTop ? '0px' : '30px')};
 `
 
 const DetailsForm = styled.form`
@@ -52,7 +53,6 @@ const DetailsInput = styled.input`
 
 const CheckboxContainer = styled.div`
   margin-top: 10px;
-
   a {
     font-weight: bold;
     text-decoration: underline;
@@ -91,7 +91,6 @@ const Info = styled.div`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px #999999;
-
   @media screen and (max-width: ${({ theme }) =>
       theme.breakpoints.wideMobile}) {
     left: 33%;
@@ -100,7 +99,9 @@ const Info = styled.div`
 const StyledIcon = styled(InfoOutlinedIcon)``
 
 const GetDetailedResultsForm = ({ industries }) => {
+  const store = useStore()
   const [emailInput, setEmailInput] = useState('')
+  const [submitted, setSubmitted] = useState(false)
   const [createGroupChecked, setCreateGroupChecked] = useState(false)
   const [
     agreeToPrivacyPolicyChecked,
@@ -108,6 +109,9 @@ const GetDetailedResultsForm = ({ industries }) => {
   ] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
   const [selectedIndustry, setSelectedIndustry] = useState(0)
+
+  const userHasGroup = store.groupId !== ''
+  console.log(store.groupId)
 
   const handleEmailChange = (event) => {
     event.preventDefault()
@@ -117,22 +121,21 @@ const GetDetailedResultsForm = ({ industries }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
+    if (!isEmail(emailInput)) {
+      alert('Please provide a valid email address')
+      return
+    }
     if (!agreeToPrivacyPolicyChecked) {
       alert('You need to agree to the privacy policy')
       return
     }
 
-    if (!isEmail(emailInput)) {
-      alert('Please provide a valid email address')
-      return
-    }
+    const groupId = store.groupId === '' ? undefined : store.groupId
+    const industryToSubmit = selectedIndustry === 0 ? undefined : selectedIndustry
 
-    if(selectedIndustry === 0) {
-      // user has selected option Select your industry -> do not submit industry
-    }
-    alert('This is a submit placeholder! add email sendin here!')
+    await submitEmail(store.userToken, emailInput, createGroupChecked, groupId, industryToSubmit)
+    setSubmitted(true)
   }
-
   const handleCreateGroupChange = (event) => {
     setCreateGroupChecked(event.target.checked)
   }
@@ -141,9 +144,20 @@ const GetDetailedResultsForm = ({ industries }) => {
     setAgreeToPrivacyPolicyChecked(event.target.checked)
   }
 
+  if (submitted) {
+    return (
+      <FormBackGround>
+        <FormTitle noPaddingTop>
+          Thank you! Check your email for detailed results and instructions.
+        </FormTitle>
+      </FormBackGround>
+    )
+  }
+
   return (
     <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
       <FormTitle>Get your detailed results</FormTitle>
+
       <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
         <FieldWrapper>
           <DetailsInput
@@ -159,29 +173,35 @@ const GetDetailedResultsForm = ({ industries }) => {
             selectedIndustry={selectedIndustry}
             setSelectedIndustry={setSelectedIndustry}
           />
-          <CheckboxContainer>
-            <StyledCheckbox
-              checked={createGroupChecked}
-              onChange={handleCreateGroupChange}
-              name="checked"
-              style={{
-                color: '#1E3944',
-              }}
-            />
-            <CheckBoxText>Create a group</CheckBoxText>
-            <StyledIconButton
-              aria-label="info"
-              component="span"
-              onClick={() => setInfoOpen(!infoOpen)}
-            >
-              <StyledIcon style={{ fontSize: 20 }} />
-            </StyledIconButton>
-            <Info open={infoOpen}>
-              By checking this box, you will be given a group link that you can
-              share with your friends. You will be able to compare your results
-              to the group average after your friends have taken the survey.{' '}
-            </Info>
-          </CheckboxContainer>
+          {store.groupId === '' ? (
+            <CheckboxContainer>
+              <StyledCheckbox
+                checked={createGroupChecked}
+                onChange={handleCreateGroupChange}
+                name="checked"
+                style={{
+                  color: '#1E3944',
+                }}
+              />
+              <CheckBoxText>Create a group</CheckBoxText>
+              <StyledIconButton
+                aria-label="info"
+                component="span"
+                onClick={() => setInfoOpen(!infoOpen)}
+              >
+                <StyledIcon style={{ fontSize: 20 }} />
+              </StyledIconButton>
+              <Info open={infoOpen}>
+                By checking this box, you will be given a group link that you
+                can share with your friends. You will be able to compare your
+                results to the group average after your friends have taken the
+                survey.{' '}
+              </Info>
+            </CheckboxContainer>
+          ) : (
+            <></>
+          )}
+
           <CheckboxContainer>
             <StyledCheckbox
               checked={agreeToPrivacyPolicyChecked}
@@ -192,7 +212,7 @@ const GetDetailedResultsForm = ({ industries }) => {
               }}
             />
             <CheckBoxText>
-              Agree to the <Link href={'/privacy/'}>Privacy policy</Link>
+              Agree to the <Link href="/privacy/">Privacy policy</Link>
             </CheckBoxText>
           </CheckboxContainer>
         </FieldWrapper>

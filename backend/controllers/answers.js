@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const answersRouter = require('express').Router()
 const { User, User_answer, Survey, Survey_user_group } = require('../models')
-
+const { SendHubspotMessage } = require('./helpers/hubspot')
 const { verifyUserAnswers, getSummaryOfResults } = require('./helpers/answers')
 
 const saveAnswersToDatabase = async (answers, userId) => {
@@ -14,27 +14,27 @@ const saveAnswersToDatabase = async (answers, userId) => {
 }
 
 answersRouter.post('/', async (req, res) => {
-  const { email, answers, surveyId, groupId } = req.body
+  const { answers, surveyId, groupId } = req.body
 
   const survey = await Survey.findOne({
     where: { id: surveyId },
   })
 
   if (!survey) {
-    return res.status(500).json('SurveyId is invalid')
+    return res.status(400).json('SurveyId is invalid')
   }
 
   let survey_user_group
 
   if (groupId) {
     survey_user_group = await Survey_user_group.findAll({
-      where: { url: groupId },
+      where: { id: groupId },
       attributes: ['id'],
       plain: true,
     })
 
     if (!survey_user_group) {
-      return res.status(500).json({
+      return res.status(400).json({
         message: 'GroupId is invalid.',
       })
     }
@@ -43,14 +43,14 @@ answersRouter.post('/', async (req, res) => {
   const verificationResult = await verifyUserAnswers(answers, surveyId)
 
   if (verificationResult.unAnsweredQuestionsFound) {
-    return res.status(500).json({
+    return res.status(400).json({
       message: "Some questions don't have answers",
       questions: verificationResult.unAnsweredQuestions,
     })
   }
 
   if (verificationResult.duplicatesFound) {
-    return res.status(500).json({
+    return res.status(400).json({
       message: 'Some questions are answered more than once',
       questions: verificationResult.duplicates,
     })
@@ -59,42 +59,93 @@ answersRouter.post('/', async (req, res) => {
   const results = await getSummaryOfResults(answers, surveyId)
 
   try {
-    let userInDb
-    if (email) {
-      userInDb = survey_user_group
-        ? await User.findOne({
-            where: { email, groupId: survey_user_group.id },
-          })
-        : await User.findOne({
-            where: { email },
-          })
-
-      // if user with email and user group exists no new user is created, otherwise new user is created
-      if (!userInDb) {
-        userInDb = survey_user_group
-          ? await User.create({
-              where: { email, groupId: survey_user_group.id },
-            })
-          : (userInDb = await User.create({
-              email,
-            }))
-      }
-    } else {
-      // if anonymous user submits anwers with group id, id is saved to db
-      userInDb = survey_user_group
-        ? await User.create({
-            groupId: survey_user_group.id,
-          })
-        : await User.create({})
-    }
-
+    const userInDb = survey_user_group
+      ? await User.create({
+          groupId: survey_user_group.id,
+        })
+      : await User.create({})
     await saveAnswersToDatabase(answers, userInDb.id)
     const token = jwt.sign(userInDb.id, process.env.SECRET_FOR_TOKEN)
-
     return res.status(200).json({ token, results: results })
   } catch (err) {
+    console.log(err)
     return res.status(500).json({
       message: 'Saving answers failed',
+    })
+  }
+})
+
+const findUserMatchingTokenFromDb = async (token) => {
+  const anonymousUserId = jwt.verify(token, process.env.SECRET_FOR_TOKEN)
+  return User.findOne({
+    where: {
+      id: anonymousUserId,
+    },
+  })
+}
+
+answersRouter.post('/emailsubmit', async (req, res) => {
+  const { token, email, createNewGroup, surveyId, groupId } = req.body
+  try {
+    // request body validation
+    if (!email || !token || !surveyId) {
+      return res.status(400).json({
+        message: 'Email, token and survey id are required for submit',
+      })
+    }
+
+    const anonymousUser = await findUserMatchingTokenFromDb(token)
+    if (!anonymousUser) {
+      return res.status(401).json({
+        message: 'No user associated with token.',
+      })
+    }
+
+    // update users table in db
+    const userWithSameEmailAndGroup = await User.findOne({
+      where: {
+        email: email,
+        groupId: groupId || null,
+      },
+    })
+    if (userWithSameEmailAndGroup) {
+      await User_answer.update(
+        { userId: userWithSameEmailAndGroup.id },
+        { where: { userId: anonymousUser.id } }
+      )
+      await User.destroy({ where: { id: anonymousUser.id } })
+    } else {
+      anonymousUser.email = email
+      await anonymousUser.save()
+    }
+    let createdGroupId
+    // update user groups in db
+    if (createNewGroup && !groupId) {
+      const { dataValues: newGroup } = await Survey_user_group.create({
+        surveyId: surveyId,
+      })
+      createdGroupId = newGroup.id
+      if (userWithSameEmailAndGroup) {
+        userWithSameEmailAndGroup.groupId = newGroup.id
+        await userWithSameEmailAndGroup.save()
+      } else {
+        anonymousUser.groupId = newGroup.id
+        await anonymousUser.save()
+      }
+    }
+    const baseUrl = req.get('origin')
+    console.log(baseUrl)
+    const group_parameter = groupId || createdGroupId
+    const group_invite_link = group_parameter
+      ? `${baseUrl}/?groupid=${group_parameter}`
+      : ''
+    const group_results_page_link = ''
+    await SendHubspotMessage(email, group_invite_link, group_results_page_link)
+    return res.status(200).json({})
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      message: 'Updating user failed',
     })
   }
 })
