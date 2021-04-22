@@ -29,7 +29,7 @@ describe(`POST ${endpoint}`, () => {
   beforeEach(async () => {
     await clearDBAndCreateDummyData()
   })
-  
+
   it('Returns 400 if email is missing', async (done) => {
     const bodyWithoutEmail = {
       ...validBody,
@@ -241,7 +241,9 @@ describe(`POST ${endpoint}`, () => {
       createNewGroup: false,
       industryId: 123456789,
     }
-    const response = await request(app).post(endpoint).send(validBodyWithExistingEmail)
+    const response = await request(app)
+      .post(endpoint)
+      .send(validBodyWithExistingEmail)
     expect(response.status).toBe(400)
     done()
   })

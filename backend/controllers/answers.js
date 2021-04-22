@@ -1,6 +1,12 @@
 const jwt = require('jsonwebtoken')
 const answersRouter = require('express').Router()
-const { User, User_answer, Survey, Survey_user_group, Industry } = require('../models')
+const {
+  User,
+  User_answer,
+  Survey,
+  Survey_user_group,
+  Industry,
+} = require('../models')
 const { SendHubspotMessage } = require('./helpers/hubspot')
 const { verifyUserAnswers, getSummaryOfResults } = require('./helpers/answers')
 
@@ -85,7 +91,14 @@ const findUserMatchingTokenFromDb = async (token) => {
 }
 
 answersRouter.post('/emailsubmit', async (req, res) => {
-  const { token, email, createNewGroup, surveyId, groupId, industryId } = req.body
+  const {
+    token,
+    email,
+    createNewGroup,
+    surveyId,
+    groupId,
+    industryId,
+  } = req.body
   try {
     // request body validation
     if (!email || !token || !surveyId) {
@@ -135,8 +148,8 @@ answersRouter.post('/emailsubmit', async (req, res) => {
 
     // update industry
     if (industryId) {
-      const industryInDb = await Industry.findOne({ where: { id: industryId }})
-      if (!industryInDb ) {
+      const industryInDb = await Industry.findOne({ where: { id: industryId } })
+      if (!industryInDb) {
         return res.status(400).json({
           message: 'Invalid industry id',
         })
