@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
-import Heading from '../heading'
+import Heading from './heading'
 
 const segmentColors = [
   '#ff5900',
@@ -44,7 +44,7 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
   if (renderMobileLayout) {
     return (
       <>
-        <Heading component="h4" variant="h5">
+        <Heading component="h3" variant="" font="Montserrat">
           Compare your results
         </Heading>
         <ResponsiveContainer id="BarChartContainer" height={450} width="85%">
