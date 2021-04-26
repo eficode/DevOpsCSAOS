@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import React from 'react'
 import {
   withRouter as withNextRouter,
@@ -58,8 +59,8 @@ const extractQueryFromRouter = (router) => ({
  */
 export const withRouter = (ComposedComponent) => {
   const WithPageRouteWrapper = withNextRouter(({ router, ...props }) => {
+    // eslint-disable-next-line no-param-reassign
     router.query = extractQueryFromRouter(router)
-
     return <ComposedComponent {...props} router={router} />
   })
 
