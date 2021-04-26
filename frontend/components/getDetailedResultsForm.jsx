@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isEmail } from 'validator'
@@ -107,9 +108,6 @@ const GetDetailedResultsForm = () => {
   ] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
 
-  const userHasGroup = store.groupId !== ''
-  console.log(store.groupId)
-
   const handleEmailChange = (event) => {
     event.preventDefault()
     setEmailInput(event.target.value)
@@ -119,10 +117,12 @@ const GetDetailedResultsForm = () => {
     event.preventDefault()
 
     if (!isEmail(emailInput)) {
+      // eslint-disable-next-line no-undef
       alert('Please provide a valid email address')
       return
     }
     if (!agreeToPrivacyPolicyChecked) {
+      // eslint-disable-next-line no-undef
       alert('You need to agree to the privacy policy')
       return
     }
@@ -151,7 +151,6 @@ const GetDetailedResultsForm = () => {
   return (
     <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
       <FormTitle>Get your detailed results</FormTitle>
-
       <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
         <FieldWrapper>
           <DetailsInput
@@ -162,9 +161,8 @@ const GetDetailedResultsForm = () => {
             onChange={handleEmailChange}
             required
           />
-
           <IndustrySelector />
-          {store.groupId === '' ? (
+          {!store.groupId && (
             <CheckboxContainer>
               <StyledCheckbox
                 checked={createGroupChecked}
@@ -187,13 +185,9 @@ const GetDetailedResultsForm = () => {
                 can share with your friends. You will be able to compare your
                 results to the group average after your friends have taken the
                 survey.
-                {' '}
               </Info>
             </CheckboxContainer>
-          ) : (
-            <></>
           )}
-
           <CheckboxContainer>
             <StyledCheckbox
               checked={agreeToPrivacyPolicyChecked}
@@ -205,7 +199,6 @@ const GetDetailedResultsForm = () => {
             />
             <CheckBoxText>
               Agree to the
-              {' '}
               <Link href="/privacy/">Privacy policy</Link>
             </CheckBoxText>
           </CheckboxContainer>
