@@ -38,7 +38,7 @@ describe('Top of page contains survey points and summary text of result', () => 
     render(
       <ThemeWrapper>
         <ResultPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
     expect(screen.queryByText('Your Results')).toBeInTheDocument()
   })
@@ -47,7 +47,7 @@ describe('Top of page contains survey points and summary text of result', () => 
     render(
       <ThemeWrapper>
         <ResultPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
     expect(screen.queryByText('65/100')).toBeInTheDocument()
   })
@@ -56,7 +56,7 @@ describe('Top of page contains survey points and summary text of result', () => 
     render(
       <ThemeWrapper>
         <ResultPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
     expect(screen.queryByText('You are a Pulla.')).toBeInTheDocument()
   })
@@ -65,14 +65,14 @@ describe('Top of page contains survey points and summary text of result', () => 
     render(
       <ThemeWrapper>
         <ResultPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
 
     expect(screen.getByTestId('summarytext')).toHaveTextContent(
-      'Jauhot, Leivat and Leivonnaiset'
+      'Jauhot, Leivat and Leivonnaiset',
     )
     expect(screen.getByTestId('summarytext')).toHaveTextContent(
-      'Your highest score was in the category Leivat, whereas you scored lowest in Jauhot'
+      'Your highest score was in the category Leivat, whereas you scored lowest in Jauhot',
     )
   })
 })

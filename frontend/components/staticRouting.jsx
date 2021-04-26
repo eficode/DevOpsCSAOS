@@ -28,7 +28,7 @@ const queryFromUrl = (url) => {
   const queryString = queryStrings.join('?')
   const query = {}
 
-  for (let [key, value] of new URLSearchParams(queryString).entries()) {
+  for (const [key, value] of new URLSearchParams(queryString).entries()) {
     query[key] = value
   }
 
@@ -71,8 +71,7 @@ export const withRouter = (ComposedComponent) => {
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    const name =
-      ComposedComponent.displayName || ComposedComponent.name || 'Unknown'
+    const name = ComposedComponent.displayName || ComposedComponent.name || 'Unknown'
     WithPageRouteWrapper.displayName = `withPageRouter(${name})`
   }
 

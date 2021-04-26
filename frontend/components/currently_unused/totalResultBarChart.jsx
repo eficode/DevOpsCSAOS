@@ -32,12 +32,11 @@ const percentageTopLimitsOfColors = [
 ]
 
 // findIndex returns index of first item in array to satisfy criterion given
-const getColor = (userResult, maxResult) =>
-  segmentColors[
-    percentageTopLimitsOfColors.findIndex(
-      (limit) => userResult / maxResult <= limit
-    )
-  ]
+const getColor = (userResult, maxResult) => segmentColors[
+  percentageTopLimitsOfColors.findIndex(
+    (limit) => userResult / maxResult <= limit,
+  )
+]
 
 // responsiveness TODO: make chart responsive (<800 px in mobile layout)
 const TotalResultChart = ({ data, renderMobileLayout }) => {

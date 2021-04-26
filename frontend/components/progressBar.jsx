@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import theme from '../styles/theme'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import theme from '../styles/theme'
 
 const MuiTheme = createMuiTheme({
   palette: {

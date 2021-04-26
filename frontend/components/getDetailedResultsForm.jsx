@@ -16,8 +16,7 @@ const FormBackGround = styled.div`
   padding: 15px;
   background: #99c2d0;
   border-radius: 20px;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     width: 95%;
     padding: 5px;
   }
@@ -91,8 +90,7 @@ const Info = styled.div`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px #999999;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     left: 33%;
   }
 `
@@ -188,7 +186,8 @@ const GetDetailedResultsForm = () => {
                 By checking this box, you will be given a group link that you
                 can share with your friends. You will be able to compare your
                 results to the group average after your friends have taken the
-                survey.{' '}
+                survey.
+                {' '}
               </Info>
             </CheckboxContainer>
           ) : (
@@ -205,7 +204,9 @@ const GetDetailedResultsForm = () => {
               }}
             />
             <CheckBoxText>
-              Agree to the <Link href="/privacy/">Privacy policy</Link>
+              Agree to the
+              {' '}
+              <Link href="/privacy/">Privacy policy</Link>
             </CheckBoxText>
           </CheckboxContainer>
         </FieldWrapper>

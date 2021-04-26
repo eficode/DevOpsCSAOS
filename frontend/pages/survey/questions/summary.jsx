@@ -62,7 +62,7 @@ const Summary = () => {
     const email = store.email === '' ? undefined : store.email
     const groupId = store.groupId === '' ? undefined : store.groupId
     const answersForBackend = store.selections.map(
-      (selection) => selection.answerId
+      (selection) => selection.answerId,
     )
 
     try {
@@ -70,7 +70,7 @@ const Summary = () => {
         email,
         answersForBackend,
         surveyId,
-        groupId
+        groupId,
       )
       store.setResults(response.results)
       store.setUserToken(response.token)
@@ -95,18 +95,18 @@ const Summary = () => {
             <Heading component="h1" variant="h6">
               Here are your current answers
             </Heading>
-            {questions &&
-              questions.map((question) => {
+            {questions
+              && questions.map((question) => {
                 let answerText
                 const currentAnswerId = selections.find(
-                  (s) => s.questionId === question.id
+                  (s) => s.questionId === question.id,
                 ).answerId
 
                 if (!currentAnswerId) {
                   answerText = "You haven't answered this question."
                 } else {
                   const selectedAnswerText = question.Question_answers.find(
-                    (a) => a.id === currentAnswerId
+                    (a) => a.id === currentAnswerId,
                   ).text
                   answerText = `You answered: ${selectedAnswerText}`
                 }

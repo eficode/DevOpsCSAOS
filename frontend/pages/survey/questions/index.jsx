@@ -28,7 +28,7 @@ const SurveyPage = () => {
   const storeHasQuestions = store.questions.length > 0
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (store.questions.length === 0) {
         try {
           const surveyId = 1
@@ -56,9 +56,7 @@ const SurveyPage = () => {
   }
 
   const redirectToNextPageIfCurrentPageCompleted = (newSelections) => {
-    const selectionsOfRenderedQuestions = newSelections.filter((s) =>
-      questionsToRender.map((q) => q.id).includes(s.questionId)
-    )
+    const selectionsOfRenderedQuestions = newSelections.filter((s) => questionsToRender.map((q) => q.id).includes(s.questionId))
 
     if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
       const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref

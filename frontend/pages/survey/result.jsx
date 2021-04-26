@@ -24,8 +24,7 @@ const Content = styled.section`
   background-color: white;
   border-radius: 0.5rem;
 
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
         padding-left: 8%;
         padding-right: 8%;
   }
@@ -51,8 +50,7 @@ const ResultSummaryText = styled.section`
   padding: 15px 0 30px 0;
   line-height: 1.6;
   font-size: 16px;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     text-align: left;
   }
 `
@@ -99,10 +97,19 @@ const Home = () => {
               {text}
             </Heading>
             <ResultSummaryText data-testid="summarytext">
-              The tool assesses your DevOps capabilities in different categories 
+              The tool assesses your DevOps capabilities in different categories
               based on your answers. We have assessed your capabilities in
-              categories <strong>{listOfCategories}</strong>. Your highest score was in the category
-              <strong>{' '}{userBestInCategory}</strong>, whereas you scored lowest in <strong>{userWorstInCategory}</strong>.
+              categories
+              {' '}
+              <strong>{listOfCategories}</strong>
+              . Your highest score was in the category
+              <strong>
+                {' '}
+                {userBestInCategory}
+              </strong>
+              , whereas you scored lowest in
+              <strong>{userWorstInCategory}</strong>
+              .
               Fill in the form below to get your detailed
               results by email and see how to improve your skills. You can also
               compare your results with others in your industry or in the
