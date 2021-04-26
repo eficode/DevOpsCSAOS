@@ -69,7 +69,6 @@ const Wrapper = styled.article`
 
 const SingleQuestion = ({ question, onOptionClick }) => {
   const store = useStore()
-  const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
   const currentSelection = store.selections.find(
     (s) => s.questionId === question.id,
   ).answerId

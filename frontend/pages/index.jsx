@@ -4,12 +4,11 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import { checkGroupId } from '../services/userGroups'
 import { useStore } from '../store'
-import ContentAnimationWrapper from '../components/contentAnimationWrapper'
+import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
 import Link from '../components/link'
-import ProgressBar from '../components/progressBar'
+import { ProgressBar } from '../components/progressBar'
 import Heading from '../components/heading'
-import theme from '../styles/theme'
 
 const Section = styled.section`
   background-color: #fff;
@@ -35,6 +34,7 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       store.resetVersion()
+      // eslint-disable-next-line no-undef
       const url = new URLSearchParams(window.location.search)
       const version = url.get('version')
       const groupId = url.get('groupid')
@@ -74,7 +74,7 @@ const Home = () => {
                 Group id found with the URL is invalid for some reason :(
                 {' '}
                 <br />
-                You can still complete the survey, but the results won't be
+                You can still complete the survey, but the results won&#39;t be
                 added to the group.
               </ErrorMessage>
             )}

@@ -1,11 +1,12 @@
+/* eslint-disable no-alert */
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { useStore } from '../../../store'
-import ContentAnimationWrapper from '../../../components/contentAnimationWrapper'
-import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
-import ProgressBar from '../../../components/progressBar'
+import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
+import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
+import { ProgressBar } from '../../../components/progressBar'
 import StyledButton from '../../../components/button'
 import { sendAnswers } from '../../../services/answers'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
@@ -53,6 +54,7 @@ const Summary = () => {
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
+      // eslint-disable-next-line no-undef
       alert('Please answer all of the questions to proceed')
       return
     }
@@ -76,6 +78,7 @@ const Summary = () => {
       store.setUserToken(response.token)
       router.push('/survey/result')
     } catch (e) {
+      // eslint-disable-next-line no-undef
       alert(`Something went wrong while submitting answers: ${e.message}`)
     }
   }

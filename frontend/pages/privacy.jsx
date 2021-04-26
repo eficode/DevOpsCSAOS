@@ -1,9 +1,10 @@
+/* eslint-disable max-len */
 import React from 'react'
 import styled from 'styled-components'
 import Head from 'next/head'
 
-import InnerContentWrapper from '../components/shared/InnerContentWrapper'
-import ProgressBar from '../components/progressBar'
+import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
+import { ProgressBar } from '../components/progressBar'
 import Heading from '../components/heading'
 import StyledLink from '../components/link'
 

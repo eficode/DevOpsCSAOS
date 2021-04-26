@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Link from '../components/link'
-import InnerContentWrapper from '../components/shared/InnerContentWrapper'
+import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
 
 const PageNotFoundErrorPage = () => (
   <InnerContentWrapper>

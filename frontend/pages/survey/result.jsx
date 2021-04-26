@@ -4,13 +4,12 @@ import styled from 'styled-components'
 
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import TotalResult from '../../components/totalResult'
-import ProgressBar from '../../components/progressBar'
+import { ProgressBar } from '../../components/progressBar'
 import { useStore } from '../../store'
-import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
+import { ContentAnimationWrapper } from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
 import ShareResultsGroup from '../../components/shareResultsGroup'
 import GetDetailedResultsForm from '../../components/getDetailedResultsForm'
-import theme from '../../styles/theme'
 
 const Content = styled.section`
   display: flex;
@@ -38,11 +37,6 @@ const StyledHeading = styled(Heading)`
 
 const StyledResultsLabel = styled(Heading)`
   margin-bottom: 1rem;
-`
-
-const StyledResultHeading = styled(Heading)`
-  font-size: 1rem;
-  margin-top: 1rem;
 `
 
 const ResultSummaryText = styled.section`
