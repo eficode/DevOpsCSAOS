@@ -10,7 +10,9 @@
     "react/prop-types": "off",
     "import/prefer-default-export": "off",
     "no-unused-vars": "warn",
-    "semi": "off"
+    "semi": "off",
+    "react/jsx-props-no-spreading": "warn",
+    "react/destructuring-assignment": "warn"
   },
   "plugins": ["testing-library", "jest-dom"],
   "ignorePatterns": ["node_modules/", "/out", ".next/"]
