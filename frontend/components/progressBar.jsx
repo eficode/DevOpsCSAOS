@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import theme from '../styles/theme'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const MuiTheme = createMuiTheme({
@@ -39,11 +38,9 @@ const ProgressLine = styled(LinearProgress)`
   - bar component without progress (non-survey pages): leave props undefined
 */
 
-export const ProgressBar = ({ answered, total }) => {
-  if (!answered && !total) {
-    answered = 0
-    total = 100
-  }
+export const ProgressBar = (props) => {
+  const answered = props.answered ? props.answered : 0
+  const total = props.total ? props.total : 100
 
   const progress = (answered / total) * 100
 
