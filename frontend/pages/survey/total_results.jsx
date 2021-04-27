@@ -64,6 +64,14 @@ const Home = () => {
     }
 
     window.addEventListener('resize', handleResize)
+    ;(async () => {
+      store.resetVersion()
+      const url = new URLSearchParams(window.location.search)
+      const version = url.get('version')
+      if (version) {
+        store.setFeatureToggleSwitch(version)
+      }
+    })()
   }, [])
 
   return (
