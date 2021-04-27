@@ -4,25 +4,24 @@ import { useStore } from '../store'
 import Option from './option'
 
 const QuestionWrapper = styled.div`
-  display: grid;
-  gap: 30px;
-  grid-template-columns: 240px 240px;
   margin: 50px 0;
-  place-items: center;
-
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-    width: 80%;
-  } 
+  display: grid;
+  grid-gap: 30px;
+  align-items: center;
+  grid-template-columns: 240px 240px;
+  width:100%;
+ 
+ @media screen and (max-width: ${({ theme }) => theme.breakpoints2[1]}) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+  }
 `
 
 const OptionsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 45% 45%;
+  grid-template-columns: 40% 40%;
   gap: 30px;
   justify-content: right;
   width: 100%;
-  min-width: 240px;
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints2[0]}) {
     grid-template-columns: 1fr; 
@@ -32,6 +31,7 @@ const OptionsWrapper = styled.div`
 const QuestionTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
+  font-size: 1rem !important;
   margin: 10px 0 30px 0;
 `
 
@@ -58,8 +58,8 @@ const SingleQuestion = ({ question, onOptionClick }) => {
     (s) => s.questionId === question.id,
   ).answerId
 
-  return (
-    <Wrapper>
+      return (
+  <Wrapper>
       <QuestionWrapper>
         <QuestionTitle>{question.text}</QuestionTitle>
         <OptionsWrapper>
