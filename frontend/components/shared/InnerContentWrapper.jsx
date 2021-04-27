@@ -9,7 +9,7 @@ export const InnerContentWrapper = styled.section`
   min-height: 30rem;
 
   margin: 0;
-  padding: 7%;
+  padding: 10%;
   background-color: white;
   border-radius: 0.5rem;
 `
