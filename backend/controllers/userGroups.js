@@ -1,5 +1,6 @@
 const userGroupRouter = require('express').Router()
 const validateAsUuid = require('uuid-validate')
+const { getFullResults } = require('./helpers/getResults')
 const {
   Survey_user_group,
   User,
@@ -33,58 +34,67 @@ userGroupRouter.get('/:groupid', async (req, res) => {
   }
 })
 
+const findUserLatestAnswersIds = async (userId) => {
+  const allUserAnswers = await User_answer.findAll({
+    where: {
+      userId: userId,
+    },
+    nest: true,
+    raw: true,
+    order: [['createdAt', 'DESC']],
+  })
+  const latestUserAnswersCreatedAt = allUserAnswers[0].createdAt
+
+  const latestUserAnswers = allUserAnswers
+    .filter(
+      (userAnswer) =>
+        userAnswer.createdAt.toString() ===
+        latestUserAnswersCreatedAt.toString()
+    )
+    .map((userAnswer) => userAnswer.questionAnswerId)
+  return latestUserAnswers
+}
+
 userGroupRouter.get('/results/:groupid', async (req, res) => {
   const { groupid } = req.params
   const isValidUUID = validateAsUuid(groupid)
 
   if (!isValidUUID) {
-    return res.status(400).json({ result: false })
+    return res.status(400).json({ message: 'groupId is not valid uuid' })
   }
 
   try {
-    const userGroup = await (
+    const usersInGroup = await (
       await User.findAll({
-        attributes: [
-          sequelize.fn(
-            'DISTINCT',
-            sequelize.col('User_answer.Question_answer.Question.id')
-          ),
-          'id',
+        include: [
+          {
+            model: Survey_user_group,
+          },
         ],
         where: {
           groupId: groupid,
         },
-        include: [
-          {
-            model: User_answer,
-            attributes: ['createdAt', 'questionAnswerId'],
-            include: [
-              {
-                model: Question_answer,
-                attributes: ['id'],
-                include: [
-                  {
-                    model: Question,
-                  },
-                ],
-              },
-            ],
-            distinct: 'Question_answer.Question.id',
-            order: [['createdAt', 'DESC']],
-          },
-        ],
         nest: true,
-        order: [['createdAt', 'DESC']],
       })
     ).map((el) => el.get({ plain: true }))
-    console.log(userGroup[0].User_answers[0])
-    console.log(userGroup[0].User_answers[1])
-    console.log(userGroup)
 
-    if (!userGroup) {
-      return res.status(200).json({ groupAverageResult: '' })
-    }
-    return res.status(200).json({ result: true })
+    const usersInGroupResults = await Promise.all(
+      usersInGroup.map(async (user) => {
+        const userLatestAnswersIds = await findUserLatestAnswersIds(user.id)
+
+        const detailedUserResults = await getFullResults(
+          userLatestAnswersIds,
+          user.Survey_user_group.surveyId
+        )
+
+        return {
+          userId: user.id,
+          results: detailedUserResults,
+        }
+      })
+    )
+
+    return res.status(200).json(usersInGroupResults)
   } catch (e) {
     console.log(e)
     return res.status(500).json({ error: 'Unable to fetch user groups' })

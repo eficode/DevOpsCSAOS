@@ -140,7 +140,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       ? `${baseUrl}/?groupid=${group_parameter}`
       : ''
     const group_results_page_link = ''
-    await SendHubspotMessage(email, group_invite_link, group_results_page_link)
+    // await SendHubspotMessage(email, group_invite_link, group_results_page_link)
     return res.status(200).json({})
   } catch (err) {
     console.log(err)
