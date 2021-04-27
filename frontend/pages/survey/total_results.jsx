@@ -48,13 +48,25 @@ const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
 
-  const {
-    userResult,
-    maxResult,
-    resultText,
-    resultsPerCategory,
-    featureToggleSwitch,
-  } = store
+  if (!store.results) {
+    return <div>loading results...</div>
+  }
+
+  const { maxPoints, userPoints, text } = store.results.surveyResult
+  const { categories, userBestInCategory, userWorstInCategory } = store.results
+  const featureToggleSwitch = store.featureToggleSwitch
+
+  const convertArrayOfCategoriesToString = () => {
+    let str = `${categories[0]}`
+    categories.slice(1, categories.length - 1).forEach((category) => {
+      str += `, ${category}`
+    })
+    str += ` and ${categories[categories.length - 1]}`
+
+    return str
+  }
+
+  const listOfCategories = convertArrayOfCategoriesToString()
 
   useEffect(() => {
     const handleResize = () => {
@@ -89,11 +101,11 @@ const Home = () => {
             <StyledResultsLabel component="h2" variant="h5">
               Your Results
             </StyledResultsLabel>
-            <TotalResult userResult={userResult} maxResult={maxResult} />
+            <TotalResult userResult={userPoints} maxResult={maxPoints} />
             <Heading component="h3" variant="" font="Montserrat">
-              {resultText}
+              {text}
             </Heading>
-            <Categories>
+{/*             <Categories>
               {resultsPerCategory.map((result, index) => (
                 <CategoryResult
                   key={result.name}
@@ -106,7 +118,7 @@ const Home = () => {
                   index={index}
                 />
               ))}
-            </Categories>
+            </Categories> */}
             {(() => {
               if (featureToggleSwitch === 'A') {
                 return (
