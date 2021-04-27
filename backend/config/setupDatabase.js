@@ -25,7 +25,7 @@ const {
   inserts seed data (testData copied from seed_database.sql)
 */
 const initDatabase = async () => {
-  await sequelize.sync({ force: true })
+  /* await sequelize.sync({ force: true })
   await Survey.bulkCreate(surveys)
   await Survey_result.bulkCreate(survey_results)
   await Category.bulkCreate(categories)
@@ -34,6 +34,7 @@ const initDatabase = async () => {
   await Question_answer.bulkCreate(question_answers)
   await Organization.bulkCreate(organizations)
   await Survey_user_group.bulkCreate(survey_user_groups)
+  */
 }
 
 module.exports = { initDatabase }
