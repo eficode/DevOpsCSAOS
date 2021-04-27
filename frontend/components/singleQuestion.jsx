@@ -11,7 +11,7 @@ const QuestionWrapper = styled.div`
   grid-template-columns: 240px 240px;
   width:100%;
  
- @media screen and (max-width: ${({ theme }) => theme.breakpoints2[1]}) {
+ @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
   }
 `
@@ -23,7 +23,7 @@ const OptionsWrapper = styled.div`
   justify-content: right;
   width: 100%;
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints2[0]}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
     grid-template-columns: 1fr; 
   } 
 `
@@ -41,7 +41,7 @@ const QuestionSeparator = styled.hr`
   height: 2px;
   border: none;
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints2[1]}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints[1]}) {
     width: 100%;
   }
 `

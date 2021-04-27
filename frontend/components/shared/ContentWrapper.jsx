@@ -6,7 +6,7 @@ export const ContentWrapper = styled.main`
   align-items: center;
   margin: 5% 20%;
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints2[2]}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[2]}) {
     margin: 5% 0%;
   }
 
