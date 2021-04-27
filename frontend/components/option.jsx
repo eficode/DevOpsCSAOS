@@ -11,7 +11,7 @@ const NotSelectedOption = styled(Button)`
   font-weight: bold;
   padding: 10px 15px;
   text-transform: capitalize;
-
+  max-height: 80px;
   &:hover {
     background-color: ${({ theme }) => theme.colors.amber};
   }

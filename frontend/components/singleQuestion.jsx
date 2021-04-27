@@ -4,44 +4,29 @@ import { useStore } from '../store'
 import Option from './option'
 
 const QuestionWrapper = styled.div`
-  margin: 50px 0;
   display: grid;
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
-    grid-template-columns: 240px 240px;
-    column-gap: 30px;
-  }
+  gap: 30px;
+  grid-template-columns: 240px 240px;
+  margin: 50px 0;
+  place-items: center;
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
-    grid-template-rows: 30% 70%;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
     width: 80%;
-  }
+  } 
 `
 
 const OptionsWrapper = styled.div`
   display: grid;
   grid-template-columns: 45% 45%;
-  grid-template-rows: 60px 60px 60px;
-  column-gap: 10%;
-  row-gap: 30px;
+  gap: 30px;
   justify-content: right;
   width: 100%;
   min-width: 240px;
 
-  button {
-    cursor: pointer;
-  }
-`
-
-const TitleWrapper = styled.div`
-  display: grid;
-  height: 100%;
-  align-content: center;
-  min-width: 240px;
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.wideDesktop}) {
-    justify-content: left;
-  }
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints2[0]}) {
+    grid-template-columns: 1fr; 
+  } 
 `
 
 const QuestionTitle = styled.h2`
@@ -50,20 +35,20 @@ const QuestionTitle = styled.h2`
   margin: 10px 0 30px 0;
 `
 
-const QuestionSeparator = styled.div`
+const QuestionSeparator = styled.hr`
   background-color: ${({ theme }) => theme.colors.silver};
   width: 45%;
   height: 2px;
+  border: none;
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.narrowDesktop}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints2[1]}) {
     width: 100%;
   }
 `
 
 const Wrapper = styled.article`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  place-items: center;
   width: 100%;
 `
 
@@ -76,9 +61,7 @@ const SingleQuestion = ({ question, onOptionClick }) => {
   return (
     <Wrapper>
       <QuestionWrapper>
-        <TitleWrapper>
-          <QuestionTitle>{question.text}</QuestionTitle>
-        </TitleWrapper>
+        <QuestionTitle>{question.text}</QuestionTitle>
         <OptionsWrapper>
           {question.Question_answers.map((answer) => (
             <Option
