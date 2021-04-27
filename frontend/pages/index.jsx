@@ -12,9 +12,8 @@ import Heading from '../components/heading'
 
 const Section = styled.section`
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  place-items: center;
 `
 
 const ErrorMessage = styled.div`
@@ -23,7 +22,7 @@ const ErrorMessage = styled.div`
   padding: 20px;
   width: 80%;
   font-size: 12px;
-  color: white;
+  color: #fff;
   margin-top: 20px;
   line-height: 1.6;
 `
