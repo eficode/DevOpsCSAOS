@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-alert */
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -6,10 +7,10 @@ import Link from 'next/link'
 import Checkbox from '@material-ui/core/Checkbox'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
+import Button from './button'
 import IndustrySelector from './industrySelector'
 import { useStore } from '../store'
-import Button from './button'
-import { submitEmail } from '../services/answers'
+import { submitEmail } from '../services/routes'
 
 const FormBackGround = styled.div`
   width: 85%;
@@ -97,7 +98,7 @@ const Info = styled.div`
 `
 const StyledIcon = styled(InfoOutlinedIcon)``
 
-const GetDetailedResultsForm = () => {
+const GetDetailedResultsForm = ({ industries }) => {
   const store = useStore()
   const [emailInput, setEmailInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -107,6 +108,7 @@ const GetDetailedResultsForm = () => {
     setAgreeToPrivacyPolicyChecked,
   ] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
+  const [selectedIndustry, setSelectedIndustry] = useState(0)
 
   const handleEmailChange = (event) => {
     event.preventDefault()
@@ -126,8 +128,11 @@ const GetDetailedResultsForm = () => {
       alert('You need to agree to the privacy policy')
       return
     }
+
     const groupId = store.groupId === '' ? undefined : store.groupId
-    await submitEmail(store.userToken, emailInput, createGroupChecked, groupId)
+    const industryToSubmit = selectedIndustry === 0 ? undefined : selectedIndustry
+
+    await submitEmail(store.userToken, emailInput, createGroupChecked, groupId, industryToSubmit)
     setSubmitted(true)
   }
   const handleCreateGroupChange = (event) => {
@@ -161,8 +166,12 @@ const GetDetailedResultsForm = () => {
             onChange={handleEmailChange}
             required
           />
-          <IndustrySelector />
-          {!store.groupId && (
+          <IndustrySelector
+            industries={industries}
+            selectedIndustry={selectedIndustry}
+            setSelectedIndustry={setSelectedIndustry}
+          />
+          {store.groupId === '' && (
             <CheckboxContainer>
               <StyledCheckbox
                 checked={createGroupChecked}
@@ -185,6 +194,7 @@ const GetDetailedResultsForm = () => {
                 can share with your friends. You will be able to compare your
                 results to the group average after your friends have taken the
                 survey.
+                {' '}
               </Info>
             </CheckboxContainer>
           )}
