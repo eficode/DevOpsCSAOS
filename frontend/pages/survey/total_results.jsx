@@ -113,6 +113,7 @@ const mockData = {
 
 const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
+  const [renderMobileChart, setRenderMobileChart] = useState(false)
   const store = useStore()
 
   if (!store.results) {
@@ -128,6 +129,9 @@ const Home = () => {
       window.innerWidth <= 800
         ? setRenderMobileLayout(true)
         : setRenderMobileLayout(false)
+      window.innerWidth <= 1000
+        ? setRenderMobileChart(true)
+        : setRenderMobileChart(false)
     }
 
     window.addEventListener('resize', handleResize)
@@ -140,6 +144,15 @@ const Home = () => {
       }
     })()
   }, [])
+
+  // add % out of maxes to categories for charts
+  const percentages = categoryResults.map((category) => ({
+    userPerCentOutOfMax: category.userPoints / category.maxPoints,
+    groupPerCentOutOfMax: category.groupAverage / category.maxPoints,
+    industryPerCentOutOfMax: category.industryAverage / category.maxPoints,
+    maxPercentage: 1,
+    ...category,
+  }))
 
   return (
     <>
@@ -180,13 +193,13 @@ const Home = () => {
               if (featureToggleSwitch === 'A') {
                 return (
                   <TotalResultBarChart
-                    data={categoryResults}
-                    renderMobileLayout={renderMobileLayout}
+                    data={percentages}
+                    renderMobileLayout={renderMobileChart}
                   />
                 )
               }
               if (featureToggleSwitch === 'B') {
-                return <TotalResultRadarChart data={categoryResults} />
+                return <TotalResultRadarChart data={percentages} />
               }
             })()}
           </Content>

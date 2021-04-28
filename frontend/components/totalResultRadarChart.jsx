@@ -17,20 +17,11 @@ const ResultsTitle = styled.h2`
 `
 
 const TotalResultRadarChart = ({ data }) => {
-  // map data to % out of maxes...
-  const percentages = data.map((category) => ({
-    userPerCentOutOfMax: category.userPoints / category.maxPoints,
-    groupPerCentOutOfMax: category.groupAverage / category.maxPoints,
-    industryPerCentOutOfMax: category.industryAverage / category.maxPoints,
-    name: category.name,
-  }))
-  console.log(percentages)
-
   return (
     <>
       <ResultsTitle>Compare your results</ResultsTitle>
       <ResponsiveContainer id="RadarChartContainer" width="85%" height={450}>
-        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={percentages}>
+        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
           <PolarGrid />
           <PolarAngleAxis dataKey="name" />
           <Radar

@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import Heading from './heading'
+import { sortedLastIndex } from 'lodash'
 
 const segmentColors = [
   '#ff5900',
@@ -42,6 +43,30 @@ const getColor = (userResult, maxResult) =>
 const TotalResultChart = ({ data, renderMobileLayout }) => {
   // unresolved issue: if category name is long enough, it does not fit on mobile screen
   // and spills to the left
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          className="custom-tooltip"
+          style={{ backgroundColor: 'white', border: 'solid 1.5px' }}
+        >
+          <p className="category">
+            <strong>Category: {label}</strong>
+          </p>
+          <p className="you">Your points: {payload[0].payload.userPoints}</p>
+          <p className="group">
+            Group average: {payload[0].payload.groupAverage}
+          </p>
+          <p className="industry">
+            Industry average: {payload[0].payload.industryAverage}
+          </p>
+          <p className="max">Max points: {payload[0].payload.maxPoints}</p>
+        </div>
+      )
+    }
+
+    return null
+  }
   if (renderMobileLayout) {
     return (
       <>
@@ -65,7 +90,10 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
           >
             <YAxis dataKey="name" type="category" />
             <XAxis type="number" hide />
-            <Tooltip cursor={{ fill: 'transparent' }} />
+            <Tooltip
+              cursor={{ fill: 'transparent' }}
+              content={<CustomTooltip />}
+            />
             <Bar dataKey="userPoints" barSize={30} name="Your result">
               {data.map((entry, index) => (
                 <Cell
@@ -92,8 +120,6 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
                 />
               ))}
             </Bar>
-
-            <Bar dataKey="maxPoints" barSize={30} fill="#5cd175" name="Max" />
           </BarChart>
         </ResponsiveContainer>
       </>
@@ -118,9 +144,12 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
           barGap={8}
         >
           <XAxis dataKey="name" />
-          <Tooltip cursor={{ fill: 'transparent' }} />
+          <Tooltip
+            cursor={{ fill: 'transparent' }}
+            content={<CustomTooltip />}
+          />
 
-          <Bar dataKey="userPoints" barSize={30} name="Your result">
+          <Bar dataKey="userPerCentOutOfMax" barSize={30} name="Your result">
             {data.map((entry, index) => (
               <Cell
                 fill={getColor(entry.userPoints, entry.maxPoints)}
@@ -129,7 +158,7 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
             ))}
           </Bar>
 
-          <Bar dataKey="groupAverage" barSize={30} name="Group average">
+          <Bar dataKey="groupPerCentOutOfMax" barSize={30} name="Group average">
             {data.map((entry, index) => (
               <Cell
                 fill={getColor(entry.groupAverage, entry.maxPoints)}
@@ -138,7 +167,11 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
             ))}
           </Bar>
 
-          <Bar dataKey="industryAverage" barSize={30} name="Industry average">
+          <Bar
+            dataKey="industryPerCentOutOfMax"
+            barSize={30}
+            name="Industry average"
+          >
             {data.map((entry, index) => (
               <Cell
                 fill={getColor(entry.industryAverage, entry.maxPoints)}
@@ -146,8 +179,6 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
               />
             ))}
           </Bar>
-
-          <Bar dataKey="maxPoints" barSize={30} fill="#5cd175" name="Max" />
         </BarChart>
       </ResponsiveContainer>
     </>
