@@ -1,10 +1,11 @@
+/* eslint-disable implicit-arrow-linebreak */
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { useStore } from '../../../store'
-import ContentAnimationWrapper from '../../../components/contentAnimationWrapper'
-import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
+import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
+import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
 import QuestionGrouper from '../../../components/questionGrouper'
-import ProgressBar from '../../../components/progressBar'
+import { ProgressBar } from '../../../components/progressBar'
 import { getAllQuestions } from '../../../services/routes'
 import { useRouter, withRouter } from '../../../components/staticRouting'
 import StyledLink from '../../../components/link'
@@ -56,9 +57,8 @@ const SurveyPage = () => {
   }
 
   const redirectToNextPageIfCurrentPageCompleted = (newSelections) => {
-    const selectionsOfRenderedQuestions = newSelections.filter((s) =>
-      questionsToRender.map((q) => q.id).includes(s.questionId)
-    )
+    const selectionsOfRenderedQuestions = newSelections.filter((s) => questionsToRender.map((q) =>
+      q.id.includes(s.questionId)))
 
     if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
       const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref
