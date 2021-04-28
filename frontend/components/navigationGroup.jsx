@@ -8,13 +8,11 @@ const NavWrapper = styled.nav`
 
 /**
  * This component renders all the the links that it is wrapped around
- *  */  
-const NavigationGroup = ({ children}) => {
-  return (
-    <NavWrapper>
-      {children}
-    </NavWrapper>
-  )
-}
+ *  */
+const NavigationGroup = ({ children }) => (
+  <NavWrapper>
+    {children}
+  </NavWrapper>
+)
 
 export default NavigationGroup

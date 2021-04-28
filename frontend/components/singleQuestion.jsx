@@ -7,14 +7,12 @@ const QuestionWrapper = styled.div`
   margin: 50px 0;
   display: grid;
 
-  @media screen and (min-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     grid-template-columns: 240px 240px;
     column-gap: 30px;
   }
 
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     grid-template-rows: 30% 70%;
     width: 80%;
   }
@@ -41,8 +39,7 @@ const TitleWrapper = styled.div`
   align-content: center;
   min-width: 240px;
 
-  @media screen and (min-width: ${({ theme }) =>
-      theme.breakpoints.wideDesktop}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.wideDesktop}) {
     justify-content: left;
   }
 `
@@ -58,8 +55,7 @@ const QuestionSeparator = styled.div`
   width: 45%;
   height: 2px;
 
-  @media screen and (min-width: ${({ theme }) =>
-      theme.breakpoints.narrowDesktop}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.narrowDesktop}) {
     width: 100%;
   }
 `
@@ -73,9 +69,8 @@ const Wrapper = styled.article`
 
 const SingleQuestion = ({ question, onOptionClick }) => {
   const store = useStore()
-  const optionsToPointsMap = useStore((state) => state.optionsToPointsMap)
   const currentSelection = store.selections.find(
-    (s) => s.questionId === question.id
+    (s) => s.questionId === question.id,
   ).answerId
 
   return (
@@ -85,17 +80,15 @@ const SingleQuestion = ({ question, onOptionClick }) => {
           <QuestionTitle>{question.text}</QuestionTitle>
         </TitleWrapper>
         <OptionsWrapper>
-          {question.Question_answers.map((answer) => {
-            return (
-              <Option
-                key={answer.id}
-                id={answer.id}
-                selected={answer.id === currentSelection}
-                label={answer.text}
-                onClick={() => onOptionClick(question.id, answer.id)}
-              />
-            )
-          })}
+          {question.Question_answers.map((answer) => (
+            <Option
+              key={answer.id}
+              id={answer.id}
+              selected={answer.id === currentSelection}
+              label={answer.text}
+              onClick={() => onOptionClick(question.id, answer.id)}
+            />
+          ))}
         </OptionsWrapper>
       </QuestionWrapper>
       <QuestionSeparator />

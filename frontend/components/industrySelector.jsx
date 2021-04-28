@@ -21,7 +21,7 @@ const StyledSelect = styled(Select)`
   font-size: 11px;
   padding-left: 15px;
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
-  color: ${props => props.value === 0 ? "#717171" : "#000000"};
+  color: ${(props) => (props.value === 0 ? '#717171' : '#000000')};
   .MuiSelect-select:focus {
     background-color: ${({ theme }) => theme.colors.whiteSmoke};
   }

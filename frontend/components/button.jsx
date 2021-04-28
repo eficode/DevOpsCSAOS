@@ -26,12 +26,10 @@ const StyledButton = styled(MUIButton)`
   cursor: pointer;
 `
 
-const Button = ({ onClick, children, type }) => {
-  return (
-    <StyledButton onClick={onClick} type={type}>
-      {children}
-    </StyledButton>
-  )
-}
+const Button = ({ onClick, children, type }) => (
+  <StyledButton onClick={onClick} type={type}>
+    {children}
+  </StyledButton>
+)
 
 export default Button

@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isEmail } from 'validator'
@@ -16,8 +17,7 @@ const FormBackGround = styled.div`
   padding: 15px;
   background: #99c2d0;
   border-radius: 20px;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     width: 95%;
     padding: 5px;
   }
@@ -91,8 +91,7 @@ const Info = styled.div`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px #999999;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     left: 33%;
   }
 `
@@ -110,9 +109,6 @@ const GetDetailedResultsForm = ({ industries }) => {
   const [infoOpen, setInfoOpen] = useState(false)
   const [selectedIndustry, setSelectedIndustry] = useState(0)
 
-  const userHasGroup = store.groupId !== ''
-  console.log(store.groupId)
-
   const handleEmailChange = (event) => {
     event.preventDefault()
     setEmailInput(event.target.value)
@@ -122,10 +118,12 @@ const GetDetailedResultsForm = ({ industries }) => {
     event.preventDefault()
 
     if (!isEmail(emailInput)) {
+      // eslint-disable-next-line no-undef
       alert('Please provide a valid email address')
       return
     }
     if (!agreeToPrivacyPolicyChecked) {
+      // eslint-disable-next-line no-undef
       alert('You need to agree to the privacy policy')
       return
     }
@@ -157,7 +155,6 @@ const GetDetailedResultsForm = ({ industries }) => {
   return (
     <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
       <FormTitle>Get your detailed results</FormTitle>
-
       <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
         <FieldWrapper>
           <DetailsInput
@@ -173,7 +170,7 @@ const GetDetailedResultsForm = ({ industries }) => {
             selectedIndustry={selectedIndustry}
             setSelectedIndustry={setSelectedIndustry}
           />
-          {store.groupId === '' ? (
+          {store.groupId === '' && (
             <CheckboxContainer>
               <StyledCheckbox
                 checked={createGroupChecked}
@@ -195,13 +192,10 @@ const GetDetailedResultsForm = ({ industries }) => {
                 By checking this box, you will be given a group link that you
                 can share with your friends. You will be able to compare your
                 results to the group average after your friends have taken the
-                survey.{' '}
+                survey.
               </Info>
             </CheckboxContainer>
-          ) : (
-            <></>
           )}
-
           <CheckboxContainer>
             <StyledCheckbox
               checked={agreeToPrivacyPolicyChecked}
@@ -212,7 +206,8 @@ const GetDetailedResultsForm = ({ industries }) => {
               }}
             />
             <CheckBoxText>
-              Agree to the <Link href="/privacy/">Privacy policy</Link>
+              Agree to the
+              <Link href="/privacy/">Privacy policy</Link>
             </CheckBoxText>
           </CheckboxContainer>
         </FieldWrapper>
