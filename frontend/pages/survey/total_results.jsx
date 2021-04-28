@@ -52,7 +52,6 @@ const Home = () => {
   if (!store.detailedResults) {
     return <div>loading results...</div>
   }
-  console.log(store)
 
   const { maxPoints, userPoints, text } = store.detailedResults.surveyResult
   const { categoryResults } = store.detailedResults
@@ -69,14 +68,6 @@ const Home = () => {
     }
 
     window.addEventListener('resize', handleResize)
-    ;(async () => {
-      store.resetVersion()
-      const url = new URLSearchParams(window.location.search)
-      const version = url.get('version')
-      if (version) {
-        store.setFeatureToggleSwitch(version)
-      }
-    })()
   }, [])
 
   // add % out of maxes to categories for charts
@@ -104,11 +95,11 @@ const Home = () => {
               Your Results
             </StyledResultsLabel>
             <TotalResult userResult={userPoints} maxResult={maxPoints} />
-            <Heading component="h3" variant="" font="Montserrat">
+            <Heading component="h3" variant="h6" font="Montserrat">
               {text}
             </Heading>
             {
-              <Categories>
+              <Categories data-testid="categorycontainer">
                 {categoryResults.map((result, index) => (
                   <CategoryResult
                     key={result.name}

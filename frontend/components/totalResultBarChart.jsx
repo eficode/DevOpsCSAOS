@@ -48,6 +48,7 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
         <div
           className="custom-tooltip"
           style={{ backgroundColor: 'white', border: 'solid 1.5px' }}
+          data-testid="tooltip"
         >
           <p className="category">
             <strong>Category: {label}</strong>

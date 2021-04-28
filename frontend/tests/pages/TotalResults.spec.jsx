@@ -6,14 +6,11 @@ import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
 import { useStore } from '../../store'
 import ThemeWrapper from '../testutils/themeWrapper'
-//import TotalResultsPage from '../../pages/survey/total_results'
-import {
-  detailedResults,
-  detailedResultsWithoutIndustryAverage,
-  detailedResultsWithoutGroupAverage,
-} from '../testutils/testdata'
+import TotalResultsPage from '../../pages/survey/total_results'
+import { detailedResults } from '../testutils/testdata'
 
 nextRouter.useRouter = jest.fn()
+jest.mock('react-d3-speedometer', () => () => 'gauge')
 
 describe('Category-based result texts', () => {
   beforeEach(() => {
@@ -30,9 +27,34 @@ describe('Category-based result texts', () => {
     })
   })
 
-  it('Page is rendered', () => {})
+  it('Page is rendered', () => {
+    render(
+      <ThemeWrapper>
+        <TotalResultsPage />
+      </ThemeWrapper>
+    )
+    expect(screen.queryByText('Your Results')).toBeInTheDocument()
+  })
 
-  it('Category name, points and a result text is rendered for each category', () => {})
+  it('Category name, points and a result text is rendered for each category', () => {
+    render(
+      <ThemeWrapper>
+        <TotalResultsPage />
+      </ThemeWrapper>
+    )
+
+    detailedResults.categoryResults.forEach((category) => {
+      expect(screen.getByTestId('categorycontainer')).toHaveTextContent(
+        `${category.name} ${category.userPoints} / ${category.maxPoints}`
+      )
+      expect(screen.getByTestId('categorycontainer')).toHaveTextContent(
+        category.description
+      )
+      expect(screen.getByTestId('categorycontainer')).toHaveTextContent(
+        category.text
+      )
+    })
+  })
 })
 
 describe('Chart rendering', () => {
@@ -44,53 +66,32 @@ describe('Chart rendering', () => {
     }))
   })
 
-  describe('Toggle A', () => {
+  it('Toggle A renders bar chart', () => {
     useStore.setState({
-      featureToggleSwitch: 'A',
+      results: {
+        detailedResults,
+      },
     })
-
-    it('When both group and industry averages exist, charts render all scores', () => {
-      useStore.setState({
-        results: {
-          detailedResults,
-        },
-      })
-    })
-
-    it('When industry average does not exist, chart only renders user and group bars and scores in tooltip', () => {
-      useStore.setState({
-        detailedResultsWithoutIndustryAverage,
-      })
-    })
-
-    it('When industry average does not exist, chart only renders industry and group bars and scores in tooltip', () => {
-      useStore.setState({
-        detailedResultsWithoutGroupAverage,
-      })
-    })
+    render(
+      <ThemeWrapper>
+        <TotalResultsPage />
+      </ThemeWrapper>
+    )
+    expect(document.getElementById('BarChartContainer')).toBeInTheDocument()
   })
 
-  describe('Toggle B', () => {
+  it('Toggle B renders radar chart', () => {
     useStore.setState({
       featureToggleSwitch: 'B',
-    })
-
-    it('When both group and industry averages exist, charts render all scores', () => {
-      useStore.setState({
+      results: {
         detailedResults,
-      })
+      },
     })
-
-    it('When industry average does not exist, chart only renders user and group scores', () => {
-      useStore.setState({
-        detailedResultsWithoutIndustryAverage,
-      })
-    })
-
-    it('When industry average does not exist, chart only renders industry and group scores', () => {
-      useStore.setState({
-        detailedResultsWithoutGroupAverage,
-      })
-    })
+    render(
+      <ThemeWrapper>
+        <TotalResultsPage />
+      </ThemeWrapper>
+    )
+    expect(document.getElementById('RadarChartContainer')).toBeInTheDocument()
   })
 })
