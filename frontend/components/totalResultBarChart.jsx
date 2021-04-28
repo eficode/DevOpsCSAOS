@@ -10,7 +10,6 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import Heading from './heading'
-import { sortedLastIndex } from 'lodash'
 
 const segmentColors = [
   '#ff5900',
@@ -54,12 +53,16 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
             <strong>Category: {label}</strong>
           </p>
           <p className="you">Your points: {payload[0].payload.userPoints}</p>
-          <p className="group">
-            Group average: {payload[0].payload.groupAverage}
-          </p>
-          <p className="industry">
-            Industry average: {payload[0].payload.industryAverage}
-          </p>
+          {data[0].groupAverage && (
+            <p className="group">
+              Group average: {payload[0].payload.groupAverage}
+            </p>
+          )}
+          {data[0].industryAverage && (
+            <p className="industry">
+              Industry average: {payload[0].payload.industryAverage}
+            </p>
+          )}
           <p className="max">Max points: {payload[0].payload.maxPoints}</p>
         </div>
       )
@@ -103,23 +106,31 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
               ))}
             </Bar>
 
-            <Bar dataKey="groupAverage" barSize={30} name="Group average">
-              {data.map((entry, index) => (
-                <Cell
-                  fill={getColor(entry.groupAverage, entry.maxPoints)}
-                  key={index}
-                />
-              ))}
-            </Bar>
+            {data[0].groupAverage && (
+              <Bar dataKey="groupAverage" barSize={30} name="Group average">
+                {data.map((entry, index) => (
+                  <Cell
+                    fill={getColor(entry.groupAverage, entry.maxPoints)}
+                    key={index}
+                  />
+                ))}
+              </Bar>
+            )}
 
-            <Bar dataKey="industryAverage" barSize={30} name="Industry average">
-              {data.map((entry, index) => (
-                <Cell
-                  fill={getColor(entry.industryAverage, entry.maxPoints)}
-                  key={index}
-                />
-              ))}
-            </Bar>
+            {data[0].industryAverage && (
+              <Bar
+                dataKey="industryAverage"
+                barSize={30}
+                name="Industry average"
+              >
+                {data.map((entry, index) => (
+                  <Cell
+                    fill={getColor(entry.industryAverage, entry.maxPoints)}
+                    key={index}
+                  />
+                ))}
+              </Bar>
+            )}
           </BarChart>
         </ResponsiveContainer>
       </>
@@ -158,27 +169,35 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
             ))}
           </Bar>
 
-          <Bar dataKey="groupPerCentOutOfMax" barSize={30} name="Group average">
-            {data.map((entry, index) => (
-              <Cell
-                fill={getColor(entry.groupAverage, entry.maxPoints)}
-                key={index}
-              />
-            ))}
-          </Bar>
+          {data[0].groupAverage && (
+            <Bar
+              dataKey="groupPerCentOutOfMax"
+              barSize={30}
+              name="Group average"
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  fill={getColor(entry.groupAverage, entry.maxPoints)}
+                  key={index}
+                />
+              ))}
+            </Bar>
+          )}
 
-          <Bar
-            dataKey="industryPerCentOutOfMax"
-            barSize={30}
-            name="Industry average"
-          >
-            {data.map((entry, index) => (
-              <Cell
-                fill={getColor(entry.industryAverage, entry.maxPoints)}
-                key={index}
-              />
-            ))}
-          </Bar>
+          {data[0].industryAverage && (
+            <Bar
+              dataKey="industryPerCentOutOfMax"
+              barSize={30}
+              name="Industry average"
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  fill={getColor(entry.industryAverage, entry.maxPoints)}
+                  key={index}
+                />
+              ))}
+            </Bar>
+          )}
         </BarChart>
       </ResponsiveContainer>
     </>

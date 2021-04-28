@@ -24,20 +24,26 @@ const TotalResultRadarChart = ({ data }) => {
         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
           <PolarGrid />
           <PolarAngleAxis dataKey="name" />
-          <Radar
-            name="Group average"
-            dataKey="groupPerCentOutOfMax"
-            stroke="#FFC200"
-            fill="#FFC200"
-            fillOpacity={0.6}
-          />
-          <Radar
-            name="Industry average"
-            dataKey="industryPerCentOutOfMax"
-            stroke="#148AB3"
-            fill="#148AB3"
-            fillOpacity={0.6}
-          />
+          {data[0].groupAverage && (
+            <Radar
+              name="Group average"
+              dataKey="groupPerCentOutOfMax"
+              stroke="#FFC200"
+              fill="#FFC200"
+              fillOpacity={0.6}
+            />
+          )}
+
+          {data[0].industryAverage && (
+            <Radar
+              name="Industry average"
+              dataKey="industryPerCentOutOfMax"
+              stroke="#148AB3"
+              fill="#148AB3"
+              fillOpacity={0.6}
+            />
+          )}
+
           <Radar
             name="Your points"
             dataKey="userPerCentOutOfMax"
