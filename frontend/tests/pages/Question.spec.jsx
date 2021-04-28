@@ -40,7 +40,7 @@ describe('Question rendering', () => {
     render(
       <ThemeWrapper>
         <SurveyPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
     expect(screen.getByText('DevOps Assessment Tool')).toBeInTheDocument()
   })
@@ -49,7 +49,7 @@ describe('Question rendering', () => {
     render(
       <ThemeWrapper>
         <SurveyPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
     expect(screen.getByText('Oletko ruisleipä?'))
     expect(screen.getByText('Maistuisiko laskiaispulla?'))
@@ -61,7 +61,7 @@ describe('Navigation button conditional rendering', () => {
     const currentState = useStore.getState()
     useStore.setState({
       ...currentState,
-      questions: questions,
+      questions,
     })
   })
 
@@ -69,9 +69,9 @@ describe('Navigation button conditional rendering', () => {
     render(
       <ThemeWrapper>
         <SurveyPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
-    //.not. does not work with getByText
+    // .not. does not work with getByText
     expect(screen.queryByText('Next')).toBeInTheDocument()
     expect(screen.queryByText('Previous')).not.toBeInTheDocument()
   })
@@ -87,7 +87,7 @@ describe('Navigation button conditional rendering', () => {
     render(
       <ThemeWrapper>
         <SurveyPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
 
     expect(screen.queryByText('Next')).toBeInTheDocument()
@@ -105,7 +105,7 @@ describe('Navigation button conditional rendering', () => {
     render(
       <ThemeWrapper>
         <SurveyPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
 
     expect(screen.queryByText('Next')).not.toBeInTheDocument()
@@ -119,7 +119,7 @@ describe('Selecting option', () => {
     const currentState = useStore.getState()
     useStore.setState({
       ...currentState,
-      questions: questions,
+      questions,
     })
   })
 
@@ -134,7 +134,7 @@ describe('Selecting option', () => {
     render(
       <ThemeWrapper>
         <SurveyPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
 
     const initialState = useStore.getState()
@@ -173,11 +173,11 @@ describe('Feature toggle B', () => {
     render(
       <ThemeWrapper>
         <SurveyPage />
-      </ThemeWrapper>
+      </ThemeWrapper>,
     )
     expect(screen.getByText('Oletko ruisleipä?'))
     expect(
-      screen.queryByText('Maistuisiko laskiaispulla?')
+      screen.queryByText('Maistuisiko laskiaispulla?'),
     ).not.toBeInTheDocument()
   })
 })

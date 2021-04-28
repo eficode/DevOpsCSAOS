@@ -119,10 +119,12 @@ const GetDetailedResultsForm = ({ industries }) => {
     event.preventDefault()
 
     if (!isEmail(emailInput)) {
+      // eslint-disable-next-line no-undef
       alert('Please provide a valid email address')
       return
     }
     if (!agreeToPrivacyPolicyChecked) {
+      // eslint-disable-next-line no-undef
       alert('You need to agree to the privacy policy')
       return
     }
@@ -154,7 +156,6 @@ const GetDetailedResultsForm = ({ industries }) => {
   return (
     <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
       <FormTitle>Get your detailed results</FormTitle>
-
       <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
         <FieldWrapper>
           <DetailsInput
@@ -170,7 +171,7 @@ const GetDetailedResultsForm = ({ industries }) => {
             selectedIndustry={selectedIndustry}
             setSelectedIndustry={setSelectedIndustry}
           />
-          {store.groupId === '' ? (
+          {store.groupId === '' && (
             <CheckboxContainer>
               <StyledCheckbox
                 checked={createGroupChecked}
@@ -196,10 +197,7 @@ const GetDetailedResultsForm = ({ industries }) => {
                 {' '}
               </Info>
             </CheckboxContainer>
-          ) : (
-            <></>
           )}
-
           <CheckboxContainer>
             <StyledCheckbox
               checked={agreeToPrivacyPolicyChecked}
