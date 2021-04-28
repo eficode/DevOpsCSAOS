@@ -58,7 +58,7 @@ const SurveyPage = () => {
 
   const redirectToNextPageIfCurrentPageCompleted = (newSelections) => {
     const selectionsOfRenderedQuestions = newSelections.filter((s) => questionsToRender.map((q) =>
-      q.id.includes(s.questionId)))
+      q.id).includes(s.questionId))
 
     if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
       const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref
