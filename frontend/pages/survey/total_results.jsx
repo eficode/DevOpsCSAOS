@@ -44,84 +44,18 @@ const StyledResultsLabel = styled(Heading)`
   margin-bottom: 1rem;
 `
 
-const mockData = {
-  surveyResult: {
-    maxPoints: 100,
-    userPoints: 80,
-    text: 'You did semi ok!',
-    groupAverage: 99,
-    industryAverage: 45,
-  },
-  categoryResults: [
-    {
-      name: 'COolNess',
-      userPoints: 12,
-      groupAverage: 15,
-      industryAverage: 18,
-      maxPoints: 20,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-    {
-      name: 'Kiva',
-      userPoints: 22,
-      groupAverage: 15,
-      industryAverage: 18,
-      maxPoints: 25,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-    {
-      name: 'Kova',
-      userPoints: 8,
-      maxPoints: 10,
-      groupAverage: 5,
-      industryAverage: 8,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-    {
-      name: 'JEOUaujee',
-      userPoints: 12,
-      maxPoints: 40,
-      groupAverage: 38,
-      industryAverage: 8,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-    {
-      name: 'Ihan siistiä!',
-      userPoints: 15,
-      maxPoints: 15,
-      groupAverage: 15,
-      industryAverage: 8,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-  ],
-}
-
 const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const [renderMobileChart, setRenderMobileChart] = useState(false)
   const store = useStore()
 
-  if (!store.results) {
+  if (!store.detailedResults) {
     return <div>loading results...</div>
   }
+  console.log(store)
 
-  const { maxPoints, userPoints, text } = mockData.surveyResult
-  const categoryResults = mockData.categoryResults
+  const { maxPoints, userPoints, text } = store.detailedResults.surveyResult
+  const { categoryResults } = store.detailedResults
   const featureToggleSwitch = store.featureToggleSwitch
 
   useEffect(() => {
