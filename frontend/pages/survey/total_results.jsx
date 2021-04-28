@@ -44,6 +44,51 @@ const StyledResultsLabel = styled(Heading)`
   margin-bottom: 1rem;
 `
 
+const mockData = {
+  surveyResult: {
+    maxPoints: 100,
+    userPoints: 80,
+    text: 'You did semi ok!',
+    groupAverage: 99,
+    industryAverage: 45,
+  },
+  categoryResults: [
+    {
+      name: 'COolNess',
+      userPoints: 12,
+      groupAverage: 15,
+      industryAverage: 18,
+      maxPoints: 20,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      text:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    },
+    {
+      name: 'Kiva',
+      userPoints: 22,
+      groupAverage: 15,
+      industryAverage: 18,
+      maxPoints: 25,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      text:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    },
+    {
+      name: 'Kova',
+      userPoints: 8,
+      maxPoints: 10,
+      groupAverage: 5,
+      industryAverage: 8,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      text:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    },
+  ],
+}
+
 const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const store = useStore()
@@ -52,21 +97,9 @@ const Home = () => {
     return <div>loading results...</div>
   }
 
-  const { maxPoints, userPoints, text } = store.results.surveyResult
-  const { categories, userBestInCategory, userWorstInCategory } = store.results
+  const { maxPoints, userPoints, text } = mockData.surveyResult
+  const categoryResults = mockData.categoryResults
   const featureToggleSwitch = store.featureToggleSwitch
-
-  const convertArrayOfCategoriesToString = () => {
-    let str = `${categories[0]}`
-    categories.slice(1, categories.length - 1).forEach((category) => {
-      str += `, ${category}`
-    })
-    str += ` and ${categories[categories.length - 1]}`
-
-    return str
-  }
-
-  const listOfCategories = convertArrayOfCategoriesToString()
 
   useEffect(() => {
     const handleResize = () => {
@@ -105,25 +138,27 @@ const Home = () => {
             <Heading component="h3" variant="" font="Montserrat">
               {text}
             </Heading>
-{/*             <Categories>
-              {resultsPerCategory.map((result, index) => (
-                <CategoryResult
-                  key={result.name}
-                  renderMobileLayout={renderMobileLayout}
-                  userResult={result.userPoints}
-                  maxResult={result.maxPoints}
-                  category={result.name}
-                  description={result.description}
-                  resultText={result.text}
-                  index={index}
-                />
-              ))}
-            </Categories> */}
+            {
+              <Categories>
+                {categoryResults.map((result, index) => (
+                  <CategoryResult
+                    key={result.name}
+                    renderMobileLayout={renderMobileLayout}
+                    userResult={result.userPoints}
+                    maxResult={result.maxPoints}
+                    category={result.name}
+                    description={result.description}
+                    resultText={result.text}
+                    index={index}
+                  />
+                ))}
+              </Categories>
+            }
             {(() => {
               if (featureToggleSwitch === 'A') {
                 return (
                   <TotalResultBarChart
-                    data={store.resultsPerCategory}
+                    data={categoryResults}
                     renderMobileLayout={renderMobileLayout}
                   />
                 )

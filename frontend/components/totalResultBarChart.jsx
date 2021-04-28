@@ -39,8 +39,9 @@ const getColor = (userResult, maxResult) =>
     )
   ]
 
-// responsiveness TODO: make chart responsive (<800 px in mobile layout)
 const TotalResultChart = ({ data, renderMobileLayout }) => {
+  // unresolved issue: if category name is long enough, it does not fit on mobile screen
+  // and spills to the left
   if (renderMobileLayout) {
     return (
       <>
@@ -56,7 +57,7 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
             margin={{
               top: 5,
               right: 15,
-              left: 15,
+              left: 45,
               bottom: 5,
             }}
             barGap={6}
@@ -64,10 +65,8 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
           >
             <YAxis dataKey="name" type="category" />
             <XAxis type="number" hide />
-
             <Tooltip cursor={{ fill: 'transparent' }} />
-
-            <Bar dataKey="userPoints" name="Your result">
+            <Bar dataKey="userPoints" barSize={30} name="Your result">
               {data.map((entry, index) => (
                 <Cell
                   fill={getColor(entry.userPoints, entry.maxPoints)}
@@ -76,12 +75,25 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
               ))}
             </Bar>
 
-            <Bar
-              dataKey="maxPoints"
-              fill="#148AB3"
-              name="Peer average placeholder"
-            />
-            <Bar dataKey="maxPoints" fill="#5cd175" name="Max" />
+            <Bar dataKey="groupAverage" barSize={30} name="Group average">
+              {data.map((entry, index) => (
+                <Cell
+                  fill={getColor(entry.groupAverage, entry.maxPoints)}
+                  key={index}
+                />
+              ))}
+            </Bar>
+
+            <Bar dataKey="industryAverage" barSize={30} name="Industry average">
+              {data.map((entry, index) => (
+                <Cell
+                  fill={getColor(entry.industryAverage, entry.maxPoints)}
+                  key={index}
+                />
+              ))}
+            </Bar>
+
+            <Bar dataKey="maxPoints" barSize={30} fill="#5cd175" name="Max" />
           </BarChart>
         </ResponsiveContainer>
       </>
@@ -117,12 +129,24 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
             ))}
           </Bar>
 
-          <Bar
-            dataKey="maxPoints"
-            fill="#148AB3"
-            barSize={30}
-            name="Peer average placeholder"
-          />
+          <Bar dataKey="groupAverage" barSize={30} name="Group average">
+            {data.map((entry, index) => (
+              <Cell
+                fill={getColor(entry.groupAverage, entry.maxPoints)}
+                key={index}
+              />
+            ))}
+          </Bar>
+
+          <Bar dataKey="industryAverage" barSize={30} name="Industry average">
+            {data.map((entry, index) => (
+              <Cell
+                fill={getColor(entry.industryAverage, entry.maxPoints)}
+                key={index}
+              />
+            ))}
+          </Bar>
+
           <Bar dataKey="maxPoints" barSize={30} fill="#5cd175" name="Max" />
         </BarChart>
       </ResponsiveContainer>
