@@ -9,8 +9,7 @@ export const CategoryResultContainer = styled.article`
   margin: 35px 0 60px 0;
   column-gap: 60px;
 
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     flex-direction: column;
   }
 `
@@ -37,8 +36,7 @@ export const CategoryImage = styled.div`
   min-height: 200px;
   margin-bottom: -100px;
 
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     width: 50%;
     margin-bottom: -80px;
   }
@@ -57,18 +55,24 @@ const CategoryResult = ({
   index,
   renderMobileLayout,
 }) => {
-  const CategoryTextContainer = () => {
-    return (
-      <CategoryText>
-        <CategoryTitle>
-          {category} {userResult} / {maxResult}
-        </CategoryTitle>
-        <CategoryDescription>
-          <strong>{description}</strong> {resultText}
-        </CategoryDescription>
-      </CategoryText>
-    )
-  }
+  const CategoryTextContainer = () => (
+    <CategoryText>
+      <CategoryTitle>
+        {category}
+        {' '}
+        {userResult}
+        {' '}
+        /
+        {' '}
+        {maxResult}
+      </CategoryTitle>
+      <CategoryDescription>
+        <strong>{description}</strong>
+        {' '}
+        {resultText}
+      </CategoryDescription>
+    </CategoryText>
+  )
   // if mobile should be rendered, the toggle disables the desktop feature
   // that puts speedometer on alternating sides of the text
   // -> speedometer goes above text in every categoryresult

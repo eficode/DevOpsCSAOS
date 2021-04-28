@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import {
-  InputLabel,
   MenuItem,
   FormControl,
-  Select
+  Select,
 } from '@material-ui/core'
 
 const StyledFormControl = styled(FormControl)`
@@ -21,7 +20,7 @@ const StyledSelect = styled(Select)`
   font-size: 11px;
   padding-left: 15px;
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
-  color: ${props => props.value === 0 ? "#717171" : "#000000"};
+  color: ${(props) => (props.value === 0 ? '#717171' : '#000000')};
   .MuiSelect-select:focus {
     background-color: ${({ theme }) => theme.colors.whiteSmoke};
   }
@@ -40,7 +39,7 @@ const IndustrySelector = () => {
 
   return (
     <StyledFormControl>
-      <StyledSelect 
+      <StyledSelect
         disableUnderline
         displayEmpty
         value={industry}
@@ -55,7 +54,7 @@ const IndustrySelector = () => {
         <StyledMenuItem value={4}>Other</StyledMenuItem>
       </StyledSelect>
     </StyledFormControl>
-    )
+  )
 }
-    
+
 export default IndustrySelector

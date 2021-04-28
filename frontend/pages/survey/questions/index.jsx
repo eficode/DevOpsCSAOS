@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { useStore } from '../../../store'
-import ContentAnimationWrapper from '../../../components/contentAnimationWrapper'
-import InnerContentWrapper from '../../../components/shared/InnerContentWrapper'
+import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
+import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
 import QuestionGrouper from '../../../components/questionGrouper'
-import ProgressBar from '../../../components/progressBar'
+import { ProgressBar } from '../../../components/progressBar'
 import { getAll as getAllQuestions } from '../../../services/questions'
 import { useRouter, withRouter } from '../../../components/staticRouting'
 import StyledLink from '../../../components/link'
@@ -28,7 +28,7 @@ const SurveyPage = () => {
   const storeHasQuestions = store.questions.length > 0
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (store.questions.length === 0) {
         try {
           const surveyId = 1
@@ -56,9 +56,8 @@ const SurveyPage = () => {
   }
 
   const redirectToNextPageIfCurrentPageCompleted = (newSelections) => {
-    const selectionsOfRenderedQuestions = newSelections.filter((s) =>
-      questionsToRender.map((q) => q.id).includes(s.questionId)
-    )
+    const selectionsOfRenderedQuestions = newSelections.filter((s) => questionsToRender
+      .map((q) => q.id).includes(s.questionId))
 
     if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
       const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref

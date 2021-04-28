@@ -16,8 +16,7 @@ export const ResultCircle = styled.article`
   position: relative;
   margin-bottom: 30px;
 
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.mediumMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mediumMobile}) {
     width: 180px;
     height: 180px;
   }
@@ -25,7 +24,9 @@ export const ResultCircle = styled.article`
 
 const TotalResult = ({ userResult, maxResult }) => (
   <ResultCircle>
-    {userResult}/{maxResult}
+    {userResult}
+    /
+    {maxResult}
   </ResultCircle>
 )
 
