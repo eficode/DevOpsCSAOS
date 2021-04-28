@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {
   MenuItem,
@@ -50,13 +50,11 @@ const IndustrySelector = ({ industries, selectedIndustry, setSelectedIndustry })
         <StyledMenuItem key={0} value={0}>
           Select your industry
         </StyledMenuItem>
-        {industries && industries.map(i => {
-          return (
-            <StyledMenuItem key={i.id} value={i.id} name={i.name}>
-              {i.name}
-            </StyledMenuItem>
-          )
-        })}
+        {industries && industries.map(i => (
+          <StyledMenuItem key={i.id} value={i.id} name={i.name}>
+            {i.name}
+          </StyledMenuItem>
+        ))}
       </StyledSelect>
     </StyledFormControl>
   )

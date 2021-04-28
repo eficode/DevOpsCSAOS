@@ -39,11 +39,11 @@ const ProgressLine = styled(LinearProgress)`
   - bar component without progress (non-survey pages): leave props undefined
 */
 
-export const ProgressBar = (props) => {
-  const answered = props.answered ? props.answered : 0
-  const total = props.total ? props.total : 100
+export const ProgressBar = ({ answered, total }) => {
+  const answeredCount = answered || 0
+  const totalCount = total || 100
 
-  const progress = (answered / total) * 100
+  const progress = (answeredCount / totalCount) * 100
 
   return (
     <>
