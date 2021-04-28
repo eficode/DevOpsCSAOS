@@ -94,6 +94,8 @@ userGroupRouter.get('/results/:groupid', async (req, res) => {
       })
     )
 
+    // todo: compute averages (all data fetched from db at dis point)
+
     return res.status(200).json(usersInGroupResults)
   } catch (e) {
     console.log(e)
