@@ -27,7 +27,6 @@ const ErrorMessage = styled.div`
   color: white;
   margin-top: 20px;
   line-height: 1.6;
-  
 `
 
 const Home = () => {
@@ -50,7 +49,6 @@ const Home = () => {
           setShowGroupIdInvalidText(true)
         }
       }
-      
     })()
   }, [])
   return (
@@ -71,12 +69,13 @@ const Home = () => {
             <Link href="/survey/questions/?id=1" type="primary">
               Get started
             </Link>
-            { showGroupIdInvalidText &&
+            {showGroupIdInvalidText && (
               <ErrorMessage>
-                Group id found with the URL is invalid for some reason :( <br/>
-                You can still complete the survey, but the results won't be added to the group.
+                Group id found with the URL is invalid for some reason :( <br />
+                You can still complete the survey, but the results won't be
+                added to the group.
               </ErrorMessage>
-            }
+            )}
           </Section>
         </ContentAnimationWrapper>
       </InnerContentWrapper>

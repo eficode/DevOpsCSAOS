@@ -16,38 +16,49 @@ const ResultsTitle = styled.h2`
   margin: 60px 0 10px 0;
 `
 
-const TotalResultRadarChart = ({ data }) => (
-  <>
-    <ResultsTitle>Compare your results</ResultsTitle>
-    <ResponsiveContainer id="RadarChartContainer" width="85%" height={450}>
-      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
-        <PolarGrid />
-        <PolarAngleAxis dataKey="name" />
-        <Radar
-          name="Peer points placeholder"
-          dataKey="maxPoints"
-          stroke="#FFC200"
-          fill="#FFC200"
-          fillOpacity={0.6}
-        />
-        <Radar
-          name="Max points"
-          dataKey="maxPoints"
-          stroke="#9edb6b"
-          fill="#9edb6b"
-          fillOpacity={0.6}
-        />
-        <Radar
-          name="Your points"
-          dataKey="userPoints"
-          stroke="#ff5900"
-          fill="#ff5900"
-          fillOpacity={0.6}
-        />
-        <Legend />
-      </RadarChart>
-    </ResponsiveContainer>
-  </>
-)
+const TotalResultRadarChart = ({ data }) => {
+  // map data to % out of maxes...
+  const percentages = data.map((category) => ({
+    userPerCentOutOfMax: category.userPoints / category.maxPoints,
+    groupPerCentOutOfMax: category.groupAverage / category.maxPoints,
+    industryPerCentOutOfMax: category.industryAverage / category.maxPoints,
+    name: category.name,
+  }))
+  console.log(percentages)
+
+  return (
+    <>
+      <ResultsTitle>Compare your results</ResultsTitle>
+      <ResponsiveContainer id="RadarChartContainer" width="85%" height={450}>
+        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={percentages}>
+          <PolarGrid />
+          <PolarAngleAxis dataKey="name" />
+          <Radar
+            name="Group average"
+            dataKey="groupPerCentOutOfMax"
+            stroke="#FFC200"
+            fill="#FFC200"
+            fillOpacity={0.6}
+          />
+          <Radar
+            name="Industry average"
+            dataKey="industryPerCentOutOfMax"
+            stroke="#148AB3"
+            fill="#148AB3"
+            fillOpacity={0.6}
+          />
+          <Radar
+            name="Your points"
+            dataKey="userPerCentOutOfMax"
+            stroke="#76b500"
+            fill="#76b500"
+            fillOpacity={0.6}
+          />
+          <Legend />
+        </RadarChart>
+      </ResponsiveContainer>
+    </>
+  )
+}
 
 export default TotalResultRadarChart
