@@ -56,3 +56,8 @@ export const submitEmail = async (
   })
   return response.data
 }
+
+export const getFullResults = async (token) => {
+  const response = await axios.get(`${HOST}/api/results/${token}`)
+  return response.data
+}

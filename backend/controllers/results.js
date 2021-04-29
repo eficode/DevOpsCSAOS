@@ -13,9 +13,21 @@ const getGroupAverage = require('./helpers/userGroupAverage')
 const getIndustryAverage = require('./helpers/industryAverage')
 const findUserLatestAnswerIds = require('./helpers/findUserLatestAnswerIds')
 
+const getUserIdFromToken = (token) => {
+  try {
+    return jwt.verify(token, process.env.SECRET_FOR_TOKEN)
+  } catch (e) {
+    return null
+  }
+}
+
 resultsRouter.get('/:token', async (req, res) => {
   const { token } = req.params
-  const userId = jwt.verify(token, process.env.SECRET_FOR_TOKEN)
+  const userId = getUserIdFromToken(token)
+
+  if (!userId) {
+    return res.status(401).json({ message: 'invalid token' })
+  }
 
   const { dataValues: user } = await User.findOne({
     include: [

@@ -5,6 +5,7 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import TotalResult from '../../components/totalResult'
+import Link from '../../components/link'
 import { ProgressBar } from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
 import TotalResultBarChart from '../../components/totalResultBarChart'
@@ -12,6 +13,7 @@ import TotalResultRadarChart from '../../components/totalResultRadarChart'
 import { useStore } from '../../store'
 import { ContentAnimationWrapper } from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
+import { getFullResults } from '../../services/routes'
 
 const Content = styled.section`
   display: flex;
@@ -47,15 +49,8 @@ const StyledResultsLabel = styled(Heading)`
 const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const [renderMobileChart, setRenderMobileChart] = useState(false)
+  const [fullResultsLoaded, setFullResultsLoaded] = useState(false)
   const store = useStore()
-
-  if (!store.detailedResults) {
-    return <div>loading results...</div>
-  }
-
-  const { maxPoints, userPoints, text } = store.detailedResults.surveyResult
-  const { categoryResults } = store.detailedResults
-  const { featureToggleSwitch } = store
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,7 +63,39 @@ const Home = () => {
     }
 
     window.addEventListener('resize', handleResize)
+    ;(async () => {
+      // eslint-disable-next-line no-undef
+      const url = new URLSearchParams(window.location.search)
+      const token = url.get('user')
+      try {
+        const fullResults = await getFullResults(token)
+        setFullResultsLoaded(true)
+        store.setDetailedResults(fullResults)
+      } catch (e) {
+        setFullResultsLoaded(true)
+      }
+    })()
   }, [])
+
+  if (!fullResultsLoaded) {
+    return <div>loading results...</div>
+  }
+
+  if (fullResultsLoaded && !store.detailedResults) {
+    return (
+      <InnerContentWrapper>
+        <h2>Invalid link</h2>
+        <p>We did not find any results for this user :(</p>
+        <Link href="/" type="primary">
+          Back to home
+        </Link>
+      </InnerContentWrapper>
+    )
+  }
+
+  const { maxPoints, userPoints, text } = store.detailedResults.surveyResult
+  const { categoryResults } = store.detailedResults
+  const { featureToggleSwitch } = store
 
   // add % out of maxes to categories for charts
   const percentages = categoryResults.map((category) => ({
@@ -79,6 +106,7 @@ const Home = () => {
     ...category,
   }))
 
+  console.log(percentages)
   return (
     <>
       <Head>
@@ -112,7 +140,7 @@ const Home = () => {
                 />
               ))}
             </Categories>
-            {featureToggleSwitch === "B" ? (
+            {featureToggleSwitch === 'B' ? (
               <TotalResultRadarChart data={percentages} />
             ) : (
               <TotalResultBarChart
