@@ -11,25 +11,23 @@ const NotSelectedOption = styled(Button)`
   font-weight: bold;
   padding: 10px 15px;
   text-transform: capitalize;
-  max-height: 80px;
   &:hover {
     background-color: ${({ theme }) => theme.colors.amber};
   }
 `
 
 const SelectedOption = styled(Button)`
-  border-radius: 3px;
   background-color: ${({ theme }) => theme.colors.brandyPunch};
+  border-radius: 3px;
+  border-width: 0px;
   font-size: 15px;
   font-family: Montserrat;
   font-weight: bold;
-  border-width: 0px;
+  padding: 10px 15px;
   text-transform: capitalize;
 `
 
-const Option = ({
-  id, label, selected, onClick,
-}) => {
+const Option = ({ id, label, selected, onClick }) => {
   if (selected) {
     return (
       <SelectedOption id={id} onClick={onClick}>
