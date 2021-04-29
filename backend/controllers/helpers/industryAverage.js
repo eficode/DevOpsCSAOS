@@ -4,7 +4,7 @@ const { getFullResults } = require('./getResults')
 
 const findUserLatestAnswersIds = require('./findUserLatestAnswerIds')
 
-const getIndustryAverage = async (industryId) => {
+const getIndustryAverage = async (industryId, surveyId) => {
   const usersInIndustry = await (
     await User.findAll({
       include: [
@@ -28,7 +28,7 @@ const getIndustryAverage = async (industryId) => {
 
       const detailedUserResults = await getFullResults(
         userLatestAnswersIds,
-        user.Survey_user_group.surveyId
+        surveyId
       )
 
       return {

@@ -52,12 +52,16 @@ resultsRouter.get('/:token', async (req, res) => {
   })
   const { groupId, industryId } = user
   const { surveyId } = user.User_answers[0].Question_answer.Question
+  if (!surveyId) {
+    return res.status(401).json({ message: 'invalid survey information' })
+  }
+
   const usersNewestAnswers = await findUserLatestAnswerIds(userId)
 
   let fullResults = await getFullResults(usersNewestAnswers, surveyId)
 
   if (groupId) {
-    const groupAveragesByCategory = await getGroupAverage(groupId)
+    const groupAveragesByCategory = await getGroupAverage(groupId, surveyId)
     fullResults = {
       ...fullResults,
       categoryResults: fullResults.categoryResults.map((c, index) => ({
@@ -68,7 +72,10 @@ resultsRouter.get('/:token', async (req, res) => {
   }
 
   if (industryId) {
-    const industryAveragesByCategory = await getIndustryAverage(industryId)
+    const industryAveragesByCategory = await getIndustryAverage(
+      industryId,
+      surveyId
+    )
     fullResults = {
       ...fullResults,
       categoryResults: fullResults.categoryResults.map((c, index) => ({

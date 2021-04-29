@@ -1,7 +1,7 @@
-//helper for group average
+// helper for group average
+const _ = require('lodash')
 const { User, Survey_user_group } = require('../../models')
 const { getFullResults } = require('./getResults')
-const _ = require('lodash')
 
 const findUserLatestAnswersIds = require('./findUserLatestAnswerIds')
 
