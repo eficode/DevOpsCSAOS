@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react'
 import styled from 'styled-components'
 import LinearProgress from '@material-ui/core/LinearProgress'
@@ -39,11 +40,9 @@ const ProgressLine = styled(LinearProgress)`
 */
 
 export const ProgressBar = ({ answered, total }) => {
-  const countOfanswered = answered || 0
+  const answeredCount = answered || 0
   const totalCount = total || 100
-
-  const progress = (countOfanswered / totalCount) * 100
-
+  const progress = (answeredCount / totalCount) * 100
   return (
     <>
       <BarBackground>
