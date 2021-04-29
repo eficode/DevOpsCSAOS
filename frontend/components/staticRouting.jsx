@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-param-reassign */
@@ -74,7 +75,8 @@ export const withRouter = (ComposedComponent) => {
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    const name = ComposedComponent.displayName || ComposedComponent.name || 'Unknown'
+    const name =
+      ComposedComponent.displayName || ComposedComponent.name || 'Unknown'
     WithPageRouteWrapper.displayName = `withPageRouter(${name})`
   }
 
