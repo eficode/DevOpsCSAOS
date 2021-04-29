@@ -1,9 +1,8 @@
 import axios from 'axios'
 import { HOST } from './constants'
 
-export const sendAnswers = async (email, answers, surveyId, groupId) => {
+export const sendAnswers = async (answers, surveyId, groupId) => {
   const response = await axios.post(`${HOST}/api/answers`, {
-    email,
     answers,
     surveyId,
     groupId,
