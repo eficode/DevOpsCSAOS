@@ -1,7 +1,7 @@
+/* eslint-disable no-param-reassign */
 import React from 'react'
 import styled from 'styled-components'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import theme from '../styles/theme'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const MuiTheme = createMuiTheme({
@@ -40,12 +40,10 @@ const ProgressLine = styled(LinearProgress)`
 */
 
 export const ProgressBar = ({ answered, total }) => {
-  if (!answered && !total) {
-    answered = 0
-    total = 100
-  }
+  const answeredCount = answered || 0
+  const totalCount = total || 100
 
-  const progress = (answered / total) * 100
+  const progress = (answeredCount / totalCount) * 100
 
   return (
     <>

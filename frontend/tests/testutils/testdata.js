@@ -5,7 +5,8 @@ export const questions = [
     Category: {
       id: 1,
       name: 'Jauhot',
-      description: 'Jauho on yleisnimi hienojakoisille, jauhomaisille aineille ja puhekielessä eritoten viljalajien jyvistä jauhamalla saatava ravinnoksi käytettävä tuote. Sanoja jauho ja jauhe käytetään toisinaan synonyymeinä. Jauho on hienoin jyvistä jauhettu jauhatustuote, jonka karkeusaste vaihtelee. (Lähde: Wikipedia)',
+      description:
+        'Jauho on yleisnimi hienojakoisille, jauhomaisille aineille ja puhekielessä eritoten viljalajien jyvistä jauhamalla saatava ravinnoksi käytettävä tuote. Sanoja jauho ja jauhe käytetään toisinaan synonyymeinä. Jauho on hienoin jyvistä jauhettu jauhatustuote, jonka karkeusaste vaihtelee. (Lähde: Wikipedia)',
     },
     Question_answers: [
       {
@@ -59,7 +60,8 @@ export const questions = [
     Category: {
       id: 3,
       name: 'Perjantaifiilikset',
-      description: 'Perjantai on ihmisten mielestä kiva päivä jollon rentoillaan ja saatetaan vaikka haukata vähän pizzaa.',
+      description:
+        'Perjantai on ihmisten mielestä kiva päivä jollon rentoillaan ja saatetaan vaikka haukata vähän pizzaa.',
     },
     Question_answers: [
       {

@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isEmail } from 'validator'
@@ -5,10 +7,10 @@ import Link from 'next/link'
 import Checkbox from '@material-ui/core/Checkbox'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
+import Button from './button'
 import IndustrySelector from './industrySelector'
 import { useStore } from '../store'
-import Button from './button'
-import { submitEmail } from '../services/answers'
+import { submitEmail } from '../services/routes'
 
 const FormBackGround = styled.div`
   width: 85%;
@@ -16,8 +18,7 @@ const FormBackGround = styled.div`
   padding: 15px;
   background: #99c2d0;
   border-radius: 20px;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     width: 95%;
     padding: 5px;
   }
@@ -91,14 +92,13 @@ const Info = styled.div`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px #999999;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     left: 33%;
   }
 `
 const StyledIcon = styled(InfoOutlinedIcon)``
 
-const GetDetailedResultsForm = () => {
+const GetDetailedResultsForm = ({ industries }) => {
   const store = useStore()
   const [emailInput, setEmailInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -108,9 +108,7 @@ const GetDetailedResultsForm = () => {
     setAgreeToPrivacyPolicyChecked,
   ] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
-
-  const userHasGroup = store.groupId !== ''
-  console.log(store.groupId)
+  const [selectedIndustry, setSelectedIndustry] = useState(0)
 
   const handleEmailChange = (event) => {
     event.preventDefault()
@@ -121,15 +119,20 @@ const GetDetailedResultsForm = () => {
     event.preventDefault()
 
     if (!isEmail(emailInput)) {
+      // eslint-disable-next-line no-undef
       alert('Please provide a valid email address')
       return
     }
     if (!agreeToPrivacyPolicyChecked) {
+      // eslint-disable-next-line no-undef
       alert('You need to agree to the privacy policy')
       return
     }
+
     const groupId = store.groupId === '' ? undefined : store.groupId
-    await submitEmail(store.userToken, emailInput, createGroupChecked, groupId)
+    const industryToSubmit = selectedIndustry === 0 ? undefined : selectedIndustry
+
+    await submitEmail(store.userToken, emailInput, createGroupChecked, groupId, industryToSubmit)
     setSubmitted(true)
   }
   const handleCreateGroupChange = (event) => {
@@ -153,7 +156,6 @@ const GetDetailedResultsForm = () => {
   return (
     <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
       <FormTitle>Get your detailed results</FormTitle>
-
       <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
         <FieldWrapper>
           <DetailsInput
@@ -164,9 +166,12 @@ const GetDetailedResultsForm = () => {
             onChange={handleEmailChange}
             required
           />
-
-          <IndustrySelector />
-          {store.groupId === '' ? (
+          <IndustrySelector
+            industries={industries}
+            selectedIndustry={selectedIndustry}
+            setSelectedIndustry={setSelectedIndustry}
+          />
+          {store.groupId === '' && (
             <CheckboxContainer>
               <StyledCheckbox
                 checked={createGroupChecked}
@@ -188,13 +193,11 @@ const GetDetailedResultsForm = () => {
                 By checking this box, you will be given a group link that you
                 can share with your friends. You will be able to compare your
                 results to the group average after your friends have taken the
-                survey.{' '}
+                survey.
+                {' '}
               </Info>
             </CheckboxContainer>
-          ) : (
-            <></>
           )}
-
           <CheckboxContainer>
             <StyledCheckbox
               checked={agreeToPrivacyPolicyChecked}
@@ -205,7 +208,8 @@ const GetDetailedResultsForm = () => {
               }}
             />
             <CheckBoxText>
-              Agree to the <Link href="/privacy/">Privacy policy</Link>
+              Agree to the
+              <Link href="/privacy/">Privacy policy</Link>
             </CheckBoxText>
           </CheckboxContainer>
         </FieldWrapper>

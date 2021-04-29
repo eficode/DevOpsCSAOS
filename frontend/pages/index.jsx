@@ -2,14 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import { checkGroupId } from '../services/userGroups'
+import { checkGroupId } from '../services/routes'
 import { useStore } from '../store'
-import ContentAnimationWrapper from '../components/contentAnimationWrapper'
+import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
 import Link from '../components/link'
-import ProgressBar from '../components/progressBar'
+import { ProgressBar } from '../components/progressBar'
 import Heading from '../components/heading'
-import theme from '../styles/theme'
 
 const Section = styled.section`
   background-color: #fff;
@@ -27,15 +26,15 @@ const ErrorMessage = styled.div`
   color: white;
   margin-top: 20px;
   line-height: 1.6;
-  
 `
 
 const Home = () => {
   const store = useStore()
   const [showGroupIdInvalidText, setShowGroupIdInvalidText] = useState(false)
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       store.resetVersion()
+      // eslint-disable-next-line no-undef
       const url = new URLSearchParams(window.location.search)
       const version = url.get('version')
       const groupId = url.get('groupid')
@@ -50,7 +49,6 @@ const Home = () => {
           setShowGroupIdInvalidText(true)
         }
       }
-      
     })()
   }, [])
   return (
@@ -71,12 +69,15 @@ const Home = () => {
             <Link href="/survey/questions/?id=1" type="primary">
               Get started
             </Link>
-            { showGroupIdInvalidText &&
+            {showGroupIdInvalidText && (
               <ErrorMessage>
-                Group id found with the URL is invalid for some reason :( <br/>
-                You can still complete the survey, but the results won't be added to the group.
+                Group id found with the URL is invalid for some reason :(
+                {' '}
+                <br />
+                You can still complete the survey, but the results won&#39;t be
+                added to the group.
               </ErrorMessage>
-            }
+            )}
           </Section>
         </ContentAnimationWrapper>
       </InnerContentWrapper>

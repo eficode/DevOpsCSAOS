@@ -3,8 +3,8 @@ import SingleQuestion from './singleQuestion'
 
 const QuestionGrouper = ({ questions, onOptionClick }) => (
   <>
-    {questions &&
-      questions.map((question) => (
+    {questions
+      && questions.map((question) => (
         <SingleQuestion
           key={question.id}
           question={question}

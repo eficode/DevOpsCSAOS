@@ -19,6 +19,7 @@ const initialVisitedSummary = false
 const initialFeatureToggleSwitch = 'A'
 const initialGroupId = ''
 const initialToken = ''
+const initialIndustries = []
 
 export const divideQuestions = (questions, featureToggleSwitch) => {
   const initialSelectionsWithQuestionIds = []
@@ -33,9 +34,10 @@ export const divideQuestions = (questions, featureToggleSwitch) => {
 
   if (featureToggleSwitch === 'A') {
     // All questions divided to 2 pages, if uneven number of questions, first page gets +1 questions
-    chunkedQuestions = questions.length % 2 === 0
-      ? chunk(questions, questions.length / 2)
-      : chunk(questions, questions.length / 2 + 1)
+    chunkedQuestions =
+      questions.length % 2 === 0
+        ? chunk(questions, questions.length / 2)
+        : chunk(questions, questions.length / 2 + 1)
   } else if (featureToggleSwitch === 'B') {
     // 1 question per page
     chunkedQuestions = chunk(questions, 1)
@@ -55,6 +57,7 @@ const store = (set) => ({
   featureToggleSwitch: initialFeatureToggleSwitch,
   groupId: initialGroupId,
   userToken: initialToken,
+  industries: initialIndustries,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions, featureToggleSwitch) => {
@@ -78,6 +81,7 @@ const store = (set) => ({
     visitedSummary: false,
     featureToggleSwitch: 'A',
     groupId: '',
+    industries: [],
   })),
   resetVersion: () => set(() => ({
     featureToggleSwitch: 'A',
@@ -88,14 +92,16 @@ const store = (set) => ({
   })),
   setResults: (results) => set(() => ({ results })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
-  setFeatureToggleSwitch: (value) => set(() => ({ featureToggleSwitch: value })),
+  setFeatureToggleSwitch: (value) =>
+    set(() => ({ featureToggleSwitch: value })),
   setGroupId: (value) => set(() => ({ groupId: value })),
   setUserToken: (value) => set(() => ({ userToken: value })),
+  setIndustries: (industries) => set(() => ({ industries })),
 })
 
 export const useStore = create(
   persist(store, {
     name: 'devops assessment tool store',
     getStorage: () => sessionStorage,
-  }),
+  })
 )

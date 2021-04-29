@@ -12,13 +12,11 @@ export const InnerContentWrapper = styled.section`
   min-height: 100%;
   min-height: 25rem;
 
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
     min-height: 20;
   }
 
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.mediumMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mediumMobile}) {
     position: absolute;
     height: auto;
     min-height: 100%;

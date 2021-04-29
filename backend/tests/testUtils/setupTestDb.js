@@ -8,6 +8,7 @@ const survey_user_groups = require('./testData/survey_user_groups.json')
 const organizations = require('./testData/organizations.json')
 const users = require('./testData/users.json')
 const user_answers = require('./testData/user_answers.json')
+const industries = require('./testData/industries.json')
 const {
   sequelize,
   Question,
@@ -20,6 +21,7 @@ const {
   Organization,
   User,
   User_answer,
+  Industry,
 } = require('../../models')
 
 /*
@@ -39,6 +41,7 @@ const clearDBAndCreateDummyData = async () => {
   await Survey_user_group.bulkCreate(survey_user_groups)
   await User.bulkCreate(users)
   await User_answer.bulkCreate(user_answers)
+  await Industry.bulkCreate(industries)
 }
 
 module.exports = { clearDBAndCreateDummyData }

@@ -27,7 +27,9 @@ const SelectedOption = styled(Button)`
   text-transform: capitalize;
 `
 
-const Option = ({ id, label, selected, onClick }) => {
+const Option = ({
+  id, label, selected, onClick,
+}) => {
   if (selected) {
     return (
       <SelectedOption id={id} onClick={onClick}>

@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import {
   BarChart,
   Bar,
@@ -32,12 +31,11 @@ const percentageTopLimitsOfColors = [
 ]
 
 // findIndex returns index of first item in array to satisfy criterion given
-const getColor = (userResult, maxResult) =>
-  segmentColors[
-    percentageTopLimitsOfColors.findIndex(
-      (limit) => userResult / maxResult <= limit
-    )
-  ]
+const getColor = (userResult, maxResult) => segmentColors[
+  percentageTopLimitsOfColors.findIndex(
+    (limit) => userResult / maxResult <= limit,
+  )
+]
 
 // responsiveness TODO: make chart responsive (<800 px in mobile layout)
 const TotalResultChart = ({ data, renderMobileLayout }) => {
@@ -68,10 +66,10 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
             <Tooltip cursor={{ fill: 'transparent' }} />
 
             <Bar dataKey="userPoints" name="Your result">
-              {data.map((entry, index) => (
+              {data.map((entry) => (
                 <Cell
                   fill={getColor(entry.userPoints, entry.maxPoints)}
-                  key={index}
+                  key={entry.toString()}
                 />
               ))}
             </Bar>
@@ -109,10 +107,10 @@ const TotalResultChart = ({ data, renderMobileLayout }) => {
           <Tooltip cursor={{ fill: 'transparent' }} />
 
           <Bar dataKey="userPoints" barSize={30} name="Your result">
-            {data.map((entry, index) => (
+            {data.map((entry) => (
               <Cell
                 fill={getColor(entry.userPoints, entry.maxPoints)}
-                key={index}
+                key={entry.toString()}
               />
             ))}
           </Bar>

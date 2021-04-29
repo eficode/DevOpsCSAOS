@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {
-  InputLabel,
   MenuItem,
   FormControl,
-  Select
+  Select,
 } from '@material-ui/core'
+
 
 const StyledFormControl = styled(FormControl)`
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
@@ -21,7 +21,7 @@ const StyledSelect = styled(Select)`
   font-size: 11px;
   padding-left: 15px;
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
-  color: ${props => props.value === 0 ? "#717171" : "#000000"};
+  color: ${(props) => (props.value === 0 ? '#717171' : '#000000')};
   .MuiSelect-select:focus {
     background-color: ${({ theme }) => theme.colors.whiteSmoke};
   }
@@ -32,30 +32,32 @@ const StyledMenuItem = styled(MenuItem)`
   font-size: 14px;
 `
 
-const IndustrySelector = () => {
-  const [industry, setIndustry] = useState(0)
+const IndustrySelector = ({ industries, selectedIndustry, setSelectedIndustry }) => {
+
   const handleChange = (event) => {
-    setIndustry(event.target.value)
+    event.preventDefault()
+    setSelectedIndustry(event.target.value)
   }
 
   return (
     <StyledFormControl>
-      <StyledSelect 
+      <StyledSelect
         disableUnderline
         displayEmpty
-        value={industry}
+        value={selectedIndustry}
         onChange={handleChange}
       >
-        <StyledMenuItem value={0} disabled>
-          Select industry
+        <StyledMenuItem key={0} value={0}>
+          Select your industry
         </StyledMenuItem>
-        <StyledMenuItem value={1}>Software</StyledMenuItem>
-        <StyledMenuItem value={2}>Malware</StyledMenuItem>
-        <StyledMenuItem value={3}>Warfare</StyledMenuItem>
-        <StyledMenuItem value={4}>Other</StyledMenuItem>
+        {industries && industries.map(i => (
+          <StyledMenuItem key={i.id} value={i.id} name={i.name}>
+            {i.name}
+          </StyledMenuItem>
+        ))}
       </StyledSelect>
     </StyledFormControl>
-    )
+  )
 }
-    
+
 export default IndustrySelector
