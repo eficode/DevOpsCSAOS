@@ -55,7 +55,7 @@ const Home = () => {
 
   const { maxPoints, userPoints, text } = store.detailedResults.surveyResult
   const { categoryResults } = store.detailedResults
-  const { featureToggleSwitch } = store.featureToggleSwitch
+  const { featureToggleSwitch } = store
 
   useEffect(() => {
     const handleResize = () => {
