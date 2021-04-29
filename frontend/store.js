@@ -19,6 +19,7 @@ const initialVisitedSummary = false
 const initialFeatureToggleSwitch = 'A'
 const initialGroupId = ''
 const initialToken = ''
+const initialIndustries = []
 
 export const divideQuestions = (questions, featureToggleSwitch) => {
   const initialSelectionsWithQuestionIds = []
@@ -56,6 +57,7 @@ const store = (set) => ({
   featureToggleSwitch: initialFeatureToggleSwitch,
   groupId: initialGroupId,
   userToken: initialToken,
+  industries: initialIndustries,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions, featureToggleSwitch) => {
@@ -70,31 +72,31 @@ const store = (set) => ({
       questionGroups: chunkedQuestions,
     }))
   },
-  clear: () =>
-    set(() => ({
-      questions: [],
-      email: '',
-      selections: [],
-      resultsPerCategory: [],
-      resultText: '',
-      visitedSummary: false,
-      featureToggleSwitch: 'A',
-      groupId: '',
-    })),
-  resetVersion: () =>
-    set(() => ({
-      featureToggleSwitch: 'A',
-      questions: [],
-      questionGroups: [],
-      visitedSummary: false,
-      groupId: '',
-    })),
+  clear: () => set(() => ({
+    questions: [],
+    email: '',
+    selections: [],
+    resultsPerCategory: [],
+    resultText: '',
+    visitedSummary: false,
+    featureToggleSwitch: 'A',
+    groupId: '',
+    industries: [],
+  })),
+  resetVersion: () => set(() => ({
+    featureToggleSwitch: 'A',
+    questions: [],
+    questionGroups: [],
+    visitedSummary: false,
+    groupId: '',
+  })),
   setResults: (results) => set(() => ({ results })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
   setFeatureToggleSwitch: (value) =>
     set(() => ({ featureToggleSwitch: value })),
   setGroupId: (value) => set(() => ({ groupId: value })),
   setUserToken: (value) => set(() => ({ userToken: value })),
+  setIndustries: (industries) => set(() => ({ industries })),
 })
 
 export const useStore = create(

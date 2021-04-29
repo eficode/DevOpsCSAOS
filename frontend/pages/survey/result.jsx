@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
@@ -10,6 +10,7 @@ import { ContentAnimationWrapper } from '../../components/contentAnimationWrappe
 import Heading from '../../components/heading'
 import ShareResultsGroup from '../../components/shareResultsGroup'
 import GetDetailedResultsForm from '../../components/getDetailedResultsForm'
+import { getIndustries } from '../../services/routes'
 
 const Content = styled.section`
   display: flex;
@@ -52,12 +53,27 @@ const ResultSummaryText = styled.section`
 const Home = () => {
   const store = useStore()
 
+  useEffect(() => {
+    (async () => {
+      if (store.industries.length === 0) {
+        try {
+          const response = await getIndustries()
+
+          store.setIndustries(response)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    })()
+  }, [])
+
   if (!store.results) {
     return <div>loading results...</div>
   }
 
   const { maxPoints, userPoints, text } = store.results.surveyResult
   const { categories, userBestInCategory, userWorstInCategory } = store.results
+  const { industries } = store
 
   const convertArrayOfCategoriesToString = () => {
     let str = `${categories[0]}`
@@ -114,7 +130,7 @@ const Home = () => {
               userPoints={userPoints}
               maxPoints={maxPoints}
             />
-            <GetDetailedResultsForm />
+            <GetDetailedResultsForm industries={industries}/>
           </Content>
         </ContentAnimationWrapper>
       </InnerContentWrapper>

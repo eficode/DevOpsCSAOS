@@ -94,9 +94,6 @@ userGroupRouter.get('/results/:groupid', async (req, res) => {
         }
       })
     )
-    // arr.forEach
-    // n = arr.length
-    // [{categoryname, groupaverage}, {name, average}, ...]
 
     const categories = usersInGroupResults[0].results.categoryResults
 

@@ -1,11 +1,11 @@
 //helper for group average
-const {
-  Survey_user_group,
-  sequelize,
-  User,
-} = require('../../models')
+const { User, Survey_user_group } = require('../../models')
+const { getFullResults } = require('./getResults')
+const _ = require('lodash')
 
-const getGroupAverage = (groupid) => {
+const findUserLatestAnswersIds = require('./findUserLatestAnswerIds')
+
+const getGroupAverage = async (groupid) => {
   const usersInGroup = await (
     await User.findAll({
       include: [

@@ -1,13 +1,16 @@
-//helper for industry average
+const _ = require('lodash')
+const { User, Survey_user_group, Industry } = require('../../models')
+const { getFullResults } = require('./getResults')
 
-const getIndustryAverage = (industryId) => {
-  // get all users in industry
-  // get all results for users in industry
-  // compute average
+const findUserLatestAnswersIds = require('./findUserLatestAnswerIds')
 
+const getIndustryAverage = async (industryId) => {
   const usersInIndustry = await (
     await User.findAll({
       include: [
+        {
+          model: Industry,
+        },
         {
           model: Survey_user_group,
         },
@@ -20,7 +23,7 @@ const getIndustryAverage = (industryId) => {
   ).map((el) => el.get({ plain: true }))
 
   const usersInIndustryResults = await Promise.all(
-    usersInGroup.map(async (user) => {
+    usersInIndustry.map(async (user) => {
       const userLatestAnswersIds = await findUserLatestAnswersIds(user.id)
 
       const detailedUserResults = await getFullResults(
@@ -35,7 +38,21 @@ const getIndustryAverage = (industryId) => {
     })
   )
 
-  //const industryAverage = ... calculate from data fetched above
+  const categories = usersInIndustryResults[0].results.categoryResults
+
+  categories.forEach((category, index) => {
+    const averageInCategory = _.meanBy(
+      usersInIndustryResults,
+      (u) => u.results.categoryResults[index].userPoints
+    )
+    categories[index].industryAverage = averageInCategory
+  })
+  const mappedCategories = categories.map((c) => ({
+    name: c.name,
+    industryAverage: c.industryAverage,
+  }))
+
+  return mappedCategories
 }
 
 module.exports = getIndustryAverage

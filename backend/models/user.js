@@ -7,10 +7,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ User_answer, Survey_user_group }) {
+    static associate({ User_answer, Survey_user_group, Industry }) {
       // define association here
       this.hasMany(User_answer, { foreignKey: 'userId' })
       this.belongsTo(Survey_user_group, { foreignKey: 'groupId' })
+      this.belongsTo(Industry, { foreignKey: 'industryId' })
     }
     // eslint-disable-next-line prettier/prettier
   }
@@ -26,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       groupId: {
         type: DataTypes.UUID,
+        allowNull: true,
+      },
+      industryId: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
     },

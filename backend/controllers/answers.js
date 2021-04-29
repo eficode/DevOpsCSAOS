@@ -1,6 +1,12 @@
 const jwt = require('jsonwebtoken')
 const answersRouter = require('express').Router()
-const { User, User_answer, Survey, Survey_user_group } = require('../models')
+const {
+  User,
+  User_answer,
+  Survey,
+  Survey_user_group,
+  Industry,
+} = require('../models')
 const { SendHubspotMessage } = require('./helpers/hubspot')
 const { verifyUserAnswers, getSummaryOfResults } = require('./helpers/answers')
 
@@ -85,7 +91,14 @@ const findUserMatchingTokenFromDb = async (token) => {
 }
 
 answersRouter.post('/emailsubmit', async (req, res) => {
-  const { token, email, createNewGroup, surveyId, groupId } = req.body
+  const {
+    token,
+    email,
+    createNewGroup,
+    surveyId,
+    groupId,
+    industryId,
+  } = req.body
   try {
     // request body validation
     if (!email || !token || !surveyId) {
@@ -94,30 +107,34 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       })
     }
 
-    const anonymousUser = await findUserMatchingTokenFromDb(token)
-    if (!anonymousUser) {
+    let user = await findUserMatchingTokenFromDb(token)
+    if (!user) {
       return res.status(401).json({
         message: 'No user associated with token.',
       })
     }
 
     // update users table in db
-    const userWithSameEmailAndGroup = await User.findOne({
+    const userInDb = await User.findOne({
       where: {
         email: email,
         groupId: groupId || null,
       },
     })
-    if (userWithSameEmailAndGroup) {
+
+    if (userInDb) {
+      // associate new answers with existing user
       await User_answer.update(
-        { userId: userWithSameEmailAndGroup.id },
-        { where: { userId: anonymousUser.id } }
+        { userId: userInDb.id },
+        { where: { userId: user.id } }
       )
-      await User.destroy({ where: { id: anonymousUser.id } })
+      await User.destroy({ where: { id: user.id } })
+      user = userInDb
     } else {
-      anonymousUser.email = email
-      await anonymousUser.save()
+      user.email = email
+      await user.save()
     }
+
     let createdGroupId
     // update user groups in db
     if (createNewGroup && !groupId) {
@@ -125,16 +142,24 @@ answersRouter.post('/emailsubmit', async (req, res) => {
         surveyId: surveyId,
       })
       createdGroupId = newGroup.id
-      if (userWithSameEmailAndGroup) {
-        userWithSameEmailAndGroup.groupId = newGroup.id
-        await userWithSameEmailAndGroup.save()
-      } else {
-        anonymousUser.groupId = newGroup.id
-        await anonymousUser.save()
-      }
+      user.groupId = createdGroupId
+      await user.save()
     }
+
+    // update industry
+    if (industryId) {
+      const industryInDb = await Industry.findOne({ where: { id: industryId } })
+      if (!industryInDb) {
+        return res.status(400).json({
+          message: 'Invalid industry id',
+        })
+      }
+
+      user.industryId = industryId
+      await user.save()
+    }
+
     const baseUrl = req.get('origin')
-    console.log(baseUrl)
     const group_parameter = groupId || createdGroupId
     const group_invite_link = group_parameter
       ? `${baseUrl}/?groupid=${group_parameter}`

@@ -1,4 +1,6 @@
 /* eslint-disable no-restricted-syntax */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-param-reassign */
 import React from 'react'
 import {
   withRouter as withNextRouter,

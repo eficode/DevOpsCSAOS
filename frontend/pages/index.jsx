@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import { checkGroupId } from '../services/userGroups'
+import { checkGroupId } from '../services/routes'
 import { useStore } from '../store'
 import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
