@@ -1,16 +1,15 @@
+// eslint-disable no-undef
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-
-import Link from '../../components/link'
 import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
 import TotalResult from '../../components/totalResult'
-import ProgressBar from '../../components/progressBar'
+import { ProgressBar } from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
 import TotalResultBarChart from '../../components/totalResultBarChart'
 import TotalResultRadarChart from '../../components/totalResultRadarChart'
 import { useStore } from '../../store'
-import ContentAnimationWrapper from '../../components/contentAnimationWrapper'
+import { ContentAnimationWrapper } from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
 
 const Content = styled.section`
@@ -98,34 +97,30 @@ const Home = () => {
             <Heading component="h3" variant="h6" font="Montserrat">
               {text}
             </Heading>
-            {
-              <Categories data-testid="categorycontainer">
-                {categoryResults.map((result, index) => (
-                  <CategoryResult
-                    key={result.name}
-                    renderMobileLayout={renderMobileLayout}
-                    userResult={result.userPoints}
-                    maxResult={result.maxPoints}
-                    category={result.name}
-                    description={result.description}
-                    resultText={result.text}
-                    index={index}
-                  />
-                ))}
-              </Categories>
-            }
+            <Categories data-testid="categorycontainer">
+              {categoryResults.map((result, index) => (
+                <CategoryResult
+                  key={result.name}
+                  renderMobileLayout={renderMobileLayout}
+                  userResult={result.userPoints}
+                  maxResult={result.maxPoints}
+                  category={result.name}
+                  description={result.description}
+                  resultText={result.text}
+                  index={index}
+                />
+              ))}
+            </Categories>
             {(() => {
-              if (featureToggleSwitch === 'A') {
-                return (
-                  <TotalResultBarChart
-                    data={percentages}
-                    renderMobileLayout={renderMobileChart}
-                  />
-                )
-              }
               if (featureToggleSwitch === 'B') {
                 return <TotalResultRadarChart data={percentages} />
               }
+              return (
+                <TotalResultBarChart
+                  data={percentages}
+                  renderMobileLayout={renderMobileChart}
+                />
+              )
             })()}
           </Content>
         </ContentAnimationWrapper>
