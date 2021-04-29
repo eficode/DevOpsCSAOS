@@ -1,4 +1,5 @@
-// eslint-disable no-undef
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
@@ -54,7 +55,7 @@ const Home = () => {
 
   const { maxPoints, userPoints, text } = store.detailedResults.surveyResult
   const { categoryResults } = store.detailedResults
-  const featureToggleSwitch = store.featureToggleSwitch
+  const { featureToggleSwitch } = store.featureToggleSwitch
 
   useEffect(() => {
     const handleResize = () => {
@@ -111,17 +112,14 @@ const Home = () => {
                 />
               ))}
             </Categories>
-            {(() => {
-              if (featureToggleSwitch === 'B') {
-                return <TotalResultRadarChart data={percentages} />
-              }
-              return (
-                <TotalResultBarChart
-                  data={percentages}
-                  renderMobileLayout={renderMobileChart}
-                />
-              )
-            })()}
+            {featureToggleSwitch === "B" ? (
+              <TotalResultRadarChart data={percentages} />
+            ) : (
+              <TotalResultBarChart
+                data={percentages}
+                renderMobileLayout={renderMobileChart}
+              />
+            )}
           </Content>
         </ContentAnimationWrapper>
       </InnerContentWrapper>
