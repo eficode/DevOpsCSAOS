@@ -1,6 +1,7 @@
 //helper for group average
 const {
   Survey_user_group,
+  sequelize,
   User,
 } = require('../../models')
 
@@ -35,7 +36,21 @@ const getGroupAverage = (groupid) => {
     })
   )
 
-  // todo: compute averages (all data fetched from db at dis point)
+  const categories = usersInGroupResults[0].results.categoryResults
+
+  categories.forEach((category, index) => {
+    const averageInCategory = _.meanBy(
+      usersInGroupResults,
+      (u) => u.results.categoryResults[index].userPoints
+    )
+    categories[index].groupAverage = averageInCategory
+  })
+  const mappedCategories = categories.map((c) => ({
+    name: c.name,
+    groupAverage: c.groupAverage,
+  }))
+
+  return mappedCategories
 }
 
 module.exports = getGroupAverage

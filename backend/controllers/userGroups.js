@@ -1,5 +1,6 @@
 const userGroupRouter = require('express').Router()
 const validateAsUuid = require('uuid-validate')
+const _ = require('lodash')
 const { getFullResults } = require('./helpers/getResults')
 const {
   Survey_user_group,
@@ -15,7 +16,7 @@ userGroupRouter.get('/:groupid', async (req, res) => {
   const isValidUUID = validateAsUuid(groupid)
 
   if (!isValidUUID) {
-    return res.status(400).json({ result: false })
+    return res.status(200).json({ result: false })
   }
 
   try {
@@ -93,10 +94,25 @@ userGroupRouter.get('/results/:groupid', async (req, res) => {
         }
       })
     )
+    // arr.forEach
+    // n = arr.length
+    // [{categoryname, groupaverage}, {name, average}, ...]
 
-    // todo: compute averages (all data fetched from db at dis point)
+    const categories = usersInGroupResults[0].results.categoryResults
 
-    return res.status(200).json(usersInGroupResults)
+    categories.forEach((category, index) => {
+      const averageInCategory = _.meanBy(
+        usersInGroupResults,
+        (u) => u.results.categoryResults[index].userPoints
+      )
+      categories[index].groupAverage = averageInCategory
+    })
+    const mappedCategories = categories.map((c) => ({
+      name: c.name,
+      groupAverage: c.groupAverage,
+    }))
+
+    return res.status(200).json(mappedCategories)
   } catch (e) {
     console.log(e)
     return res.status(500).json({ error: 'Unable to fetch user groups' })
