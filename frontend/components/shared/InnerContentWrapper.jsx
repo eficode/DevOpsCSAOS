@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 
 export const InnerContentWrapper = styled.section`
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   width: 90%;
-  height: auto;
-  min-height: 30rem;
+  min-height: 80vh;
+  height: 100%;
 
   margin: 0;
   padding: 10%;

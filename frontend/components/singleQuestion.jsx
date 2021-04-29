@@ -9,10 +9,10 @@ const QuestionWrapper = styled.div`
   grid-gap: 30px;
   align-items: center;
   grid-template-columns: 240px 240px;
-  width:100%;
- 
- @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+  width: 100%;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 `
 
@@ -24,8 +24,8 @@ const OptionsWrapper = styled.div`
   width: 100%;
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
-    grid-template-columns: 1fr; 
-  } 
+    grid-template-columns: 1fr;
+  }
 `
 
 const QuestionTitle = styled.h2`
@@ -55,11 +55,11 @@ const Wrapper = styled.article`
 const SingleQuestion = ({ question, onOptionClick }) => {
   const store = useStore()
   const currentSelection = store.selections.find(
-    (s) => s.questionId === question.id,
+    (s) => s.questionId === question.id
   ).answerId
 
-      return (
-  <Wrapper>
+  return (
+    <Wrapper>
       <QuestionWrapper>
         <QuestionTitle>{question.text}</QuestionTitle>
         <OptionsWrapper>

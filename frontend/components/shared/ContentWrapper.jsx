@@ -10,11 +10,9 @@ export const ContentWrapper = styled.main`
     margin: 5% 0%;
   }
 
-
   font-family: Merriweather;
   max-width: 2000px;
-  height: auto;
-  min-height: 100%;
+  height: 100%;
 
   p {
     text-align: center;
