@@ -11,3 +11,6 @@ ${EMAIL}          testi@testi.fi
 
 Submit email
   Input Text    name=email    ${EMAIL}
+
+Check privacy box
+  Select Checkbox    xpath=//input[@name='acceptPrivacyPolicy']

@@ -23,3 +23,11 @@ Alert Is Shown If User Has Not Agreed To Privacy Policy When Submitting Email
   Click submit
   Alert Should Be Present
   [Teardown]    Close Application
+
+User Is Notified When Email Submit Is Successfull
+  [Setup]       Seed Database With Test Data
+  Complete survey and submit answers
+  Submit email
+  Check privacy box
+  Click submit and wait
+  [Teardown]    Close Application

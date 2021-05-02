@@ -18,7 +18,8 @@ const FormBackGround = styled.div`
   padding: 15px;
   background: #99c2d0;
   border-radius: 20px;
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
     width: 95%;
     padding: 5px;
   }
@@ -92,7 +93,8 @@ const Info = styled.div`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px #999999;
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) =>
+      theme.breakpoints.wideMobile}) {
     left: 33%;
   }
 `
@@ -130,9 +132,16 @@ const GetDetailedResultsForm = ({ industries }) => {
     }
 
     const groupId = store.groupId === '' ? undefined : store.groupId
-    const industryToSubmit = selectedIndustry === 0 ? undefined : selectedIndustry
+    const industryToSubmit =
+      selectedIndustry === 0 ? undefined : selectedIndustry
 
-    await submitEmail(store.userToken, emailInput, createGroupChecked, groupId, industryToSubmit)
+    await submitEmail(
+      store.userToken,
+      emailInput,
+      createGroupChecked,
+      groupId,
+      industryToSubmit
+    )
     setSubmitted(true)
   }
   const handleCreateGroupChange = (event) => {
@@ -193,8 +202,7 @@ const GetDetailedResultsForm = ({ industries }) => {
                 By checking this box, you will be given a group link that you
                 can share with your friends. You will be able to compare your
                 results to the group average after your friends have taken the
-                survey.
-                {' '}
+                survey.{' '}
               </Info>
             </CheckboxContainer>
           )}
@@ -202,7 +210,7 @@ const GetDetailedResultsForm = ({ industries }) => {
             <StyledCheckbox
               checked={agreeToPrivacyPolicyChecked}
               onChange={handleAgreeToPolicyChange}
-              name="checked"
+              name="acceptPrivacyPolicy"
               style={{
                 color: '#1E3944',
               }}
