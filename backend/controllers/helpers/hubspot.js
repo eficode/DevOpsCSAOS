@@ -23,7 +23,6 @@ const SendHubspotMessage = async (
   const emailWithRandomNumber = `${emailparts[0]}${emailparts[1]}`
   const contactObj = {
     properties: {
-      email,
       email: emailWithRandomNumber,
       group_invite_link: group_invite_link,
       group_results_page_link: group_results_page_link || '',

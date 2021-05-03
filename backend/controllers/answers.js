@@ -159,7 +159,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       await user.save()
     }
 
-    if (process.env.NODE_ENV != 'endtoend') {
+    if (process.env.NODE_ENV !== 'endtoend') {
       const baseUrl = req.get('origin')
       const group_parameter = groupId || createdGroupId
       const group_invite_link = group_parameter
