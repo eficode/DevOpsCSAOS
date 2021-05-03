@@ -11,12 +11,8 @@ const GlobalStyles = createGlobalStyle`
       font-family: 'Source Serif Pro', serif;
       font-size: 18px;
       overflow-x: none;
-      height: 90%;
     }
 
-    #__next {
-      height: 100%;
-    }
 
     @media (min-width: 480px) {
       html {

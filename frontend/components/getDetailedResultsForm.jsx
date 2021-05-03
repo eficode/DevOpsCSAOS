@@ -13,16 +13,11 @@ import { useStore } from '../store'
 import { submitEmail } from '../services/routes'
 
 const FormBackGround = styled.div`
-  width: 85%;
+  width: 100%;
   margin-top: 30px;
   padding: 15px;
   background: #99c2d0;
   border-radius: 20px;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
-    width: 95%;
-    padding: 5px;
-  }
 `
 
 const FormTitle = styled.h3`
@@ -93,8 +88,8 @@ const Info = styled.div`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px #999999;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
     left: 33%;
   }
 `
