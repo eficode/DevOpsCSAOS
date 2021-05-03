@@ -7,7 +7,7 @@ industryRouter.get('/', async (req, res) => {
 
     return res.status(200).json(industries)
   } catch (e) {
-    return res.status(500).json({ error: 'Unable to fetch questions' })
+    return res.status(500).json({ error: 'Unable to fetch industries' })
   }
 })
 

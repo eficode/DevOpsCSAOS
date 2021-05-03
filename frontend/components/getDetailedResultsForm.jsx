@@ -88,6 +88,7 @@ const Info = styled.div`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px #999999;
+
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
     left: 33%;
   }
@@ -126,9 +127,15 @@ const GetDetailedResultsForm = ({ industries }) => {
     }
 
     const groupId = store.groupId === '' ? undefined : store.groupId
-    const industryToSubmit = selectedIndustry === 0 ? undefined : selectedIndustry
+    const industryId = selectedIndustry === 0 ? undefined : selectedIndustry
 
-    await submitEmail(store.userToken, emailInput, createGroupChecked, groupId, industryToSubmit)
+    await submitEmail(
+      store.userToken,
+      emailInput,
+      createGroupChecked,
+      groupId,
+      industryId
+    )
     setSubmitted(true)
   }
   const handleCreateGroupChange = (event) => {
@@ -189,8 +196,7 @@ const GetDetailedResultsForm = ({ industries }) => {
                 By checking this box, you will be given a group link that you
                 can share with your friends. You will be able to compare your
                 results to the group average after your friends have taken the
-                survey.
-                {' '}
+                survey.{' '}
               </Info>
             </CheckboxContainer>
           )}

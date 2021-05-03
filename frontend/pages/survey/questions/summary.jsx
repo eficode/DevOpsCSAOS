@@ -61,19 +61,13 @@ const Summary = () => {
 
     const surveyId = 1
 
-    const email = store.email === '' ? undefined : store.email
     const groupId = store.groupId === '' ? undefined : store.groupId
     const answersForBackend = store.selections.map(
-      (selection) => selection.answerId,
+      (selection) => selection.answerId
     )
 
     try {
-      const response = await sendAnswers(
-        email,
-        answersForBackend,
-        surveyId,
-        groupId,
-      )
+      const response = await sendAnswers(answersForBackend, surveyId, groupId)
       store.setResults(response.results)
       store.setUserToken(response.token)
       router.push('/survey/result')
@@ -98,18 +92,18 @@ const Summary = () => {
             <Heading component="h1" variant="h6">
               Here are your current answers
             </Heading>
-            {questions
-              && questions.map((question) => {
+            {questions &&
+              questions.map((question) => {
                 let answerText
                 const currentAnswerId = selections.find(
-                  (s) => s.questionId === question.id,
+                  (s) => s.questionId === question.id
                 ).answerId
 
                 if (!currentAnswerId) {
                   answerText = "You haven't answered this question."
                 } else {
                   const selectedAnswerText = question.Question_answers.find(
-                    (a) => a.id === currentAnswerId,
+                    (a) => a.id === currentAnswerId
                   ).text
                   answerText = `You answered: ${selectedAnswerText}`
                 }

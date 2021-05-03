@@ -70,6 +70,7 @@ answersRouter.post('/', async (req, res) => {
           groupId: survey_user_group.id,
         })
       : await User.create({})
+
     await saveAnswersToDatabase(answers, userInDb.id)
     const token = jwt.sign(userInDb.id, process.env.SECRET_FOR_TOKEN)
     return res.status(200).json({ token, results: results })
@@ -164,7 +165,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     const group_invite_link = group_parameter
       ? `${baseUrl}/?groupid=${group_parameter}`
       : ''
-    const group_results_page_link = ''
+    const group_results_page_link = `${baseUrl}/survey/total_results/?user=${token}`
     await SendHubspotMessage(email, group_invite_link, group_results_page_link)
     return res.status(200).json({})
   } catch (err) {

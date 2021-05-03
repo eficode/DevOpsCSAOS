@@ -34,9 +34,8 @@ const initDatabase = async () => {
   await Category_result.bulkCreate(category_results)
   await Question.bulkCreate(questions)
   await Question_answer.bulkCreate(question_answers)
-  await Organization.bulkCreate(organizations)
-  await Survey_user_group.bulkCreate(survey_user_groups)
   await Industry.bulkCreate(industries)
+  await Survey_user_group.bulkCreate(survey_user_groups)
 }
 
 module.exports = { initDatabase }
