@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { Button } from '@material-ui/core'
 
-const NotSelectedOption = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.gold};
+const StyledOption = styled(Button)`
+  background-color: ${({ theme, selected }) =>
+    selected ? theme.colors.brandyPunch : theme.colors.gold};
   border-radius: 3px;
   border-width: 0px;
   font-size: 15px;
@@ -11,38 +12,16 @@ const NotSelectedOption = styled(Button)`
   font-weight: bold;
   padding: 10px 15px;
   text-transform: capitalize;
-
   &:hover {
-    background-color: ${({ theme }) => theme.colors.amber};
+    background-color: ${({ theme, selected }) =>
+      selected ? theme.colors.brandyPunch : theme.colors.amber};
   }
 `
 
-const SelectedOption = styled(Button)`
-  border-radius: 3px;
-  background-color: ${({ theme }) => theme.colors.brandyPunch};
-  font-size: 15px;
-  font-family: Montserrat;
-  font-weight: bold;
-  border-width: 0px;
-  text-transform: capitalize;
-`
-
-const Option = ({
-  id, label, selected, onClick,
-}) => {
-  if (selected) {
-    return (
-      <SelectedOption id={id} onClick={onClick}>
-        {label}
-      </SelectedOption>
-    )
-  }
-
-  return (
-    <NotSelectedOption id={id} onClick={onClick}>
-      {label}
-    </NotSelectedOption>
-  )
-}
+const Option = ({ id, label, selected, onClick }) => (
+  <StyledOption id={id} onClick={onClick} selected={selected}>
+    {label}
+  </StyledOption>
+)
 
 export default Option
