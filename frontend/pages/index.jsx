@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import { checkGroupId } from '../services/userGroups'
+import { checkGroupId } from '../services/routes'
 import { useStore } from '../store'
 import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
 import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
@@ -31,7 +31,7 @@ const Home = () => {
   const store = useStore()
   const [showGroupIdInvalidText, setShowGroupIdInvalidText] = useState(false)
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       store.resetVersion()
       // eslint-disable-next-line no-undef
       const url = new URLSearchParams(window.location.search)
@@ -70,9 +70,7 @@ const Home = () => {
             </Link>
             {showGroupIdInvalidText && (
               <ErrorMessage>
-                Group id found with the URL is invalid for some reason :(
-                {' '}
-                <br />
+                Group id found with the URL is invalid for some reason :( <br />
                 You can still complete the survey, but the results won&#39;t be
                 added to the group.
               </ErrorMessage>

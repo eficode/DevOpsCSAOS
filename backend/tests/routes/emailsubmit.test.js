@@ -25,9 +25,11 @@ describe(`POST ${endpoint}`, () => {
     token: validToken,
     email: validEmail,
   }
+
   beforeEach(async () => {
     await clearDBAndCreateDummyData()
   })
+
   it('Returns 400 if email is missing', async (done) => {
     const bodyWithoutEmail = {
       ...validBody,
@@ -173,6 +175,7 @@ describe(`POST ${endpoint}`, () => {
     )
     done()
   })
+
   it('If user submits new email and wants to create a new group, new group is created and email is attached to anonymous user', async (done) => {
     const newEmail = 'testaaja50@email.com'
     const answersResponse = await request(app).post('/api/answers').send({
@@ -195,6 +198,53 @@ describe(`POST ${endpoint}`, () => {
     const anonymousUserId = jwt.verify(anonymousUserToken, SECRET_FOR_TOKEN)
     const updatedUser = await User.findOne({ where: { id: anonymousUserId } })
     expect(updatedUser.email).toBe(newEmail)
+    done()
+  })
+
+  it('If user submits industry id, industry information is saved to db', async (done) => {
+    const newEmail = 'testaajamme@email.com'
+
+    const answersResponse = await request(app).post('/api/answers').send({
+      answers: survey1TestAnswers,
+      surveyId: surveyId,
+    })
+    const { token: anonymousUserToken } = answersResponse.body
+
+    const validBodyWithExistingEmail = {
+      ...validBody,
+      token: anonymousUserToken,
+      email: newEmail,
+      createNewGroup: false,
+      industryId: 1,
+    }
+    await request(app).post(endpoint).send(validBodyWithExistingEmail)
+
+    const anonymousUserId = jwt.verify(anonymousUserToken, SECRET_FOR_TOKEN)
+    const updatedUser = await User.findOne({ where: { id: anonymousUserId } })
+    expect(updatedUser.industryId).toBe(1)
+    done()
+  })
+
+  it('Returns 400 if user submits industry id not existing in db', async (done) => {
+    const newEmail = 'testaajamme@email.com'
+
+    const answersResponse = await request(app).post('/api/answers').send({
+      answers: survey1TestAnswers,
+      surveyId: surveyId,
+    })
+    const { token: anonymousUserToken } = answersResponse.body
+
+    const validBodyWithExistingEmail = {
+      ...validBody,
+      token: anonymousUserToken,
+      email: newEmail,
+      createNewGroup: false,
+      industryId: 123456789,
+    }
+    const response = await request(app)
+      .post(endpoint)
+      .send(validBodyWithExistingEmail)
+    expect(response.status).toBe(400)
     done()
   })
 })

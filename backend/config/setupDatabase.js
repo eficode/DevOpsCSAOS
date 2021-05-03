@@ -6,6 +6,7 @@ const category_results = require('./initialData/category_results.json')
 const surveys = require('./initialData/surveys.json')
 const organizations = require('./initialData/organizations.json')
 const survey_user_groups = require('./initialData/survey_user_groups.json')
+const industries = require('./initialData/industries.json')
 
 const {
   sequelize,
@@ -17,6 +18,7 @@ const {
   Category_result,
   Organization,
   Survey_user_group,
+  Industry,
 } = require('../models')
 
 /*
@@ -34,6 +36,7 @@ const initDatabase = async () => {
   await Question_answer.bulkCreate(question_answers)
   await Organization.bulkCreate(organizations)
   await Survey_user_group.bulkCreate(survey_user_groups)
+  await Industry.bulkCreate(industries)
 }
 
 module.exports = { initDatabase }
