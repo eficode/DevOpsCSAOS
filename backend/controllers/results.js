@@ -23,13 +23,13 @@ const getUserIdFromToken = (token) => {
 
 resultsRouter.get('/:token', async (req, res) => {
   const { token } = req.params
-  const userId = getUserIdFromToken(token)
 
+  const userId = getUserIdFromToken(token)
   if (!userId) {
     return res.status(401).json({ message: 'invalid token' })
   }
 
-  const { dataValues: user } = await User.findOne({
+  const user = await User.findOne({
     include: [
       {
         model: User_answer,
@@ -50,7 +50,11 @@ resultsRouter.get('/:token', async (req, res) => {
       id: userId,
     },
   })
-  const { groupId, industryId } = user
+
+  if (!user) {
+    return res.status(401).json({ message: 'No user associated with token' })
+  }
+  const { groupId, industryId } = user.dataValues
   const { surveyId } = user.User_answers[0].Question_answer.Question
   if (!surveyId) {
     return res.status(401).json({ message: 'invalid survey information' })

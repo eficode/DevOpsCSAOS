@@ -76,7 +76,7 @@ describe(`POST ${endpoint}`, () => {
 
   it('If user submits email and groupId existing in db, answers are attached to the existing user', async (done) => {
     // from test data
-    const existingUserId = 2
+    const existingUserId = 20
     const existingUserEmail = 'testaaja2@email.com'
     const existingUserGroupId = 'f5fd31b0-2315-4757-9794-3c96e7ffb7ec'
     const answersResponse = await request(app).post('/api/answers').send({
@@ -102,7 +102,7 @@ describe(`POST ${endpoint}`, () => {
   })
 
   it('If user submits email and groupId with old answers in db, old answers persist in db', async (done) => {
-    const existingUserId = 2
+    const existingUserId = 20
     const existingUserEmail = 'testaaja2@email.com'
     const existingUserGroupId = 'f5fd31b0-2315-4757-9794-3c96e7ffb7ec'
     const answersResponse = await request(app).post('/api/answers').send({
