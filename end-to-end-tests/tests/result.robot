@@ -31,3 +31,13 @@ User Is Notified When Email Submit Is Successful
   Check privacy box
   Click submit and wait
   [Teardown]    Close Application
+
+Alert Is Shown If User Has Entered Invalid Email And Clicks Submit
+  [Setup]       Seed Database With Test Data
+  Complete survey and submit answers
+  Submit invalid email
+  Check privacy box
+  Click submit
+  Alert Should Be Present
+  [Teardown]    Close Application
+

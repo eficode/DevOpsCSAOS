@@ -86,4 +86,4 @@ Click submit
 
 Click submit and wait
     Click Element   //*[contains(text(), '${SUBMIT_EMAIL}')]
-    Wait Until Page Contains Element    //*[contains(text(), '${EMAIL_COMPLETE}')]        20
+    Wait Until Page Contains Element    //*[contains(text(), '${EMAIL_COMPLETE}')]
