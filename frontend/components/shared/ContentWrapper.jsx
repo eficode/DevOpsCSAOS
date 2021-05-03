@@ -6,18 +6,13 @@ export const ContentWrapper = styled.main`
   align-items: center;
   margin: 5% 20%;
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideDesktop}) {
-    margin: 5% 10%;
-  }
-
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mediumMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[2]}) {
     margin: 5% 0%;
   }
-  
+
   font-family: Merriweather;
   max-width: 2000px;
-  height: auto;
-  min-height: 100%;
+  height: 100%;
 
   p {
     text-align: center;

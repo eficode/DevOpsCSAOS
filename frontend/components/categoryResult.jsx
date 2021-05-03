@@ -9,7 +9,7 @@ export const CategoryResultContainer = styled.article`
   margin: 35px 0 60px 0;
   column-gap: 60px;
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
     flex-direction: column;
   }
 `
@@ -36,7 +36,7 @@ export const CategoryImage = styled.div`
   min-height: 200px;
   margin-bottom: -100px;
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
     width: 50%;
     margin-bottom: -80px;
   }
