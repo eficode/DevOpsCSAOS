@@ -18,9 +18,13 @@ const SendHubspotMessage = async (
     throw new Error('Failed to initialise HubSpot connection')
   }
 
+  const emailparts = email.split('@')
+  emailparts[0] = `${emailparts[0]}+${Math.floor(Math.random() * 100001)}@`
+  const emailWithRandomNumber = `${emailparts[0]}${emailparts[1]}`
   const contactObj = {
     properties: {
       email,
+      email: emailWithRandomNumber,
       group_invite_link: group_invite_link,
       group_results_page_link: group_results_page_link || '',
     },

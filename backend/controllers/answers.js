@@ -159,13 +159,19 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       await user.save()
     }
 
-    const baseUrl = req.get('origin')
-    const group_parameter = groupId || createdGroupId
-    const group_invite_link = group_parameter
-      ? `${baseUrl}/?groupid=${group_parameter}`
-      : ''
-    const group_results_page_link = ''
-    await SendHubspotMessage(email, group_invite_link, group_results_page_link)
+    if (process.env.NODE_ENV != 'endtoend') {
+      const baseUrl = req.get('origin')
+      const group_parameter = groupId || createdGroupId
+      const group_invite_link = group_parameter
+        ? `${baseUrl}/?groupid=${group_parameter}`
+        : ''
+      const group_results_page_link = ''
+      await SendHubspotMessage(
+        email,
+        group_invite_link,
+        group_results_page_link
+      )
+    }
     return res.status(200).json({})
   } catch (err) {
     console.log(err)
