@@ -5,7 +5,7 @@ Library           SeleniumLibrary
 
 *** Variables ***
 
-${EMAIL}          testi@testi.fi
+${EMAIL}          testi3@testi.fi
 
 *** Keywords ***
 
