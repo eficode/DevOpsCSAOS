@@ -198,3 +198,28 @@ export const detailedResults = {
     },
   ],
 }
+
+
+export const industries = [
+  {
+    "name": "Operating systems"
+  },
+  {
+    "name": "Integrated systems"
+  },
+  {
+    "name": "Applications"
+  },
+  {
+    "name": "Mobile applications"
+  },
+  {
+    "name": "Games"
+  },
+  {
+    "name": "Information security"
+  },
+  {
+    "name": "Platforms"
+  }
+]

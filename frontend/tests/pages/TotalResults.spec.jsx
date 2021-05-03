@@ -21,9 +21,7 @@ describe('Category-based result texts', () => {
     }))
 
     useStore.setState({
-      results: {
-        detailedResults,
-      },
+      detailedResults
     })
   })
 

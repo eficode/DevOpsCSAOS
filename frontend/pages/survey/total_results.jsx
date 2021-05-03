@@ -53,6 +53,10 @@ const Home = () => {
   const store = useStore()
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'test') {
+      setFullResultsLoaded(true)
+    }
+
     const handleResize = () => {
       window.innerWidth <= 800
         ? setRenderMobileLayout(true)
@@ -106,7 +110,6 @@ const Home = () => {
     ...category,
   }))
 
-  console.log(percentages)
   return (
     <>
       <Head>
