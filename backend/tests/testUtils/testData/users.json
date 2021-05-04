@@ -1,10 +1,10 @@
 [
-	{
-		"id": 100
-	},
-	{
-		"id": 2,
-		"email": "testaaja2@email.com",
-		"groupId": "f5fd31b0-2315-4757-9794-3c96e7ffb7ec"
-	}
+  {
+    "id": 100
+  },
+  {
+    "id": 20,
+    "email": "testaaja2@email.com",
+    "groupId": "f5fd31b0-2315-4757-9794-3c96e7ffb7ec"
+  }
 ]

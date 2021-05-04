@@ -123,4 +123,4 @@ requests
 */venv/
 */env/
 /env/
-.vscode
+.vscode/

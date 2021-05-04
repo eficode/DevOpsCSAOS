@@ -3,72 +3,7 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import chunk from 'lodash/chunk'
 
-const initialDetailedResults = {
-  surveyResult: {
-    maxPoints: 100,
-    userPoints: 80,
-    text: 'You did semi ok!',
-    groupAverage: 99,
-    industryAverage: 45,
-  },
-  categoryResults: [
-    {
-      name: 'COolNess',
-      userPoints: 12,
-      groupAverage: 15,
-      industryAverage: 18,
-      maxPoints: 20,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-    {
-      name: 'Kiva',
-      userPoints: 22,
-      groupAverage: 15,
-      industryAverage: 18,
-      maxPoints: 25,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-    {
-      name: 'Kova',
-      userPoints: 8,
-      maxPoints: 10,
-      groupAverage: 5,
-      industryAverage: 8,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-    {
-      name: 'JEOUaujee',
-      userPoints: 12,
-      maxPoints: 40,
-      groupAverage: 38,
-      industryAverage: 8,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-    {
-      name: 'Ihan siistiä!',
-      userPoints: 15,
-      maxPoints: 15,
-      groupAverage: 15,
-      industryAverage: 8,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    },
-  ],
-}
+const initialDetailedResults = undefined
 
 const initialQuestions = []
 const initialSelections = []
@@ -140,25 +75,28 @@ const store = (set) => ({
       questionGroups: chunkedQuestions,
     }))
   },
-  clear: () => set(() => ({
-    questions: [],
-    email: '',
-    selections: [],
-    resultsPerCategory: [],
-    resultText: '',
-    visitedSummary: false,
-    featureToggleSwitch: 'A',
-    groupId: '',
-    industries: [],
-  })),
-  resetVersion: () => set(() => ({
-    featureToggleSwitch: 'A',
-    questions: [],
-    questionGroups: [],
-    visitedSummary: false,
-    groupId: '',
-  })),
+  clear: () =>
+    set(() => ({
+      questions: [],
+      email: '',
+      selections: [],
+      resultsPerCategory: [],
+      resultText: '',
+      visitedSummary: false,
+      featureToggleSwitch: 'A',
+      groupId: '',
+      industries: [],
+    })),
+  resetVersion: () =>
+    set(() => ({
+      featureToggleSwitch: 'A',
+      questions: [],
+      questionGroups: [],
+      visitedSummary: false,
+      groupId: '',
+    })),
   setResults: (results) => set(() => ({ results })),
+  setDetailedResults: (detailedResults) => set(() => ({ detailedResults })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
   setFeatureToggleSwitch: (value) =>
     set(() => ({ featureToggleSwitch: value })),
