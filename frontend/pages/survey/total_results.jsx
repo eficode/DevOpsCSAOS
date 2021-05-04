@@ -29,11 +29,11 @@ const Content = styled.section`
 const Categories = styled.div`
   width: 70%;
   @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.wideMobile}) {
+      theme.breakpoints[1]}) {
     width: 90%;
   }
   @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints.narrowMobile}) {
+      theme.breakpoints[0]}) {
     width: 110%;
   }
 `

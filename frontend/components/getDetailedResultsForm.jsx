@@ -18,11 +18,6 @@ const FormBackGround = styled.div`
   padding: 15px;
   background: #99c2d0;
   border-radius: 20px;
-
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.breakpoints[0]}) {
-    width: 95%;
-    padding: 5px;
-  }
 `
 
 const FormTitle = styled.h3`
