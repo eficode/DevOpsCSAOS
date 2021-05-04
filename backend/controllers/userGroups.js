@@ -2,14 +2,7 @@ const userGroupRouter = require('express').Router()
 const validateAsUuid = require('uuid-validate')
 const _ = require('lodash')
 const { getFullResults } = require('./helpers/getResults')
-const {
-  Survey_user_group,
-  User,
-  User_answer,
-  Question,
-  Question_answer,
-  sequelize,
-} = require('../models')
+const { Survey_user_group, User, User_answer } = require('../models')
 
 userGroupRouter.get('/:groupid', async (req, res) => {
   const { groupid } = req.params

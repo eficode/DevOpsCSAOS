@@ -1,14 +1,7 @@
 const resultsRouter = require('express').Router()
 const jwt = require('jsonwebtoken')
 const { getFullResults } = require('./helpers/answers')
-const {
-  Survey_user_group,
-  User,
-  User_answer,
-  Question,
-  Question_answer,
-  sequelize,
-} = require('../models')
+const { User, User_answer, Question, Question_answer } = require('../models')
 const getGroupAverage = require('./helpers/userGroupAverage')
 const getIndustryAverage = require('./helpers/industryAverage')
 const findUserLatestAnswerIds = require('./helpers/findUserLatestAnswerIds')

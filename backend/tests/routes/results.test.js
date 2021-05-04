@@ -60,16 +60,6 @@ const validBodyForEmailSubmitWithIndustry2 = {
 
 describe(`POST ${resultsEndpoint}`, () => {
   const { SECRET_FOR_TOKEN } = process.env
-  const validEmail = 'abcdefg@gmail.com'
-  // all from test data
-  const surveyId = 1
-  const validUserId = 100
-
-  const validToken = jwt.sign(validUserId, SECRET_FOR_TOKEN)
-  const validBody = {
-    surveyId,
-    token: validToken,
-  }
 
   beforeEach(async () => {
     await clearDBAndCreateDummyData()
