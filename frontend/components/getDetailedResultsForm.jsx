@@ -88,7 +88,6 @@ const Info = styled.div`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px #999999;
-
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
     left: 33%;
   }
@@ -204,7 +203,7 @@ const GetDetailedResultsForm = ({ industries }) => {
             <StyledCheckbox
               checked={agreeToPrivacyPolicyChecked}
               onChange={handleAgreeToPolicyChange}
-              name="checked"
+              name="acceptPrivacyPolicy"
               style={{
                 color: '#1E3944',
               }}
