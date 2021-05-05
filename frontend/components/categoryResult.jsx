@@ -58,18 +58,10 @@ const CategoryResult = ({
   const CategoryTextContainer = () => (
     <CategoryText>
       <CategoryTitle>
-        {category}
-        {' '}
-        {userResult}
-        {' '}
-        /
-        {' '}
-        {maxResult}
+        {category} {userResult} / {maxResult}
       </CategoryTitle>
       <CategoryDescription>
-        <strong>{description}</strong>
-        {' '}
-        {resultText}
+        <strong>{description}</strong> {resultText}
       </CategoryDescription>
     </CategoryText>
   )
@@ -78,15 +70,11 @@ const CategoryResult = ({
   // -> speedometer goes above text in every categoryresult
   return (
     <CategoryResultContainer>
-      {index % 2 === 0 && !renderMobileLayout && (
-        <CategoryTextContainer />
-      )}
+      {index % 2 === 0 && !renderMobileLayout && <CategoryTextContainer />}
       <CategoryImage>
         <CategoryResultChart userResult={userResult} maxResult={maxResult} />
       </CategoryImage>
-      {(index % 2 !== 0 || renderMobileLayout) && (
-        <CategoryTextContainer />
-      )}
+      {(index % 2 !== 0 || renderMobileLayout) && <CategoryTextContainer />}
     </CategoryResultContainer>
   )
 }
