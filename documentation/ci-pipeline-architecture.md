@@ -33,4 +33,4 @@ Steps in the job:
 1. Run accessibility tests using treosh/lighthouse-ci-action@v7. 
 
 ##### NOTE!
-Accessibility pipeline is currently testing the application running in production. This should be changed. One option is to build the application in similar way as in end-to-end-tests -job and run the tests against this environment. 
+Accessibility pipeline is currently testing the application running in production. This should be changed. One option is to build the application in a similar way as in end-to-end-tests -job and run the tests against this environment. 
