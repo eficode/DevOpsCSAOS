@@ -37,4 +37,15 @@ Backend API [can be found here](https://github.com/Devops-ohtuprojekti/DevOpsCSA
 
 ## Dependencies and external APIs
 
-(Link to Backend API)
+Library dependencies are found in each app's package.json-files.
+
+External APIs:
+
+Social media APIs are accessed with the help of react-share-library. It's documentation can be found at [project's site](https://www.npmjs.com/package/react-share)
+
+Hubspot is accessed with it's own Client API It's details can be inspected in [their documentation](https://developers.hubspot.com/docs/api/overview).
+
+## Choices and commentary
+
+NextJS was taken onto the project in early phases of the development in hopes of useful functionalities. It's router is being used in the project, but the key
+advantage, serverside rendering is *not* used currently. Thus the team is rather uncertain if any real functional advantage was gained by using NextJS.
