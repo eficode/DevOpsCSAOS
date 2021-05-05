@@ -2,7 +2,7 @@
 
 All of the CI-pipeline functionality are made with Github Actions and can be found [here](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/.github/workflows).
 
-There are 3 separate pipeline jobs which are all run on every push to branches other than main. On pushes to main, deployment job is triggered. The deployment job is relative simple and can be found from [this](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/.github/workflows/workflow.yml) file. The jobs run before deployment are described in more detail below.
+There are 3 separate pipeline jobs which are all run on every push to branches other than main. On pushes to main, deployment job is triggered. The deployment job is relatively simple and can be found from [this](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/.github/workflows/workflow.yml) file. The jobs run before deployment are described in more detail below.
 
 ## Job #1 (lint and tests)
 
