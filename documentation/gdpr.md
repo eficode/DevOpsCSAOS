@@ -1,5 +1,13 @@
 # GDPR
 
-here: add what kind of data we collect & how (emails), persistence of store in session storage, how result stats can be computed without identifying individual answer sets
+## Collected data under GDPR
 
-(other gdpr-related questions in handover template do not need to be addressed)
+The application collects user emails. These emails are saved on form submit (in frontend/components/getDetailedResultsForm) in the browser session storage and to the database. Other application state information is also stored in session storage, but this data is not personal.
+
+## Anonymization of result data
+
+The results for an individual user are computed using data that only points to users with ids, so it is possible to extract data for statistics from database without compromising users' personal emails. Personal data is only stored in table Users, whereas general result analytics desired can be computed without using data from the Users table. When computing industry and group-specific results, users table is needed, but only the industryId and groupId attributes can be used.
+
+## Other issues
+
+Other issues related to GDPR, such as personal data deleting and data in APIs was agreed to not be addressed in this phase of development.
