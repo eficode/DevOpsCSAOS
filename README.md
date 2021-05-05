@@ -14,6 +14,7 @@ An online survey that software engineers and operations experts can use to asses
 
 
 ## Documentation
+### [Architecture](documentation/architecture.md)
 ### [Deployment instructions](documentation/installation-and-deployment.md)
 
 ## Definition of Done
