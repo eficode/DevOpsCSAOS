@@ -54,4 +54,32 @@ SECRET_FOR_TOKEN=*any string*
 
 ## Production
 
+In production the application has been run in a single process. In addition to providing the backend functionality, the backend server also serves the frontend to clients. The dockerfile of the image used in production can be found [here](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/Dockerfile). Steps in the file are quite straightforward:
 
+- Install frontend dependencies
+- Create frontend build
+- Install backend dependencies
+
+The dockerfile expects to receive URL of the backend as build argument. Meaning that the docker image needs to be built with command
+
+```
+docker build --build-arg API_URL=URL_OF_THE_SERVER_HERE
+```
+
+### Environment variables needed in production environment
+
+
+- DATABASE_URL
+
+As the name suggests, url of the database connected to the server, the url should look like this:
+"postgres://YourUserName:YourPassword@YourHostname:5432/YourDatabaseName"
+
+- HUBSPOT_API_KEY
+
+- NODE_ENV
+
+The value of the NODE_ENV environment value should be "production"
+
+- SECRET_FOR_TOKEN
+
+The value should be some secret string. It is simply used to create jwt tokens for users.
