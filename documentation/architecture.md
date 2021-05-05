@@ -27,8 +27,13 @@ Backend interacts with the database with the assistance of Sequelize-library.
 Communication in typical use-cases is described in the following sequence diagram.
 NOTE: For brevity, only key traffic between frontend and store are described. Some details of backend-database requests are omitted for the same reason.
 
-![DevOps CSAOS sequences](./assets/DevOps CSAOS sequences.jpg)
-![DevOps CSAOS sequences 2](./assets/DevOps CSAOS sequences 2.jpg)
+[Survey and summary](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/assets/DevOps%20CSAOS%20sequences.jpg)
+
+[Results and detailed results](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/assets/DevOps%20CSAOS%20sequences%202.jpg)
+
+## Backend API
+
+Backend API [can be found here](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/backend-api.md)
 
 ## Dependencies and external APIs
 
