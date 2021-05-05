@@ -72,7 +72,6 @@ const Home = () => {
     window.addEventListener('resize', handleResize)
     ;(async () => {
       // eslint-disable-next-line no-undef
-      const url = new URLSearchParams(window.location.search)
       const token = url.get('user')
       try {
         const fullResults = await getFullResults(token)
