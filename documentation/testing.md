@@ -1,7 +1,5 @@
 # Testing
 
-to add?: every test set uses its own test data -> this could be improved by creating one set of test data
-
 ## Frontend
 
 Jest is used for frontend testing. Frontend tests are used to make sure pages are rendered as intended. Frontend tests cover tests for question, result and summary pages.
