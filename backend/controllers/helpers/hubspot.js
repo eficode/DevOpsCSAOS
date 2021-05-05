@@ -4,7 +4,7 @@ const hubspot = require('@hubspot/api-client')
 const SendHubspotMessage = async (
   email,
   group_invite_link,
-  group_results_page_link
+  user_results_link
 ) => {
   if (!email) {
     throw new Error('Email not provided.')
@@ -25,7 +25,7 @@ const SendHubspotMessage = async (
     properties: {
       email: emailWithRandomNumber,
       group_invite_link: group_invite_link,
-      group_results_page_link: group_results_page_link || '',
+      group_results_page_link: user_results_link || '',
     },
   }
 
