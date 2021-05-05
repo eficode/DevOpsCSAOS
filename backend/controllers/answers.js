@@ -129,10 +129,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
         { userId: userInDb.id },
         { where: { userId: user.id } }
       )
-      userToken = jwt.sign(
-        userInDb.id, 
-        process.env.SECRET_FOR_TOKEN
-        )
+      userToken = jwt.sign(userInDb.id, process.env.SECRET_FOR_TOKEN)
       await User.destroy({ where: { id: user.id } })
       user = userInDb
     } else {
