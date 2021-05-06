@@ -27,13 +27,11 @@ const Content = styled.section`
 `
 
 const Categories = styled.div`
-  width: 70%;
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints[1]}) {
+  width: 90%;
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
     width: 90%;
   }
-  @media screen and (max-width: ${({ theme }) =>
-      theme.breakpoints[0]}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
     width: 110%;
   }
 `
@@ -56,6 +54,11 @@ const Home = () => {
     if (process.env.NODE_ENV === 'test') {
       setFullResultsLoaded(true)
     }
+    const url = new URLSearchParams(window.location.search)
+    const version = url.get('version')
+    if (version) {
+      store.setFeatureToggleSwitch(version)
+    }
 
     const handleResize = () => {
       window.innerWidth <= 800
@@ -69,7 +72,6 @@ const Home = () => {
     window.addEventListener('resize', handleResize)
     ;(async () => {
       // eslint-disable-next-line no-undef
-      const url = new URLSearchParams(window.location.search)
       const token = url.get('user')
       try {
         const fullResults = await getFullResults(token)
