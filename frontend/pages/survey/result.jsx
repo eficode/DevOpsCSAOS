@@ -118,7 +118,10 @@ const Home = () => {
                 {userBestInCategory}
               </strong>
               , whereas you scored lowest in
-              <strong>{userWorstInCategory}</strong>
+              <strong>
+                {' '}
+                {userWorstInCategory}
+              </strong>
               .
               Fill in the form below to get your detailed
               results by email and see how to improve your skills. You can also
