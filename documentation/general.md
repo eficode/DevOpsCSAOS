@@ -28,7 +28,7 @@ functionalities to document. These are:
 
 * monitoring
 
-* credentials and environments (we use Heroku and Hubspot, but these will not be handed over)
+* credentials and environments (we used Heroku and Hubspot, but these will not be handed over)
 
 * licences or certificates (we did not use any paid services in the application)
 
@@ -38,13 +38,13 @@ functionalities to document. These are:
 
 ### Has architecture or technology choices caused issues? What kind of?
 
-The use of ready-built next.js caused data-fetching issues in the ci-pipeline, as next fetched data from the old application versions' heroku database during build. The issue was resolved with disabling server-side rendering by replacing getStaticProps calls with react useEffect hooks. However, this is not the way next is intended to be used, so it can cause issues later on. As most of the developers were new to next.js, these fixes are probably not ideal, but the best fixes we came up with. Therefore we cannot give a full account about what issues could arise later on.
+The use of ready-built next.js caused data-fetching issues in the ci-pipeline, as next fetched data from the old application versions' Heroku database during build. The issue was resolved with disabling server-side rendering by replacing getStaticProps calls with react useEffect hooks. However, this is not the way next is intended to be used, so it can cause issues later on. As most of the developers were new to next.js, these fixes are probably not ideal, but the best fixes we came up with. Therefore we cannot give a full account about what issues could arise later on.
 
 ### What deficiencies can you see in software quality?
 
 * Database complexity
 
-The database is quite complex for a survey application, but it was designed to be as modular as possible. Once assumptions about the final product can be made (eg. is there only one active survey at a time, or are they versioned) simplification is possible.
+The database is quite complex for a survey application, but it was designed to be as modular as possible. Once assumptions about the final product can be made (eg. is there only one active survey at a time, or are they versioned), simplification is possible.
 
 * Test data
 
@@ -62,13 +62,16 @@ The components directory in frontend requires some cleanup: some components are 
 
 There have been little issues with deployments, so no roll backs have been executed during development. The only checker we had for a successful deployment was the ci-pipeline, so only the occasional manual testing was executed in the staging platform. Free version of Heroku was used as a staging platform and as deploying a docker-compose application requires a payment, we used a one-container version connected to the Heroku Postgres database. Docker-compose was only used in ci end-to-end-tests, so the composed version has not been deployed anywhere yet.
 
-
-
 ### Has performance optimization been done / needed?
 
-free heroku on kans hidas ei tiä mist johtuu
-For these reasons it is also hard to
+The only performance issues arose during the last week in the development, so the actual time and resource costs were not inspected and no fixes were done.
 
-result computing performance issues here!
+Result computing is the heaviest and least optimized operation in the current application. These are located in `backend/controllers/results.js`, helper functions are in `backend/controllers/helpers/`. Full results computing after user has submitted their email and clicked the link in the HubSpot message operates as follows:
 
-### Anything else you would like to tell about the application?
+Full results for user are computed with 5 database queries.
+
+If group and/or industry averages need to be computed, they are computed by fetching full results for each member of group/industry, again with 5 queries per member, and averages are computed using these. In average computing not all data fetched per user is used, so performance can be increased by only fetching necessary data.
+
+The main bottleneck are the cases where averages for a big reference group are computed. As the group was new to the database library Sequelize, we did not implement more sophisticated summary queries and instead made many queries and then computed the results in backend. For these reasons it is likely that the detailed results page loading time will be to long once the amount of data in the database reaches a certain threshold.
+
+As stated earlier, the average computing was implemented only some weeks before handover, so no detailed metrics on how much these implementation decisions actually slow down the application could be gathered. Also, as we used the free version of Heroku, manual testing by going on the page and seeing how long it loads is not accurate, as the staging platform itself has significant delays.
