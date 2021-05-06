@@ -54,14 +54,21 @@ Frontend, backend and end-to-end tests all have their own sets of test data with
 
 The application development was started using Styled-components, but the customer requested transferring to Material UI during development. As no clear instructions on MUI implementation was given (such as how theming could be done), we used styled components to customize MUI components. One library would simplify the application.
 
-* Frontend repository structore
+* Frontend repository structure
 
 The components directory in frontend requires some cleanup: some components are used on only one page, some are more widely used, such as the styled link component. These could be separated to their own directories under components/ to improve clarity.
 
-Has there been issues with roll back or deployments?
+### Has there been issues with roll back or deployments?
 
-Has performance optimization been done / needed?
+There have been little issues with deployments, so no roll backs have been executed during development. The only checker we had for a successful deployment was the ci-pipeline, so only the occasional manual testing was executed in the staging platform. Free version of Heroku was used as a staging platform and as deploying a docker-compose application requires a payment, we used a one-container version connected to the Heroku Postgres database. Docker-compose was only used in ci end-to-end-tests, so the composed version has not been deployed anywhere yet.
+
+
+
+### Has performance optimization been done / needed?
+
+free heroku on kans hidas ei tiä mist johtuu
+For these reasons it is also hard to
 
 result computing performance issues here!
 
-Anything else you would like to tell about the application?
+### Anything else you would like to tell about the application?
