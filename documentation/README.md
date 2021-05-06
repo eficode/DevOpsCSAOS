@@ -21,8 +21,6 @@ The documentation has the following content:
 
 * [accessibility guidelines](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/general-a11y-guidelines.md)
 
-* [style guide](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/style-guide.md)
-
 * [maintenance instructions](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/maintenance-and-version-control.md)
 
 * [JSON instructions for survey content management](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/json-instructions.md)
