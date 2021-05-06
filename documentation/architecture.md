@@ -27,13 +27,13 @@ Backend interacts with the database with the assistance of Sequelize-library.
 Communication in typical use-cases is described in the following sequence diagram.
 NOTE: For brevity, only key traffic between frontend and store are described. Some details of backend-database requests are omitted for the same reason.
 
-[Survey and summary](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/assets/DevOps%20CSAOS%20sequences.jpg)
+[Survey and summary](./assets/DevOps%20CSAOS%20sequences.jpg)
 
-[Results and detailed results](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/assets/DevOps%20CSAOS%20sequences%202.jpg)
+[Results and detailed results](./assets/DevOps%20CSAOS%20sequences%202.jpg)
 
 ## Backend API
 
-Backend API [can be found here](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/backend-api.md)
+Backend API [can be found here](./backend-api.md)
 
 ## Dependencies and external APIs
 
@@ -41,9 +41,9 @@ Library dependencies are found in each app's package.json-files.
 
 External APIs:
 
-Social media APIs are accessed with the help of react-share-library. It's documentation can be found at [project's site](https://www.npmjs.com/package/react-share)
+Social media APIs are accessed with the help of react-share-library. Its documentation can be found at [project's site](https://www.npmjs.com/package/react-share)
 
-Hubspot is accessed with it's own Client API It's details can be inspected in [their documentation](https://developers.hubspot.com/docs/api/overview).
+Hubspot is accessed with its own Client API Its details can be inspected in [their documentation](https://developers.hubspot.com/docs/api/overview).
 
 ## Choices and commentary
 

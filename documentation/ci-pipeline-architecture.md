@@ -10,23 +10,23 @@ This job can be found from [this](https://github.com/Devops-ohtuprojekti/DevOpsC
 
 Steps in the job:
 
-1. Run static code analysis with eslint on both [backend](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/tree/main/backend) and [frontend](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/tree/main/frontend) folders separately. 
+1. Run static code analysis with eslint on both [backend](/backend) and [frontend](/frontend) folders separately. 
 
-2. Run both [backend](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/tree/main/backend) and [frontend](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/tree/main/frontend) tests separately. Frontend tests contain test which are checking that each page is rendering correctly. Backend tests test that all used endpoints are behaving as expected (returning expected responses and saving correct data to database). 
+2. Run both [backend](/backend) and [frontend](/frontend) tests separately. Frontend tests contain test which are checking that each page is rendering correctly. Backend tests test that all used endpoints are behaving as expected (returning expected responses and saving correct data to database). 
 
 ## Job #2 (end-to-end-tests)
 
-This job can be found from [this](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/.github/workflows/workflow.yml) file and is named 'end-to-end-tests'.
+This job can be found from [this](/.github/workflows/workflow.yml) file and is named 'end-to-end-tests'.
 
 Steps in the job:
 
-1. Start the application with docker-compose. The docker-compose.yml -file used is [here](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/end-to-end-tests/docker-compose.yml). 
+1. Start the application with docker-compose. The docker-compose.yml -file used is [here](/end-to-end-tests/docker-compose.yml). 
 
-2. Run end-to-end tests written with robotframework against the whole application. End-to-end test cases are written [here](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/tree/documentation/end-to-end-tests/tests).
+2. Run end-to-end tests written with robotframework against the whole application. End-to-end test cases are written [here](/end-to-end-tests/tests).
 
 ## Job #3 (Accessibility tests)
 
-This job can be found from [this](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/.github/workflows/lighthouse.yml) file and is named 'lighthouse'.
+This job can be found from [this](/.github/workflows/lighthouse.yml) file and is named 'lighthouse'.
 
 Steps in the job:
 

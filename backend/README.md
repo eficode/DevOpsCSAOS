@@ -1,5 +1,5 @@
 # Backend
 
-[installation and deployment instructions](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/installation-and-deployment.md)
+[installation and deployment instructions](/documentation/installation-and-deployment.md)
 
-[backend API documentation](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/backend-api.md)
+[backend API documentation](/documentation/backend-api.md)
