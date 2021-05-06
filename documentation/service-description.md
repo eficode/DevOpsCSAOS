@@ -21,5 +21,5 @@ Assessing DevOps capabilities:
 4. If yes, go to your email and click the link in the email to see your detailed results.
 
 Administrating the survey:
-1. The questions have to be given in JSON-format. [The detailed format can be found here.](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/tree/main/backend/config/initialData)
+1. The questions have to be given in JSON-format. [Instructions](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/documentation/documentation/json-instructions.md)
 2. The data have to be accessed from the database. 
