@@ -19,7 +19,6 @@ Launch postgres and create databases:
 ```
 postgres=# CREATE DATABASE dev_db;
 postgres=# CREATE DATABASE test_db;
-postgres=# CREATE DATABASE prod_db;
 postgres=# CREATE DATABASE endtoend_test_db;
 ```
 
