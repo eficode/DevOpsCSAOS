@@ -1,7 +1,5 @@
 # Maintenance and version control
 
-to do: add instructions for adding questions etc. to application with json files + note that jsons are not validated
-
 ## General maintence instructions: managing survey content
 
 The survey content is read from `backend/config/initialData`. The current JSON files are set as an example of the data format required, more detailed database models can be found on `backend/config/models`, JSON files correspond these models without ids and timestamps. More details on JSON format are found in json-instructions documentation file.
