@@ -161,7 +161,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       await user.save()
     }
 
-    if (process.env.NODE_ENV !== 'endtoend') {
+    if (process.env.NODE_ENV === 'production') {
       const baseUrl = req.get('origin')
       const group_parameter = groupId || createdGroupId
       const user_parameter = userToken
