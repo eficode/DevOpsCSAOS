@@ -33,7 +33,9 @@ export const getIndustries = async () => {
 }
 
 export const checkGroupId = async (groupId) => {
-  const response = await axios.get(`${HOST}/api/user-groups/${groupId}`)
+  const response = await axios.get(
+    `${HOST}/api/user-groups/validate/${groupId}`
+  )
   return response.data
 }
 
