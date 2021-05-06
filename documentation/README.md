@@ -1,6 +1,6 @@
 # Project documentation
 
-This directory contains the project documentation. The intention of these instructions is to give a as thorough as possible introduction to ease
+This directory contains the project documentation. The intention of these instructions is to give a as thorough as possible introduction to the applications' functionalities and configuration to ease
 further development of the application.
 
 The documentation has the following content:
