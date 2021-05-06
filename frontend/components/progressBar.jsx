@@ -2,15 +2,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-
-const MuiTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#FFD700',
-    },
-  },
-})
 
 const BarBackground = styled.section`
   display: flex;
@@ -31,6 +22,10 @@ const ProgressLine = styled(LinearProgress)`
   height: 0.3rem;
   width: 90%;
   margin-left: 5%;
+
+  .MuiLinearProgress-barColorPrimary {
+    background-color:#FFD700;
+  }
 `
 
 /*
@@ -42,20 +37,16 @@ const ProgressLine = styled(LinearProgress)`
 export const ProgressBar = ({ answered, total }) => {
   const answeredCount = answered || 0
   const totalCount = total || 100
-
   const progress = (answeredCount / totalCount) * 100
-
   return (
     <>
       <BarBackground>
-        <MuiThemeProvider theme={MuiTheme}>
           <ProgressLine
             variant="determinate"
             color="primary"
             value={progress}
             title="Survey progress"
           />
-        </MuiThemeProvider>
       </BarBackground>
     </>
   )

@@ -6,79 +6,62 @@ import Option from './option'
 const QuestionWrapper = styled.div`
   margin: 50px 0;
   display: grid;
+  grid-gap: 30px;
+  align-items: center;
+  grid-template-columns: 240px 240px;
+  width: 100%;
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
-    grid-template-columns: 240px 240px;
-    column-gap: 30px;
-  }
-
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
-    grid-template-rows: 30% 70%;
-    width: 80%;
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 `
 
 const OptionsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 45% 45%;
-  grid-template-rows: 60px 60px 60px;
-  column-gap: 10%;
-  row-gap: 30px;
+  grid-template-columns: 40% 40%;
+  gap: 30px;
   justify-content: right;
   width: 100%;
-  min-width: 240px;
 
-  button {
-    cursor: pointer;
-  }
-`
-
-const TitleWrapper = styled.div`
-  display: grid;
-  height: 100%;
-  align-content: center;
-  min-width: 240px;
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.wideDesktop}) {
-    justify-content: left;
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
+    grid-template-columns: 1fr;
   }
 `
 
 const QuestionTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Merriweather;
+  font-size: 1rem !important;
   margin: 10px 0 30px 0;
 `
 
-const QuestionSeparator = styled.div`
+const QuestionSeparator = styled.hr`
   background-color: ${({ theme }) => theme.colors.silver};
   width: 45%;
   height: 2px;
+  border: none;
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.narrowDesktop}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints[1]}) {
     width: 100%;
   }
 `
 
 const Wrapper = styled.article`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  place-items: center;
   width: 100%;
 `
 
 const SingleQuestion = ({ question, onOptionClick }) => {
   const store = useStore()
   const currentSelection = store.selections.find(
-    (s) => s.questionId === question.id,
+    (s) => s.questionId === question.id
   ).answerId
 
   return (
     <Wrapper>
       <QuestionWrapper>
-        <TitleWrapper>
-          <QuestionTitle>{question.text}</QuestionTitle>
-        </TitleWrapper>
+        <QuestionTitle>{question.text}</QuestionTitle>
         <OptionsWrapper>
           {question.Question_answers.map((answer) => (
             <Option

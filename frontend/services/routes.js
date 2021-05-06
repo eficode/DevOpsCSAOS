@@ -1,9 +1,8 @@
 import axios from 'axios'
 import { HOST } from './constants'
 
-export const sendAnswers = async (email, answers, surveyId, groupId) => {
+export const sendAnswers = async (answers, surveyId, groupId) => {
   const response = await axios.post(`${HOST}/api/answers`, {
-    email,
     answers,
     surveyId,
     groupId,
@@ -38,7 +37,13 @@ export const checkGroupId = async (groupId) => {
   return response.data
 }
 
-export const submitEmail = async (token, email, createNewGroup, groupId) => {
+export const submitEmail = async (
+  token,
+  email,
+  createNewGroup,
+  groupId,
+  industryId
+) => {
   const surveyId = 1
   const response = await axios.post(`${HOST}/api/answers/emailsubmit`, {
     email,
@@ -46,6 +51,12 @@ export const submitEmail = async (token, email, createNewGroup, groupId) => {
     createNewGroup,
     surveyId,
     groupId,
+    industryId,
   })
+  return response.data
+}
+
+export const getFullResults = async (token) => {
+  const response = await axios.get(`${HOST}/api/results/${token}`)
   return response.data
 }

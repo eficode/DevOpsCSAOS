@@ -3,6 +3,8 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import chunk from 'lodash/chunk'
 
+const initialDetailedResults = undefined
+
 const initialQuestions = []
 const initialSelections = []
 const initialEmail = ''
@@ -53,6 +55,7 @@ const store = (set) => ({
   questionGroups: initialQuestionGroups,
   optionsToPointsMap,
   results: initialResults,
+  detailedResults: initialDetailedResults,
   visitedSummary: initialVisitedSummary,
   featureToggleSwitch: initialFeatureToggleSwitch,
   groupId: initialGroupId,
@@ -72,25 +75,28 @@ const store = (set) => ({
       questionGroups: chunkedQuestions,
     }))
   },
-  clear: () => set(() => ({
-    questions: [],
-    email: '',
-    selections: [],
-    resultsPerCategory: [],
-    resultText: '',
-    visitedSummary: false,
-    featureToggleSwitch: 'A',
-    groupId: '',
-    industries: [],
-  })),
-  resetVersion: () => set(() => ({
-    featureToggleSwitch: 'A',
-    questions: [],
-    questionGroups: [],
-    visitedSummary: false,
-    groupId: '',
-  })),
+  clear: () =>
+    set(() => ({
+      questions: [],
+      email: '',
+      selections: [],
+      resultsPerCategory: [],
+      resultText: '',
+      visitedSummary: false,
+      featureToggleSwitch: 'A',
+      groupId: '',
+      industries: [],
+    })),
+  resetVersion: () =>
+    set(() => ({
+      featureToggleSwitch: 'A',
+      questions: [],
+      questionGroups: [],
+      visitedSummary: false,
+      groupId: '',
+    })),
   setResults: (results) => set(() => ({ results })),
+  setDetailedResults: (detailedResults) => set(() => ({ detailedResults })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
   setFeatureToggleSwitch: (value) =>
     set(() => ({ featureToggleSwitch: value })),

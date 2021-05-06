@@ -70,6 +70,7 @@ answersRouter.post('/', async (req, res) => {
           groupId: survey_user_group.id,
         })
       : await User.create({})
+
     await saveAnswersToDatabase(answers, userInDb.id)
     const token = jwt.sign(userInDb.id, process.env.SECRET_FOR_TOKEN)
     return res.status(200).json({ token, results: results })
@@ -113,7 +114,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
         message: 'No user associated with token.',
       })
     }
-
+    let userToken = token
     // update users table in db
     const userInDb = await User.findOne({
       where: {
@@ -128,6 +129,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
         { userId: userInDb.id },
         { where: { userId: user.id } }
       )
+      userToken = jwt.sign(userInDb.id, process.env.SECRET_FOR_TOKEN)
       await User.destroy({ where: { id: user.id } })
       user = userInDb
     } else {
@@ -159,13 +161,18 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       await user.save()
     }
 
-    const baseUrl = req.get('origin')
-    const group_parameter = groupId || createdGroupId
-    const group_invite_link = group_parameter
-      ? `${baseUrl}/?groupid=${group_parameter}`
-      : ''
-    const group_results_page_link = ''
-    await SendHubspotMessage(email, group_invite_link, group_results_page_link)
+    if (process.env.NODE_ENV !== 'endtoend') {
+      const baseUrl = req.get('origin')
+      const group_parameter = groupId || createdGroupId
+      const user_parameter = userToken
+      const group_invite_link = group_parameter
+        ? `${baseUrl}/?groupid=${group_parameter}`
+        : ''
+      const user_results_link = user_parameter
+        ? `${baseUrl}/survey/total_results/?user=${user_parameter}&version=A`
+        : ''
+      await SendHubspotMessage(email, group_invite_link, user_results_link)
+    }
     return res.status(200).json({})
   } catch (err) {
     console.log(err)

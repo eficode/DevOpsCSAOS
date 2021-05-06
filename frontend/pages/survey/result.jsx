@@ -24,7 +24,7 @@ const Content = styled.section`
   background-color: white;
   border-radius: 0.5rem;
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
         padding-left: 8%;
         padding-right: 8%;
   }
@@ -45,7 +45,7 @@ const ResultSummaryText = styled.section`
   padding: 15px 0 30px 0;
   line-height: 1.6;
   font-size: 16px;
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.wideMobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
     text-align: left;
   }
 `

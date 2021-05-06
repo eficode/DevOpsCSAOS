@@ -12,9 +12,8 @@ import Heading from '../components/heading'
 
 const Section = styled.section`
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  place-items: center;
 `
 
 const ErrorMessage = styled.div`
@@ -23,7 +22,7 @@ const ErrorMessage = styled.div`
   padding: 20px;
   width: 80%;
   font-size: 12px;
-  color: white;
+  color: #fff;
   margin-top: 20px;
   line-height: 1.6;
 `
@@ -32,7 +31,7 @@ const Home = () => {
   const store = useStore()
   const [showGroupIdInvalidText, setShowGroupIdInvalidText] = useState(false)
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       store.resetVersion()
       // eslint-disable-next-line no-undef
       const url = new URLSearchParams(window.location.search)
@@ -71,9 +70,7 @@ const Home = () => {
             </Link>
             {showGroupIdInvalidText && (
               <ErrorMessage>
-                Group id found with the URL is invalid for some reason :(
-                {' '}
-                <br />
+                Group id found with the URL is invalid for some reason :( <br />
                 You can still complete the survey, but the results won&#39;t be
                 added to the group.
               </ErrorMessage>

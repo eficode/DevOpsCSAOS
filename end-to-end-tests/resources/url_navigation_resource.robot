@@ -19,6 +19,8 @@ ${GO_TO_SUMMARY}        Review
 ${GO_TO_RESULTS}        Submit answers
 ${TO_PRIVACY_POLICY}    Privacy policy
 ${BACK_TO_SURVEY}       Back to result page
+${SUBMIT_EMAIL}         Submit
+${EMAIL_COMPLETE}       Thank you
 
 *** Keywords ***
 
@@ -77,3 +79,11 @@ Click privacy policy link and wait
 Click back to results link and wait
     Click Element   //*[contains(text(), '${BACK_TO_SURVEY}')]
     Wait Until Location Contains    ${MAIN_URL}/survey/result 
+
+Click submit
+    Wait Until Page Contains Element    //*[contains(text(), '${SUBMIT_EMAIL}')]
+    Click Element   //*[contains(text(), '${SUBMIT_EMAIL}')]
+
+Click submit and wait
+    Click Element   //*[contains(text(), '${SUBMIT_EMAIL}')]
+    Wait Until Page Contains Element    //*[contains(text(), '${EMAIL_COMPLETE}')]
