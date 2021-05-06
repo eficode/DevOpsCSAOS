@@ -5,26 +5,26 @@ further development of the application.
 
 The documentation has the following content:
 
-* [service description](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/service-description.md)
+* [service description](/documentation/service-description.md)
 
-* [architecture description](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/architecture.md)
+* [architecture description](/documentation/architecture.md)
 
-* [backend API documentation](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/backend-api.md)
+* [backend API documentation](/documentation/backend-api.md)
 
-* [database diagram](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/database-diagram.md)
+* [database diagram](/documentation/database-diagram.md)
 
-* [installation and deployment instructions](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/installation-and-deployment.md)
+* [installation and deployment instructions](/documentation/installation-and-deployment.md)
 
-* [testing document](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/testing.md)
+* [testing document](/documentation/testing.md)
 
-* [CI pipeline description](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/ci-pipeline-architecture.md)
+* [CI pipeline description](/documentation/ci-pipeline-architecture.md)
 
-* [accessibility guidelines](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/general-a11y-guidelines.md)
+* [accessibility guidelines](/documentation/general-a11y-guidelines.md)
 
-* [maintenance instructions](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/maintenance-and-version-control.md)
+* [maintenance instructions](/documentation/maintenance-and-version-control.md)
 
-* [JSON instructions for survey content management](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/json-instructions.md)
+* [JSON instructions for survey content management](/documentation/json-instructions.md)
 
-* [GDPR](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/gdpr.md)
+* [GDPR](/documentation/gdpr.md)
 
-* [answers to general question in handover template](https://github.com/Devops-ohtuprojekti/DevOpsCSAOS/blob/main/documentation/general.md)
+* [answers to general question in handover template](/documentation/general.md)
