@@ -10,8 +10,6 @@ Projekti on toteutettu kurssilla Ohjelmistotuotantoprojekti keväällä 2021.
 
 An online survey that software engineers and operations experts can use to assess their current DevOps capability. The survey will be based on statements regarding software development culture and tools and will provide feedback of Devops capability after the survey is completed.
 
-[Link to the application in Heroku](https://ohtu-csaos-staging.herokuapp.com/)
-
 
 ## Documentation
 ### [Architecture](documentation/architecture.md)
