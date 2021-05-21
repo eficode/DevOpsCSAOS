@@ -81,7 +81,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.8.9
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: 'ohtu-csaos-staging'
+          heroku_app_name: 'devops-csaos'
           heroku_email: ${{secrets.PROJECT_EMAIL}}
           usedocker: true
         env:
