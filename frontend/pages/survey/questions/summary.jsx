@@ -59,7 +59,10 @@ const Summary = () => {
   useEffect(() => {
     store.setVisitedSummary(true)
   }, [])
-
+  let protocol = 'https://'
+  if(process.env.NODE_EVN === 'development' || process.env.NODE_EVN === 'test' || process.env.NODE_EVN === 'endtoend') {
+    protocol = 'http://'
+  }
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
       // eslint-disable-next-line no-undef
@@ -120,7 +123,7 @@ const Summary = () => {
 
                 return (
                   <QuestionAnswerWrapper key={question.id}>
-                    <a href={`http://${window.location.host}/survey/questions/?id=${question.id}`}
+                    <a href={`${protocol}${window.location.host}/survey/questions/?id=${question.id}`}
                     >{QuestionText}</a>
                     <br />
                     <span>{answerText}</span>
