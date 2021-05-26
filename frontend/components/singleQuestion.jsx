@@ -18,7 +18,7 @@ const QuestionWrapper = styled.div`
 
 const OptionsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 40% 40%;
+  grid-template-columns: 45% 45%;
   gap: 30px;
   justify-content: right;
   width: 100%;
@@ -54,6 +54,7 @@ const Wrapper = styled.article`
 
 const SingleQuestion = ({ question, onOptionClick }) => {
   const store = useStore()
+  const { featureToggleSwitch } = store
   const currentSelection = store.selections.find(
     (s) => s.questionId === question.id
   ).answerId
@@ -74,7 +75,8 @@ const SingleQuestion = ({ question, onOptionClick }) => {
           ))}
         </OptionsWrapper>
       </QuestionWrapper>
-      <QuestionSeparator />
+      {featureToggleSwitch === 'B' ? (<></>) : ( <QuestionSeparator /> )}
+      
     </Wrapper>
   )
 }

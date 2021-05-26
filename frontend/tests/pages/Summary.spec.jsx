@@ -62,22 +62,28 @@ describe('Answer summary listing', () => {
         selections: changeSelections([101, 202, undefined, 401, 501]),
       })
     })
-
-    expect(screen.getByText(questions[0].text)).toHaveTextContent(
+    
+    expect(screen.getByRole('link', { name: questions[0].text }).closest('article')).toHaveTextContent(
       'You answered: Strongly agree',
     )
-    expect(screen.getByText(questions[1].text)).toHaveTextContent(
+
+    expect(screen.getByRole('link', { name: questions[1].text }).closest('article')).toHaveTextContent(
       'You answered: En tiiä ehkä huomenna',
     )
-    expect(screen.getByText(questions[2].text)).toHaveTextContent(
+
+    expect(screen.getByRole('link', { name: questions[2].text }).closest('article')).toHaveTextContent(
       "You haven't answered this question.",
     )
-    expect(screen.getByText(questions[3].text)).toHaveTextContent(
+
+    expect(screen.getByRole('link', { name: questions[3].text }).closest('article')).toHaveTextContent(
       'You answered: Jooooo',
     )
-    expect(screen.getByText(questions[4].text)).toHaveTextContent(
+
+    expect(screen.getByRole('link', { name: questions[4].text }).closest('article')).toHaveTextContent(
       'You answered: Yes',
     )
+
+
   })
 })
 

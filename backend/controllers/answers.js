@@ -92,14 +92,8 @@ const findUserMatchingTokenFromDb = async (token) => {
 }
 
 answersRouter.post('/emailsubmit', async (req, res) => {
-  const {
-    token,
-    email,
-    createNewGroup,
-    surveyId,
-    groupId,
-    industryId,
-  } = req.body
+  const { token, email, createNewGroup, surveyId, groupId, industryId } =
+    req.body
   try {
     // request body validation
     if (!email || !token || !surveyId) {
@@ -173,6 +167,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
         : ''
       await SendHubspotMessage(email, group_invite_link, user_results_link)
     }
+  
     return res.status(200).json({})
   } catch (err) {
     console.log(err)

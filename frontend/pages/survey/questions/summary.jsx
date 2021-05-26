@@ -36,6 +36,13 @@ const QuestionAnswerWrapper = styled.article`
     font-size: 16px;
     color: black;
   }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  a:visited {
+    color: black;
+  }
 `
 
 const Summary = () => {
@@ -112,7 +119,8 @@ const Summary = () => {
 
                 return (
                   <QuestionAnswerWrapper key={question.id}>
-                    {QuestionText}
+                    <a href={`http://${window.location.host}`+'/survey/questions/?id='+question.id}
+                    >{QuestionText}</a>
                     <br />
                     <span>{answerText}</span>
                   </QuestionAnswerWrapper>

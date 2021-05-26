@@ -7,6 +7,7 @@ const NavWrapper = styled.nav`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  margin-bottom: -25px;
 `
 
 /**
