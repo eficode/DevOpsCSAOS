@@ -1,4 +1,5 @@
 /* eslint-disable no-alert */
+/* eslint-disable no-undef */
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
@@ -119,7 +120,7 @@ const Summary = () => {
 
                 return (
                   <QuestionAnswerWrapper key={question.id}>
-                    <a href={`http://${window.location.host}`+'/survey/questions/?id='+question.id}
+                    <a href={`http://${window.location.host}/survey/questions/?id=${question.id}`}
                     >{QuestionText}</a>
                     <br />
                     <span>{answerText}</span>
