@@ -167,7 +167,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
         : ''
       await SendHubspotMessage(email, group_invite_link, user_results_link)
     }
-  
+
     return res.status(200).json({})
   } catch (err) {
     console.log(err)
