@@ -27,6 +27,7 @@ const SurveyPage = () => {
   const isFinalPage = pageId === store.questionGroups.length
   const isFirstPage = pageId === 1
   const storeHasQuestions = store.questions.length > 0
+  const { visitedSummary } = store
 
   useEffect(() => {
     (async () => {
@@ -120,7 +121,15 @@ const SurveyPage = () => {
               Review
             </StyledLink>
           )}
+          
         </NavigationGroup>
+        {(visitedSummary && !isFinalPage) ? (
+            <NavigationGroup><StyledLink href={summaryPageHref} passHref type="primary">
+              Back to summary
+            </StyledLink> </NavigationGroup>
+          ) : (<></>)
+            
+          }
       </InnerContentWrapper>
     </>
   )

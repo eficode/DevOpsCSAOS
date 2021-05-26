@@ -1,4 +1,5 @@
 /* eslint-disable no-alert */
+/* eslint-disable no-undef */
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
@@ -34,6 +35,13 @@ const QuestionAnswerWrapper = styled.article`
     font-family: Merriweather;
     font-weight: normal;
     font-size: 16px;
+    color: black;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  a:visited {
     color: black;
   }
 `
@@ -112,7 +120,8 @@ const Summary = () => {
 
                 return (
                   <QuestionAnswerWrapper key={question.id}>
-                    {QuestionText}
+                    <a href={`http://${window.location.host}/survey/questions/?id=${question.id}`}
+                    >{QuestionText}</a>
                     <br />
                     <span>{answerText}</span>
                   </QuestionAnswerWrapper>
