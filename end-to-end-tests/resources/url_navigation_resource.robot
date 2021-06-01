@@ -8,7 +8,7 @@ ${HOST}           localhost
 ${PORT}           5001
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run, headlessfirefox to run headless
-${BROWSER}                headlessfirefox
+${BROWSER}                chrome
 ${MAIN_URL}               http://${SERVER}
 ${VALID_EMAIL}            test2222@test.com
 

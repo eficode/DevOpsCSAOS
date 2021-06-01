@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { useStore } from '../../../store'
 import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
-import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
+import { SummaryAndScorePageWrapper } from '../../../components/shared/SummaryAndScorePageWrapper'
 import { ProgressBar } from '../../../components/progressBar'
 import StyledButton from '../../../components/button'
 import { sendAnswers } from '../../../services/routes'
@@ -39,10 +39,10 @@ const QuestionAnswerWrapper = styled.article`
   }
   a {
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.colors.blueDianne};
   }
   a:visited {
-    color: black;
+    color: ${({ theme }) => theme.colors.blueDianne};
   }
 `
 
@@ -55,14 +55,22 @@ const Summary = () => {
   const total = questions.length
 
   const lastQuestionHref = `/survey/questions/?id=${store.questionGroups.length}`
-
+  let protocol = 'https://'
+  if(process.env.NODE_ENV === 'development' ||
+    process.env.NODE_ENV === 'test' ||
+    process.env.NODE_ENV === 'endtoend' ){
+      protocol = 'http://'
+    }
   useEffect(() => {
     store.setVisitedSummary(true)
+    
+    
   }, [])
-  let protocol = 'https://'
-  if(process.env.NODE_EVN === 'development' || process.env.NODE_EVN === 'test' || process.env.NODE_EVN === 'endtoend') {
-    protocol = 'http://'
-  }
+  
+  
+  
+
+
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
       // eslint-disable-next-line no-undef
@@ -97,20 +105,26 @@ const Summary = () => {
         answered={countOfAnsweredQuestions(store.selections)}
         total={total}
       />
-      <InnerContentWrapper>
+      <SummaryAndScorePageWrapper>
         <Content>
           <ContentAnimationWrapper>
             <Heading component="h1" variant="h6">
               Here are your current answers
+              <p>{window.location.protocol}</p>
+              <p>{process.env.NODE_ENV}</p>
+              <p>{`${window.location.host}/survey/questions/?id`}</p>
+              <p>{`${protocol}${window.location.hostname}/survey/questions/?id`}</p>
             </Heading>
             {questions &&
               questions.map((question) => {
                 let answerText
+                let answeredQuestion = true
                 const currentAnswerId = selections.find(
                   (s) => s.questionId === question.id
                 ).answerId
 
                 if (!currentAnswerId) {
+                  answeredQuestion = false
                   answerText = "You haven't answered this question."
                 } else {
                   const selectedAnswerText = question.Question_answers.find(
@@ -120,16 +134,18 @@ const Summary = () => {
                 }
 
                 const QuestionText = `${question.text}`
-
-                return (
-                  <QuestionAnswerWrapper key={question.id}>
-                    <a href={`${protocol}${window.location.host}/survey/questions/?id=${question.id}`}
-                    >{QuestionText}</a>
-                    <br />
-                    <span>{answerText}</span>
-                  </QuestionAnswerWrapper>
-                )
-              })}
+                
+                  return (
+                    <QuestionAnswerWrapper key={question.id}>
+                      <a href={`${protocol}${window.location.host}/survey/questions/?id=${question.id}`}
+                      >{QuestionText}</a>
+                      <br />
+                      <span style={!answeredQuestion ? {color: '#ff6600'} : {}}>{answerText}</span>
+                    </QuestionAnswerWrapper>
+                  )
+                }
+                
+            )}
           </ContentAnimationWrapper>
           <StyledLink type="secondary" href={lastQuestionHref}>
             Back to survey
@@ -138,7 +154,7 @@ const Summary = () => {
             Submit answers
           </StyledButton>
         </Content>
-      </InnerContentWrapper>
+      </SummaryAndScorePageWrapper>
     </>
   )
 }

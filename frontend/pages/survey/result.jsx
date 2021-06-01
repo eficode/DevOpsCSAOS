@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
-import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
+import { SummaryAndScorePageContentWrapper } from '../../components/shared/SummaryAndScorePageWrapper'
 import TotalResult from '../../components/totalResult'
 import { ProgressBar } from '../../components/progressBar'
 import { useStore } from '../../store'
@@ -93,7 +93,7 @@ const Home = () => {
         <title>DevOps Capability Survey</title>
       </Head>
       <ProgressBar id={1} total={1} />
-      <InnerContentWrapper>
+      <SummaryAndScorePageWrapper>
         <ContentAnimationWrapper>
           <Content>
             <StyledHeading component="h1" variant="h6" font="Montserrat">
@@ -136,7 +136,7 @@ const Home = () => {
             <GetDetailedResultsForm industries={industries}/>
           </Content>
         </ContentAnimationWrapper>
-      </InnerContentWrapper>
+      </SummaryAndScorePageWrapper>
     </>
   )
 }

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { checkGroupId } from '../services/routes'
 import { useStore } from '../store'
 import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
-import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
+import { SummaryAndScorePageWrapper} from '../components/shared/SummaryAndScorePageWrapper'
 import Link from '../components/link'
 import { ProgressBar } from '../components/progressBar'
 import Heading from '../components/heading'
@@ -57,7 +57,7 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ProgressBar />
-      <InnerContentWrapper>
+      <SummaryAndScorePageWrapper>
         <ContentAnimationWrapper>
           <Heading component="h1" variant="h5">
             DevOps Assessment Tool
@@ -77,7 +77,7 @@ const Home = () => {
             )}
           </Section>
         </ContentAnimationWrapper>
-      </InnerContentWrapper>
+      </SummaryAndScorePageWrapper>
     </>
   )
 }

@@ -85,6 +85,12 @@ in end-to-end-tests folder:
 $ webdrivermanager firefox
 
 ```
+or, but you need to specify chrome in url_navigation_resource.robot file.
+```console
+
+$ webdrivermanager chrome
+
+```
 
 #### 5. Setup database
 
