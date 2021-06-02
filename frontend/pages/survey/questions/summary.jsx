@@ -13,6 +13,7 @@ import { sendAnswers } from '../../../services/routes'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
 import StyledLink from '../../../components/link'
 import Heading from '../../../components/heading'
+import Link from 'next/link'
 
 const Content = styled.div`
   display: flex;
@@ -55,20 +56,11 @@ const Summary = () => {
   const total = questions.length
 
   const lastQuestionHref = `/survey/questions/?id=${store.questionGroups.length}`
-  let protocol = 'https://'
-  if(process.env.NODE_ENV === 'development' ||
-    process.env.NODE_ENV === 'test' ||
-    process.env.NODE_ENV === 'endtoend' ){
-      protocol = 'http://'
-    }
+
+  let baseURL = router.asPath
   useEffect(() => {
-    store.setVisitedSummary(true)
-    
-    
+    store.setVisitedSummary(true)    
   }, [])
-  
-  
-  
 
 
   const handleSubmit = async () => {
@@ -110,11 +102,8 @@ const Summary = () => {
           <ContentAnimationWrapper>
             <Heading component="h1" variant="h6">
               Here are your current answers
-              <p>{window.location.protocol}</p>
-              <p>{process.env.NODE_ENV}</p>
-              <p>{`${window.location.host}/survey/questions/?id`}</p>
-              <p>{`${protocol}${window.location.hostname}/survey/questions/?id`}</p>
             </Heading>
+            <br />
             {questions &&
               questions.map((question) => {
                 let answerText
@@ -137,8 +126,9 @@ const Summary = () => {
                 
                   return (
                     <QuestionAnswerWrapper key={question.id}>
-                      <a href={`${protocol}${window.location.host}/survey/questions/?id=${question.id}`}
-                      >{QuestionText}</a>
+                      <Link href={`/survey/questions/?id=${question.id}`}
+                      ><a>{QuestionText}</a>
+                      </Link>
                       <br />
                       <span style={!answeredQuestion ? {color: '#ff6600'} : {}}>{answerText}</span>
                     </QuestionAnswerWrapper>

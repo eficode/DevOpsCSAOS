@@ -93,7 +93,7 @@ const SingleQuestion = ({ question, onOptionClick, answered, total }) => {
           ))}
         </OptionsWrapper>
       </QuestionWrapper>
-      {featureToggleSwitch === 'B' ? (<></>) : ( <QuestionSeparator /> )}
+      {featureToggleSwitch === 'A' ? (<></>) : ( <QuestionSeparator /> )}
       
     </Wrapper>
   )

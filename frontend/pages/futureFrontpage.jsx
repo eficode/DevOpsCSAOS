@@ -1,18 +1,17 @@
 /* eslint-disable implicit-arrow-linebreak */
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import { useStore } from '../../../store'
-import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
-import { QuestionPageContentWrapper } from '../../../components/shared/QuestionPageContentWrapper'
-import { RowContentWrapper } from '../../../components/shared/RowContentWrapper'
-import QuestionGrouper from '../../../components/questionGrouper'
-import { ProgressBar } from '../../../components/progressBar'
-import { getAllQuestions } from '../../../services/routes'
-import { useRouter, withRouter } from '../../../components/staticRouting'
-import StyledLink from '../../../components/link'
-import NavigationGroup from '../../../components/navigationGroup'
-import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
-import Heading from '../../../components/heading'
+import { useStore } from '../store'
+import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
+import { QuestionPageContentWrapper } from '../components/shared/QuestionPageContentWrapper'
+import { RowContentWrapper } from '../components/shared/RowContentWrapper'
+import QuestionGrouper from '../components/questionGrouper'
+import { getAllQuestions } from '../services/routes'
+import { useRouter, withRouter } from '../components/staticRouting'
+import StyledLink from '../components/link'
+import NavigationGroup from '../components/navigationGroup'
+import { allQuestionsAnswered, countOfAnsweredQuestions } from '../utils'
+import Heading from '../components/heading'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
@@ -20,7 +19,7 @@ import Image from 'next/image'
 
 const SurveyPage = () => {
   const router = useRouter()
-  const store = useStore()
+  let store = useStore()
 
   const pageId = Number(router.query.id)
   const questionsToRender = store.questionGroups[pageId - 1]
@@ -35,18 +34,39 @@ const SurveyPage = () => {
   const { visitedSummary } = store
 
   useEffect(() => {
+    
     (async () => {
+      store = useStore()
+      console.log('use effect ran!')
+      store.resetVersion()
       if (store.questions.length === 0) {
+        console.log('fetching questions!')
         try {
           const surveyId = 1
           const response = await getAllQuestions(surveyId)
 
           store.setQuestions(response, store.featureToggleSwitch)
+          console.log('fetched questions!')
         } catch (error) {
           console.error(error)
         }
       }
-    })()
+      // eslint-disable-next-line no-undef
+      const url = new URLSearchParams(window.location.search)
+      const version = url.get('version')
+      const groupId = url.get('groupid')
+      if (version) {
+        store.setFeatureToggleSwitch(version)
+      }
+      if (groupId) {
+        const { result: isValidGroupId } = await checkGroupId(groupId)
+        if (isValidGroupId) {
+          store.setGroupId(groupId)
+        } else {
+          setShowGroupIdInvalidText(true)
+        }
+      }
+    })
   }, [])
 
   const updateSelectionsInStore = (questionId, answerId) => {

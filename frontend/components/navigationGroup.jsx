@@ -8,7 +8,7 @@ const NavWrapper = styled.nav`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1%;
-  width: 85% !important;
+  width: 100% !important;
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
     justify-content: center;

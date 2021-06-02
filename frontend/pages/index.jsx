@@ -7,8 +7,8 @@ import { useStore } from '../store'
 import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
 import { SummaryAndScorePageWrapper} from '../components/shared/SummaryAndScorePageWrapper'
 import Link from '../components/link'
-import { ProgressBar } from '../components/progressBar'
 import Heading from '../components/heading'
+import { useRouter } from 'next/router'
 
 const Section = styled.section`
   background-color: #fff;
@@ -29,9 +29,14 @@ const ErrorMessage = styled.div`
 
 const Home = () => {
   const store = useStore()
+  const router = useRouter()
   const [showGroupIdInvalidText, setShowGroupIdInvalidText] = useState(false)
-  useEffect(() => {
-    ;(async () => {
+  const [userGroupValid, setUserGroupValid] = useState(false)
+
+
+  // Redirect user to first question if user has no / or a valid group-parameter
+  // Display landing page with information in case of invalid group-parameter
+  useEffect(async () => {
       store.resetVersion()
       // eslint-disable-next-line no-undef
       const url = new URLSearchParams(window.location.search)
@@ -44,21 +49,31 @@ const Home = () => {
         const { result: isValidGroupId } = await checkGroupId(groupId)
         if (isValidGroupId) {
           store.setGroupId(groupId)
+          setUserGroupValid(1)
         } else {
           setShowGroupIdInvalidText(true)
+          setUserGroupValid(0)
         }
+      } else {
+        setUserGroupValid(1)
       }
-    })()
   }, [])
+  useEffect(() => {
+    if(userGroupValid === 1) {
+      console.log('validity', userGroupValid)
+      router.push('/survey/questions/?id=1')
+      }
+  }, [userGroupValid])
+
   return (
+    <>
+    {userGroupValid !== 1 ?
     <>
       <Head>
         <title>DevOps Capability Survey</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <ProgressBar />
       <SummaryAndScorePageWrapper>
-        <ContentAnimationWrapper>
           <Heading component="h1" variant="h5">
             DevOps Assessment Tool
           </Heading>
@@ -76,10 +91,12 @@ const Home = () => {
               </ErrorMessage>
             )}
           </Section>
-        </ContentAnimationWrapper>
-      </SummaryAndScorePageWrapper>
+      </SummaryAndScorePageWrapper> </> : (<></>)}
+
     </>
   )
+  
 }
+
 
 export default Home
