@@ -3,6 +3,7 @@
 */
 export const countOfAnsweredQuestions = (selections) =>
   selections.reduce(
+    // FIXME no reduce needed
     (accumulator, selection) =>
       selection.answerId !== undefined ? accumulator + 1 : accumulator,
     0

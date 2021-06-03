@@ -7,7 +7,7 @@ const {
   Category_result,
   Survey_result,
   sequelize,
-} = require('../../models')
+} = require('../../../models')
 
 const findAnswerWithHighestPointsPerQuestion = async (surveyId) => {
   const highestScoringOptions = await Question_answer.findAll({

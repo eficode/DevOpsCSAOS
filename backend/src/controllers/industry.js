@@ -1,5 +1,5 @@
 const industryRouter = require('express').Router()
-const { Industry } = require('../models')
+const { Industry } = require('../../models')
 
 industryRouter.get('/', async (req, res) => {
   try {

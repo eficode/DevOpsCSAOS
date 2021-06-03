@@ -6,7 +6,7 @@ const {
   Survey,
   Survey_user_group,
   Industry,
-} = require('../models')
+} = require('../../models')
 const { SendHubspotMessage } = require('./helpers/hubspot')
 const { verifyUserAnswers, getSummaryOfResults } = require('./helpers/answers')
 
@@ -92,8 +92,14 @@ const findUserMatchingTokenFromDb = async (token) => {
 }
 
 answersRouter.post('/emailsubmit', async (req, res) => {
-  const { token, email, createNewGroup, surveyId, groupId, industryId } =
-    req.body
+  const {
+    token,
+    email,
+    createNewGroup,
+    surveyId,
+    groupId,
+    industryId,
+  } = req.body
   try {
     // request body validation
     if (!email || !token || !surveyId) {

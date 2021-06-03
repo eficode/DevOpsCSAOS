@@ -1,7 +1,10 @@
-FROM node:14
+FROM node:16-alpine
 
-COPY . .
+CMD [ "npm", "run", "dev" ]
 
-RUN npm install
+WORKDIR /usr/src/app
 
-CMD ["node", "server.js"]
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . ./
