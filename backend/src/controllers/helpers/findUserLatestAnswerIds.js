@@ -1,4 +1,4 @@
-const { User_answer } = require('../../models')
+const { User_answer } = require('../../../models')
 
 const findUserLatestAnswersIds = async (userId) => {
   const allUserAnswers = await User_answer.findAll({

@@ -3,7 +3,6 @@ const path = require('path')
 
 const app = express()
 app.use(express.json())
-app.use(express.static(path.join(__dirname, '../frontend/out')))
 
 const userGroupRouter = require('./controllers/userGroups')
 const questionsRouter = require('./controllers/questions')
@@ -19,8 +18,12 @@ app.use('/api/answers', answersRouter)
 app.use('/api/industries', industryRouter)
 app.use('/api/results', resultsRouter)
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/out/index.html'))
-})
+if (process.env.NODE_ENV === 'production') {
+  // serve the frontend static build
+  app.use(express.static(path.join(__dirname, '../frontend/out')))
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/out/index.html'))
+  })
+}
 
 module.exports = app

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-const app = require('./app')
+const app = require('./src/app')
 const { sequelize } = require('./models')
 
 const { PORT, NODE_ENV } = process.env

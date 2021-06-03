@@ -1,5 +1,5 @@
 const usersRouter = require('express').Router()
-const { User } = require('../models')
+const { User } = require('../../models')
 
 usersRouter.post('/', async (req, res) => {
   const { email, organizationId } = req.body

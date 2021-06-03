@@ -1,5 +1,5 @@
 // eslint-disable-next-line camelcase
-const { User_answer, Question, Question_answer } = require('../../models')
+const { User_answer, Question, Question_answer } = require('../../../models')
 
 const deleteUserSurveyAnswers = async (userId, surveyId) => {
   const allUserAnswers = await User_answer.findAll({

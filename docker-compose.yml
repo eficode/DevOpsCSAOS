@@ -1,61 +1,45 @@
-version: '3.1'
+version: '3.8'
 
 services:
-  postgres-db:
-    image: postgres
+  db:
+    image: postgres:13-alpine
+    tty: true
     environment:
       POSTGRES_USER: testUser
       POSTGRES_PASSWORD: password
       POSTGRES_DB: dev_db
-    expose:
-      - 5432
+    volumes:
+      - dbdata:/var/lib/postgresql/data:Z
     ports:
       - 5400:5432
 
-  surveybackend:
+  backend:
     build:
       context: ./backend
-      dockerfile: ./Dockerfile
-      args:
-        API_URL: http://localhost:5000/
-    image: devopscsaosback
-    command: bash -c "sleep 5s && node ./backend/server.js"
+    command: ./wait-for db:5432 -- npm run dev
+    tty: true
     environment:
-      API_URL: http://localhost:5000/
-      NODE_ENV: development
-      DB_HOST: postgres-db
-      PORT: 5000
+      DB_HOST: db
       DB_USER: testUser
       DB_PASS: password
-      SECRET_FOR_TOKEN: supersecretfore2etests
     volumes:
-      - "/Users/juusotamminen/Desktop/devops csaos survey/DevOpsCSAOS/"
-    expose:
-      - 5000
+      - ./backend/src/:/home/node/app/src/:Z
     ports:
       - 5000:5000
     depends_on:
-      - postgres-db
-
-  surveyfrontend:
+      - db
+      
+  frontend:
     build:
       context: ./frontend
-      dockerfile: ./Dockerfile
-      args:
-        PORT: 3000
-        API_URL: http://localhost:5000/
-        NODE_ENV: development
-    image: devopscsaosfront
+    tty: true
     environment:
-      API_URL: http://localhost:5000/
+      API_URL: http://localhost:5000/api
       NODE_ENV: development
-      PORT: 3000
-      SECRET_FOR_TOKEN: supersecretfore2etests
     volumes:
-      - "/Users/juusotamminen/Desktop/devops csaos survey/DevOpsCSAOS/"
-    expose:
-      - 3000
+      - ./frontend/src/:/usr/src/app/src/:Z
     ports:
       - 3000:3000
-    depends_on:
-      - surveybackend
+
+volumes:
+  dbdata:
