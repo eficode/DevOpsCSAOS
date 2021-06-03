@@ -2,12 +2,7 @@
   util to count the number of answered questions
 */
 export const countOfAnsweredQuestions = (selections) =>
-  selections.reduce(
-    // FIXME no reduce needed
-    (accumulator, selection) =>
-      selection.answerId !== undefined ? accumulator + 1 : accumulator,
-    0
-  )
+  selections.filter(({ answerId }) => answerId !== undefined).length
 
 /*
   util to check whether all selections are made (not undefined)
