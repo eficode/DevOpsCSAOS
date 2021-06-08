@@ -6,7 +6,6 @@ import { ContentAnimationWrapper } from '../../../components/contentAnimationWra
 import { QuestionPageContentWrapper } from '../../../components/shared/QuestionPageContentWrapper'
 import { RowContentWrapper } from '../../../components/shared/RowContentWrapper'
 import QuestionGrouper from '../../../components/questionGrouper'
-import { ProgressBar } from '../../../components/progressBar'
 import { getAllQuestions } from '../../../services/routes'
 import { useRouter, withRouter } from '../../../components/staticRouting'
 import StyledLink from '../../../components/link'
@@ -15,12 +14,34 @@ import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
 import Heading from '../../../components/heading'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+import LastPageIcon from '@material-ui/icons/LastPage'
+import DoneIcon from '@material-ui/icons/Done'
+import { useTheme, makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import Grid from '@material-ui/core/Grid'
 import Image from 'next/image'
+import Hidden from '@material-ui/core/Hidden'
+import Box from '@material-ui/core/Box'
+
+const useStyles = makeStyles({
+  card: {
+    padding: '8px',
+    margin: '0px',
+    height: '100%',
+  },
+  rowGrid:{
+    minHeight: '400px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    
+  },
+})
 
 const SurveyPage = () => {
   const router = useRouter()
   const store = useStore()
+  const classes = useStyles()
 
   const pageId = Number(router.query.id)
   const questionsToRender = store.questionGroups[pageId - 1]
@@ -35,7 +56,7 @@ const SurveyPage = () => {
   const { visitedSummary } = store
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (store.questions.length === 0) {
         try {
           const surveyId = 1
@@ -63,8 +84,9 @@ const SurveyPage = () => {
   }
 
   const redirectToNextPageIfCurrentPageCompleted = (newSelections) => {
-    const selectionsOfRenderedQuestions = newSelections.filter((s) => questionsToRender.map((q) =>
-      q.id).includes(s.questionId))
+    const selectionsOfRenderedQuestions = newSelections.filter((s) =>
+      questionsToRender.map((q) => q.id).includes(s.questionId)
+    )
 
     if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
       const urlToTransistionTo = isFinalPage ? summaryPageHref : nextPageHref
@@ -93,73 +115,115 @@ const SurveyPage = () => {
 
   return (
     <>
-      <Head>
-        <title>DevOps Capability Survey</title>
-      </Head>
-      <Heading component="h1" variant="h5">
-          DevOps Self Assessment
-          
-        </Heading>
-        <p> Assess your DevOps cababilities here,
-           lorem ipsum
-        </p>
-            <RowContentWrapper >
-            <Image src='/leftside.png' 
-        alt='left side image'
-        width={80}
-        height={240}
-        />
-      <QuestionPageContentWrapper>
-        
-       
-        <ContentAnimationWrapper>
-          <QuestionGrouper
-            answered={answeredQuestionsCount}
-            total={store.questions.length}
-            questions={questionsToRender}
-            onOptionClick={onOptionClick}
-          />
-        </ContentAnimationWrapper>
+      <Grid direction="column" alignContent="center" alignItems="center">
+        <Grid item >
+          <Head>
+            <title>DevOps Capability Survey</title>
+          </Head>
+          <Heading component="h1" variant="h5">
+            DevOps Self Assessment
+          </Heading>
+          <p> Assess your DevOps cababilities here, lorem ipsum</p>
+        </Grid>
+        <Grid container item direction="row" alignItems='center' >
+          <Hidden smDown>
+            <Grid item md>
+              <Image
+                src="/leftside.png"
+                alt="left side image"
+                width={500}
+                height={630}
+              />
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} md={5}>
+            <Box>
+              <Card variant="elevation" className={classes.card}>
+                <Grid
+                  container
+                  item
+                  spacing={4}
+                  className={classes.rowGrid}
+                >
+                  <Grid item >
+                  <ContentAnimationWrapper>
+                    <QuestionGrouper
+                      answered={answeredQuestionsCount}
+                      total={store.questions.length}
+                      questions={questionsToRender}
+                      onOptionClick={onOptionClick}
+                    />
+                  </ContentAnimationWrapper>
 
-        <NavigationGroup>
-          {!isFirstPage ? (
-            <StyledLink href={previousPageHref} passHref type="secondary">
-              <ChevronLeftIcon /> Previous
-            </StyledLink>
-          ) : null}
+                  </Grid>
+                  <Grid item container direction='row' align='flex-end'>
+                  <NavigationGroup>
+                    {!isFirstPage ? (
+                      <StyledLink
+                        href={previousPageHref}
+                        passHref
+                        type="secondary"
+                      >
+                        <ChevronLeftIcon /> Previous
+                      </StyledLink>
+                    ) : (
+                      <StyledLink
+                        href={previousPageHref}
+                        passHref
+                        type="hidden"
+                      >
+                        <ChevronLeftIcon /> Previous
+                      </StyledLink>
+                    )}
 
-          {(visitedSummary && !isFinalPage) ? (
-            <StyledLink href={summaryPageHref} passHref type="tertiary">
-              To summary <DoubleArrowIcon fontSize='small'/>
-            </StyledLink>
-          ) : (<></>)}
-          {!isFinalPage ? (
-            <StyledLink href={nextPageHref} passHref type="primary">
-              Next <ChevronRightIcon />
-            </StyledLink>
-          ) : (
-            <StyledLink href={summaryPageHref} passHref type="primary">
-              Review
-            </StyledLink>
-          )}
-          
-        </NavigationGroup>
-       
-      </QuestionPageContentWrapper>
-      <Image src='/rightside.png' 
-        alt='right side image'
-        width={80}
-        height={240}
-        quality={80}
-        />
-      </RowContentWrapper>
-      <div>
-      <Image src='/logo.png' 
-        alt='logo image'
-        width={100}
-        height={100}
-        />
-        </div>
+                    {visitedSummary && !isFinalPage ? (
+                      <StyledLink
+                        href={summaryPageHref}
+                        passHref
+                        type="tertiary"
+                      >
+                        To summary <LastPageIcon fontSize="small" />
+                      </StyledLink>
+                    ) : (
+                      <></>
+                    )}
+                    {!isFinalPage ? (
+                      <StyledLink href={nextPageHref} passHref type="primary">
+                        Next <ChevronRightIcon />
+                      </StyledLink>
+                    ) : (
+                      <StyledLink
+                        href={summaryPageHref}
+                        passHref
+                        type="primary"
+                      >
+                        Review <DoneIcon fontSize='small' />
+                      </StyledLink>
+                    )}
+                  </NavigationGroup>
+                  </Grid>
+                </Grid>
+              </Card>
+            </Box>
+          </Grid>
+          <Hidden smDown>
+            <Grid item md>
+              <Image
+                src="/rightside.png"
+                alt="right side image"
+                width={500}
+                height={630}
+              />
+            </Grid>
+          </Hidden>
+        </Grid>
+        <br />
+        <Box textAlign="center">
+          <Grid item>
+            <Image src="/logo.png" alt="logo image" width={100} height={100} />
+          </Grid>
+        </Box>
+      </Grid>
     </>
   )
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
-import { SummaryAndScorePageContentWrapper } from '../../components/shared/SummaryAndScorePageWrapper'
+import { SummaryAndScorePageWrapper } from '../../components/shared/SummaryAndScorePageWrapper'
 import TotalResult from '../../components/totalResult'
 import { ProgressBar } from '../../components/progressBar'
 import { useStore } from '../../store'
@@ -92,7 +92,6 @@ const Home = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar id={1} total={1} />
       <SummaryAndScorePageWrapper>
         <ContentAnimationWrapper>
           <Content>

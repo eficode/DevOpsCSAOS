@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Button } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
 
 const StyledOption = styled(Button)`
   background-color: ${({ theme, selected }) =>
     selected ? 'white' : 'white' };
   border-style: solid;
+  size: small;
   border-radius: 3px;
   border-width: ${({ theme, selected }) =>
   selected ? '1.75px': '1px'};

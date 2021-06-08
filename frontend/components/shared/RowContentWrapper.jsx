@@ -6,7 +6,7 @@ export const RowContentWrapper = styled.section`
   align-items: center;
   justify-content: center;
 
-  width: 100%;
+  width: 100% !important;
   min-height: 60vh;
   height: 100%;
 

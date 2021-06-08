@@ -10,10 +10,8 @@ import Link from 'next/link'
 const StyledBaseLink = styled(Button)`
   font-family: Montserrat;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 12px;
   text-decoration: none;
-  min-width: 90px;
-  height: 3.5vw;
   text-align: center;
   border-radius: 1px;
   border-width: 0px;
@@ -21,6 +19,7 @@ const StyledBaseLink = styled(Button)`
   padding: 1%;
   cursor: pointer;
   text-transform: none;
+  size: small;
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
     height: 6vw;
@@ -44,7 +43,7 @@ const StyledPrimaryLink = styled(StyledBaseLink)`
 const StyledSecondaryLink = styled(StyledBaseLink)`
   background-color: white;
   color: ${({ theme }) => theme.colors.blueDianne};
-
+  
   &:hover {
     background-color: ${({ theme }) => theme.colors.whiteSmoke};
   }
@@ -62,10 +61,14 @@ const StyledTertiaryLink = styled(StyledBaseLink)`
   }
 `
 
+const StyledHiddenLink = styled(StyledBaseLink)`
+  visibility: hidden;
+`
+
 const StyledLink = ({ children, type, href }) => {
   if (type === 'primary') {
     return (
-      <Link href={href} passHref>
+      <Link scroll={false} href={href} passHref>
         <StyledPrimaryLink variant="contained" component="a">
           {children}
         </StyledPrimaryLink>
@@ -75,7 +78,7 @@ const StyledLink = ({ children, type, href }) => {
 
   if (type === 'secondary') {
     return (
-      <Link href={href} passHref>
+      <Link scroll={false} href={href} passHref>
         <StyledSecondaryLink variant="contained" component="a">
           {children}
         </StyledSecondaryLink>
@@ -93,7 +96,17 @@ const StyledLink = ({ children, type, href }) => {
     )
   }
 
-  console.warn('custom link only has primary, secondary and tertiary types')
+  if (type === 'hidden') {
+    return (
+      <Link href={href} passHref>
+        <StyledHiddenLink variant="contained" component="a">
+          {children}
+        </StyledHiddenLink>
+      </Link>
+    )
+  }
+
+  console.warn('Check allowed link types')
 
   return <Link href={href}>{children}</Link>
 }

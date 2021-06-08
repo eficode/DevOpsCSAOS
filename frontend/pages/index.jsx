@@ -4,7 +4,6 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import { checkGroupId } from '../services/routes'
 import { useStore } from '../store'
-import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
 import { SummaryAndScorePageWrapper} from '../components/shared/SummaryAndScorePageWrapper'
 import Link from '../components/link'
 import Heading from '../components/heading'
@@ -31,7 +30,7 @@ const Home = () => {
   const store = useStore()
   const router = useRouter()
   const [showGroupIdInvalidText, setShowGroupIdInvalidText] = useState(false)
-  const [userGroupValid, setUserGroupValid] = useState(false)
+  const [userGroupValid, setUserGroupValid] = useState(-1)
 
 
   // Redirect user to first question if user has no / or a valid group-parameter
@@ -60,15 +59,14 @@ const Home = () => {
   }, [])
   useEffect(() => {
     if(userGroupValid === 1) {
-      console.log('validity', userGroupValid)
       router.push('/survey/questions/?id=1')
       }
   }, [userGroupValid])
 
-  return (
-    <>
-    {userGroupValid !== 1 ?
-    <>
+
+  return (userGroupValid === 1 ||
+    userGroupValid === -1 ? null :
+      <>
       <Head>
         <title>DevOps Capability Survey</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -85,18 +83,21 @@ const Home = () => {
             </Link>
             {showGroupIdInvalidText && (
               <ErrorMessage>
-                Group id found with the URL is invalid for some reason :( <br />
+                Group id found with the URL is invalid for some reason. <br />
                 You can still complete the survey, but the results won&#39;t be
                 added to the group.
               </ErrorMessage>
             )}
           </Section>
-      </SummaryAndScorePageWrapper> </> : (<></>)}
-
-    </>
+      </SummaryAndScorePageWrapper> 
+      </>
   )
+
+  
+  
   
 }
+
 
 
 export default Home
