@@ -42,7 +42,7 @@ describe('Question rendering', () => {
         <SurveyPage />
       </ThemeWrapper>,
     )
-    expect(screen.getByText('DevOps Assessment Tool')).toBeInTheDocument()
+    expect(screen.getByText('DevOps Self Assessment')).toBeInTheDocument()
   })
 
   it('First page contains first two questions', () => {
@@ -155,7 +155,7 @@ describe('Feature toggle B', () => {
     const {
       initialSelectionsWithQuestionIds,
       chunkedQuestions,
-    } = divideQuestions(questions, 'B')
+    } = divideQuestions(questions, 'A')
     useStore.setState({
       questions,
       selections: initialSelectionsWithQuestionIds,

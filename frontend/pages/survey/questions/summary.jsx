@@ -4,16 +4,15 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import Link from 'next/link'
 import { useStore } from '../../../store'
 import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
 import { SummaryAndScorePageWrapper } from '../../../components/shared/SummaryAndScorePageWrapper'
-import { ProgressBar } from '../../../components/progressBar'
 import StyledButton from '../../../components/button'
 import { sendAnswers } from '../../../services/routes'
-import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
+import { allQuestionsAnswered } from '../../../utils'
 import StyledLink from '../../../components/link'
 import Heading from '../../../components/heading'
-import Link from 'next/link'
 
 const Content = styled.div`
   display: flex;
@@ -53,15 +52,12 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-  const total = questions.length
 
   const lastQuestionHref = `/survey/questions/?id=${store.questionGroups.length}`
 
-  let baseURL = router.asPath
   useEffect(() => {
-    store.setVisitedSummary(true)    
+    store.setVisitedSummary(true)
   }, [])
-
 
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
@@ -119,19 +115,19 @@ const Summary = () => {
                 }
 
                 const QuestionText = `${question.text}`
-                
-                  return (
-                    <QuestionAnswerWrapper key={question.id}>
-                      <Link href={`/survey/questions/?id=${question.id}`}
-                      ><a>{QuestionText}</a>
-                      </Link>
-                      <br />
-                      <span style={!answeredQuestion ? {color: '#ff6600'} : {}}>{answerText}</span>
-                    </QuestionAnswerWrapper>
-                  )
-                }
-                
-            )}
+
+                return (
+                  <QuestionAnswerWrapper key={question.id}>
+                    <Link href={`/survey/questions/?id=${question.id}`}>
+                      <a href={`/survey/questions/?id=${question.id}`}>{QuestionText}</a>
+                    </Link>
+                    <br />
+                    <span style={!answeredQuestion ? { color: '#ff6600' } : {}}>
+                      {answerText}
+                    </span>
+                  </QuestionAnswerWrapper>
+                )
+              })}
           </ContentAnimationWrapper>
           <StyledLink type="secondary" href={lastQuestionHref}>
             Back to survey

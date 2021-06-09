@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
 import { checkGroupId } from '../services/routes'
 import { useStore } from '../store'
 import { SummaryAndScorePageWrapper} from '../components/shared/SummaryAndScorePageWrapper'
 import Link from '../components/link'
 import Heading from '../components/heading'
-import { useRouter } from 'next/router'
 
 const Section = styled.section`
   background-color: #fff;

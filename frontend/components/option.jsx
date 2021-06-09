@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import Button from '@material-ui/core/Button'
 
 const StyledOption = styled(Button)`
-  background-color: ${({ theme, selected }) =>
+  background-color: ${({ selected }) =>
     selected ? 'white' : 'white' };
   border-style: solid;
   size: small;
   border-radius: 3px;
-  border-width: ${({ theme, selected }) =>
+  border-width: ${({ selected }) =>
   selected ? '1.75px': '1px'};
   border-color: ${({ theme, selected }) =>
   selected ? theme.colors.gold : theme.colors.whiteSmoke};

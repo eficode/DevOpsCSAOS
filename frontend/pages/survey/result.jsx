@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 import { SummaryAndScorePageWrapper } from '../../components/shared/SummaryAndScorePageWrapper'
 import TotalResult from '../../components/totalResult'
-import { ProgressBar } from '../../components/progressBar'
 import { useStore } from '../../store'
 import { ContentAnimationWrapper } from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'

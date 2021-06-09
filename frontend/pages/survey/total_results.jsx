@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
+import { SummaryAndScorePageWrapper } from '../../components/shared/SummaryAndScorePageWrapper'
 import TotalResult from '../../components/totalResult'
 import Link from '../../components/link'
-import { ProgressBar } from '../../components/progressBar'
 import CategoryResult from '../../components/categoryResult'
 import TotalResultBarChart from '../../components/totalResultBarChart'
 import TotalResultRadarChart from '../../components/totalResultRadarChart'
@@ -89,13 +88,13 @@ const Home = () => {
 
   if (fullResultsLoaded && !store.detailedResults) {
     return (
-      <InnerContentWrapper>
+      <SummaryAndScorePageWrapper>
         <h2>Invalid link</h2>
         <p>We did not find any results for this user :(</p>
         <Link href="/" type="primary">
           Back to home
         </Link>
-      </InnerContentWrapper>
+      </SummaryAndScorePageWrapper>
     )
   }
 
@@ -117,7 +116,7 @@ const Home = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <InnerContentWrapper>
+      <SummaryAndScorePageWrapper>
         <ContentAnimationWrapper>
           <Content>
             <StyledHeading component="h1" variant="h6" font="Montserrat">
@@ -154,7 +153,7 @@ const Home = () => {
             )}
           </Content>
         </ContentAnimationWrapper>
-      </InnerContentWrapper>
+      </SummaryAndScorePageWrapper>
     </>
   )
 }

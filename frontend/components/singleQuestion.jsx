@@ -1,15 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
-import { useStore } from '../store'
-import Option from './option'
-import { makeStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
-import {
+import { makeStyles ,
   createMuiTheme,
   responsiveFontSizes,
-  ThemeProvider,
 } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+
 import Typography from '@material-ui/core/Typography'
+import Option from './option'
+import { useStore } from '../store'
 
 const useStyles = makeStyles((theme) => ({
   options: {
@@ -19,19 +17,20 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     fontFamily: 'Montserrat',
     marginTop: '5%',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '0%',
+    },
   },
   heading: {
     paddingTop: '2%',
   },
 }))
 
-let theme = createMuiTheme()
-theme = responsiveFontSizes(theme)
-
-const SingleQuestion = ({ question, onOptionClick, answered, total }) => {
+const SingleQuestion = ({ question, onOptionClick, total }) => {
   const store = useStore()
-  const { featureToggleSwitch } = store
-  const classes = useStyles()
+  let theme = createMuiTheme()
+  theme = responsiveFontSizes(theme)
+  const classes = useStyles(theme)
 
   const currentSelection = store.selections.find(
     (s) => s.questionId === question.id
@@ -49,18 +48,16 @@ const SingleQuestion = ({ question, onOptionClick, answered, total }) => {
           </Typography>
         </Grid>
       </Grid>
-    <br />
+      <br />
       <Grid
         container
         className={classes.options}
-        flexShrink={1}
         justify="space-evenly"
         spacing={2}
       >
         {question.Question_answers.map((answer) => (
-          <Grid item xs={12} sm >
+          <Grid item xs={12} sm key={answer.id}>
             <Option
-              key={answer.id}
               id={answer.id}
               selected={answer.id === currentSelection}
               label={answer.text}
