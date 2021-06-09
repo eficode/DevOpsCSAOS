@@ -12,23 +12,4 @@ module.exports = optimizedImages(withTM({
     PORT: process.env.PORT,
   },
   trailingSlash: true,
-  // webpack: config => {
-  //   config.module.rules.push(
-  //     {
-  //       test: /\.(png|jpe?g|gif)$/i,
-  //       use: [
-  //         {
-  //           loader: 'file-loader',
-  //           options: {
-  //             outputPath: '../public/assets/', // if you don't use ../ it will put it inside ".next" folder by default
-  //             publicPath: '/assets/',
-
-  //           }  
-
-  //         },
-  //       ],
-  //     },
-  //   )
-  //   return config
-  // }
 }))
