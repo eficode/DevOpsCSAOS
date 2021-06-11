@@ -12,4 +12,7 @@ module.exports = optimizedImages(withTM({
     PORT: process.env.PORT,
   },
   trailingSlash: true,
+  future: {
+    webpack5: true,
+  },
 }))

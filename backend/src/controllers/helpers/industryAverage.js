@@ -1,32 +1,34 @@
-// helper for group average
 const _ = require('lodash')
-const { User, Survey_user_group } = require('../../models')
+const { User, Survey_user_group, Industry } = require('../../../models')
 const { getFullResults } = require('./getResults')
 
 const findUserLatestAnswersIds = require('./findUserLatestAnswerIds')
 
-const getGroupAverage = async (groupid) => {
-  const usersInGroup = await (
+const getIndustryAverage = async (industryId, surveyId) => {
+  const usersInIndustry = await (
     await User.findAll({
       include: [
+        {
+          model: Industry,
+        },
         {
           model: Survey_user_group,
         },
       ],
       where: {
-        groupId: groupid,
+        industryId: industryId,
       },
       nest: true,
     })
   ).map((el) => el.get({ plain: true }))
 
-  const usersInGroupResults = await Promise.all(
-    usersInGroup.map(async (user) => {
+  const usersInIndustryResults = await Promise.all(
+    usersInIndustry.map(async (user) => {
       const userLatestAnswersIds = await findUserLatestAnswersIds(user.id)
 
       const detailedUserResults = await getFullResults(
         userLatestAnswersIds,
-        user.Survey_user_group.surveyId
+        surveyId
       )
 
       return {
@@ -36,21 +38,21 @@ const getGroupAverage = async (groupid) => {
     })
   )
 
-  const categories = usersInGroupResults[0].results.categoryResults
+  const categories = usersInIndustryResults[0].results.categoryResults
 
   categories.forEach((category, index) => {
     const averageInCategory = _.meanBy(
-      usersInGroupResults,
+      usersInIndustryResults,
       (u) => u.results.categoryResults[index].userPoints
     )
-    categories[index].groupAverage = averageInCategory
+    categories[index].industryAverage = averageInCategory
   })
   const mappedCategories = categories.map((c) => ({
     name: c.name,
-    groupAverage: c.groupAverage,
+    industryAverage: c.industryAverage,
   }))
 
   return mappedCategories
 }
 
-module.exports = getGroupAverage
+module.exports = getIndustryAverage

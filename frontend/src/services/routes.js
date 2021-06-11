@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { HOST } from './constants'
+import { publicRuntimeConfig } from './constants'
+const API_URL = publicRuntimeConfig.API_URL
 
 export const sendAnswers = async (answers, surveyId, groupId) => {
-  const response = await axios.post(`${HOST}/api/answers`, {
+  const response = await axios.post(`${API_URL}/answers`, {
     answers,
     surveyId,
     groupId,
@@ -11,31 +12,29 @@ export const sendAnswers = async (answers, surveyId, groupId) => {
 }
 
 export const getAllQuestions = async (surveyId) => {
-  const response = await axios.get(`${HOST}/api/questions/${surveyId}`)
+  const response = await axios.get(`${API_URL}/questions/${surveyId}`)
   return response.data
 }
 
 export const sendResult = async (score) => {
-  const response = await axios.post(`${HOST}/api/results`, {
+  const response = await axios.post(`${API_URL}/results`, {
     score,
   })
   return response.data
 }
 
 export const create = async (credentials) => {
-  const response = await axios.post(`${HOST}/api/users`, credentials)
+  const response = await axios.post(`${API_URL}/users`, credentials)
   return response.data
 }
 
 export const getIndustries = async () => {
-  const response = await axios.get(`${HOST}/api/industries`)
+  const response = await axios.get(`${API_URL}/industries`)
   return response.data
 }
 
 export const checkGroupId = async (groupId) => {
-  const response = await axios.get(
-    `${HOST}/api/user-groups/validate/${groupId}`
-  )
+  const response = await axios.get(`${API_URL}/user-groups/validate/${groupId}`)
   return response.data
 }
 
@@ -47,7 +46,7 @@ export const submitEmail = async (
   industryId
 ) => {
   const surveyId = 1
-  const response = await axios.post(`${HOST}/api/answers/emailsubmit`, {
+  const response = await axios.post(`${API_URL}/answers/emailsubmit`, {
     email,
     token,
     createNewGroup,
@@ -59,6 +58,6 @@ export const submitEmail = async (
 }
 
 export const getFullResults = async (token) => {
-  const response = await axios.get(`${HOST}/api/results/${token}`)
+  const response = await axios.get(`${API_URL}/results/${token}`)
   return response.data
 }

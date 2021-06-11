@@ -1,6 +1,6 @@
 const userGroupRouter = require('express').Router()
 const validateAsUuid = require('uuid-validate')
-const { Survey_user_group } = require('../models')
+const { Survey_user_group } = require('../../models')
 
 userGroupRouter.get('/validate/:groupid', async (req, res) => {
   const { groupid } = req.params

@@ -1,4 +1,4 @@
-const { Question, Question_answer } = require('../../models')
+const { Question, Question_answer } = require('../../../models')
 
 const verifyUserAnswers = async (userAnswers, surveyId) => {
   const allSurveyQuestions = await Question.findAll({
