@@ -1,4 +1,4 @@
-FROM node:12 AS app-build
+FROM node:16 AS app-build
 WORKDIR /root
 COPY frontend/ ./frontend/
 COPY backend/ ./backend/
