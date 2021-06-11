@@ -6,6 +6,7 @@ module.exports = {
     '!**/coverage/**',
     '!jest.config.js',
   ],
+  modulePaths: ['__mocks__'],
   coverageThreshold: {
     global: {
       branches: 100,
@@ -16,8 +17,7 @@ module.exports = {
   },
   moduleNameMapper: {
     '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/__mocks__/fileMock.js',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js'
   },
   setupFiles: ['<rootDir>/tests/setup.js'],
   transformIgnorePatterns: ['/node_modules/(?!react-d3-speedometer)'],

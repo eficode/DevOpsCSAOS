@@ -19,10 +19,6 @@ import StyledLink from '../../../components/link'
 import NavigationGroup from '../../../components/navigationGroup'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
 import Heading from '../../../components/heading'
-/* eslint-disable import/no-unresolved */
-const Leftside = require('../../../public/leftside.png?resize&sizes[]=250&sizes[]=300&sizes[]=350')
-const Rightside = require('../../../public/rightside.png?resize&sizes[]=250&sizes[]=300&sizes[]=350')
-const Logo = require('../../../public/logo.png')
 
 
 const useStyles = makeStyles(theme => ({
@@ -136,10 +132,7 @@ const SurveyPage = () => {
           <Hidden smDown>
             <Grid item md>
             <img
-                src={Leftside.src}
-                srcSet={Leftside.srcSet}
-                sizes="(max-width: 350px) 250px, 300px,
-                350px"
+                src='/leftside.png'
                 width='100%'
                 alt="Left banner"
               />
@@ -205,22 +198,11 @@ const SurveyPage = () => {
           </Grid>
           <Hidden smDown>
             <Grid item md>
-              {/* <Image
-                src={Rightside}
-                alt="right banner image"
-                width={500}
-                height={630}
-              /> */}
-              <div>
                <img
-                src={Rightside.src}
-                srcSet={Rightside.srcSet}
-                sizes='(max-width: 350px) 250px, 300px,
-                350px'
+                src='/rightside.png'
                 width='100%'
                 alt='Right banner'
               />
-              </div>
             </Grid>
           </Hidden>
         </Grid>
@@ -229,7 +211,7 @@ const SurveyPage = () => {
           <Grid item>
             {/* <Image src="/logo.png" alt="logo image" width={100} height={100} /> */}
             <img
-                src={Logo}
+                src='/logo.png'
                 alt='Logo'
                 width={100}
                 height={100}
