@@ -92,14 +92,8 @@ const findUserMatchingTokenFromDb = async (token) => {
 }
 
 answersRouter.post('/emailsubmit', async (req, res) => {
-  const {
-    token,
-    email,
-    createNewGroup,
-    surveyId,
-    groupId,
-    industryId,
-  } = req.body
+  const { token, email, createNewGroup, surveyId, groupId, industryId } =
+    req.body
   try {
     // request body validation
     if (!email || !token || !surveyId) {

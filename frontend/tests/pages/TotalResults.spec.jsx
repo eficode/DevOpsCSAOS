@@ -4,13 +4,18 @@ import { render, screen } from '@testing-library/react'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
-import { useStore } from '../../store'
+import { useStore } from '../../src/store'
 import ThemeWrapper from '../testutils/themeWrapper'
-import TotalResultsPage from '../../pages/survey/total_results'
+import TotalResultsPage from '../../src/pages/survey/total_results'
 import { detailedResults } from '../testutils/testdata'
 
 nextRouter.useRouter = jest.fn()
 jest.mock('react-d3-speedometer', () => () => 'gauge')
+jest.mock('next/config', () => () => ({
+  publicRuntimeConfig: {
+    THIS_NEEDS_TO_BE_SOMETHING: 'something'
+  }
+}))
 
 describe('Category-based result texts', () => {
   beforeEach(() => {

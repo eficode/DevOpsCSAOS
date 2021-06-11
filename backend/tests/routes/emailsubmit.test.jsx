@@ -5,11 +5,11 @@
 const request = require('supertest')
 const jwt = require('jsonwebtoken')
 const { clearDBAndCreateDummyData } = require('../testUtils/setupTestDb')
-const app = require('../../app.js')
+const app = require('../../src/app.js')
 const { Survey_user_group, User_answer, User } = require('../../models')
 
 const endpoint = '/api/answers/emailsubmit'
-jest.mock('../../controllers/helpers/hubspot')
+jest.mock('../../src/controllers/helpers/hubspot')
 
 describe(`POST ${endpoint}`, () => {
   const { SECRET_FOR_TOKEN } = process.env

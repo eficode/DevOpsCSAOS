@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { publicRuntimeConfig } from './constants'
-const API_URL = publicRuntimeConfig.API_URL
+
+const {API_URL} = publicRuntimeConfig
 
 export const sendAnswers = async (answers, surveyId, groupId) => {
   const response = await axios.post(`${API_URL}/answers`, {

@@ -4,11 +4,17 @@ import { render, screen } from '@testing-library/react'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
-import { useStore } from '../../store'
+import { useStore } from '../../src/store'
 import ThemeWrapper from '../testutils/themeWrapper'
-import ResultPage from '../../pages/survey/result'
+import ResultPage from '../../src/pages/survey/result'
 
 nextRouter.useRouter = jest.fn()
+
+jest.mock('next/config', () => () => ({
+  publicRuntimeConfig: {
+    THIS_NEEDS_TO_BE_SOMETHING: 'something'
+  }
+}))
 
 beforeEach(() => {
   useStore.setState({

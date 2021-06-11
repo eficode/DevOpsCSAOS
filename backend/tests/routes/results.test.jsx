@@ -5,12 +5,12 @@
 const request = require('supertest')
 const jwt = require('jsonwebtoken')
 const { clearDBAndCreateDummyData } = require('../testUtils/setupTestDb')
-const app = require('../../app.js')
+const app = require('../../src/app.js')
 
 const resultsEndpoint = '/api/results'
 const submitAnswersEndpoint = '/api/answers'
 const submitEmailEndpoint = '/api/answers/emailsubmit'
-jest.mock('../../controllers/helpers/hubspot')
+jest.mock('../../src/controllers/helpers/hubspot')
 
 const survey1TestAnswers = [100, 103] // points: 5 & 10
 const survey1TestAnswers2 = [101, 102] // points: 0 & 8
