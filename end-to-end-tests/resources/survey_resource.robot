@@ -6,7 +6,7 @@ Library           SeleniumLibrary
 *** Variables ***
 
 ${SURVEY_LENGTH}          4
-${SURVEY_PAGE_COUNT}          2
+${SURVEY_PAGE_COUNT}          4
 
 ${ANSWER_IN_SUMMARY}              You answered:
 ${NOT_ANSWERED_IN_SUMMARY}        You haven't answered this question
@@ -30,14 +30,16 @@ ${Q4_TODELLAKIN_ID}        401
 
 Open survey
     Open Browser To Main Page
-    Click get started button
 
 Select option 
     [Arguments]   ${option_id}
+    Wait Until Page Contains Element        id:${option_id}
     Click Element	 id:${option_id}
 
 Answer all questions
+    Wait Until Page Contains Element        id:${Q1_EHDOTTOMASTI_ID}
     Select option   ${Q1_EHDOTTOMASTI_ID}
+    Wait Until Page Contains Element        id:${Q2_EHKA_ID}
     Select option   ${Q2_EHKA_ID}
     Wait Until Page Contains Element        id:${Q3_SILLOIN_TALLOIN_ID}
     Select option   ${Q3_SILLOIN_TALLOIN_ID}
@@ -45,16 +47,17 @@ Answer all questions
     Select option   ${Q4_TODELLAKIN_ID}
 
 Answer all questions on first page
+    Wait Until Page Contains Element        id:${Q1_EHDOTTOMASTI_ID}
     Select option   ${Q1_EHDOTTOMASTI_ID}
-    Select option   ${Q2_EHKA_ID}
 
 Open survey and answer some questions
     Open survey
-    Select option   ${Q2_EHKA_ID}
     Click next button   2
+    Wait Until Page Contains Element        id:${Q2_EHKA_ID}
+    Select option   ${Q2_EHKA_ID}
+    Click next button   4
     Wait Until Page Contains Element        id:${Q4_TODELLAKIN_ID}
     Select option   ${Q4_TODELLAKIN_ID}
-    Click answer summary button
     
 Complete survey
     Open survey
@@ -68,5 +71,6 @@ Complete survey and submit answers
 Summary Page Should Contain Selected Answers
     [Arguments]  @{ANSWERS_IN_SUMMARY}
     FOR   ${index}   IN RANGE  0   ${SURVEY_LENGTH} - 1
-      Element Should Contain  //*[contains(text(), '${QUESTIONS}[${index}]')]   ${ANSWERS_IN_SUMMARY}[${index}]      
+      Wait Until Element contains    //*[contains(text(), '${QUESTION_1}')]/following-sibling::span    ${UPDATED_ANSWERS_IN_SUMMARY}[0] 
+      Element Should Contain  //*[contains(text(), '${QUESTIONS}[${index}]')]/following-sibling::span   ${ANSWERS_IN_SUMMARY}[${index}]      
     END

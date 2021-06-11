@@ -6,22 +6,23 @@ Resource        ../resources/survey_resource.robot
 
 *** Test Cases ***
 
-# Answering Questions Updates Summary
-#  [Setup]       Seed Database With Test Data
-#  Complete survey
-#  Summary Page Should Be Open
-#  Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
-#  [Teardown]    Close Application
+Answering Questions Updates Summary
+  [Setup]       Seed Database With Test Data
+  Complete survey
+  Summary Page Should Be Open
+  Sleep    1s
+  Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
+  [Teardown]    Close Application
 
-#Changing An Answer Updates Summary
-#  [Setup]       Seed Database With Test Data
-#  Complete survey
-#  Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
-#  Go Back
-#  Select option   402
-#  Click answer summary button
-#  Summary Page Should Contain Selected Answers    @{UPDATED_ANSWERS_IN_SUMMARY}
-#  [Teardown]    Close Application
+Changing An Answer Updates Summary
+  [Setup]       Seed Database With Test Data
+  Complete survey
+  Summary Page Should Contain Selected Answers    @{TEST_ANSWERS_IN_SUMMARY}
+  Go Back
+  Select option   402
+  Click answer summary button
+  Summary Page Should Contain Selected Answers    @{UPDATED_ANSWERS_IN_SUMMARY}
+  [Teardown]    Close Application
 
 Result Page Is Shown When All Answers Are Submitted
   [Setup]       Seed Database With Test Data
