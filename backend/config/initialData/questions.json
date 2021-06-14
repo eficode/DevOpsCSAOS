@@ -11,7 +11,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 0.5
       },
       {
         "category": "Tools",
@@ -23,7 +23,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.5
       }
     ]
   },
@@ -39,7 +39,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 1.0
       },
       {
         "category": "Tools",
@@ -51,7 +51,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.5
       }
     ]
   },
@@ -67,7 +67,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 0.6
       },
       {
         "category": "Tools",
@@ -79,7 +79,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.9
       }
     ]
   },
@@ -95,7 +95,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 0.9
       },
       {
         "category": "Tools",
@@ -107,7 +107,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.2
       }
     ]
   },
@@ -123,7 +123,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 1.0
       },
       {
         "category": "Tools",
@@ -131,11 +131,11 @@
       },
       {
         "category": "Skills",
-        "multiplier": 0.5
+        "multiplier": 1.5
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.5
       }
     ]
   },
@@ -151,7 +151,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 0.2
       },
       {
         "category": "Tools",
@@ -163,7 +163,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.5
       }
     ]
   },
@@ -179,7 +179,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 0.5
       },
       {
         "category": "Tools",
@@ -191,7 +191,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.5
       }
     ]
   },
@@ -207,7 +207,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 0.5
       },
       {
         "category": "Tools",
@@ -219,7 +219,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 1.0
       }
     ]
   },
@@ -231,11 +231,11 @@
     "category_weights": [
       {
         "category": "Culture",
-        "multiplier": 1.5
+        "multiplier": 0.5
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 1.5
       },
       {
         "category": "Tools",
@@ -247,7 +247,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 1.0
       }
     ]
   },
@@ -263,7 +263,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 0.9
       },
       {
         "category": "Tools",
@@ -275,7 +275,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 2.0
       }
     ]
   },
@@ -319,7 +319,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 0.5
       },
       {
         "category": "Tools",
@@ -331,7 +331,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.5
       }
     ]
   },
@@ -375,7 +375,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 2.0
       },
       {
         "category": "Tools",
@@ -387,7 +387,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.6
       }
     ]
   },
@@ -403,7 +403,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 0.6
       },
       {
         "category": "Tools",
@@ -415,7 +415,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 0.9
       }
     ]
   },
@@ -431,7 +431,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 1.0
       },
       {
         "category": "Tools",
@@ -443,7 +443,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 1.0
       }
     ]
   },
@@ -459,7 +459,7 @@
       },
       {
         "category": "Workflow",
-        "multiplier": 0.0
+        "multiplier": 1.0
       },
       {
         "category": "Tools",
@@ -471,7 +471,7 @@
       },
       {
         "category": "Code",
-        "multiplier": 0.0
+        "multiplier": 2.0
       }
     ]
   }

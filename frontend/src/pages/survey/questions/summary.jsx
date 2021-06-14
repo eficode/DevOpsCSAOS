@@ -80,9 +80,9 @@ const Summary = () => {
       ).text,
     }))
     store.setUserQuestionAnswerPairs(userQuestionAnswerPairs)
-
+    
     try {
-      const response = await sendAnswers(answersForBackend, surveyId, groupId)
+      const response = await sendAnswers(answersForBackend, surveyId, groupId, selections)
       store.setResults(response.results)
       store.setUserToken(response.token)
       router.push('/survey/result')

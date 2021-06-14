@@ -203,6 +203,30 @@ const getFullResults = async (user_answers, surveyId) => {
   }
 }
 
+//
+const calculatePointsNewStyle = (selections) => {
+
+  const questionIds = []
+  const answerIds = []
+
+  selections.forEach((item) => {
+    questionIds.push(item.questionId)
+    answerIds.push(item.answerId)
+  })
+
+  console.log(questionIds, answerIds)
+
+  /*
+ selections.forEach( async (item) => {
+  let question = await Question.findOne({where: {id: item.questionId}, attributes: ['category_weights'], raw: true})
+  let answerPoints = await Question_answer.findOne({where: {id: item.answerId}, attributes: ['points'], raw: true })
+  
+   console.log(question.category_weights, answerPoints.points)
+  
+ })
+  */  
+}
+
 const getSummaryOfResults = async (user_answers, surveyId) => {
   const bestAnswerPerQuestion = await findAnswerWithHighestPointsPerQuestion(
     surveyId
@@ -258,4 +282,4 @@ const getSummaryOfResults = async (user_answers, surveyId) => {
   }
 }
 
-module.exports = { getFullResults, getSummaryOfResults }
+module.exports = { getFullResults, getSummaryOfResults, calculatePointsNewStyle }

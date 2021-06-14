@@ -3,11 +3,12 @@ import { publicRuntimeConfig } from './constants'
 
 const {API_URL} = publicRuntimeConfig
 
-export const sendAnswers = async (answers, surveyId, groupId) => {
+export const sendAnswers = async (answers, surveyId, groupId, selections) => {
   const response = await axios.post(`${API_URL}/answers`, {
     answers,
     surveyId,
     groupId,
+    selections
   })
   return response.data
 }

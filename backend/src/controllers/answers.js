@@ -8,7 +8,7 @@ const {
   Industry,
 } = require('../../models')
 const { SendHubspotMessage } = require('./helpers/hubspot')
-const { verifyUserAnswers, getSummaryOfResults } = require('./helpers/answers')
+const { verifyUserAnswers, getSummaryOfResults, calculatePointsNewStyle } = require('./helpers/answers')
 
 const saveAnswersToDatabase = async (answers, userId) => {
   const answersToQuestions = answers.map((answer) => ({
@@ -20,7 +20,7 @@ const saveAnswersToDatabase = async (answers, userId) => {
 }
 
 answersRouter.post('/', async (req, res) => {
-  const { answers, surveyId, groupId } = req.body
+  const { answers, surveyId, groupId, selections } = req.body
   const survey = await Survey.findOne({
     where: { id: surveyId },
   })
@@ -60,6 +60,9 @@ answersRouter.post('/', async (req, res) => {
       questions: verificationResult.duplicates,
     })
   }
+
+  // new functionality with selections
+  calculatePointsNewStyle(selections)
 
   const results = await getSummaryOfResults(answers, surveyId)
 
