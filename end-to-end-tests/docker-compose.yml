@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   postgres-db:
-    image: postgres
+    image: postgres:13-alpine
     environment:
       POSTGRES_USER: testUser
       POSTGRES_PASSWORD: password
@@ -17,11 +17,11 @@ services:
       context: ../
       dockerfile: ./Dockerfile
       args:
-        API_URL: http://localhost:5001
+        API_URL: http://localhost:5001/api
     image: devopscsaos
     command: bash -c "sleep 5s && node ./backend/server.js"
     environment:
-      API_URL: http://localhost:5001
+      API_URL: http://localhost:5001/api
       NODE_ENV: endtoend
       DB_HOST: postgres-db
       DB_USER: testUser

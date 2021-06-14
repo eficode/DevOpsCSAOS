@@ -44,7 +44,8 @@ export const submitEmail = async (
   email,
   createNewGroup,
   groupId,
-  industryId
+  industryId,
+  userQuestionAnswerPairs
 ) => {
   const surveyId = 1
   const response = await axios.post(`${API_URL}/answers/emailsubmit`, {
@@ -54,6 +55,7 @@ export const submitEmail = async (
     surveyId,
     groupId,
     industryId,
+    userQuestionAnswerPairs,
   })
   return response.data
 }

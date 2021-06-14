@@ -73,6 +73,14 @@ const Summary = () => {
       (selection) => selection.answerId
     )
 
+    const userQuestionAnswerPairs = selections.map((selection, index) => ({
+      question: questions[index].text,
+      answer: questions[index].Question_answers.find(
+        (answer) => answer.id === selection.answerId
+      ).text,
+    }))
+    store.setUserQuestionAnswerPairs(userQuestionAnswerPairs)
+
     try {
       const response = await sendAnswers(answersForBackend, surveyId, groupId)
       store.setResults(response.results)
@@ -119,7 +127,9 @@ const Summary = () => {
                 return (
                   <QuestionAnswerWrapper key={question.id}>
                     <Link href={`/survey/questions/?id=${question.id}`}>
-                      <a href={`/survey/questions/?id=${question.id}`}>{QuestionText}</a>
+                      <a href={`/survey/questions/?id=${question.id}`}>
+                        {QuestionText}
+                      </a>
                     </Link>
                     <br />
                     <span style={!answeredQuestion ? { color: '#ff6600' } : {}}>

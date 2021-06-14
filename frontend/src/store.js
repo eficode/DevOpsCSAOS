@@ -7,6 +7,7 @@ const initialDetailedResults = undefined
 
 const initialQuestions = []
 const initialSelections = []
+const initialUserQuestionAnswerPairs = []
 const initialEmail = ''
 const optionsToPointsMap = {
   'Strongly agree': 4,
@@ -50,6 +51,7 @@ export const divideQuestions = (questions, featureToggleSwitch) => {
 
 const store = (set) => ({
   questions: initialQuestions,
+  userQuestionAnswerPairs: initialUserQuestionAnswerPairs,
   email: initialEmail,
   selections: initialSelections,
   questionGroups: initialQuestionGroups,
@@ -103,6 +105,7 @@ const store = (set) => ({
   setGroupId: (value) => set(() => ({ groupId: value })),
   setUserToken: (value) => set(() => ({ userToken: value })),
   setIndustries: (industries) => set(() => ({ industries })),
+  setUserQuestionAnswerPairs: (value) => set(() => ({ userQuestionAnswerPairs: value })),
 })
 
 export const useStore = create(
