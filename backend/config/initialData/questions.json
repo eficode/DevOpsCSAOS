@@ -3,102 +3,476 @@
     "id": 1,
     "text": "Is your team continuously looking to improve?",
     "surveyId": 1,
-    "categoryId": 1
+    "categoryId": 1,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 2,
     "text": "Our team is cross-functional and autonomous.",
     "surveyId": 1,
-    "categoryId": 1
+    "categoryId": 1,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 3,
     "text": "Is everyone working towards a common goal?",
     "surveyId": 1,
-    "categoryId": 1
+    "categoryId": 1,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 4,
     "text": "Failures are...",
     "surveyId": 1,
-    "categoryId": 1
+    "categoryId": 1,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 5,
     "text": "Are you using some form of version control?",
     "surveyId": 1,
-    "categoryId": 2
+    "categoryId": 2,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 6,
     "text": "We improve our product with ... patches.",
     "surveyId": 1,
-    "categoryId": 2
+    "categoryId": 2,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 7,
     "text": "Our code increments go trought an automated QA&testing -pipeline",
     "surveyId": 1,
-    "categoryId": 2
+    "categoryId": 2,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 8,
     "text": "We have configured a CI/CD pipeline for our work.",
     "surveyId": 1,
-    "categoryId": 3
+    "categoryId": 3,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 9,
     "text": "We use container technologies to deliver our product.",
     "surveyId": 1,
-    "categoryId": 3
+    "categoryId": 3,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 10,
     "text": "We use IaC (infrastructure as code) tool in deployment.",
     "surveyId": 1,
-    "categoryId": 3
+    "categoryId": 3,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 11,
     "text": "I feel confident in using container technologies.",
     "surveyId": 1,
-    "categoryId": 4
+    "categoryId": 4,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 12,
     "text": "I feel confident in using our testing tools.",
     "surveyId": 1,
-    "categoryId": 4
+    "categoryId": 4,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 13,
     "text": "I feel confident in using version control.",
     "surveyId": 1,
-    "categoryId": 4
+    "categoryId": 4,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 14,
     "text": "I feel confident in configuring a CI/CD pipeline.",
     "surveyId": 1,
-    "categoryId": 4
+    "categoryId": 4,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 15,
     "text": "Our software is easy to test.",
     "surveyId": 1,
-    "categoryId": 5
+    "categoryId": 5,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 16,
     "text": "Our software is modular and the architecture is flexible.",
     "surveyId": 1,
-    "categoryId": 5
+    "categoryId": 5,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   },
   {
     "id": 17,
     "text": "Our code adheres to best standards and practices",
     "surveyId": 1,
-    "categoryId": 5
+    "categoryId": 5,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.0
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.0
+      }
+    ]
   }
 ]

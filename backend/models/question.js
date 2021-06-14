@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: { msg: "Question categoryId can't be empty" },
         },
       },
+      category_weights: {
+        type: DataTypes.JSONB,
+        allowNull: true,
+      },
     },
     {
       sequelize,

@@ -102,7 +102,6 @@ answersRouter.post('/emailsubmit', async (req, res) => {
   } = req.body
   try {
     // request body validation
-
     userQuestionAnswerPairs.map((item) => {
       console.log(`Question: ${item.question} Answer: ${item.answer}`)
     } )
