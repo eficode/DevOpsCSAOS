@@ -204,7 +204,6 @@ const getFullResults = async (user_answers, surveyId) => {
   }
 }
 
-
 const calculatePointsNewStyle = async (selections) => {
   const questionIds = []
   const answerIds = []
@@ -217,38 +216,56 @@ const calculatePointsNewStyle = async (selections) => {
   const allQuestions = await Question.findAll({
     raw: true,
     where: { id: questionIds },
-    attributes: ['category_weights'],
-    include: [
-      {
-        model: Question_answer,
-        where: { id: answerIds },
-        attributes: ['points'],
-      },
-    ],
+    attributes: ['category_weights', 'id'],
+  })
+
+  const allAnswers = await Question_answer.findAll({
+    raw: true,
+    where: { id: answerIds },
+    attributes: ['id', 'points'],
+  })
+
+  const questionsAndPoints = selections.map((item) => {
+    let currentQuestion = allQuestions.find((question) => {
+      return question.id === item.questionId
+    })
+
+    let currentAnswer = allAnswers.find((answer) => {
+      return answer.id === item.answerId
+    })
+
+    return {
+      ...currentQuestion,
+      points: currentAnswer.points,
+    }
   })
 
   let listOfAllCategoryPoints = []
   let listOfAllMaxPoints = []
-  allQuestions.forEach((question) => {
+  questionsAndPoints.forEach((question) => {
     question.category_weights.forEach((item) => {
       let maxItem = {
-        ...item
+        ...item,
       }
       maxItem.multiplier = Math.abs(item.multiplier) * 2
-      item.multiplier = item.multiplier * question['Question_answers.points']
+      item.multiplier = item.multiplier * question.points
       listOfAllCategoryPoints.push(item)
       listOfAllMaxPoints.push(maxItem)
     })
   })
 
   let userResult = listOfAllCategoryPoints.reduce((c, item) => {
-    c[item.category] = (c[item.category] || 0) + item.multiplier
-    return c
+    return {
+      ...c,
+      [item.category]: (c[item.category] || 0) + item.multiplier,
+    }
   }, {})
 
   let maxResult = listOfAllMaxPoints.reduce((c, item) => {
-    c[item.category] = (c[item.category] || 0) + item.multiplier
-    return c
+    return {
+      ...c,
+      [item.category]: (c[item.category] || 0) + item.multiplier,
+    }
   }, {})
 
   console.log('user points', userResult)
@@ -256,7 +273,7 @@ const calculatePointsNewStyle = async (selections) => {
 
   const completeResult = {
     user: userResult,
-    max: maxResult
+    max: maxResult,
   }
 
   console.log(completeResult)
