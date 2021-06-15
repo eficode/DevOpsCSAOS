@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+const { max } = require('lodash')
 const Sequelize = require('sequelize')
 const {
   Question,
@@ -203,9 +204,37 @@ const getFullResults = async (user_answers, surveyId) => {
   }
 }
 
-//
-const calculatePointsNewStyle = (selections) => {
+const calculateMaxScoreNewStyle = async (selections) => {
+  const questionIds = []
 
+  selections.forEach((item) => {
+    questionIds.push(item.questionId)
+  })
+
+  const allQuestions = await Question.findAll({
+    raw: true,
+    where: { id: questionIds },
+    attributes: ['category_weights'],
+  })
+
+  let listOfAllCategoryPoints = []
+  allQuestions.forEach((question) => {
+    question.category_weights.forEach((item) => {
+      item.multiplier = Math.abs(item.multiplier) * 2
+      listOfAllCategoryPoints.push(item)
+    })
+  })
+
+  let result = listOfAllCategoryPoints.reduce((c, item) => {
+    c[item.category] = (c[item.category] || 0) + item.multiplier
+    return c
+  }, {})
+
+  console.log('max points: ',result)
+
+}
+
+const calculatePointsNewStyle = async (selections) => {
   const questionIds = []
   const answerIds = []
 
@@ -214,17 +243,52 @@ const calculatePointsNewStyle = (selections) => {
     answerIds.push(item.answerId)
   })
 
-  console.log(questionIds, answerIds)
+  const allQuestions = await Question.findAll({
+    raw: true,
+    where: { id: questionIds },
+    attributes: ['category_weights'],
+    include: [
+      {
+        model: Question_answer,
+        where: { id: answerIds },
+        attributes: ['points'],
+      },
+    ],
+  })
 
-  /*
- selections.forEach( async (item) => {
-  let question = await Question.findOne({where: {id: item.questionId}, attributes: ['category_weights'], raw: true})
-  let answerPoints = await Question_answer.findOne({where: {id: item.answerId}, attributes: ['points'], raw: true })
-  
-   console.log(question.category_weights, answerPoints.points)
-  
- })
-  */  
+  let listOfAllCategoryPoints = []
+  let listOfAllMaxPoints = []
+  allQuestions.forEach((question) => {
+    question.category_weights.forEach((item) => {
+      let maxItem = {
+        ...item
+      }
+      maxItem.multiplier = Math.abs(item.multiplier) * 2
+      item.multiplier = item.multiplier * question['Question_answers.points']
+      listOfAllCategoryPoints.push(item)
+      listOfAllMaxPoints.push(maxItem)
+    })
+  })
+
+  let userResult = listOfAllCategoryPoints.reduce((c, item) => {
+    c[item.category] = (c[item.category] || 0) + item.multiplier
+    return c
+  }, {})
+
+  let maxResult = listOfAllMaxPoints.reduce((c, item) => {
+    c[item.category] = (c[item.category] || 0) + item.multiplier
+    return c
+  }, {})
+
+  console.log('user points', userResult)
+  console.log('max points', maxResult)
+
+  const completeResult = {
+    user: userResult,
+    max: maxResult
+  }
+
+  console.log(completeResult)
 }
 
 const getSummaryOfResults = async (user_answers, surveyId) => {
@@ -282,4 +346,8 @@ const getSummaryOfResults = async (user_answers, surveyId) => {
   }
 }
 
-module.exports = { getFullResults, getSummaryOfResults, calculatePointsNewStyle }
+module.exports = {
+  getFullResults,
+  getSummaryOfResults,
+  calculatePointsNewStyle,
+}
