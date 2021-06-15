@@ -204,35 +204,6 @@ const getFullResults = async (user_answers, surveyId) => {
   }
 }
 
-const calculateMaxScoreNewStyle = async (selections) => {
-  const questionIds = []
-
-  selections.forEach((item) => {
-    questionIds.push(item.questionId)
-  })
-
-  const allQuestions = await Question.findAll({
-    raw: true,
-    where: { id: questionIds },
-    attributes: ['category_weights'],
-  })
-
-  let listOfAllCategoryPoints = []
-  allQuestions.forEach((question) => {
-    question.category_weights.forEach((item) => {
-      item.multiplier = Math.abs(item.multiplier) * 2
-      listOfAllCategoryPoints.push(item)
-    })
-  })
-
-  let result = listOfAllCategoryPoints.reduce((c, item) => {
-    c[item.category] = (c[item.category] || 0) + item.multiplier
-    return c
-  }, {})
-
-  console.log('max points: ',result)
-
-}
 
 const calculatePointsNewStyle = async (selections) => {
   const questionIds = []
