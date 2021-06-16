@@ -19,6 +19,7 @@ services:
     command: ./wait-for db:5432 -- npm run dev
     tty: true
     environment:
+      PORT: 5000
       DB_HOST: db
       DB_USER: testUser
       DB_PASS: password

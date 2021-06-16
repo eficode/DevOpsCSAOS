@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "API_URL=http://localhost:5000/api next dev",
+    "dev": "next dev",
     "build": "next build && next export",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
