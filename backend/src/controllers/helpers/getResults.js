@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+const { max } = require('lodash')
 const Sequelize = require('sequelize')
 const {
   Question,
@@ -203,9 +204,7 @@ const getFullResults = async (user_answers, surveyId) => {
   }
 }
 
-//
-const calculatePointsNewStyle = (selections) => {
-
+const calculatePointsNewStyle = async (selections) => {
   const questionIds = []
   const answerIds = []
 
@@ -214,72 +213,124 @@ const calculatePointsNewStyle = (selections) => {
     answerIds.push(item.answerId)
   })
 
-  console.log(questionIds, answerIds)
+  const allQuestions = await Question.findAll({
+    raw: true,
+    where: { id: questionIds },
+    attributes: ['category_weights', 'id'],
+  })
 
-  /*
- selections.forEach( async (item) => {
-  let question = await Question.findOne({where: {id: item.questionId}, attributes: ['category_weights'], raw: true})
-  let answerPoints = await Question_answer.findOne({where: {id: item.answerId}, attributes: ['points'], raw: true })
-  
-   console.log(question.category_weights, answerPoints.points)
-  
- })
-  */  
+  const allAnswers = await Question_answer.findAll({
+    raw: true,
+    where: { id: answerIds },
+    attributes: ['id', 'points'],
+  })
+
+  const questionsAndPoints = selections.map((item) => {
+    let currentQuestion = allQuestions.find((question) => {
+      return question.id === item.questionId
+    })
+
+    let currentAnswer = allAnswers.find((answer) => {
+      return answer.id === item.answerId
+    })
+
+    return {
+      ...currentQuestion,
+      points: currentAnswer.points,
+    }
+  })
+
+  let listOfAllCategoryPoints = []
+  let listOfAllMaxPoints = []
+  questionsAndPoints.forEach((question) => {
+    question.category_weights.forEach((item) => {
+      let maxItem = {
+        ...item,
+      }
+      maxItem.multiplier = Math.abs(item.multiplier) * 2
+      item.multiplier = item.multiplier * question.points
+      listOfAllCategoryPoints.push(item)
+      listOfAllMaxPoints.push(maxItem)
+    })
+  })
+
+  let userResult = listOfAllCategoryPoints.reduce((c, item) => {
+    return {
+      ...c,
+      [item.category]: (c[item.category] || 0) + item.multiplier,
+    }
+  }, {})
+
+  let maxResult = listOfAllMaxPoints.reduce((c, item) => {
+    return {
+      ...c,
+      [item.category]: (c[item.category] || 0) + item.multiplier,
+    }
+  }, {})
+
+  const completeResult = {
+    user: userResult,
+    max: maxResult,
+  }
+
+  return completeResult
 }
 
-const getSummaryOfResults = async (user_answers, surveyId) => {
-  const bestAnswerPerQuestion = await findAnswerWithHighestPointsPerQuestion(
-    surveyId
-  )
-  const userAnswers = await findUserAnswers(user_answers)
+const getSummaryOfResults = async (surveyId, selections) => {
+  const userAndMaxResults = await calculatePointsNewStyle(selections)
 
-  const surveyMaxResult = await calculateMaxPointsOfSurvey(
-    bestAnswerPerQuestion
-  )
-  const userSurveyResult = calculateSumOfUserPoints(userAnswers)
+  const userScores = userAndMaxResults.user
+  const maxScores = userAndMaxResults.max
+  const sumValues = (obj) => Object.values(obj).reduce((a, b) => a + b)
+  const newUserScore = sumValues(userScores)
+  const newMaxScore = sumValues(maxScores)
+
+  console.log('scores', userAndMaxResults)
   const surveyResultText = await findSurveyResultTextMatchingUserScore(
-    userSurveyResult,
-    surveyMaxResult,
+    newUserScore,
+    newMaxScore,
     surveyId
   )
 
-  const categoryResults = await calculateMaxPointsAndUserPointsPerCategory(
-    bestAnswerPerQuestion,
-    userAnswers
-  )
 
-  const listOfCategories = categoryResults.map((c) => c.name)
+  const keys = Object.keys(userScores)
 
-  let userWorstInCategory = categoryResults[0]
-  categoryResults.forEach((c) => {
+  const listOfCategories = keys
+
+  let lowestCategory = keys[0]
+  let highestCategory = keys[1]
+  console.log(highestCategory)
+  console.log(lowestCategory)
+  keys.forEach((key) => {
     if (
-      c.userPoints / c.maxPoints <
-      userWorstInCategory.userPoints / userWorstInCategory.maxPoints
+      userScores[key] / maxScores[key] <
+      userScores[lowestCategory] / maxScores[lowestCategory]
     ) {
-      userWorstInCategory = c
+      lowestCategory = key
+    }
+    if (
+      userScores[key] / maxScores[key] >
+      userScores[highestCategory] / maxScores[highestCategory]
+    ) {
+      highestCategory = key
     }
   })
 
-  let userBestInCategory = categoryResults[0]
-  categoryResults.forEach((c) => {
-    if (
-      c.userPoints / c.maxPoints >
-      userBestInCategory.userPoints / userBestInCategory.maxPoints
-    ) {
-      userBestInCategory = c
-    }
-  })
 
   return {
     surveyResult: {
       text: surveyResultText,
-      userPoints: userSurveyResult,
-      maxPoints: surveyMaxResult,
+      userPoints: newUserScore,
+      maxPoints: newMaxScore,
     },
     categories: listOfCategories,
-    userBestInCategory: userBestInCategory.name,
-    userWorstInCategory: userWorstInCategory.name,
+    userBestInCategory: highestCategory,
+    userWorstInCategory: lowestCategory,
   }
 }
 
-module.exports = { getFullResults, getSummaryOfResults, calculatePointsNewStyle }
+module.exports = {
+  getFullResults,
+  getSummaryOfResults,
+  calculatePointsNewStyle,
+}

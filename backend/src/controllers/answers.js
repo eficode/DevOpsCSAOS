@@ -8,7 +8,10 @@ const {
   Industry,
 } = require('../../models')
 const { SendHubspotMessage } = require('./helpers/hubspot')
-const { verifyUserAnswers, getSummaryOfResults, calculatePointsNewStyle } = require('./helpers/answers')
+const {
+  verifyUserAnswers,
+  getSummaryOfResults,
+} = require('./helpers/answers')
 
 const saveAnswersToDatabase = async (answers, userId) => {
   const answersToQuestions = answers.map((answer) => ({
@@ -61,10 +64,8 @@ answersRouter.post('/', async (req, res) => {
     })
   }
 
-  // new functionality with selections
-  calculatePointsNewStyle(selections)
 
-  const results = await getSummaryOfResults(answers, surveyId)
+  const results = await getSummaryOfResults(surveyId, selections)
 
   try {
     const userInDb = survey_user_group
@@ -107,7 +108,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     // request body validation
     userQuestionAnswerPairs.map((item) => {
       console.log(`Question: ${item.question} Answer: ${item.answer}`)
-    } )
+    })
     if (!email || !token || !surveyId) {
       return res.status(400).json({
         message: 'Email, token and survey id are required for submit',
