@@ -268,69 +268,64 @@ const calculatePointsNewStyle = async (selections) => {
     }
   }, {})
 
-  console.log('user points', userResult)
-  console.log('max points', maxResult)
-
   const completeResult = {
     user: userResult,
     max: maxResult,
   }
 
-  console.log(completeResult)
+  return completeResult
 }
 
-const getSummaryOfResults = async (user_answers, surveyId) => {
-  const bestAnswerPerQuestion = await findAnswerWithHighestPointsPerQuestion(
-    surveyId
-  )
-  const userAnswers = await findUserAnswers(user_answers)
+const getSummaryOfResults = async (surveyId, selections) => {
+  const userAndMaxResults = await calculatePointsNewStyle(selections)
 
-  const surveyMaxResult = await calculateMaxPointsOfSurvey(
-    bestAnswerPerQuestion
-  )
-  const userSurveyResult = calculateSumOfUserPoints(userAnswers)
+  const userScores = userAndMaxResults.user
+  const maxScores = userAndMaxResults.max
+  const sumValues = (obj) => Object.values(obj).reduce((a, b) => a + b)
+  const newUserScore = sumValues(userScores)
+  const newMaxScore = sumValues(maxScores)
+
+  console.log('scores', userAndMaxResults)
   const surveyResultText = await findSurveyResultTextMatchingUserScore(
-    userSurveyResult,
-    surveyMaxResult,
+    newUserScore,
+    newMaxScore,
     surveyId
   )
 
-  const categoryResults = await calculateMaxPointsAndUserPointsPerCategory(
-    bestAnswerPerQuestion,
-    userAnswers
-  )
 
-  const listOfCategories = categoryResults.map((c) => c.name)
+  const keys = Object.keys(userScores)
 
-  let userWorstInCategory = categoryResults[0]
-  categoryResults.forEach((c) => {
+  const listOfCategories = keys
+
+  let lowestCategory = keys[0]
+  let highestCategory = keys[1]
+  console.log(highestCategory)
+  console.log(lowestCategory)
+  keys.forEach((key) => {
     if (
-      c.userPoints / c.maxPoints <
-      userWorstInCategory.userPoints / userWorstInCategory.maxPoints
+      userScores[key] / maxScores[key] <
+      userScores[lowestCategory] / maxScores[lowestCategory]
     ) {
-      userWorstInCategory = c
+      lowestCategory = key
+    }
+    if (
+      userScores[key] / maxScores[key] >
+      userScores[highestCategory] / maxScores[highestCategory]
+    ) {
+      highestCategory = key
     }
   })
 
-  let userBestInCategory = categoryResults[0]
-  categoryResults.forEach((c) => {
-    if (
-      c.userPoints / c.maxPoints >
-      userBestInCategory.userPoints / userBestInCategory.maxPoints
-    ) {
-      userBestInCategory = c
-    }
-  })
 
   return {
     surveyResult: {
       text: surveyResultText,
-      userPoints: userSurveyResult,
-      maxPoints: surveyMaxResult,
+      userPoints: newUserScore,
+      maxPoints: newMaxScore,
     },
     categories: listOfCategories,
-    userBestInCategory: userBestInCategory.name,
-    userWorstInCategory: userWorstInCategory.name,
+    userBestInCategory: highestCategory,
+    userWorstInCategory: lowestCategory,
   }
 }
 

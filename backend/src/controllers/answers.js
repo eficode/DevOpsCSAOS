@@ -11,7 +11,6 @@ const { SendHubspotMessage } = require('./helpers/hubspot')
 const {
   verifyUserAnswers,
   getSummaryOfResults,
-  calculatePointsNewStyle,
 } = require('./helpers/answers')
 
 const saveAnswersToDatabase = async (answers, userId) => {
@@ -65,12 +64,8 @@ answersRouter.post('/', async (req, res) => {
     })
   }
 
-  // new functionality with selections
- 
-  calculatePointsNewStyle(selections)
-  
 
-  const results = await getSummaryOfResults(answers, surveyId)
+  const results = await getSummaryOfResults(surveyId, selections)
 
   try {
     const userInDb = survey_user_group

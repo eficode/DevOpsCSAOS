@@ -100,7 +100,7 @@ const Home = () => {
             <StyledResultsLabel component="h2" variant="h5">
               Your Results
             </StyledResultsLabel>
-            <TotalResult userResult={userPoints} maxResult={maxPoints} />
+            <TotalResult userResult={Math.round(userPoints)} maxResult={Math.round(maxPoints)} />
             <Heading component="h3" variant="h6" font="Montserrat">
               {text}
             </Heading>
