@@ -1,14 +1,15 @@
 /* eslint-disable prettier/prettier */
 const app = require('./src/app')
 const { sequelize } = require('./models')
+const assert = require('assert')
 
 const { PORT, NODE_ENV } = process.env
+assert(PORT)
+console.log(PORT)
 
 const { initDatabase } = require('./config/setupDatabase')
-
-const port = NODE_ENV === 'endtoend' ? 5001 : PORT || 5000
-
-app.listen({ port }, async () => {
+const port = PORT
+app.listen(port, async () => {
   if (NODE_ENV === 'endtoend') {
     // create all database tables
     await sequelize.sync({ force: true })
@@ -17,5 +18,5 @@ app.listen({ port }, async () => {
     console.log('database initialized')
   }
 
-  console.log(`'Server up on http://localhost:${port}`)
+  console.log(`'Server up on http://localhost:${PORT}`)
 })
