@@ -1,6 +1,4 @@
 /* eslint-disable camelcase */
-const { max } = require('lodash')
-const { clearConfigCache } = require('prettier')
 const Sequelize = require('sequelize')
 const {
   Question,
@@ -8,7 +6,6 @@ const {
   Category,
   Category_result,
   Survey_result,
-  sequelize,
 } = require('../../../models')
 
 // const findAnswerWithHighestPointsPerQuestion = async (surveyId) => {
@@ -147,6 +144,90 @@ const findCategoryResultTextMatchingUserResult = async (
 //   return categoryResults
 // }
 
+const getQuestionsAndPoints = async (user_answers) => {
+  const allAnswers = await Question_answer.findAll({
+    raw: true,
+    where: { id: user_answers },
+    attributes: ['id', 'questionId', 'points'],
+  })
+
+  const questionIds = allAnswers.map((item) => item.questionId)
+
+  const allQuestions = await Question.findAll({
+    raw: true,
+    where: { id: questionIds },
+    attributes: ['category_weights', 'id'],
+  })
+
+  const questionAndAnswerPairs = allAnswers.map((item) => ({
+    questionId: item.questionId,
+    answerId: item.id,
+  }))
+
+  return questionAndAnswerPairs.map((item) => {
+    const currentQuestion = allQuestions.find(
+      (question) => question.id === item.questionId
+    )
+
+    const currentAnswer = allAnswers.find(
+      (answer) => answer.id === item.answerId
+    )
+
+    return {
+      ...currentQuestion,
+      points: currentAnswer.points,
+    }
+  })
+}
+
+const getUserScoreAndMaxScore = (questionsAndPoints) => {
+  const listOfAllCategoryPoints = []
+  const listOfAllMaxPoints = []
+  questionsAndPoints.forEach((question) => {
+    question.category_weights.forEach((item) => {
+      const maxItem = {
+        ...item,
+      }
+      maxItem.multiplier = Math.abs(item.multiplier) * 2
+      const userItem = {
+        ...item,
+      }
+      userItem.multiplier *= question.points
+      listOfAllCategoryPoints.push(userItem)
+      listOfAllMaxPoints.push(maxItem)
+    })
+  })
+
+  const userResult = listOfAllCategoryPoints.reduce(
+    (c, item) => ({
+      ...c,
+      [item.category]: (c[item.category] || 0) + item.multiplier,
+    }),
+    {}
+  )
+
+  const maxResult = listOfAllMaxPoints.reduce(
+    (c, item) => ({
+      ...c,
+      [item.category]: (c[item.category] || 0) + item.multiplier,
+    }),
+    {}
+  )
+
+  const completeResult = {
+    user: userResult,
+    max: maxResult,
+  }
+
+  return completeResult
+}
+
+const calculateUserAndMaxPoints = async (user_answers) => {
+  const questionsAndPoints = await getQuestionsAndPoints(user_answers)
+
+  return getUserScoreAndMaxScore(questionsAndPoints)
+}
+
 const findSurveyResultTextMatchingUserScore = async (
   userSurveyResult,
   surveyMaxResult,
@@ -175,30 +256,7 @@ const findSurveyResultTextMatchingUserScore = async (
 //   )
 
 const getFullResults = async (user_answers, surveyId) => {
-  const allAnswers = await Question_answer.findAll({
-    raw: true,
-    where: { id: user_answers },
-    attributes: ['id', 'questionId', 'points'],
-  })
-
-  const questionIds = allAnswers.map((item) => {
-    return item['questionId']
-  })
-
-  const allQuestions = await Question.findAll({
-    raw: true,
-    where: { id: questionIds },
-    attributes: ['category_weights', 'id'],
-  })
-
-  const questionAndAnswerPairs = allAnswers.map((item) => {
-    return {
-      questionId: item['questionId'],
-      answerId: item['id']
-    }
-  })
-  
-  const userAndMaxResults = await calculatePointsForFull(questionAndAnswerPairs, allAnswers, allQuestions)
+  const userAndMaxResults = await calculateUserAndMaxPoints(user_answers)
 
   const userScores = userAndMaxResults.user
   const maxScores = userAndMaxResults.max
@@ -213,32 +271,30 @@ const getFullResults = async (user_answers, surveyId) => {
   )
 
   const keys = Object.keys(userAndMaxResults.user)
-  const newCategoryResults = await keys.map( async (key) => {
-
-    let fetchedCategory = await Category.findOne({
+  const newCategoryResults = await keys.map(async (key) => {
+    const fetchedCategory = await Category.findOne({
       attributes: ['id', 'description'],
       where: {
         name: key,
       },
       raw: true,
     })
-    
+
     return {
       userPoints: userScores[key],
       maxPoints: maxScores[key],
       name: key,
-      id: fetchedCategory['id'],
+      id: fetchedCategory.id,
       text: await findCategoryResultTextMatchingUserResult(
         userScores[key],
         maxScores[key],
-        fetchedCategory['id']
+        fetchedCategory.id
       ),
-      description: fetchedCategory['description']
+      description: fetchedCategory.description,
     }
-
   })
 
-  let finalCategoryResults = await Promise.all(newCategoryResults)
+  const finalCategoryResults = await Promise.all(newCategoryResults)
 
   return {
     surveyResult: {
@@ -250,102 +306,8 @@ const getFullResults = async (user_answers, surveyId) => {
   }
 }
 
-const getQuestionsAndPoints = (questionAndAnswerPairs, allAnswers, allQuestions) => {
-
-  return questionAndAnswerPairs.map((item) => {
-    let currentQuestion = allQuestions.find((question) => {
-      return question.id === item.questionId
-    })
-
-    let currentAnswer = allAnswers.find((answer) => {
-      return answer.id === item.answerId
-    })
-
-    return {
-      ...currentQuestion,
-      points: currentAnswer.points,
-    }
-  })
-}
-
-const getUserScoreAndMaxScore = (questionsAndPoints) => {
-
-  let listOfAllCategoryPoints = []
-  let listOfAllMaxPoints = []
-  questionsAndPoints.forEach((question) => {
-   
-    question.category_weights.forEach((item) => {
-      let maxItem = {
-        ...item,
-      }
-      maxItem.multiplier = Math.abs(item.multiplier) * 2
-      item.multiplier = item.multiplier * question.points
-      listOfAllCategoryPoints.push(item)
-      listOfAllMaxPoints.push(maxItem)
-    })
-  })
-
-  let userResult = listOfAllCategoryPoints.reduce((c, item) => {
-    return {
-      ...c,
-      [item.category]: (c[item.category] || 0) + item.multiplier,
-    }
-  }, {})
-
-  let maxResult = listOfAllMaxPoints.reduce((c, item) => {
-    return {
-      ...c,
-      [item.category]: (c[item.category] || 0) + item.multiplier,
-    }
-  }, {})
-  
-
-  const completeResult = {
-    user: userResult,
-    max: maxResult,
-  }
-
-  return completeResult
-
-}
-
-const calculatePointsForFull = async (questionAndAnswerPairs, allAnswers, allQuestions) => {
-
-  const questionsAndPoints = getQuestionsAndPoints(questionAndAnswerPairs, allAnswers, allQuestions)
-
-  return getUserScoreAndMaxScore(questionsAndPoints)
-}
-
-const calculatePointsForSummary = async (selections) => {
-  const questionIds = []
-  const answerIds = []
-
-  selections.forEach((item) => {
-    questionIds.push(item.questionId)
-    answerIds.push(item.answerId)
-  })
-
-  const temporaryInvoker = getFullResults(answerIds, 1)
-  
-  const allQuestions = await Question.findAll({
-    raw: true,
-    where: { id: questionIds },
-    attributes: ['category_weights', 'id'],
-  })
-
-  const allAnswers = await Question_answer.findAll({
-    raw: true,
-    where: { id: answerIds },
-    attributes: ['id', 'points'],
-  })
-
-  const questionsAndPoints = getQuestionsAndPoints(selections, allAnswers, allQuestions)
-
-  return getUserScoreAndMaxScore(questionsAndPoints)
-}
-
-const getSummaryOfResults = async (surveyId, selections) => {
-  const userAndMaxResults = await calculatePointsForSummary(selections)
+const getSummaryOfResults = async (user_answers, surveyId) => {
+  const userAndMaxResults = await calculateUserAndMaxPoints(user_answers)
 
   const userScores = userAndMaxResults.user
   const maxScores = userAndMaxResults.max

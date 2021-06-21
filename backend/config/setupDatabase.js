@@ -6,7 +6,7 @@ const category_results = require('./initialData/category_results.json')
 const surveys = require('./initialData/surveys.json')
 const survey_user_groups = require('./initialData/survey_user_groups.json')
 const industries = require('./initialData/industries.json')
-const { generateAnswerData }= require('./generateAnswerData')
+const { generateAnswerData } = require('./generateAnswerData')
 
 const {
   sequelize,
@@ -26,7 +26,6 @@ const {
   inserts seed data (testData copied from seed_database.sql)
 */
 const initDatabase = async () => {
-
   const answers = await generateAnswerData()
 
   await sequelize.sync({ force: true })
@@ -35,7 +34,7 @@ const initDatabase = async () => {
   await Category.bulkCreate(categories)
   await Category_result.bulkCreate(category_results)
   await Question.bulkCreate(questions)
-  await Question_answer.bulkCreate(answers) 
+  await Question_answer.bulkCreate(answers)
   await Industry.bulkCreate(industries)
   await Survey_user_group.bulkCreate(survey_user_groups)
 }

@@ -1,13 +1,14 @@
 /* eslint-disable prettier/prettier */
+const assert = require('assert')
 const app = require('./src/app')
 const { sequelize } = require('./models')
-const assert = require('assert')
 
 const { PORT, NODE_ENV } = process.env
 assert(PORT)
 console.log(PORT)
 
 const { initDatabase } = require('./config/setupDatabase')
+
 const port = PORT
 app.listen(port, async () => {
   if (NODE_ENV === 'endtoend') {

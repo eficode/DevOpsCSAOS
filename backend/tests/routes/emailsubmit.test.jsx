@@ -17,7 +17,7 @@ describe(`POST ${endpoint}`, () => {
   // all from test data
   const surveyId = 1
   const validUserId = 100
-  const survey1TestAnswers = [101, 102]
+  const survey1TestAnswers = [1, 8]
   //
   const validToken = jwt.sign(validUserId, SECRET_FOR_TOKEN)
   const validBody = {
@@ -123,8 +123,8 @@ describe(`POST ${endpoint}`, () => {
         userId: existingUserId,
       },
     })
-    expect(userAnswersAfterRequest[0].questionAnswerId).toBe(100)
-    expect(userAnswersAfterRequest[1].questionAnswerId).toBe(103)
+    expect(userAnswersAfterRequest[0].questionAnswerId).toBe(2)
+    expect(userAnswersAfterRequest[1].questionAnswerId).toBe(8)
     done()
   })
 

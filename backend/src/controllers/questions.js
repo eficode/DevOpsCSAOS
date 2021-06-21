@@ -5,7 +5,7 @@ questionsRouter.get('/:surveyId', async (req, res) => {
   const { surveyId } = req.params
   try {
     const questions = await Question.findAll({
-      attributes: {exclude: ['category_weights']},
+      attributes: { exclude: ['category_weights'] },
       include: [
         { model: Category, attributes: ['id', 'name', 'description'] },
         { model: Question_answer, attributes: ['id', 'text'] },

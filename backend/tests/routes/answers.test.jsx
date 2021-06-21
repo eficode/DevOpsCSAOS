@@ -6,7 +6,7 @@ const app = require('../../src/app.js')
 const { clearDBAndCreateDummyData } = require('../testUtils/setupTestDb')
 const { User } = require('../../models')
 
-const survey1TestAnswers = [100, 103]
+const survey1TestAnswers = [2, 7]
 const survey1Id = 1
 const userGroupId = 'f5fd31b0-2315-4757-9794-3c96e7ffb7ec'
 
@@ -74,10 +74,10 @@ describe('POST /api/answers', () => {
       userWorstInCategory,
     } = results
 
-    expect(surveyResult.text).toBe('Olet ruisleipä')
-    expect(categories[0]).toBe('Jauhot')
-    expect(userBestInCategory).toBe('Jauhot')
-    expect(userWorstInCategory).toBe('Jauhot')
+    expect(surveyResult.text).toBe('Olet korppu.')
+    expect(categories[0]).toBe('Culture')
+    expect(userBestInCategory).toBe('Workflow')
+    expect(userWorstInCategory).toBe('Culture')
 
     done()
   })

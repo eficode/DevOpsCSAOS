@@ -3,24 +3,112 @@
     "id": 1,
     "text": "Oletko ruisleipä?",
     "surveyId": 1,
-    "categoryId": 1
+    "categoryId": 1,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.5
+      }
+    ]
   },
   {
     "id": 2,
     "text": "Oletko kauraleipä?",
     "surveyId": 1,
-    "categoryId": 1
+    "categoryId": 1,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.5
+      }
+    ]
   },
   {
     "id": 11,
     "text": "Oletko kaurakeksi?",
     "surveyId": 2,
-    "categoryId": 20
+    "categoryId": 20,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.5
+      }
+    ]
   },
   {
     "id": 12,
     "text": "Oletko dominokeksi?",
     "surveyId": 2,
-    "categoryId": 20
+    "categoryId": 20,
+    "category_weights": [
+      {
+        "category": "Culture",
+        "multiplier": 1.5
+      },
+      {
+        "category": "Workflow",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Tools",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Skills",
+        "multiplier": 0.5
+      },
+      {
+        "category": "Code",
+        "multiplier": 0.5
+      }
+    ]
   }
 ]
