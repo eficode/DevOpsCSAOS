@@ -235,7 +235,6 @@ const findSurveyResultTextMatchingUserScore = async (
 ) => {
   const { Op } = Sequelize
   const pointsOutOfMax = userSurveyResult / surveyMaxResult
-
   const surveyResult = await Survey_result.findOne({
     attributes: ['text', 'surveyId', 'cutoff_from_maxpoints'],
     where: {

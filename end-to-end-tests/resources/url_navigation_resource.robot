@@ -5,10 +5,10 @@ Library           SeleniumLibrary
 
 *** Variables ***
 ${HOST}           localhost
-${PORT}           5001
+${PORT}           3000
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run, headlessfirefox to run headless
-${BROWSER}                chrome
+${BROWSER}                headlesschrome
 ${MAIN_URL}               http://${SERVER}
 ${VALID_EMAIL}            test2222@test.com
 
@@ -40,6 +40,7 @@ Last Page Of Survey Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/?id=${SURVEY_PAGE_COUNT}
 
 Summary Page Should Be Open
+    Wait Until Location Contains    ${MAIN_URL}/survey/questions/summary
     Location Should Contain  ${MAIN_URL}/survey/questions/summary
 
 Result Page Should Be Open
