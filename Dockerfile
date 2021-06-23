@@ -4,9 +4,9 @@ COPY frontend/ ./frontend/
 COPY backend/ ./backend/
 ARG API_URL=https://devops-csaos.herokuapp.com
 ENV API_URL=${API_URL}
-RUN cd frontend && npm install && npm run build
+RUN cd frontend && npm install && npm run build && echo "Frontend build complete"
 WORKDIR /root
 RUN cd backend && npm install
-COPY . .
+RUN mv ./frontend ./backend/frontend
 CMD ["node", "./backend/server.js"]
 
