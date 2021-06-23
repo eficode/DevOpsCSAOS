@@ -4,13 +4,13 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import Link from 'next/link'
 import { useStore } from '../../../store'
 import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
-import { InnerContentWrapper } from '../../../components/shared/InnerContentWrapper'
-import { ProgressBar } from '../../../components/progressBar'
+import { SummaryAndScorePageWrapper } from '../../../components/shared/SummaryAndScorePageWrapper'
 import StyledButton from '../../../components/button'
 import { sendAnswers } from '../../../services/routes'
-import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
+import { allQuestionsAnswered } from '../../../utils'
 import StyledLink from '../../../components/link'
 import Heading from '../../../components/heading'
 
@@ -39,10 +39,10 @@ const QuestionAnswerWrapper = styled.article`
   }
   a {
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.colors.blueDianne};
   }
   a:visited {
-    color: black;
+    color: ${({ theme }) => theme.colors.blueDianne};
   }
 `
 
@@ -52,17 +52,13 @@ const Summary = () => {
 
   const store = useStore()
   const router = useRouter()
-  const total = questions.length
 
   const lastQuestionHref = `/survey/questions/?id=${store.questionGroups.length}`
 
   useEffect(() => {
     store.setVisitedSummary(true)
   }, [])
-  let protocol = 'https://'
-  if(process.env.NODE_EVN === 'development' || process.env.NODE_EVN === 'test' || process.env.NODE_EVN === 'endtoend') {
-    protocol = 'http://'
-  }
+
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
       // eslint-disable-next-line no-undef
@@ -77,8 +73,16 @@ const Summary = () => {
       (selection) => selection.answerId
     )
 
+    const userQuestionAnswerPairs = selections.map((selection, index) => ({
+      question: questions[index].text,
+      answer: questions[index].Question_answers.find(
+        (answer) => answer.id === selection.answerId
+      ).text,
+    }))
+    store.setUserQuestionAnswerPairs(userQuestionAnswerPairs)
+    
     try {
-      const response = await sendAnswers(answersForBackend, surveyId, groupId)
+      const response = await sendAnswers(answersForBackend, surveyId, groupId, selections)
       store.setResults(response.results)
       store.setUserToken(response.token)
       router.push('/survey/result')
@@ -93,24 +97,23 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar
-        answered={countOfAnsweredQuestions(store.selections)}
-        total={total}
-      />
-      <InnerContentWrapper>
+      <SummaryAndScorePageWrapper>
         <Content>
           <ContentAnimationWrapper>
             <Heading component="h1" variant="h6">
               Here are your current answers
             </Heading>
+            <br />
             {questions &&
               questions.map((question) => {
                 let answerText
+                let answeredQuestion = true
                 const currentAnswerId = selections.find(
                   (s) => s.questionId === question.id
                 ).answerId
 
                 if (!currentAnswerId) {
+                  answeredQuestion = false
                   answerText = "You haven't answered this question."
                 } else {
                   const selectedAnswerText = question.Question_answers.find(
@@ -123,10 +126,15 @@ const Summary = () => {
 
                 return (
                   <QuestionAnswerWrapper key={question.id}>
-                    <a href={`${protocol}${window.location.host}/survey/questions/?id=${question.id}`}
-                    >{QuestionText}</a>
+                    <Link href={`/survey/questions/?id=${question.id}`}>
+                      <a href={`/survey/questions/?id=${question.id}`}>
+                        {QuestionText}
+                      </a>
+                    </Link>
                     <br />
-                    <span>{answerText}</span>
+                    <span style={!answeredQuestion ? { color: '#ff6600' } : {}}>
+                      {answerText}
+                    </span>
                   </QuestionAnswerWrapper>
                 )
               })}
@@ -138,7 +146,7 @@ const Summary = () => {
             Submit answers
           </StyledButton>
         </Content>
-      </InnerContentWrapper>
+      </SummaryAndScorePageWrapper>
     </>
   )
 }

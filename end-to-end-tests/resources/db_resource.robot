@@ -23,4 +23,4 @@ Empty Test Database
 
 Close Application
     Close Browser
-    Empty Test Database
+   # Empty Test Database

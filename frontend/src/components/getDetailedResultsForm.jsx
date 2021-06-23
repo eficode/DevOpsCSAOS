@@ -133,7 +133,8 @@ const GetDetailedResultsForm = ({ industries }) => {
       emailInput,
       createGroupChecked,
       groupId,
-      industryId
+      industryId,
+      store.userQuestionAnswerPairs
     )
     setSubmitted(true)
   }
@@ -209,7 +210,7 @@ const GetDetailedResultsForm = ({ industries }) => {
               }}
             />
             <CheckBoxText>
-              Agree to the
+              Agree to the    
               <Link href="/privacy/">Privacy policy</Link>
             </CheckBoxText>
           </CheckboxContainer>

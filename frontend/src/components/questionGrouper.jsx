@@ -1,7 +1,7 @@
 import React from 'react'
 import SingleQuestion from './singleQuestion'
 
-const QuestionGrouper = ({ questions, onOptionClick }) => (
+const QuestionGrouper = ({ questions, onOptionClick, answered, total }) => (
   <>
     {questions
       && questions.map((question) => (
@@ -9,6 +9,8 @@ const QuestionGrouper = ({ questions, onOptionClick }) => (
           key={question.id}
           question={question}
           onOptionClick={onOptionClick}
+          answered={answered}
+          total={total}
         />
       ))}
   </>

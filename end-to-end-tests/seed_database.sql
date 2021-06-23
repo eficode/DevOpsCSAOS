@@ -11,27 +11,27 @@ INSERT INTO "Categories" VALUES (11 , 'Mielentila', 'mielentilallisesti mikali v
 INSERT INTO "Category_results" VALUES (3, 11, 'Mielentilasi on heikko', 0.5, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Category_results" VALUES (4, 11, 'Mielentilasi on vahva', 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Questions" VALUES (1, 'Ajatus vihrealla nurmella villisti kierimisesta viehattaa minua', 1, 10, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Questions" VALUES (2, 'Suutani kuivaa tavalla, jonka voi taltuttaa vain poreileva juoma', 1, 10, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Questions" VALUES (3, 'Auringon nayttaytyessa ajatukseni singahtavat vappupirskeunelmiin valittomasti', 1, 10 , '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Questions" VALUES (4, 'Bilejalka vipeltaa jo vimmatusti', 1, 11, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (1, 'Ajatus vihrealla nurmella villisti kierimisesta viehattaa minua', 1, 10, '[ {"category": "Olotila", "multiplier": 1} , {"category": "Mielentila", "multiplier": 0.5} ]', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (2, 'Suutani kuivaa tavalla, jonka voi taltuttaa vain poreileva juoma', 1, 10, '[ {"category": "Olotila", "multiplier": 1} , {"category": "Mielentila", "multiplier": 0.5} ]', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (3, 'Auringon nayttaytyessa ajatukseni singahtavat vappupirskeunelmiin valittomasti', 1, 10, '[ {"category": "Olotila", "multiplier": 1} , {"category": "Mielentila", "multiplier": 0.5} ]', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (4, 'Bilejalka vipeltaa jo vimmatusti', 1, 11, '[{"category": "Olotila", "multiplier": 1}, {"category": "Mielentila", "multiplier": 0.5}]','2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Question_answers" VALUES (101, 'Ehdottomasti', 10, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Question_answers" VALUES (102, 'Ehka', 5, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (101, 'Ehdottomasti', 1, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (102, 'Ehka', 1, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Question_answers" VALUES (103, 'Ei missaan tapauksessa', 1, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Question_answers" VALUES (201, 'Ehdottomasti', 5, 2, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Question_answers" VALUES (202, 'Ehka', 3, 2, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (201, 'Ehdottomasti', 1, 2, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (202, 'Ehka', 1, 2, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Question_answers" VALUES (203, 'Ei missaan tapauksessa', 1, 2, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Question_answers" VALUES (301, 'Aina', 5, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Question_answers" VALUES (302, 'Usein', 4, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Question_answers" VALUES (303, 'Silloin talloin', 3, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Question_answers" VALUES (304, 'Ei niin usein', 2, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (301, 'Aina', 1, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (302, 'Usein', 1, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (303, 'Silloin talloin', 1, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (304, 'Ei niin usein', 1, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Question_answers" VALUES (305, 'Harvoin', 1, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Question_answers" VALUES (306, 'Ei koskaan', 1, 3, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Question_answers" VALUES (401, 'Todellakin', 5, 4, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Question_answers" VALUES (402, 'No Ei', 5, 4, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (401, 'Todellakin', 1, 4, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Question_answers" VALUES (402, 'No Ei', 1, 4, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
 INSERT INTO "Users" VALUES (1000, 'maili@maili.com', null, null, '2021-03-01T09:53:45+0000', '2021-03-01T09:53:45+0000');

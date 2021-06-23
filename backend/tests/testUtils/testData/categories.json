@@ -8,5 +8,30 @@
     "id": 20,
     "name": "Jauhot",
     "description": "Jauho on yleisnimi hienojakoisille, jauhomaisille aineille ja puhekielessä eritoten viljalajien jyvistä jauhamalla saatava ravinnoksi käytettävä tuote. Sanoja jauho ja jauhe käytetään toisinaan synonyymeinä. Jauho on hienoin jyvistä jauhettu jauhatustuote, jonka karkeusaste vaihtelee. (Lähde: Wikipedia)"
+  },
+  {
+    "id": 2,
+    "name": "Culture",
+    "description": "Culture category is for company culture related questions."
+  },
+  {
+    "id": 3,
+    "name": "Workflow",
+    "description": "Workflow category is for day-to-day working practises related questions."
+  },
+  {
+    "id": 4,
+    "name": "Tools",
+    "description": "Tools category is for questions related to using DevOps tools."
+  },
+  {
+    "id": 5,
+    "name": "Skills",
+    "description": "Skills category is for questions to assess company readiness to embrace DevOps."
+  },
+  {
+    "id": 6,
+    "name": "Code",
+    "description": "Code category is for questions to assess how easily the codebase will comply with DevOps automation and practises."
   }
 ]

@@ -1,50 +1,122 @@
 [
-    {
-        "id": 100,
-        "questionId": 1,
-        "text": "Agree",
-        "points": 5
-    },
-    {
-        "id": 101,
-        "questionId": 1,
-        "text": "Disagree",
-        "points": 0
-    },
-    {
-        "id": 102,
-        "questionId": 2,
-        "text": "Agree",
-        "points": 8
-    },
-    {
-        "id": 103,
-        "questionId": 2,
-        "text": "Disagree",
-        "points": 10
-    },
-    {
-        "id": 200,
-        "questionId": 11,
-        "text": "Agree",
-        "points": 5
-    },
-    {
-        "id": 201,
-        "questionId": 11,
-        "text": "Disagree",
-        "points": 0
-    },
-    {
-        "id": 202,
-        "questionId": 12,
-        "text": "Agree",
-        "points": 8
-    },
-    {
-        "id": 203,
-        "questionId": 12,
-        "text": "Disagree",
-        "points": 10
-    }
+  {
+    "id": 1,
+    "questionId": 1,
+    "text": "Strongly Disagree",
+    "points": -2
+  },
+  {
+    "id": 2,
+    "questionId": 1,
+    "text": "Disagree",
+    "points": -1
+  },
+  {
+    "id": 3,
+    "questionId": 1,
+    "text": "I don't know",
+    "points": 0
+  },
+  {
+    "id": 4,
+    "questionId": 1,
+    "text": "Agree",
+    "points": 1
+  },
+  {
+    "id": 5,
+    "questionId": 1,
+    "text": "Strongly Agree",
+    "points": 2
+  },
+  {
+    "id": 6,
+    "questionId": 2,
+    "text": "Strongly Disagree",
+    "points": -2
+  },
+  {
+    "id": 7,
+    "questionId": 2,
+    "text": "Disagree",
+    "points": -1
+  },
+  {
+    "id": 8,
+    "questionId": 2,
+    "text": "I don't know",
+    "points": 0
+  },
+  {
+    "id": 9,
+    "questionId": 2,
+    "text": "Agree",
+    "points": 1
+  },
+  {
+    "id": 10,
+    "questionId": 2,
+    "text": "Strongly Agree",
+    "points": 2
+  },
+  {
+    "id": 11,
+    "questionId": 11,
+    "text": "Strongly Disagree",
+    "points": -2
+  },
+  {
+    "id": 12,
+    "questionId": 11,
+    "text": "Disagree",
+    "points": -1
+  },
+  {
+    "id": 13,
+    "questionId": 11,
+    "text": "I don't know",
+    "points": 0
+  },
+  {
+    "id": 14,
+    "questionId": 11,
+    "text": "Agree",
+    "points": 1
+  },
+  {
+    "id": 15,
+    "questionId": 11,
+    "text": "Strongly Agree",
+    "points": 2
+  },
+  {
+    "id": 16,
+    "questionId": 12,
+    "text": "Strongly Disagree",
+    "points": -2
+  },
+  {
+    "id": 17,
+    "questionId": 12,
+    "text": "Disagree",
+    "points": -1
+  },
+  {
+    "id": 18,
+    "questionId": 12,
+    "text": "I don't know",
+    "points": 0
+  },
+  {
+    "id": 19,
+    "questionId": 12,
+    "text": "Agree",
+    "points": 1
+  },
+  {
+    "id": 20,
+    "questionId": 12,
+    "text": "Strongly Agree",
+    "points": 2
+  }
 ]

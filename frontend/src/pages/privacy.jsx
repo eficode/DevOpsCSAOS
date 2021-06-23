@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Head from 'next/head'
 
-import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
+import { SummaryAndScorePageWrapper} from '../components/shared/SummaryAndScorePageWrapper'
 import { ProgressBar } from '../components/progressBar'
 import Heading from '../components/heading'
 import StyledLink from '../components/link'
@@ -31,7 +31,7 @@ const Privacy = () => (
       <title>DevOps Capability Survey</title>
     </Head>
     <ProgressBar />
-    <InnerContentWrapper>
+    <SummaryAndScorePageWrapper>
       <Content>
         <Heading component="h1" variant="h6">
           DevOps Capability Survey Privacy Policy
@@ -51,7 +51,7 @@ const Privacy = () => (
           Back to result page
         </StyledLink>
       </Content>
-    </InnerContentWrapper>
+    </SummaryAndScorePageWrapper>
   </>
 )
 

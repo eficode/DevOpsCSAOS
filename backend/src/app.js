@@ -1,13 +1,13 @@
 const express = require('express')
 const path = require('path')
-const cors = require('cors');
+const cors = require('cors')
 
 const app = express()
 
 if (process.env.NODE_ENV !== 'production') {
-  var corsOptions = {
+  const corsOptions = {
     origin: 'http://localhost:3000',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
   app.use(cors(corsOptions))
 }

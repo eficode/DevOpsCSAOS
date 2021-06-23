@@ -5,14 +5,20 @@ import userEvent from '@testing-library/user-event'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
-import { useStore } from '../../store'
+import { useStore } from '../../src/store'
 
-import Summary from '../../pages/survey/questions/summary'
+import Summary from '../../src/pages/survey/questions/summary'
 import ThemeWrapper from '../testutils/themeWrapper'
 import { initializedSelections, changeSelections } from '../testutils/utils'
 import { questions } from '../testutils/testdata'
 
 nextRouter.useRouter = jest.fn()
+
+jest.mock('next/config', () => () => ({
+  publicRuntimeConfig: {
+    THIS_NEEDS_TO_BE_SOMETHING: 'something'
+  }
+}))
 
 beforeEach(() => {
   useStore.setState({ questions, selections: initializedSelections })

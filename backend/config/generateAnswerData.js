@@ -1,0 +1,33 @@
+const generateAnswerData = () => {
+  const json_file = []
+  const possible_values = [
+    'Strongly Disagree',
+    'Disagree',
+    'I do not know',
+    'Agree',
+    'Strongly Agree',
+  ]
+  let counter = 1
+  for (let i = 0; i < 17; i += 1) {
+    for (
+      let j = 0;
+      j < 5;
+      j += 1 // 1=-2,
+    ) {
+      const point = j - 2
+      const text_index = j
+      const id = i
+      const json_document = {
+        id: counter,
+        questionId: id + 1,
+        text: possible_values[text_index],
+        points: point,
+      }
+      counter += 1
+      json_file.push(json_document)
+    }
+  }
+  // console.log(json_file)
+  return json_file
+}
+module.exports = { generateAnswerData }

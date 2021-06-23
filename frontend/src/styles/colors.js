@@ -9,6 +9,8 @@ const colors = {
   gold: '#FFD700',
   amber: '#FFC200',
   whiteSmoke: '#F5F5F5',
+  green: '#008000',
+  lightGreen: '#90EE90'
 }
 
 export default colors

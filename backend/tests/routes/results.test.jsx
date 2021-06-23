@@ -5,15 +5,15 @@
 const request = require('supertest')
 const jwt = require('jsonwebtoken')
 const { clearDBAndCreateDummyData } = require('../testUtils/setupTestDb')
-const app = require('../../app.js')
+const app = require('../../src/app.js')
 
 const resultsEndpoint = '/api/results'
 const submitAnswersEndpoint = '/api/answers'
 const submitEmailEndpoint = '/api/answers/emailsubmit'
-jest.mock('../../controllers/helpers/hubspot')
+jest.mock('../../src/controllers/helpers/hubspot')
 
-const survey1TestAnswers = [100, 103] // points: 5 & 10
-const survey1TestAnswers2 = [101, 102] // points: 0 & 8
+const survey1TestAnswers = [1, 7] // points: culture points -3 & -1.5
+const survey1TestAnswers2 = [5, 10] // points: culture points 3 & 3
 const survey1Id = 1
 const userGroupId = '8e081c14-bf9a-41fc-9073-d3dd2eef7c15'
 const industryId = 1
@@ -98,7 +98,7 @@ describe(`POST ${resultsEndpoint}`, () => {
     expect(results.surveyResult.text).not.toBe(undefined)
     expect(results.surveyResult.maxPoints).not.toBe(undefined)
 
-    expect(results.categoryResults.length).toBe(1)
+    expect(results.categoryResults.length).toBe(5)
     expect(results.categoryResults[0].name).not.toBe(undefined)
     expect(results.categoryResults[0].id).not.toBe(undefined)
     expect(results.categoryResults[0].description).not.toBe(undefined)
@@ -144,7 +144,7 @@ describe(`POST ${resultsEndpoint}`, () => {
 
     const results = response.body
     expect(results.categoryResults[0].groupAverage).not.toBe(undefined)
-    expect(results.categoryResults[0].groupAverage).toBe(11.5)
+    expect(results.categoryResults[0].groupAverage).toBe(0.75)
     done()
   })
 
@@ -189,7 +189,7 @@ describe(`POST ${resultsEndpoint}`, () => {
     const response = await request(app).get(`${resultsEndpoint}/${token}`)
     const results = response.body
     expect(results.categoryResults[0].industryAverage).not.toBe(undefined)
-    expect(results.categoryResults[0].industryAverage).toBe(11.5)
+    expect(results.categoryResults[0].industryAverage).toBe(0.75)
     done()
   })
 })

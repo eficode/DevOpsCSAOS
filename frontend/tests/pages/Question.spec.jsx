@@ -5,15 +5,21 @@ import userEvent from '@testing-library/user-event'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
 import { useRouter } from 'next/router'
-import { useStore, divideQuestions } from '../../store'
+import { useStore, divideQuestions } from '../../src/store'
 
-import SurveyPage from '../../pages/survey/questions/index'
+import SurveyPage from '../../src/pages/survey/questions/index'
 import ThemeWrapper from '../testutils/themeWrapper'
 import {
   initializedSelections,
   initializedQuestionGroups,
 } from '../testutils/utils'
 import { questions } from '../testutils/testdata'
+
+jest.mock('next/config', () => () => ({
+  publicRuntimeConfig: {
+    THIS_NEEDS_TO_BE_SOMETHING: 'something'
+  }
+}))
 
 nextRouter.useRouter = jest.fn()
 
@@ -42,7 +48,7 @@ describe('Question rendering', () => {
         <SurveyPage />
       </ThemeWrapper>,
     )
-    expect(screen.getByText('DevOps Assessment Tool')).toBeInTheDocument()
+    expect(screen.getByText('DevOps Self Assessment')).toBeInTheDocument()
   })
 
   it('First page contains first two questions', () => {
@@ -155,7 +161,7 @@ describe('Feature toggle B', () => {
     const {
       initialSelectionsWithQuestionIds,
       chunkedQuestions,
-    } = divideQuestions(questions, 'B')
+    } = divideQuestions(questions, 'A')
     useStore.setState({
       questions,
       selections: initialSelectionsWithQuestionIds,

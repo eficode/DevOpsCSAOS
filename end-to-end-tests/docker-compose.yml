@@ -1,28 +1,61 @@
-version: '3.1'
+# version: '3.1'
+
+# services:
+#   postgres-db:
+#     image: postgres:13-alpine
+#     environment:
+#       POSTGRES_USER: testUser
+#       POSTGRES_PASSWORD: password
+#       POSTGRES_DB: endtoend_test_db
+#     expose:
+#       - 5432
+#     ports:
+#       - 5400:5432
+
+  
+#   devopscsaos:
+#     build:
+#       context: ../backend
+#       dockerfile: ./Dockerfile
+#       args:
+#         API_URL: http://localhost:5000/api
+#     image: devopscsaos
+#     command: ./../wait-for db:5432 --npm run dev
+#     tty: true
+#     environment:
+#       API_URL: http://localhost:5001/api
+#       NODE_ENV: endtoend
+#       DB_HOST: postgres-db
+#       DB_USER: testUser
+#       DB_PASS: password
+#       SECRET_FOR_TOKEN: supersecretfore2etests
+#     ports:
+#       - 5001:5001
+#     depends_on:
+#       - postgres-db
+
+
+version: '3.8'
 
 services:
   postgres-db:
-    image: postgres
+    image: postgres:13-alpine
+    tty: true
     environment:
       POSTGRES_USER: testUser
       POSTGRES_PASSWORD: password
       POSTGRES_DB: endtoend_test_db
-    expose:
-      - 5432
     ports:
       - 5400:5432
 
   devopscsaos:
     build:
-      context: ../
-      dockerfile: ./Dockerfile
-      args:
-        API_URL: http://localhost:5001
-    image: devopscsaos
-    command: bash -c "sleep 5s && node ./backend/server.js"
+      context: ../backend
+    command: ./wait-for  postgres-db:5432 -- npm run dev
+    tty: true
     environment:
-      API_URL: http://localhost:5001
       NODE_ENV: endtoend
+      PORT: 5001
       DB_HOST: postgres-db
       DB_USER: testUser
       DB_PASS: password
@@ -30,4 +63,16 @@ services:
     ports:
       - 5001:5001
     depends_on:
-      - postgres-db
+      -  postgres-db
+      
+  frontend:
+    build:
+      context: ../frontend
+    tty: true
+    environment:
+      API_URL: http://localhost:5001/api
+      NODE_ENV: development
+
+    ports:
+      - 3000:3000
+

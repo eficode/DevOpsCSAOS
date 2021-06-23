@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(Category, { foreignKey: 'categoryId' })
       this.belongsTo(Survey, { foreignKey: 'surveyId' })
       this.hasMany(Question_answer, { foreignKey: 'questionId' })
+      // this.belongsToMany(Question_answer, { through: 'QuestionAndAnswers' })
     }
   }
   Question.init(
@@ -39,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
           notNull: { msg: 'Question must have categoryId' },
           notEmpty: { msg: "Question categoryId can't be empty" },
         },
+      },
+      category_weights: {
+        type: DataTypes.JSONB,
+        allowNull: true,
       },
     },
     {

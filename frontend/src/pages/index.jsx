@@ -2,12 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
 import { checkGroupId } from '../services/routes'
 import { useStore } from '../store'
-import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
-import { InnerContentWrapper } from '../components/shared/InnerContentWrapper'
+import { SummaryAndScorePageWrapper} from '../components/shared/SummaryAndScorePageWrapper'
 import Link from '../components/link'
-import { ProgressBar } from '../components/progressBar'
 import Heading from '../components/heading'
 
 const Section = styled.section`
@@ -29,9 +28,14 @@ const ErrorMessage = styled.div`
 
 const Home = () => {
   const store = useStore()
+  const router = useRouter()
   const [showGroupIdInvalidText, setShowGroupIdInvalidText] = useState(false)
-  useEffect(() => {
-    ;(async () => {
+  const [userGroupValid, setUserGroupValid] = useState(-1)
+
+
+  // Redirect user to first question if user has no / or a valid group-parameter
+  // Display landing page with information in case of invalid group-parameter
+  useEffect(async () => {
       store.resetVersion()
       // eslint-disable-next-line no-undef
       const url = new URLSearchParams(window.location.search)
@@ -44,21 +48,30 @@ const Home = () => {
         const { result: isValidGroupId } = await checkGroupId(groupId)
         if (isValidGroupId) {
           store.setGroupId(groupId)
+          setUserGroupValid(1)
         } else {
           setShowGroupIdInvalidText(true)
+          setUserGroupValid(0)
         }
+      } else {
+        setUserGroupValid(1)
       }
-    })()
   }, [])
-  return (
-    <>
+  useEffect(() => {
+    if(userGroupValid === 1) {
+      router.push('/survey/questions/?id=1')
+      }
+  }, [userGroupValid])
+
+
+  return (userGroupValid === 1 ||
+    userGroupValid === -1 ? null :
+      <>
       <Head>
         <title>DevOps Capability Survey</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <ProgressBar />
-      <InnerContentWrapper>
-        <ContentAnimationWrapper>
+      <SummaryAndScorePageWrapper>
           <Heading component="h1" variant="h5">
             DevOps Assessment Tool
           </Heading>
@@ -70,16 +83,21 @@ const Home = () => {
             </Link>
             {showGroupIdInvalidText && (
               <ErrorMessage>
-                Group id found with the URL is invalid for some reason :( <br />
+                Group id found with the URL is invalid for some reason. <br />
                 You can still complete the survey, but the results won&#39;t be
                 added to the group.
               </ErrorMessage>
             )}
           </Section>
-        </ContentAnimationWrapper>
-      </InnerContentWrapper>
-    </>
+      </SummaryAndScorePageWrapper> 
+      </>
   )
+
+  
+  
+  
 }
+
+
 
 export default Home

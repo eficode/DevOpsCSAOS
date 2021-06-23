@@ -21,7 +21,6 @@ const saveAnswersToDatabase = async (answers, userId) => {
 
 answersRouter.post('/', async (req, res) => {
   const { answers, surveyId, groupId } = req.body
-
   const survey = await Survey.findOne({
     where: { id: surveyId },
   })
@@ -99,9 +98,13 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     surveyId,
     groupId,
     industryId,
+    userQuestionAnswerPairs,
   } = req.body
   try {
     // request body validation
+    // userQuestionAnswerPairs.map((item) => {
+    //   console.log(`Question: ${item.question} Answer: ${item.answer}`)
+    // })
     if (!email || !token || !surveyId) {
       return res.status(400).json({
         message: 'Email, token and survey id are required for submit',

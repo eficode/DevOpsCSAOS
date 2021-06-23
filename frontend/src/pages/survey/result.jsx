@@ -2,9 +2,8 @@ import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
-import { InnerContentWrapper } from '../../components/shared/InnerContentWrapper'
+import { SummaryAndScorePageWrapper } from '../../components/shared/SummaryAndScorePageWrapper'
 import TotalResult from '../../components/totalResult'
-import { ProgressBar } from '../../components/progressBar'
 import { useStore } from '../../store'
 import { ContentAnimationWrapper } from '../../components/contentAnimationWrapper'
 import Heading from '../../components/heading'
@@ -92,8 +91,7 @@ const Home = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <ProgressBar id={1} total={1} />
-      <InnerContentWrapper>
+      <SummaryAndScorePageWrapper>
         <ContentAnimationWrapper>
           <Content>
             <StyledHeading component="h1" variant="h6" font="Montserrat">
@@ -102,7 +100,7 @@ const Home = () => {
             <StyledResultsLabel component="h2" variant="h5">
               Your Results
             </StyledResultsLabel>
-            <TotalResult userResult={userPoints} maxResult={maxPoints} />
+            <TotalResult userResult={Math.round(userPoints)} maxResult={Math.round(maxPoints)} />
             <Heading component="h3" variant="h6" font="Montserrat">
               {text}
             </Heading>
@@ -136,7 +134,7 @@ const Home = () => {
             <GetDetailedResultsForm industries={industries}/>
           </Content>
         </ContentAnimationWrapper>
-      </InnerContentWrapper>
+      </SummaryAndScorePageWrapper>
     </>
   )
 }

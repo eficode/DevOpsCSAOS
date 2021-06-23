@@ -4,7 +4,7 @@ export const ContentWrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 5% 20%;
+  margin: 5% 1%;
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[2]}) {
     margin: 5% 0%;

@@ -6,8 +6,10 @@ const NavWrapper = styled.nav`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  margin-bottom: -25px;
+  justify-content: space-between;
+  margin-bottom: 1%;
+  width: 100% !important;
+  
 `
 
 /**

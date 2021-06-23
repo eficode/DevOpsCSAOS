@@ -3,27 +3,24 @@ import styled from 'styled-components'
 import { Button as MUIButton } from '@material-ui/core'
 
 const StyledButton = styled(MUIButton)`
-  background-color: ${({ theme }) => theme.colors.blueDianne};
-  color: white;
-
+  background-color: ${({ theme }) => theme.colors.gold};
+  color: ${({ theme }) => theme.colors.blueDianne};
   &:hover {
-    background-color: ${({ theme }) => theme.colors.easternBlue};
+    background-color: ${({ theme }) => theme.colors.amber};
   }
-
   font-family: Montserrat;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 2px;
   border-width: 0px;
-  margin-top: 40px;
-  min-width: 120px;
-  line-height: 45px;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin: 1%;
+  min-width: 90px;
+  line-height: 40px;
+  padding: 1%;
   text-transform: capitalize;
-
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 8px 16px, rgba(0, 0, 0, 0.23) 0px 5px 5px;
 `
 
 const Button = ({ onClick, children, type }) => (

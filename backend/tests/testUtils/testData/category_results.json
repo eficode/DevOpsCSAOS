@@ -18,5 +18,70 @@
       "text": "Olet kaurakeksi",
       "categoryId": 20,
       "cutoff_from_maxpoints": 1.0
+    },
+    {
+      "text": "Your company culture does not yet support good DevOps practices. However, consulting can help you to improve your culture with little investment.",
+      "categoryId": 6,
+      "cutoff_from_maxpoints": 0.4
+    },
+    {
+      "text": "Your culture already has some features that support good DevOps practices. As culture is one of the one most important factors in DevOps, some consulting may still be necessary.",
+      "categoryId": 6,
+      "cutoff_from_maxpoints": 0.7
+    },
+    {
+      "text": "Your company culture obeys most of the features required in fostering a DevOps-friendly atmosphere. Good job!",
+      "categoryId": 6,
+      "cutoff_from_maxpoints": 1.0
+    },
+    {
+      "text": "Your workflow is still quite old-school, and learning new ways of operating could be of a massive help toward your productivity.",
+      "categoryId": 6,
+      "cutoff_from_maxpoints": 0.3
+    },
+    {
+      "text": "You have already learned some good workflow practices, but a lot can still be improved. Some training could still improve your work.",
+      "categoryId": 2,
+      "cutoff_from_maxpoints": 0.8
+    },
+    {
+      "text": "Most of your workflow practices already implement good DevOps practices.",
+      "categoryId": 2,
+      "cutoff_from_maxpoints": 1.0
+    },
+    {
+      "text": "You have still a lot of learning to do with DevOps tools. Luckily, we have good basic-level courses to help you.",
+      "categoryId": 3,
+      "cutoff_from_maxpoints": 0.2
+    },
+    {
+      "text": "You already use tools needed to embrace a DevOps way of working. However, learning more advanced-level usage of these tools could still help you enormously.",
+      "categoryId": 3,
+      "cutoff_from_maxpoints": 0.8
+    },
+    {
+      "text": "Your tools usage is on a very good level. If you have fewer points from other categories, focusing on improving on them will help you most.",
+      "categoryId": 3,
+      "cutoff_from_maxpoints": 1.0
+    },
+    {
+      "text": "Your skills are still lacking. Consider taking some courses to learn more on skills such as CI/CD configuration and testing frameworks.",
+      "categoryId": 4,
+      "cutoff_from_maxpoints": 0.5
+    },
+    {
+      "text": "Your skills are good. However, there is really no point where skill improvement would no longer benefit, so further training could always improve your work.",
+      "categoryId": 4,
+      "cutoff_from_maxpoints": 1.0
+    },
+    {
+      "text": "Code quality is the basic pre-requisite to transfer to better DevOps practices. Your coding conventions still need improvement, consider improving on this first.",
+      "categoryId": 5,
+      "cutoff_from_maxpoints": 0.5
+    },
+    {
+      "text": "Your coding practices are already pretty good, but learning about how the conventions can be further improved could still help you a lot.",
+      "categoryId": 5,
+      "cutoff_from_maxpoints": 1.0
     }
 ]

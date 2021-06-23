@@ -1,12 +1,14 @@
 import axios from 'axios'
 import { publicRuntimeConfig } from './constants'
-const API_URL = publicRuntimeConfig.API_URL
 
-export const sendAnswers = async (answers, surveyId, groupId) => {
+const {API_URL} = publicRuntimeConfig
+
+export const sendAnswers = async (answers, surveyId, groupId, selections) => {
   const response = await axios.post(`${API_URL}/answers`, {
     answers,
     surveyId,
     groupId,
+    selections
   })
   return response.data
 }
@@ -43,7 +45,8 @@ export const submitEmail = async (
   email,
   createNewGroup,
   groupId,
-  industryId
+  industryId,
+  userQuestionAnswerPairs
 ) => {
   const surveyId = 1
   const response = await axios.post(`${API_URL}/answers/emailsubmit`, {
@@ -53,6 +56,7 @@ export const submitEmail = async (
     surveyId,
     groupId,
     industryId,
+    userQuestionAnswerPairs,
   })
   return response.data
 }
