@@ -99,12 +99,12 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     groupId,
     industryId,
     userQuestionAnswerPairs,
+    selections,
   } = req.body
+
   try {
     // request body validation
-    // userQuestionAnswerPairs.map((item) => {
-    //   console.log(`Question: ${item.question} Answer: ${item.answer}`)
-    // })
+
     if (!email || !token || !surveyId) {
       return res.status(400).json({
         message: 'Email, token and survey id are required for submit',
@@ -165,16 +165,35 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     }
 
     if (process.env.NODE_ENV === 'production') {
-      const baseUrl = req.get('origin')
-      const group_parameter = groupId || createdGroupId
-      const user_parameter = userToken
-      const group_invite_link = group_parameter
-        ? `${baseUrl}/?groupid=${group_parameter}`
-        : ''
-      const user_results_link = user_parameter
-        ? `${baseUrl}/survey/total_results/?user=${user_parameter}&version=A`
-        : ''
-      await SendHubspotMessage(email, group_invite_link, user_results_link)
+      try {
+        const question_answer_id_pairs = selections.map(
+          (item) =>
+            `${item.questionId}:${
+              item.answerId % 5 === 0 ? 5 : item.answerId % 5
+            }`
+        )
+        const baseUrl = req.get('origin')
+        const group_parameter = groupId || createdGroupId
+        const user_parameter = userToken
+        const group_invite_link = group_parameter
+          ? `${baseUrl}/?groupid=${group_parameter}`
+          : ''
+        const user_results_link = user_parameter
+          ? `${baseUrl}/survey/total_results/?user=${user_parameter}&version=A`
+          : ''
+        await SendHubspotMessage(
+          email,
+          group_invite_link,
+          user_results_link,
+          question_answer_id_pairs,
+          userQuestionAnswerPairs
+        )
+      } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+          message: 'Sending data to hubspot failed.',
+        })
+      }
     }
 
     return res.status(200).json({})

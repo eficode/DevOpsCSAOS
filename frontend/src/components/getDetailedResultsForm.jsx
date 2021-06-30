@@ -134,7 +134,8 @@ const GetDetailedResultsForm = ({ industries }) => {
       createGroupChecked,
       groupId,
       industryId,
-      store.userQuestionAnswerPairs
+      store.userQuestionAnswerPairs,
+      store.selections
     )
     setSubmitted(true)
   }

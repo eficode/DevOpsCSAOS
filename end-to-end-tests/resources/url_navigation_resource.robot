@@ -26,6 +26,7 @@ ${EMAIL_COMPLETE}       Thank you
 
 Open Browser To Main Page
     Open Browser    ${MAIN_URL}/    ${BROWSER}
+    Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=1
 
 Main Page Should Be Open
     Title Should Be    DevOps Capability Survey
