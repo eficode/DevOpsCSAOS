@@ -27,7 +27,7 @@ const GlobalStyles = createGlobalStyle`
     } 
 
     html {
-      background-color: #f7f5f4;
+      background-color: #F0F0EC;
     }
   `
 

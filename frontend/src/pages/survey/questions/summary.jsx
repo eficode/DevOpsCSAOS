@@ -7,7 +7,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useStore } from '../../../store'
 import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
-import { SummaryAndScorePageWrapper } from '../../../components/shared/SummaryAndScorePageWrapper'
+import { useTheme, makeStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
+import Box from '@material-ui/core/Box'
 import StyledButton from '../../../components/button'
 import { sendAnswers } from '../../../services/routes'
 import { allQuestionsAnswered } from '../../../utils'
@@ -46,13 +50,47 @@ const QuestionAnswerWrapper = styled.article`
   }
 `
 
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    minHeight: '80vh',
+    height: '100%',
+    margin: '0',
+    padding: '10%',
+    borderRadius: '12px',
+  },
+  span: {
+    display: 'inline-block',
+    margin: '0.4rem 0',
+    fontFamily: 'Merriweather',
+    fontWeight: 'normal',
+    fontSize: '16px',
+    color: 'black',
+  },
+  image: {
+    paddingBottom: '30%',
+    width: '75%',
+  },
+  heading: {
+    paddingTop: '2%',
+    height: '90px',
+  },
+}))
+
 const Summary = () => {
   const selections = useStore((state) => state.selections)
   const questions = useStore((state) => state.questions)
-
   const store = useStore()
   const router = useRouter()
-
+  const theme = useTheme()
+  const classes = useStyles(theme)
   const lastQuestionHref = `/survey/questions/?id=${store.questionGroups.length}`
 
   useEffect(() => {
@@ -80,9 +118,14 @@ const Summary = () => {
       ).text,
     }))
     store.setUserQuestionAnswerPairs(userQuestionAnswerPairs)
-    
+
     try {
-      const response = await sendAnswers(answersForBackend, surveyId, groupId, selections)
+      const response = await sendAnswers(
+        answersForBackend,
+        surveyId,
+        groupId,
+        selections
+      )
       store.setResults(response.results)
       store.setUserToken(response.token)
       router.push('/survey/result')
@@ -97,56 +140,78 @@ const Summary = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <SummaryAndScorePageWrapper>
-        <Content>
-          <ContentAnimationWrapper>
-            <Heading component="h1" variant="h6">
-              Here are your current answers
-            </Heading>
-            <br />
-            {questions &&
-              questions.map((question) => {
-                let answerText
-                let answeredQuestion = true
-                const currentAnswerId = selections.find(
-                  (s) => s.questionId === question.id
-                ).answerId
 
-                if (!currentAnswerId) {
-                  answeredQuestion = false
-                  answerText = "You haven't answered this question."
-                } else {
-                  const selectedAnswerText = question.Question_answers.find(
-                    (a) => a.id === currentAnswerId
-                  ).text
-                  answerText = `You answered: ${selectedAnswerText}`
-                }
+      <Grid container item direction="row" alignItems="center">
+        <Hidden smDown>
+          <Grid item md className={classes.image}>
+            <img src="/leftside.png" width="100%" alt="Left banner" />
+          </Grid>
+        </Hidden>
 
-                const QuestionText = `${question.text}`
+        <Grid item xs={12} md={7}>
+          <Paper className={classes.paper}>
+            <Content>
+              <ContentAnimationWrapper>
+                <Heading component="h1" variant="h6">
+                  Here are your current answers
+                </Heading>
+                <br />
+                {questions &&
+                  questions.map((question) => {
+                    let answerText
+                    let answeredQuestion = true
+                    const currentAnswerId = selections.find(
+                      (s) => s.questionId === question.id
+                    ).answerId
 
-                return (
-                  <QuestionAnswerWrapper key={question.id}>
-                    <Link href={`/survey/questions/?id=${question.id}`}>
-                      <a href={`/survey/questions/?id=${question.id}`}>
-                        {QuestionText}
-                      </a>
-                    </Link>
-                    <br />
-                    <span style={!answeredQuestion ? { color: '#ff6600' } : {}}>
-                      {answerText}
-                    </span>
-                  </QuestionAnswerWrapper>
-                )
-              })}
-          </ContentAnimationWrapper>
-          <StyledLink type="secondary" href={lastQuestionHref}>
-            Back to survey
-          </StyledLink>
-          <StyledButton type="submit" onClick={handleSubmit}>
-            Submit answers
-          </StyledButton>
-        </Content>
-      </SummaryAndScorePageWrapper>
+                    if (!currentAnswerId) {
+                      answeredQuestion = false
+                      answerText = "You haven't answered this question."
+                    } else {
+                      const selectedAnswerText = question.Question_answers.find(
+                        (a) => a.id === currentAnswerId
+                      ).text
+                      answerText = `You answered: ${selectedAnswerText}`
+                    }
+
+                    const QuestionText = `${question.text}`
+
+                    return (
+                      <QuestionAnswerWrapper key={question.id}>
+                        <Link href={`/survey/questions/?id=${question.id}`}>
+                          {QuestionText}
+                        </Link>
+                        <br />
+                        <span
+                          style={!answeredQuestion ? { color: '#ff6600' } : {}}
+                        >
+                          {answerText}
+                        </span>
+                      </QuestionAnswerWrapper>
+                    )
+                  })}
+              </ContentAnimationWrapper>
+              <StyledLink type="secondary" href={lastQuestionHref}>
+                Back to survey
+              </StyledLink>
+              <StyledButton type="submit" onClick={handleSubmit}>
+                Submit answers
+              </StyledButton>
+            </Content>
+          </Paper>
+        </Grid>
+        <Hidden smDown>
+          <Grid item md className={classes.image}>
+            <img src="/rightside.png" width="100%" alt="Right banner" />
+          </Grid>
+        </Hidden>
+      </Grid>
+      <br />
+      <Box textAlign="center">
+        <Grid item>
+          <img src="/logo.png" alt="Logo" width={100} height={100} />
+        </Grid>
+      </Box>
     </>
   )
 }

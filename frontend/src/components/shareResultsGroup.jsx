@@ -11,7 +11,8 @@ import {
 
 const ShareButtonGrouper = styled.div`
   button {
-    margin: 3px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 `
 // Linked In does not support any other parameters than url: https://github.com/nygardk/react-share/issues/385
@@ -21,15 +22,15 @@ const ShareResultsGroup = ({ text, userPoints, maxPoints }) => {
   return (
     <ShareButtonGrouper>
       <LinkedinShareButton url="https://ohtu-csaos-staging.herokuapp.com/">
-        <LinkedinIcon size={32} round />
+        <LinkedinIcon size={42} round />
       </LinkedinShareButton>
 
       <TwitterShareButton title={headerToShare} url="https://ohtu-csaos-staging.herokuapp.com/">
-        <TwitterIcon size={32} round />
+        <TwitterIcon size={42} round />
       </TwitterShareButton>
 
       <FacebookShareButton quote={headerToShare} url="https://ohtu-csaos-staging.herokuapp.com/">
-        <FacebookIcon size={32} round />
+        <FacebookIcon size={42} round />
       </FacebookShareButton>
     </ShareButtonGrouper>
   )

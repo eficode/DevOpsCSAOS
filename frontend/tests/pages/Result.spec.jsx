@@ -85,7 +85,7 @@ describe('Top of page contains survey points and summary text of result', () => 
         <ResultPage />
       </ThemeWrapper>,
     )
-    expect(screen.queryByText('65/100')).toBeInTheDocument()
+    expect(screen.queryByText('65 / 100')).toBeInTheDocument()
   })
 
   it('User survey result text is rendered', async () => {

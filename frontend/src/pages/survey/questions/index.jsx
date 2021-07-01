@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     padding: '8px',
     margin: '0px',
     height: '100%',
+    borderRadius: '12px',
   },
   rowGrid: {
     minHeight: '400px',
