@@ -16,11 +16,11 @@ const StyledButton = styled(MUIButton)`
   border-width: 0px;
   margin: 1%;
   min-width: 90px;
-  line-height: 40px;
+  line-height: 30px;
   padding: 1%;
   text-transform: capitalize;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 8px 16px, rgba(0, 0, 0, 0.23) 0px 5px 5px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 1px 2px, rgba(0, 0, 0, 0.23) 0px 1px 2px;
 `
 
 const Button = ({ onClick, children, type }) => (

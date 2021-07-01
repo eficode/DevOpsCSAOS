@@ -17,6 +17,8 @@ const StyledOption = styled(Button)`
   font-weight: bold;
   padding: 8px 10px;
   text-transform: capitalize;
+  min-width: 170px;
+  white-space: nowrap;
   &:hover {
     background-color: ${({ theme, selected }) =>
       selected ? 'white' : theme.colors.whiteSmoke};

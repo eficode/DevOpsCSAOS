@@ -16,7 +16,7 @@ const FormBackGround = styled.div`
   width: 100%;
   margin-top: 30px;
   padding: 15px;
-  background: #99c2d0;
+  background: #f0f0ec;
   border-radius: 20px;
 `
 
@@ -35,7 +35,7 @@ const DetailsForm = styled.form`
 `
 
 const DetailsInput = styled.input`
-  background-color: ${({ theme }) => theme.colors.whiteSmoke};
+  background-color: white;
   font-family: Montserrat;
   padding: 10px 20px;
   border-radius: 10px;
@@ -50,9 +50,11 @@ const DetailsInput = styled.input`
 
 const CheckboxContainer = styled.div`
   margin-top: 10px;
+  text-align: left;
   a {
     font-weight: bold;
     text-decoration: underline;
+    text-color: black;
   }
 `
 
@@ -175,6 +177,20 @@ const GetDetailedResultsForm = ({ industries }) => {
             selectedIndustry={selectedIndustry}
             setSelectedIndustry={setSelectedIndustry}
           />
+          <CheckboxContainer>
+            <StyledCheckbox
+              checked={agreeToPrivacyPolicyChecked}
+              onChange={handleAgreeToPolicyChange}
+              name="acceptPrivacyPolicy"
+              style={{
+                color: '#1E3944',
+              }}
+            />
+            <CheckBoxText>
+              Agree to the{'\u00A0'}
+              <Link href="/privacy/">Privacy policy</Link>
+            </CheckBoxText>
+          </CheckboxContainer>
           {store.groupId === '' && (
             <CheckboxContainer>
               <StyledCheckbox
@@ -185,7 +201,9 @@ const GetDetailedResultsForm = ({ industries }) => {
                   color: '#1E3944',
                 }}
               />
-              <CheckBoxText>Create a group</CheckBoxText>
+              <CheckBoxText>
+                Create a group to compare results with
+              </CheckBoxText>
               <StyledIconButton
                 aria-label="info"
                 component="span"
@@ -201,20 +219,6 @@ const GetDetailedResultsForm = ({ industries }) => {
               </Info>
             </CheckboxContainer>
           )}
-          <CheckboxContainer>
-            <StyledCheckbox
-              checked={agreeToPrivacyPolicyChecked}
-              onChange={handleAgreeToPolicyChange}
-              name="acceptPrivacyPolicy"
-              style={{
-                color: '#1E3944',
-              }}
-            />
-            <CheckBoxText>
-              Agree to the    
-              <Link href="/privacy/">Privacy policy</Link>
-            </CheckBoxText>
-          </CheckboxContainer>
         </FieldWrapper>
         <Button id="submit-email-button" type="submit">
           Submit

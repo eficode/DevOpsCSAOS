@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     paddingTop: '2%',
+    height: '90px',
   },
 }))
 
@@ -56,7 +57,7 @@ const SingleQuestion = ({ question, onOptionClick, total }) => {
         spacing={2}
       >
         {question.Question_answers.map((answer) => (
-          <Grid item xs={12} sm key={answer.id}>
+          <Grid item xs={12} sm={4} key={answer.id}>
             <Option
               id={answer.id}
               selected={answer.id === currentSelection}

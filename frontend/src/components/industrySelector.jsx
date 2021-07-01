@@ -8,7 +8,7 @@ import {
 
 
 const StyledFormControl = styled(FormControl)`
-  background-color: ${({ theme }) => theme.colors.whiteSmoke};
+  background-color: white;
   font-family: Montserrat;
   border-radius: 10px;
   border-width: 0px;
@@ -18,12 +18,12 @@ const StyledFormControl = styled(FormControl)`
 `
 const StyledSelect = styled(Select)`
   font-family: Montserrat;
-  font-size: 11px;
+  font-size: 14px;
   padding-left: 15px;
-  background-color: ${({ theme }) => theme.colors.whiteSmoke};
+  background-color: white;
   color: ${(props) => (props.value === 0 ? '#717171' : '#000000')};
   .MuiSelect-select:focus {
-    background-color: ${({ theme }) => theme.colors.whiteSmoke};
+    background-color: white;
   }
 `
 
