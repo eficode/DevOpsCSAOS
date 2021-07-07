@@ -13,9 +13,7 @@ questionsRouter.get('/:surveyId', async (req, res) => {
       where: {
         surveyId: surveyId,
       },
-      order: [
-        ['id', 'ASC'],
-      ],
+      order: [['id', 'ASC']],
     })
     return res.status(200).json(questions)
   } catch (e) {
