@@ -1,46 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import styled from 'styled-components'
 import { useStore } from '../../store'
 import { ContentAnimationWrapper } from '../../components/contentAnimationWrapper'
-import { useTheme, makeStyles } from '@material-ui/core/styles'
-import Heading from '../../components/heading'
 import ShareResultsGroup from '../../components/shareResultsGroup'
 import GetDetailedResultsForm from '../../components/getDetailedResultsForm'
 import { getIndustries } from '../../services/routes'
 import Grid from '@material-ui/core/Grid'
-import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-
-const Content = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
-  padding-left: 9%;
-  padding-right: 9%;
-  width: 100%;
-  background-color: white;
-  border-radius: 0.5rem;
-
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
-    padding-left: 8%;
-    padding-right: 8%;
-  }
-`
-
-const ResultSummaryText = styled.section`
-  text-align: center;
-  padding: 15px 0 30px 0;
-  line-height: 1.6;
-  font-size: 16px;
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
-    text-align: left;
-  }
-`
+import { useTheme, makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -49,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     textAlign: 'center',
     justifyContent: 'center',
-    width: '100% !important',
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
-      width: '100% !important',
+      width: '100%',
     },
     minHeight: '80vh',
     height: '100%',
@@ -59,12 +28,19 @@ const useStyles = makeStyles((theme) => ({
     padding: '3%',
     borderRadius: '12px',
   },
+  contentRow:{
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   heading: {
     paddingTop: '2%',
     height: '90px',
   },
   image: {
     paddingBottom: '20%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   score: {
     fontFamily: 'Merriweather',
@@ -78,35 +54,49 @@ const useStyles = makeStyles((theme) => ({
   result: {
     fontFamily: 'Merriweather',
     fontWeight: '300',
-  }
+  },
+  resultText: {
+    fontFamily: 'Merriweather',
+    textAlign: 'center',
+    padding: '15px 0 30px 0',
+    lineHeight: '1.6',
+    fontSize: '16px',
+  },
 }))
+
+
 
 const Home = () => {
   const store = useStore()
   const theme = useTheme()
   const classes = useStyles(theme)
 
-  useEffect(() => {
-    ;(async () => {
-      if (store.industries.length === 0) {
+  let maxPoints, userPoints, text, userBestInCategory, userWorstInCategory
+  let categories = []
+  let industries = []
+  
+  useEffect( async () => {
+    if(store.industries.length === 0){
         try {
           const response = await getIndustries()
-
           store.setIndustries(response)
         } catch (error) {
           console.error(error)
-        }
+        }    
       }
-    })()
-  }, [])
+    },[])
 
-  if (!store.results) {
-    return <div>loading results...</div>
+
+
+  if(store.industries.length !== 0){
+    maxPoints = store.results.surveyResult.maxPoints
+          userPoints = store.results.surveyResult.userPoints
+          text = store.results.surveyResult.text
+          categories = store.results.categories
+          userBestInCategory = store.results.userBestInCategory
+          userWorstInCategory = store.results.userWorstInCategory
+          industries = store.industries
   }
-
-  const { maxPoints, userPoints, text } = store.results.surveyResult
-  const { categories, userBestInCategory, userWorstInCategory } = store.results
-  const { industries } = store
 
   const convertArrayOfCategoriesToString = () => {
     let str = `${categories[0]}`
@@ -120,62 +110,61 @@ const Home = () => {
 
   const listOfCategories = convertArrayOfCategoriesToString()
 
-  return (
+  return (!industries ? <div>Loading your results</div> :
     <>
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <Heading component="h1" variant="h5">
+      <Typography variant="h5" className={classes.title}>
         DevOps Self Assessment
-      </Heading>
-      <p> Assess your DevOps cababilities here, lorem ipsum</p>
-      <Grid container item direction="row" alignItems="center">
-        <Hidden smDown>
-          <Grid item md className={classes.image}>
-            <img src="/leftside.png" width="100%" alt="Left banner" />
-          </Grid>
-        </Hidden>
-
+      </Typography>
+      <Typography variant="subtitle1" >
+        Assess your DevOps cababilities here, lorem ipsum
+      </Typography>
+      <Grid container className={classes.contentRow}>
+        <Grid item md={2} className={classes.image}>
+          <img src="/leftside.png" width="100%" alt="Left banner" />
+        </Grid>
         <Grid item xs={12} md={7}>
           <Paper className={classes.paper}>
-            <Content>
-              <ContentAnimationWrapper>
-                <Typography variant="h2" className={classes.title}>
-                  Your Results
-                </Typography>
-                <Typography variant="h4" className={classes.score}>
-                  {Math.round(userPoints)} / {Math.round(maxPoints)}
-                </Typography>
-                <Typography variant="h6" className={classes.result}>
-                  {text}
-                </Typography>
-                <ResultSummaryText data-testid="summarytext">
-                  The tool assesses your DevOps capabilities in different
-                  categories based on your answers. We have assessed your
-                  capabilities in categories <strong>{listOfCategories}</strong>
-                  . Your highest score was in the category
-                  <strong> {userBestInCategory}</strong>, whereas you scored
-                  lowest in
-                  <strong> {userWorstInCategory}</strong>. Fill in the form
-                  below to get your detailed results by email and see how to
-                  improve your skills. You can also compare your results with
-                  others in your industry or in the selected reference group.
-                </ResultSummaryText>
-                <ShareResultsGroup
-                  text={text}
-                  userPoints={userPoints} 
-                  maxPoints={maxPoints}
-                />
-                <GetDetailedResultsForm industries={industries} />
-              </ContentAnimationWrapper>
-            </Content>
+            <ContentAnimationWrapper>
+              <Typography variant="h5" className={classes.title}>
+                Your Results
+              </Typography>
+              <Typography variant="h5" className={classes.score}>
+                {Math.round(userPoints)} / {Math.round(maxPoints)}
+              </Typography>
+              <Typography variant="h6" className={classes.result}>
+                {text}
+              </Typography>
+              <Typography
+                variant="body1"
+                className={classes.resultText}
+                data-testid="summarytext"
+              >
+                The tool assesses your DevOps capabilities in different
+                categories based on your answers. We have assessed your
+                capabilities in categories <strong>{listOfCategories}</strong>.
+                Your highest score was in the category
+                <strong> {userBestInCategory}</strong>, whereas you scored
+                lowest in
+                <strong> {userWorstInCategory}</strong>. Fill in the form below
+                to get your detailed results by email and see how to improve
+                your skills. You can also compare your results with others in
+                your industry or in the selected reference group.
+              </Typography>
+              <ShareResultsGroup
+                text={text}
+                userPoints={userPoints}
+                maxPoints={maxPoints}
+              />
+              <GetDetailedResultsForm industries={industries} />
+            </ContentAnimationWrapper>
           </Paper>
         </Grid>
-        <Hidden smDown>
-          <Grid item md className={classes.image}>
-            <img src="/rightside.png" width="100%" alt="Right banner" />
-          </Grid>
-        </Hidden>
+        <Grid item md={2} className={classes.image}>
+          <img src="/rightside.png" width="100%" alt="Right banner" />
+        </Grid>
       </Grid>
       <br />
       <Box textAlign="center">

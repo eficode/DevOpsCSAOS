@@ -161,7 +161,7 @@ const GetDetailedResultsForm = ({ industries }) => {
 
   return (
     <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
-      <FormTitle>Get your detailed results</FormTitle>
+      <FormTitle>Get more detailed results</FormTitle>
       <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
         <FieldWrapper>
           <DetailsInput

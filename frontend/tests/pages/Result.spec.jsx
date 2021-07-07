@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react'
+import React, { useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import * as nextRouter from 'next/router'
 import '@testing-library/jest-dom/extend-expect'
@@ -15,6 +15,7 @@ jest.mock('next/config', () => () => ({
     THIS_NEEDS_TO_BE_SOMETHING: 'something'
   }
 }))
+
 
 beforeEach(() => {
   useStore.setState({

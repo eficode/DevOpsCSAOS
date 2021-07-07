@@ -3,21 +3,20 @@ import styled from 'styled-components'
 import Button from '@material-ui/core/Button'
 
 const StyledOption = styled(Button)`
-  background-color: ${({ selected }) =>
-    selected ? 'white' : 'white' };
+  background-color: 'white';
   border-style: solid;
   size: small;
-  border-radius: 3px;
+  border-radius: 8px;
   border-width: ${({ selected }) =>
-  selected ? '1.75px': '1px'};
+  selected ? '1.75px': '1.5px'};
   border-color: ${({ theme, selected }) =>
   selected ? theme.colors.gold : theme.colors.whiteSmoke};
-  font-size: 15px;
+  font-size: 14px;
   font-family: Montserrat;
+  width: 90%;
   font-weight: bold;
-  padding: 8px 10px;
+  padding: 4px 6px;
   text-transform: capitalize;
-  min-width: 170px;
   white-space: nowrap;
   &:hover {
     background-color: ${({ theme, selected }) =>
