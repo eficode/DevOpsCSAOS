@@ -11,6 +11,8 @@ const GlobalStyles = createGlobalStyle`
       font-family: 'Source Serif Pro', serif;
       font-size: 18px;
       overflow-x: none;
+      display: flex;
+      justify-content: center;
     }
 
 

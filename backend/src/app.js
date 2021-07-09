@@ -4,8 +4,9 @@ const cors = require('cors')
 
 const app = express()
 
+let corsOptions = {}
 if (process.env.NODE_ENV !== 'production') {
-  const corsOptions = {
+  corsOptions = {
     origin: 'http://localhost:3000',
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   }

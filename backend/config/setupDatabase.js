@@ -28,15 +28,31 @@ const {
 const initDatabase = async () => {
   const answers = await generateAnswerData()
 
-  await sequelize.sync({ force: true })
-  await Survey.bulkCreate(surveys)
-  await Survey_result.bulkCreate(survey_results)
-  await Category.bulkCreate(categories)
-  await Category_result.bulkCreate(category_results)
-  await Question.bulkCreate(questions)
-  await Question_answer.bulkCreate(answers)
-  await Industry.bulkCreate(industries)
-  await Survey_user_group.bulkCreate(survey_user_groups)
+  //await sequelize.sync({ force: true })
+  await Survey.bulkCreate(surveys, {
+    updateOnDuplicate: ['id'],
+  })
+  await Survey_result.bulkCreate(survey_results, {
+    updateOnDuplicate: ['id'],
+  })
+  await Category.bulkCreate(categories, {
+    updateOnDuplicate: ['id'],
+  })
+  await Category_result.bulkCreate(category_results, {
+    updateOnDuplicate: ['id'],
+  })
+  await Question.bulkCreate(questions, {
+    updateOnDuplicate: ['id'],
+  })
+  await Question_answer.bulkCreate(answers, {
+    updateOnDuplicate: ['id'],
+  })
+  await Industry.bulkCreate(industries, {
+    updateOnDuplicate: ['name'],
+  })
+  await Survey_user_group.bulkCreate(survey_user_groups, {
+    updateOnDuplicate: ['id'],
+  })
 }
 
 module.exports = { initDatabase }
