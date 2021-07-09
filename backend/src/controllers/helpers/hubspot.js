@@ -20,8 +20,8 @@ const SendHubspotMessage = async (
     throw new Error('Failed to initialise HubSpot connection')
   }
 
-  const idPairs = question_answer_id_pairs.join('\n')
-  const clearTextPairs = userQuestionAnswerPairs
+  const idPairs = await question_answer_id_pairs.join('\n')
+  const clearTextPairs = await userQuestionAnswerPairs
     .map((item) => `${item.question} ${item.answer}`)
     .join('\n\n')
 
@@ -38,6 +38,7 @@ const SendHubspotMessage = async (
   try {
     return await hubspotClient.crm.contacts.basicApi.create(contactObj)
   } catch (error) {
+    console.log(error)
     try {
       const filter = {
         propertyName: 'email',
