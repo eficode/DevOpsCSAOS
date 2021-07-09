@@ -165,6 +165,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     }
 
     if (process.env.NODE_ENV === 'production') {
+      console.log('sending message')
       try {
         const question_answer_id_pairs = selections.map(
           (item) =>
@@ -188,6 +189,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
           question_answer_id_pairs,
           userQuestionAnswerPairs
         )
+        console.log('message sent')
       } catch (error) {
         console.log(error)
         return res.status(500).json({
