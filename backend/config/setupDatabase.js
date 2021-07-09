@@ -9,7 +9,7 @@ const industries = require('./initialData/industries.json')
 const { generateAnswerData } = require('./generateAnswerData')
 
 const {
-  sequelize,
+  // sequelize,
   Question,
   Category,
   Question_answer,
@@ -28,7 +28,7 @@ const {
 const initDatabase = async () => {
   const answers = await generateAnswerData()
 
-  //await sequelize.sync({ force: true })
+  // await sequelize.sync({ force: true })
   await Survey.bulkCreate(surveys, {
     updateOnDuplicate: ['id'],
   })
