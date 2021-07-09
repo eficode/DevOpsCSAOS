@@ -11,7 +11,7 @@ const StyledOption = styled(Button)`
   selected ? '1.75px': '1.5px'};
   border-color: ${({ theme, selected }) =>
   selected ? theme.colors.gold : theme.colors.whiteSmoke};
-  font-size: 14px;
+  font-size: 12px;
   font-family: Montserrat;
   width: 90%;
   font-weight: bold;

@@ -10,7 +10,6 @@ import TotalResultsPage from '../../src/pages/survey/total_results'
 import { detailedResults } from '../testutils/testdata'
 
 nextRouter.useRouter = jest.fn()
-jest.mock('react-d3-speedometer', () => () => 'gauge')
 jest.mock('next/config', () => () => ({
   publicRuntimeConfig: {
     THIS_NEEDS_TO_BE_SOMETHING: 'something'
@@ -69,8 +68,9 @@ describe('Chart rendering', () => {
     }))
   })
 
-  it('Toggle A renders bar chart', () => {
+  it('Toggle B renders bar chart', () => {
     useStore.setState({
+      featureToggleSwitch: 'B',
       results: {
         detailedResults,
       },
@@ -83,9 +83,9 @@ describe('Chart rendering', () => {
     expect(document.getElementById('BarChartContainer')).toBeInTheDocument()
   })
 
-  it('Toggle B renders radar chart', () => {
+  it('Toggle A renders radar chart', () => {
     useStore.setState({
-      featureToggleSwitch: 'B',
+      featureToggleSwitch: 'A',
       results: {
         detailedResults,
       },

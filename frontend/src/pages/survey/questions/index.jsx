@@ -8,7 +8,6 @@ import DoneIcon from '@material-ui/icons/Done'
 import { useTheme, makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid'
-import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
 import { useStore } from '../../../store'
 import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
@@ -38,6 +37,18 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  image: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  content: {
+    justifyContent: 'center',
+  },
+  contentRow:{
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }))
 
@@ -119,7 +130,8 @@ const SurveyPage = () => {
 
   return (
     <>
-      <Grid container direction="column" alignContent="center" alignItems="center">
+    <div className={classes.content}>
+      <Grid container direction="column" alignContent="center" alignItems="center" >
         <Grid item>
           <Head>
             <title>DevOps Capability Survey</title>
@@ -129,16 +141,14 @@ const SurveyPage = () => {
           </Heading>
           <p> Assess your DevOps cababilities here, lorem ipsum</p>
         </Grid>
-        <Grid container item direction="row" alignItems="center">
-          <Hidden smDown>
-            <Grid item md>
+        <Grid container item className={classes.contentRow}>
+            <Grid item md={2} className={classes.image}>
             <img
                 src='/leftside.png'
                 width='100%'
                 alt="Left banner"
               />
             </Grid>
-          </Hidden>
           <Grid item xs={12} md={5}>
             <Box>
               <Card variant="elevation" className={classes.card}>
@@ -197,15 +207,13 @@ const SurveyPage = () => {
               </Card>
             </Box>
           </Grid>
-          <Hidden smDown>
-            <Grid item md>
+            <Grid item md={2} className={classes.image}>
                <img
                 src='/rightside.png'
                 width='100%'
                 alt='Right banner'
               />
             </Grid>
-          </Hidden>
         </Grid>
         <br />
         <Box textAlign='center'>
@@ -220,6 +228,7 @@ const SurveyPage = () => {
           </Grid>
         </Box>
       </Grid>
+      </div>
     </>
   )
 }

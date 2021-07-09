@@ -27,18 +27,18 @@ const CustomTooltip = ({ data, active, payload, label }) => {
         <p className="category">
           <strong>Category: {label}</strong>
         </p>
-        <p className="you">Your points: {payload[0].payload.userPoints}</p>
+        <p className="you">Your points: {Math.round(payload[0].payload.userPoints)}</p>
         {data[0].groupAverage && (
           <p className="group">
-            Group average: {payload[0].payload.groupAverage.toFixed(1)}
+            Group average: {Math.round(payload[0].payload.groupAverage.toFixed(1))}
           </p>
         )}
         {data[0].industryAverage && (
           <p className="industry">
-            Industry average: {payload[0].payload.industryAverage.toFixed(1)}
+            Industry average: {Math.round(payload[0].payload.industryAverage.toFixed(1))}
           </p>
         )}
-        <p className="max">Max points: {payload[0].payload.maxPoints}</p>
+        <p className="max">Max points: {Math.round(payload[0].payload.maxPoints)}</p>
       </div>
     )
   }
@@ -49,7 +49,7 @@ const CustomTooltip = ({ data, active, payload, label }) => {
 const TotalResultRadarChart = ({ data }) => (
   <>
     <ResultsTitle>Compare your results</ResultsTitle>
-    <ResponsiveContainer id="RadarChartContainer" width="85%" height={450}>
+    <ResponsiveContainer id="RadarChartContainer" width="100%" height={450}>
       <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
         <Tooltip
           cursor={{ fill: 'transparent' }}

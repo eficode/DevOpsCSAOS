@@ -74,6 +74,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '2%',
     height: '90px',
   },
+  content: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 }))
 
 const Summary = () => {
@@ -129,16 +133,17 @@ const Summary = () => {
 
   return (
     <>
+    <div>
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
 
-      <Grid container item direction="row" alignItems="center">
-        <Grid item md className={classes.image}>
+      <Grid container direction="row" className={classes.content}>
+        <Grid item md xl={1} className={classes.image}>
           <img src="/leftside.png" width="100%" alt="Left banner" />
         </Grid>
 
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={7} xl={5} >
           <Paper className={classes.paper}>
             <ContentAnimationWrapper>
               <Heading component="h1" variant="h6">
@@ -188,7 +193,7 @@ const Summary = () => {
             </StyledButton>
           </Paper>
         </Grid>
-        <Grid item md className={classes.image}>
+        <Grid item md xl={1} className={classes.image}>
           <img src="/rightside.png" width="100%" alt="Right banner" />
         </Grid>
       </Grid>
@@ -198,6 +203,7 @@ const Summary = () => {
           <img src="/logo.png" alt="Logo" width={100} height={100} />
         </Grid>
       </Box>
+      </div>
     </>
   )
 }

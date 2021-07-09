@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { useStore } from '../../store'
 import { ContentAnimationWrapper } from '../../components/contentAnimationWrapper'
@@ -19,11 +19,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     justifyContent: 'center',
     width: '100%',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
-    minHeight: '80vh',
-    height: '100%',
     margin: '0',
     padding: '3%',
     borderRadius: '12px',
@@ -74,17 +69,19 @@ const Home = () => {
   let maxPoints, userPoints, text, userBestInCategory, userWorstInCategory
   let categories = []
   let industries = []
-  
+
   useEffect( async () => {
     if(store.industries.length === 0){
         try {
           const response = await getIndustries()
           store.setIndustries(response)
+          
         } catch (error) {
           console.error(error)
         }    
       }
     },[])
+
 
 
 
@@ -110,7 +107,7 @@ const Home = () => {
 
   const listOfCategories = convertArrayOfCategoriesToString()
 
-  return (!industries ? <div>Loading your results</div> :
+  return (!store.industries.length === 0 ? <div>Loading your results</div> :
     <>
       <Head>
         <title>DevOps Capability Survey</title>
@@ -122,10 +119,10 @@ const Home = () => {
         Assess your DevOps cababilities here, lorem ipsum
       </Typography>
       <Grid container className={classes.contentRow}>
-        <Grid item md={2} className={classes.image}>
+        <Grid item md={2} xl={1} className={classes.image}>
           <img src="/leftside.png" width="100%" alt="Left banner" />
         </Grid>
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={7} xl={5}>
           <Paper className={classes.paper}>
             <ContentAnimationWrapper>
               <Typography variant="h5" className={classes.title}>
@@ -162,7 +159,7 @@ const Home = () => {
             </ContentAnimationWrapper>
           </Paper>
         </Grid>
-        <Grid item md={2} className={classes.image}>
+        <Grid item md={2} xl={1} className={classes.image}>
           <img src="/rightside.png" width="100%" alt="Right banner" />
         </Grid>
       </Grid>

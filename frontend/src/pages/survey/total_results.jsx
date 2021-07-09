@@ -2,52 +2,72 @@
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
-import styled from 'styled-components'
 import { SummaryAndScorePageWrapper } from '../../components/shared/SummaryAndScorePageWrapper'
-import TotalResult from '../../components/totalResult'
+
 import Link from '../../components/link'
 import CategoryResult from '../../components/categoryResult'
 import TotalResultBarChart from '../../components/totalResultBarChart'
 import TotalResultRadarChart from '../../components/totalResultRadarChart'
 import { useStore } from '../../store'
 import { ContentAnimationWrapper } from '../../components/contentAnimationWrapper'
-import Heading from '../../components/heading'
 import { getFullResults } from '../../services/routes'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import { useTheme, makeStyles } from '@material-ui/core/styles'
 
-const Content = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
-  width: 100%;
-  background-color: white;
-  border-radius: 0.5rem;
-`
-
-const Categories = styled.div`
-  width: 90%;
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
-    width: 90%;
-  }
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints[0]}) {
-    width: 110%;
-  }
-`
-
-const StyledHeading = styled(Heading)`
-  font-size: 0.75rem;
-  margin-bottom: 1rem;
-`
-const StyledResultsLabel = styled(Heading)`
-  margin-bottom: 1rem;
-`
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    alignItems: 'center',
+    textAlign: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    margin: '0',
+    padding: '3%',
+    borderRadius: '12px',
+  },
+  contentRow: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+  heading: {
+    paddingTop: '2%',
+    height: '90px',
+  },
+  image: {
+    paddingBottom: '20%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  score: {
+    fontFamily: 'Merriweather',
+    fontWeight: 'bold',
+  },
+  title: {
+    fontFamily: 'Merriweather',
+    fontWeight: '700',
+    paddingBottom: '15px',
+  },
+  result: {
+    fontFamily: 'Merriweather',
+    fontWeight: '300',
+  },
+  categoryContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+}))
 
 const Home = () => {
   const [renderMobileLayout, setRenderMobileLayout] = useState(false)
   const [renderMobileChart, setRenderMobileChart] = useState(false)
   const [fullResultsLoaded, setFullResultsLoaded] = useState(false)
   const store = useStore()
+  const theme = useTheme()
+  const classes = useStyles(theme)
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'test') {
@@ -88,13 +108,28 @@ const Home = () => {
 
   if (fullResultsLoaded && !store.detailedResults) {
     return (
-      <SummaryAndScorePageWrapper>
-        <h2>Invalid link</h2>
-        <p>We did not find any results for this user :(</p>
-        <Link href="/" type="primary">
-          Back to home
-        </Link>
-      </SummaryAndScorePageWrapper>
+      <>
+        <Head>
+          <title>DevOps Capability Survey</title>
+        </Head>
+        <Grid container direction="row" className={classes.contentRow}>
+          <Grid item md={2} >
+            <img src="/leftside.png" width="100%" alt="Left banner" />
+          </Grid>
+          <Grid item container xs={12} md={8} xl={6}>
+            <Paper className={classes.paper}>
+              <h2>Invalid link</h2>
+              <p>We did not find any results for this user :(</p>
+              <Link href="/" type="primary">
+                Back to home
+              </Link>
+            </Paper>
+          </Grid>
+          <Grid item md={2} >
+            <img src="/rightside.png" width="100%" alt="Right banner" />
+          </Grid>
+        </Grid>
+      </>
     )
   }
 
@@ -116,44 +151,61 @@ const Home = () => {
       <Head>
         <title>DevOps Capability Survey</title>
       </Head>
-      <SummaryAndScorePageWrapper>
-        <ContentAnimationWrapper>
-          <Content>
-            <StyledHeading component="h1" variant="h6" font="Montserrat">
-              DevOps Assessment Tool
-            </StyledHeading>
-            <StyledResultsLabel component="h2" variant="h5">
+      <Grid container direction="row" className={classes.contentRow}>
+        <Grid item md={2} className={classes.image}>
+          <img src="/leftside.png" width="100%" alt="Left banner" />
+        </Grid>
+        <Grid item container xs={12} md={8} xl={6}>
+          <Paper className={classes.paper}>
+            <Typography variant="h5" className={classes.title}>
               Your Results
-            </StyledResultsLabel>
-            <TotalResult userResult={userPoints} maxResult={maxPoints} />
-            <Heading component="h3" variant="h6" font="Montserrat">
+            </Typography>
+            <Typography variant="h5" className={classes.score}>
+              {Math.round(userPoints)} / {Math.round(maxPoints)}
+            </Typography>
+            <Typography variant="h6" className={classes.result}>
               {text}
-            </Heading>
-            <Categories data-testid="categorycontainer">
-              {categoryResults.map((result, index) => (
-                <CategoryResult
-                  key={result.name}
-                  renderMobileLayout={renderMobileLayout}
-                  userResult={result.userPoints}
-                  maxResult={result.maxPoints}
-                  category={result.name}
-                  description={result.description}
-                  resultText={result.text}
-                  index={index}
+            </Typography>
+            <ContentAnimationWrapper>
+              <Grid
+                container
+                className={classes.categoryContainer}
+                data-testid="categorycontainer"
+              >
+                {categoryResults.map((result, index) => (
+                  <CategoryResult
+                    key={result.name}
+                    renderMobileLayout={renderMobileLayout}
+                    userResult={Math.round(result.userPoints)}
+                    maxResult={Math.round(result.maxPoints)}
+                    category={result.name}
+                    description={result.description}
+                    resultText={result.text}
+                    index={index}
+                  />
+                ))}
+              </Grid>
+              {featureToggleSwitch === 'A' ? (
+                <TotalResultRadarChart data={percentages} />
+              ) : (
+                <TotalResultBarChart
+                  data={percentages}
+                  renderMobileLayout={renderMobileChart}
                 />
-              ))}
-            </Categories>
-            {featureToggleSwitch === 'B' ? (
-              <TotalResultRadarChart data={percentages} />
-            ) : (
-              <TotalResultBarChart
-                data={percentages}
-                renderMobileLayout={renderMobileChart}
-              />
-            )}
-          </Content>
-        </ContentAnimationWrapper>
-      </SummaryAndScorePageWrapper>
+              )}
+            </ContentAnimationWrapper>
+          </Paper>
+        </Grid>
+        <Grid item md={2} className={classes.image}>
+          <img src="/rightside.png" width="100%" alt="Right banner" />
+        </Grid>
+      </Grid>
+      <br />
+      <Box textAlign="center">
+        <Grid item>
+          <img src="/logo.png" alt="Logo" width={100} height={100} />
+        </Grid>
+      </Box>
     </>
   )
 }
