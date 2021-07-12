@@ -113,7 +113,7 @@ const Home = () => {
           <title>DevOps Capability Survey</title>
         </Head>
         <Grid container direction="row" className={classes.contentRow}>
-          <Grid item md={2} >
+          <Grid item md={2}>
             <img src="/leftside.png" width="100%" alt="Left banner" />
           </Grid>
           <Grid item container xs={12} md={8} xl={6}>
@@ -125,7 +125,7 @@ const Home = () => {
               </Link>
             </Paper>
           </Grid>
-          <Grid item md={2} >
+          <Grid item md={2}>
             <img src="/rightside.png" width="100%" alt="Right banner" />
           </Grid>
         </Grid>
@@ -200,11 +200,8 @@ const Home = () => {
           <img src="/rightside.png" width="100%" alt="Right banner" />
         </Grid>
       </Grid>
-      <br />
-      <Box textAlign="center">
-        <Grid item>
-          <img src="/logo.png" alt="Logo" width={100} height={100} />
-        </Grid>
+      <Box textAlign="center" marginTop="20px">
+        <img src="/logo.png" alt="Logo" width={120} height={90} />
       </Box>
     </>
   )

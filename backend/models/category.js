@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     // eslint-disable-next-line no-unused-vars
     static associate(models) {
       // define association here
-      this.hasMany(models.Question, { foreignKey: 'categoryId' })
     }
   }
   Category.init(

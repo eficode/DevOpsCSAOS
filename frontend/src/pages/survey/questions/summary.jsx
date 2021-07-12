@@ -133,76 +133,73 @@ const Summary = () => {
 
   return (
     <>
-    <div>
-      <Head>
-        <title>DevOps Capability Survey</title>
-      </Head>
+      <div>
+        <Head>
+          <title>DevOps Capability Survey</title>
+        </Head>
 
-      <Grid container direction="row" className={classes.content}>
-        <Grid item md xl={1} className={classes.image}>
-          <img src="/leftside.png" width="100%" alt="Left banner" />
+        <Grid container direction="row" className={classes.content}>
+          <Grid item md xl={1} className={classes.image}>
+            <img src="/leftside.png" width="100%" alt="Left banner" />
+          </Grid>
+
+          <Grid item xs={12} md={7} xl={5}>
+            <Paper className={classes.paper}>
+              <ContentAnimationWrapper>
+                <Heading component="h1" variant="h6">
+                  Here are your current answers
+                </Heading>
+                <br />
+                {questions &&
+                  questions.map((question) => {
+                    let answerText
+                    let answeredQuestion = true
+                    const currentAnswerId = selections.find(
+                      (s) => s.questionId === question.id
+                    ).answerId
+
+                    if (!currentAnswerId) {
+                      answeredQuestion = false
+                      answerText = "You haven't answered this question."
+                    } else {
+                      const selectedAnswerText = question.Question_answers.find(
+                        (a) => a.id === currentAnswerId
+                      ).text
+                      answerText = `You answered: ${selectedAnswerText}`
+                    }
+
+                    const QuestionText = `${question.text}`
+
+                    return (
+                      <QuestionAnswerWrapper key={question.id}>
+                        <Link href={`/survey/questions/?id=${question.id}`}>
+                          {QuestionText}
+                        </Link>
+                        <br />
+                        <span
+                          style={!answeredQuestion ? { color: '#ff6600' } : {}}
+                        >
+                          {answerText}
+                        </span>
+                      </QuestionAnswerWrapper>
+                    )
+                  })}
+              </ContentAnimationWrapper>
+              <StyledLink type="secondary" href={lastQuestionHref}>
+                Back to survey
+              </StyledLink>
+              <StyledButton type="submit" onClick={handleSubmit}>
+                Submit answers
+              </StyledButton>
+            </Paper>
+          </Grid>
+          <Grid item md xl={1} className={classes.image}>
+            <img src="/rightside.png" width="100%" alt="Right banner" />
+          </Grid>
         </Grid>
-
-        <Grid item xs={12} md={7} xl={5} >
-          <Paper className={classes.paper}>
-            <ContentAnimationWrapper>
-              <Heading component="h1" variant="h6">
-                Here are your current answers
-              </Heading>
-              <br />
-              {questions &&
-                questions.map((question) => {
-                  let answerText
-                  let answeredQuestion = true
-                  const currentAnswerId = selections.find(
-                    (s) => s.questionId === question.id
-                  ).answerId
-
-                  if (!currentAnswerId) {
-                    answeredQuestion = false
-                    answerText = "You haven't answered this question."
-                  } else {
-                    const selectedAnswerText = question.Question_answers.find(
-                      (a) => a.id === currentAnswerId
-                    ).text
-                    answerText = `You answered: ${selectedAnswerText}`
-                  }
-
-                  const QuestionText = `${question.text}`
-
-                  return (
-                    <QuestionAnswerWrapper key={question.id}>
-                      <Link href={`/survey/questions/?id=${question.id}`}>
-                        {QuestionText}
-                      </Link>
-                      <br />
-                      <span
-                        style={!answeredQuestion ? { color: '#ff6600' } : {}}
-                      >
-                        {answerText}
-                      </span>
-                    </QuestionAnswerWrapper>
-                  )
-                })}
-            </ContentAnimationWrapper>
-            <StyledLink type="secondary" href={lastQuestionHref}>
-              Back to survey
-            </StyledLink>
-            <StyledButton type="submit" onClick={handleSubmit}>
-              Submit answers
-            </StyledButton>
-          </Paper>
-        </Grid>
-        <Grid item md xl={1} className={classes.image}>
-          <img src="/rightside.png" width="100%" alt="Right banner" />
-        </Grid>
-      </Grid>
-      <br />
-      <Box textAlign="center">
-        <Grid item>
-          <img src="/logo.png" alt="Logo" width={100} height={100} />
-        </Grid>
-      </Box>
+        <Box textAlign="center" marginTop="20px">
+          <img src="/logo.png" alt="Logo" width={120} height={90} />
+        </Box>
       </div>
     </>
   )

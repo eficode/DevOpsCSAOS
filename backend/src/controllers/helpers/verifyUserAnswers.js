@@ -2,7 +2,7 @@ const { Question, Question_answer } = require('../../../models')
 
 const verifyUserAnswers = async (userAnswers, surveyId) => {
   const allSurveyQuestions = await Question.findAll({
-    attributes: ['id', 'surveyId', 'text', 'categoryId'],
+    attributes: ['id', 'surveyId', 'text'],
     where: {
       surveyId: surveyId,
     },

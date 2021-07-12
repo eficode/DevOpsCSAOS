@@ -215,17 +215,13 @@ const SurveyPage = () => {
               />
             </Grid>
         </Grid>
-        <br />
-        <Box textAlign='center'>
-          <Grid item>
-            {/* <Image src="/logo.png" alt="logo image" width={100} height={100} /> */}
+        <Box textAlign='center' marginTop='20px'>
             <img
                 src='/logo.png'
                 alt='Logo'
-                width={100}
-                height={100}
+                width={120}
+                height={90}
               />
-          </Grid>
         </Box>
       </Grid>
       </div>
