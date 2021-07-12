@@ -11,10 +11,10 @@ INSERT INTO "Categories" VALUES (11 , 'Mielentila', 'mielentilallisesti mikali v
 INSERT INTO "Category_results" VALUES (3, 11, 'Mielentilasi on heikko', 0.5, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Category_results" VALUES (4, 11, 'Mielentilasi on vahva', 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
-INSERT INTO "Questions" VALUES (1, 'Ajatus vihrealla nurmella villisti kierimisesta viehattaa minua', 1, 10, '[ {"category": "Olotila", "multiplier": 1} , {"category": "Mielentila", "multiplier": 0.5} ]', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Questions" VALUES (2, 'Suutani kuivaa tavalla, jonka voi taltuttaa vain poreileva juoma', 1, 10, '[ {"category": "Olotila", "multiplier": 1} , {"category": "Mielentila", "multiplier": 0.5} ]', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Questions" VALUES (3, 'Auringon nayttaytyessa ajatukseni singahtavat vappupirskeunelmiin valittomasti', 1, 10, '[ {"category": "Olotila", "multiplier": 1} , {"category": "Mielentila", "multiplier": 0.5} ]', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
-INSERT INTO "Questions" VALUES (4, 'Bilejalka vipeltaa jo vimmatusti', 1, 11, '[{"category": "Olotila", "multiplier": 1}, {"category": "Mielentila", "multiplier": 0.5}]','2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (1, 'Ajatus vihrealla nurmella villisti kierimisesta viehattaa minua', 1, '[ {"category": "Olotila", "multiplier": 1} , {"category": "Mielentila", "multiplier": 0.5} ]', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (2, 'Suutani kuivaa tavalla, jonka voi taltuttaa vain poreileva juoma', 1, '[ {"category": "Olotila", "multiplier": 1} , {"category": "Mielentila", "multiplier": 0.5} ]', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (3, 'Auringon nayttaytyessa ajatukseni singahtavat vappupirskeunelmiin valittomasti', 1, '[ {"category": "Olotila", "multiplier": 1} , {"category": "Mielentila", "multiplier": 0.5} ]', '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
+INSERT INTO "Questions" VALUES (4, 'Bilejalka vipeltaa jo vimmatusti', 1, '[{"category": "Olotila", "multiplier": 1}, {"category": "Mielentila", "multiplier": 0.5}]','2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 
 INSERT INTO "Question_answers" VALUES (101, 'Ehdottomasti', 1, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');
 INSERT INTO "Question_answers" VALUES (102, 'Ehka', 1, 1, '2021-02-26T14:15:52+0200', '2021-02-26T14:15:55+0200');

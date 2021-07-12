@@ -7,9 +7,8 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Category, Survey, Question_answer }) {
+    static associate({ Survey, Question_answer }) {
       // define association here
-      this.belongsTo(Category, { foreignKey: 'categoryId' })
       this.belongsTo(Survey, { foreignKey: 'surveyId' })
       this.hasMany(Question_answer, { foreignKey: 'questionId' })
       // this.belongsToMany(Question_answer, { through: 'QuestionAndAnswers' })
@@ -31,14 +30,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: { msg: 'Question must have surveyId' },
           notEmpty: { msg: "Question surveyId can't be empty" },
-        },
-      },
-      categoryId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          notNull: { msg: 'Question must have categoryId' },
-          notEmpty: { msg: "Question categoryId can't be empty" },
         },
       },
       category_weights: {

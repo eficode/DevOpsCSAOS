@@ -1,6 +1,6 @@
 const categories = require('./initialData/categories.json')
 const questions = require('./initialData/questions.json')
-// const question_answers = require('./initialData/question_answers.json')
+const question_answers = require('./initialData/question_answers.json')
 const survey_results = require('./initialData/survey_results.json')
 const category_results = require('./initialData/category_results.json')
 const surveys = require('./initialData/surveys.json')
@@ -26,10 +26,10 @@ const {
   inserts seed data (testData copied from seed_database.sql)
 */
 const initDatabase = async () => {
-  const answers = await generateAnswerData()
+  // const answers = await generateAnswerData()
 
   // await sequelize.sync({ force: true })
-  await sequelize.sync({ alter: true })
+  await sequelize.sync({ force: true })
   await Survey.bulkCreate(surveys, {
     updateOnDuplicate: ['id'],
   })
@@ -45,7 +45,7 @@ const initDatabase = async () => {
   await Question.bulkCreate(questions, {
     updateOnDuplicate: ['id'],
   })
-  await Question_answer.bulkCreate(answers, {
+  await Question_answer.bulkCreate(question_answers, {
     updateOnDuplicate: ['id'],
   })
   await Industry.bulkCreate(industries, {

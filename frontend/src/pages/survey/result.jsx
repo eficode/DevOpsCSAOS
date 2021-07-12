@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '3%',
     borderRadius: '12px',
   },
-  contentRow:{
+  contentRow: {
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -59,8 +59,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-
-
 const Home = () => {
   const store = useStore()
   const theme = useTheme()
@@ -70,29 +68,25 @@ const Home = () => {
   let categories = []
   let industries = []
 
-  useEffect( async () => {
-    if(store.industries.length === 0){
-        try {
-          const response = await getIndustries()
-          store.setIndustries(response)
-          
-        } catch (error) {
-          console.error(error)
-        }    
+  useEffect(async () => {
+    if (store.industries.length === 0) {
+      try {
+        const response = await getIndustries()
+        store.setIndustries(response)
+      } catch (error) {
+        console.error(error)
       }
-    },[])
+    }
+  }, [])
 
-
-
-
-  if(store.industries.length !== 0){
+  if (store.industries.length !== 0) {
     maxPoints = store.results.surveyResult.maxPoints
-          userPoints = store.results.surveyResult.userPoints
-          text = store.results.surveyResult.text
-          categories = store.results.categories
-          userBestInCategory = store.results.userBestInCategory
-          userWorstInCategory = store.results.userWorstInCategory
-          industries = store.industries
+    userPoints = store.results.surveyResult.userPoints
+    text = store.results.surveyResult.text
+    categories = store.results.categories
+    userBestInCategory = store.results.userBestInCategory
+    userWorstInCategory = store.results.userWorstInCategory
+    industries = store.industries
   }
 
   const convertArrayOfCategoriesToString = () => {
@@ -107,7 +101,9 @@ const Home = () => {
 
   const listOfCategories = convertArrayOfCategoriesToString()
 
-  return (!store.industries.length === 0 ? <div>Loading your results</div> :
+  return !store.industries.length === 0 ? (
+    <div>Loading your results</div>
+  ) : (
     <>
       <Head>
         <title>DevOps Capability Survey</title>
@@ -115,7 +111,7 @@ const Home = () => {
       <Typography variant="h5" className={classes.title}>
         DevOps Self Assessment
       </Typography>
-      <Typography variant="subtitle1" >
+      <Typography variant="subtitle1">
         Assess your DevOps cababilities here, lorem ipsum
       </Typography>
       <Grid container className={classes.contentRow}>
@@ -163,11 +159,8 @@ const Home = () => {
           <img src="/rightside.png" width="100%" alt="Right banner" />
         </Grid>
       </Grid>
-      <br />
-      <Box textAlign="center">
-        <Grid item>
-          <img src="/logo.png" alt="Logo" width={100} height={100} />
-        </Grid>
+      <Box textAlign="center" marginTop="20px">
+        <img src="/logo.png" alt="Logo" width={120} height={90} />
       </Box>
     </>
   )

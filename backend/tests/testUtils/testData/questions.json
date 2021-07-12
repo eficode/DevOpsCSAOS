@@ -3,7 +3,6 @@
     "id": 1,
     "text": "Oletko ruisleipä?",
     "surveyId": 1,
-    "categoryId": 1,
     "category_weights": [
       {
         "category": "Culture",
@@ -31,7 +30,6 @@
     "id": 2,
     "text": "Oletko kauraleipä?",
     "surveyId": 1,
-    "categoryId": 1,
     "category_weights": [
       {
         "category": "Culture",
@@ -59,7 +57,6 @@
     "id": 11,
     "text": "Oletko kaurakeksi?",
     "surveyId": 2,
-    "categoryId": 20,
     "category_weights": [
       {
         "category": "Culture",
@@ -87,7 +84,6 @@
     "id": 12,
     "text": "Oletko dominokeksi?",
     "surveyId": 2,
-    "categoryId": 20,
     "category_weights": [
       {
         "category": "Culture",
