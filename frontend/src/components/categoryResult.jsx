@@ -9,7 +9,6 @@ export const CategoryTitle = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
 `
 
-
 const useStyles = makeStyles((theme) => ({
   container: {
     fontFamily: 'Merriweather',
@@ -42,12 +41,16 @@ const CategoryResult = ({
     <Grid container className={classes.container}>
       <Grid item className={classes.content}>
         <Typography variant="h5">
-          {category} {userResult} / {maxResult}
+          {category}
+          {'\u00A0'}
         </Typography>
-          <Typography variant="body1">
-            <strong>{description}</strong> {resultText}
-          </Typography>
-          </Grid>
+        <Typography variant="h5">
+          {userResult} / {maxResult}
+        </Typography>
+        <Typography variant="body1">
+          <strong>{description}</strong> {resultText}
+        </Typography>
+      </Grid>
     </Grid>
   )
 }
