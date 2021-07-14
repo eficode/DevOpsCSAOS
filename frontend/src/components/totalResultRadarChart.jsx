@@ -21,7 +21,7 @@ const CustomTooltip = ({ data, active, payload, label }) => {
     return (
       <div
         className="custom-tooltip"
-        style={{ backgroundColor: 'white', border: 'solid 1.5px' }}
+        style={{ backgroundColor: 'white', border: 'solid 1.5px', fontSize: '13px' }}
         data-testid="tooltip"
       >
         <p className="category">
@@ -57,7 +57,7 @@ const TotalResultRadarChart = ({ data }) => (
           data={data}
         />
         <PolarGrid />
-        <PolarAngleAxis dataKey="name" />
+        <PolarAngleAxis dataKey="name" fontSize='14px' />
 
         <Radar
           name="Your points"

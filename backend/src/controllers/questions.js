@@ -1,5 +1,5 @@
 const questionsRouter = require('express').Router()
-const { Category, Question, Question_answer } = require('../../models')
+const { Question, Question_answer } = require('../../models')
 
 questionsRouter.get('/:surveyId', async (req, res) => {
   const { surveyId } = req.params

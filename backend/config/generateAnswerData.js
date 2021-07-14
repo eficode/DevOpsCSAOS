@@ -1,4 +1,4 @@
-const generateAnswerData = () => {
+const generateAnswerData = (question_amount) => {
   const json_file = []
   const possible_values = [
     'Strongly Disagree',
@@ -8,7 +8,7 @@ const generateAnswerData = () => {
     'Strongly Agree',
   ]
   let counter = 1
-  for (let i = 0; i < 17; i += 1) {
+  for (let i = 0; i < question_amount; i += 1) {
     for (
       let j = 0;
       j < 5;
