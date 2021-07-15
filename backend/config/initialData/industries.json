@@ -1,23 +1,30 @@
 [
     {
+      "id": 1,
       "name": "Operating systems"
     },
     {
+      "id": 2,
       "name": "Integrated systems"
     },
     {
+      "id": 3,
       "name": "Applications"
     },
     {
+      "id": 4,
       "name": "Mobile applications"
     },
     {
+      "id": 5,
       "name": "Games"
     },
     {
+      "id": 6,
       "name": "Information security"
     },
     {
+      "id": 7,
       "name": "Platforms"
     }
 ]

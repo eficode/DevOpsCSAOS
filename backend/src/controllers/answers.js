@@ -99,7 +99,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     groupId,
     industryId,
     userQuestionAnswerPairs,
-    selections,
+    baseURL,
   } = req.body
 
   try {
@@ -166,15 +166,15 @@ answersRouter.post('/emailsubmit', async (req, res) => {
 
     if (process.env.NODE_ENV === 'production') {
       try {
-        const baseUrl = req.get('origin')
         const group_parameter = groupId || createdGroupId
         const user_parameter = userToken
         const group_invite_link = group_parameter
-          ? `${baseUrl}/?groupid=${group_parameter}`
+          ? `${baseURL}/?groupid=${group_parameter}`
           : ''
         const user_results_link = user_parameter
-          ? `${baseUrl}/?user=${user_parameter}`
+          ? `${baseURL}/?user=${user_parameter}`
           : ''
+
         await SendHubspotMessage(
           email,
           group_invite_link,
