@@ -35,12 +35,18 @@ const Home = () => {
 
   // Redirect user to first question if user has no / or a valid group-parameter
   // Display landing page with information in case of invalid group-parameter
+  // Redirect user to total results page if user token is present
   useEffect(async () => {
       store.resetVersion()
       // eslint-disable-next-line no-undef
       const url = new URLSearchParams(window.location.search)
       const version = url.get('version')
       const groupId = url.get('groupid')
+      const user = url.get('user')
+      if (user) {
+        router.push(`/survey/total_results/?user=${user}`)
+        return
+      }
       if (version) {
         store.setFeatureToggleSwitch(version)
       }

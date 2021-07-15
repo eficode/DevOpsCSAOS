@@ -166,12 +166,6 @@ answersRouter.post('/emailsubmit', async (req, res) => {
 
     if (process.env.NODE_ENV === 'production') {
       try {
-        const question_answer_id_pairs = selections.map(
-          (item) =>
-            `${item.questionId}:${
-              item.answerId % 5 === 0 ? 5 : item.answerId % 5
-            }`
-        )
         const baseUrl = req.get('origin')
         const group_parameter = groupId || createdGroupId
         const user_parameter = userToken
@@ -179,13 +173,12 @@ answersRouter.post('/emailsubmit', async (req, res) => {
           ? `${baseUrl}/?groupid=${group_parameter}`
           : ''
         const user_results_link = user_parameter
-          ? `${baseUrl}/survey/total_results/?user=${user_parameter}&version=A`
+          ? `${baseUrl}/?user=${user_parameter}`
           : ''
         await SendHubspotMessage(
           email,
           group_invite_link,
           user_results_link,
-          question_answer_id_pairs,
           userQuestionAnswerPairs
         )
       } catch (error) {
