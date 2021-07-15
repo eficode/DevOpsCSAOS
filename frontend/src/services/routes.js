@@ -58,7 +58,6 @@ export const submitEmail = async (
     groupId,
     industryId,
     userQuestionAnswerPairs,
-    baseURL,
   })
   return response.data
 }

@@ -129,18 +129,14 @@ const GetDetailedResultsForm = ({ industries }) => {
 
     const groupId = store.groupId === '' ? undefined : store.groupId
     const industryId = selectedIndustry === 0 ? undefined : selectedIndustry
-    let baseURL = ''
-    if (typeof window !== 'undefined') {
-      baseURL = window.parent.location.origin.toString()
-    }
+
     await submitEmail(
       store.userToken,
       emailInput,
       createGroupChecked,
       groupId,
       industryId,
-      store.userQuestionAnswerPairs,
-      baseURL
+      store.userQuestionAnswerPairs
     )
     setSubmitted(true)
   }
