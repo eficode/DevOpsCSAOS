@@ -79,16 +79,16 @@ const initDatabase = async () => {
     updateOnDuplicate: ['id'],
   })
   await Category.bulkCreate(categories, {
-    updateOnDuplicate: ['id'],
+    updateOnDuplicate: ['name', 'description'],
   })
   await Category_result.bulkCreate(category_results, {
-    updateOnDuplicate: ['id'],
+    updateOnDuplicate: ['text'],
   })
   await Question.bulkCreate(questions, {
-    updateOnDuplicate: ['id'],
+    updateOnDuplicate: ['text', 'category_weights'],
   })
   await Question_answer.bulkCreate(answers, {
-    updateOnDuplicate: ['id'],
+    updateOnDuplicate: ['text'],
   })
   await Industry.bulkCreate(industries, {
     updateOnDuplicate: ['name'],

@@ -5,7 +5,6 @@ const SendHubspotMessage = async (
   email,
   group_invite_link,
   user_results_link,
-  question_answer_id_pairs,
   userQuestionAnswerPairs
 ) => {
   if (!email) {
@@ -20,25 +19,27 @@ const SendHubspotMessage = async (
     throw new Error('Failed to initialise HubSpot connection')
   }
 
-  const idPairs = await question_answer_id_pairs.join('\n')
-  const clearTextPairs = await userQuestionAnswerPairs
-    .map((item) => `${item.question} ${item.answer}`)
-    .join('\n\n')
+  //  Hubspot properties cant have whitespace or capitals, formatting needed for hubspot
+  const formattedPairs = userQuestionAnswerPairs.map((item) => ({
+    [item.question.replace(/\./g, '').replace(/\s+/g, '_').toLowerCase()]:
+      item.answer,
+  }))
+
+  const questionAnswerProperties = Object.assign({}, ...formattedPairs)
 
   const contactObj = {
     properties: {
+      ...questionAnswerProperties,
       email: email,
       group_invite_link: group_invite_link,
-      result_link_for_user: user_results_link || '',
-      question_and_answer_ids: idPairs,
-      question_and_answer_pairs: clearTextPairs,
+      result_link_for_user: user_results_link,
     },
   }
 
   try {
     return await hubspotClient.crm.contacts.basicApi.create(contactObj)
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     try {
       const filter = {
         propertyName: 'email',
@@ -64,6 +65,7 @@ const SendHubspotMessage = async (
 
       return await hubspotClient.crm.contacts.basicApi.update(id, contactObj)
     } catch (innerError) {
+      console.log(innerError)
       throw new Error(innerError)
     }
   }

@@ -3,7 +3,7 @@ const { Industry } = require('../../models')
 
 industryRouter.get('/', async (req, res) => {
   try {
-    const industries = await Industry.findAll()
+    const industries = await Industry.findAll({ attributes: ['id', 'name'] })
 
     return res.status(200).json(industries)
   } catch (e) {
