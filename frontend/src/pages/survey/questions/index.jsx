@@ -9,6 +9,7 @@ import { useTheme, makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 import { useStore } from '../../../store'
 import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
 import QuestionGrouper from '../../../components/questionGrouper'
@@ -19,9 +20,7 @@ import NavigationGroup from '../../../components/navigationGroup'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
 import Heading from '../../../components/heading'
 
-
-const useStyles = makeStyles(theme => ({
-  
+const useStyles = makeStyles((theme) => ({
   card: {
     padding: '8px',
     margin: '0px',
@@ -46,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   content: {
     justifyContent: 'center',
   },
-  contentRow:{
+  contentRow: {
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -130,100 +129,99 @@ const SurveyPage = () => {
 
   return (
     <>
-    <div className={classes.content}>
-      <Grid container direction="column" alignContent="center" alignItems="center" >
-        <Grid item>
-          <Head>
-            <title>DevOps Capability Survey</title>
-          </Head>
-          <Heading component="h1" variant="h5">
-            DevOps Self Assessment
-          </Heading>
-          <p> Assess your DevOps cababilities here, lorem ipsum</p>
-        </Grid>
-        <Grid container item className={classes.contentRow}>
-            <Grid item md={2} className={classes.image}>
-            <img
-                src='/leftside.png'
-                width='100%'
-                alt="Left banner"
-              />
-            </Grid>
-          <Grid item xs={12} md={5}>
-            <Box>
-              <Card variant="elevation" className={classes.card}>
-                <Grid container item spacing={4} className={classes.rowGrid}>
-                  <Grid item>
-                    <ContentAnimationWrapper>
-                      <QuestionGrouper
-                        answered={answeredQuestionsCount}
-                        total={store.questions.length}
-                        questions={questionsToRender}
-                        onOptionClick={onOptionClick}
-                      />
-                    </ContentAnimationWrapper>
-                  </Grid>
-                  <Grid item container direction="row" align="flex-end">
-                    <NavigationGroup>
-                      {!isFirstPage ? (
-                        <StyledLink
-                          href={previousPageHref}
-                          passHref
-                          type="secondary"
-                        >
-                          <ChevronLeftIcon /> Previous
-                        </StyledLink>
-                      ) : (
-                        <div />
-                      )}
-
-                      {visitedSummary && !isFinalPage ? (
-                        <StyledLink
-                          href={summaryPageHref}
-                          passHref
-                          type="tertiary"
-                        >
-                          To summary <LastPageIcon fontSize="small" />
-                        </StyledLink>
-                      ) : (
-                        <></>
-                      )}
-                      {!isFinalPage ? (
-                        <StyledLink href={nextPageHref} passHref type="primary">
-                          Next <ChevronRightIcon />
-                        </StyledLink>
-                      ) : (
-                        <StyledLink
-                          href={summaryPageHref}
-                          passHref
-                          type="primary"
-                        >
-                          Review <DoneIcon fontSize="small" />
-                        </StyledLink>
-                      )}
-                    </NavigationGroup>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Box>
+      <div className={classes.content}>
+        <Grid
+          container
+          direction="column"
+          alignContent="center"
+          alignItems="center"
+        >
+          <Grid item>
+            <Head>
+              <title>DevOps Capability Survey</title>
+            </Head>
+            <Heading component="h1" variant="h5">
+              DevOps Self Assessment
+            </Heading>
+            <Typography variant="subtitle1">
+              Answer these {store.questions.length} questions to receive
+              feedback on your DevOps capabilities.
+            </Typography>
           </Grid>
+          <Grid container item className={classes.contentRow}>
             <Grid item md={2} className={classes.image}>
-               <img
-                src='/rightside.png'
-                width='100%'
-                alt='Right banner'
-              />
+              <img src="/leftside.png" width="100%" alt="Left banner" />
             </Grid>
+            <Grid item xs={12} md={5}>
+              <Box>
+                <Card variant="elevation" className={classes.card}>
+                  <Grid container item spacing={4} className={classes.rowGrid}>
+                    <Grid item>
+                      <ContentAnimationWrapper>
+                        <QuestionGrouper
+                          answered={answeredQuestionsCount}
+                          total={store.questions.length}
+                          questions={questionsToRender}
+                          onOptionClick={onOptionClick}
+                        />
+                      </ContentAnimationWrapper>
+                    </Grid>
+                    <Grid item container direction="row" align="flex-end">
+                      <NavigationGroup>
+                        {!isFirstPage ? (
+                          <StyledLink
+                            href={previousPageHref}
+                            passHref
+                            type="secondary"
+                          >
+                            <ChevronLeftIcon /> Previous
+                          </StyledLink>
+                        ) : (
+                          <div />
+                        )}
+
+                        {visitedSummary && !isFinalPage ? (
+                          <StyledLink
+                            href={summaryPageHref}
+                            passHref
+                            type="tertiary"
+                          >
+                            To summary <LastPageIcon fontSize="small" />
+                          </StyledLink>
+                        ) : (
+                          <></>
+                        )}
+                        {!isFinalPage ? (
+                          <StyledLink
+                            href={nextPageHref}
+                            passHref
+                            type="primary"
+                          >
+                            Next <ChevronRightIcon />
+                          </StyledLink>
+                        ) : (
+                          <StyledLink
+                            href={summaryPageHref}
+                            passHref
+                            type="primary"
+                          >
+                            Review <DoneIcon fontSize="small" />
+                          </StyledLink>
+                        )}
+                      </NavigationGroup>
+                    </Grid>
+                  </Grid>
+                </Card>
+              </Box>
+            </Grid>
+            <Grid item md={2} className={classes.image}>
+              <img src="/rightside.png" width="100%" alt="Right banner" />
+            </Grid>
+          </Grid>
+          <Box textAlign="center" marginTop="20px">
+            <img src="/logo.png" alt="Logo" width={120} height={90} />
+          </Box>
         </Grid>
-        <Box textAlign='center' marginTop='20px'>
-            <img
-                src='/logo.png'
-                alt='Logo'
-                width={120}
-                height={90}
-              />
-        </Box>
-      </Grid>
       </div>
     </>
   )

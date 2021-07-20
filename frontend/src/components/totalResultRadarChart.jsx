@@ -25,7 +25,7 @@ const CustomTooltip = ({ data, active, payload, label }) => {
         data-testid="tooltip"
       >
         <p className="category">
-          <strong>Category: {label}</strong>
+          <strong>{label}</strong>
         </p>
         <p className="you">Your points: {Math.round(payload[0].payload.userPoints)}</p>
         {data[0].groupAverage && (
@@ -50,14 +50,14 @@ const TotalResultRadarChart = ({ data }) => (
   <>
     <ResultsTitle>Compare your results</ResultsTitle>
     <ResponsiveContainer id="RadarChartContainer" width="100%" height={450}>
-      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+      <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
         <Tooltip
           cursor={{ fill: 'transparent' }}
           content={<CustomTooltip />}
           data={data}
         />
         <PolarGrid />
-        <PolarAngleAxis dataKey="name" fontSize='14px' />
+        <PolarAngleAxis dataKey="name" fontSize='13px' />
 
         <Radar
           name="Your points"

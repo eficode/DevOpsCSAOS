@@ -40,14 +40,18 @@ export const checkGroupId = async (groupId) => {
   return response.data
 }
 
+export const getBaseUrl = async () => {
+  const response = await axios.get(`${API_URL}/get-location`)
+  return response.data
+}
+
 export const submitEmail = async (
   token,
   email,
   createNewGroup,
   groupId,
   industryId,
-  userQuestionAnswerPairs,
-  baseURL
+  userQuestionAnswerPairs
 ) => {
   const surveyId = 1
   const response = await axios.post(`${API_URL}/answers/emailsubmit`, {
