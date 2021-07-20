@@ -144,7 +144,7 @@ describe(`POST ${resultsEndpoint}`, () => {
 
     const results = response.body
     expect(results.categoryResults[0].groupAverage).not.toBe(undefined)
-    expect(results.categoryResults[0].groupAverage).toBe(0.75)
+    expect(results.categoryResults[0].groupAverage).toBe(10.75)
     done()
   })
 
@@ -189,7 +189,7 @@ describe(`POST ${resultsEndpoint}`, () => {
     const response = await request(app).get(`${resultsEndpoint}/${token}`)
     const results = response.body
     expect(results.categoryResults[0].industryAverage).not.toBe(undefined)
-    expect(results.categoryResults[0].industryAverage).toBe(0.75)
+    expect(results.categoryResults[0].industryAverage).toBe(10.75)
     done()
   })
 })

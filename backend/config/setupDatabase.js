@@ -76,7 +76,7 @@ const initDatabase = async () => {
     updateOnDuplicate: ['id'],
   })
   await Survey_result.bulkCreate(survey_results, {
-    updateOnDuplicate: ['id'],
+    updateOnDuplicate: ['text'],
   })
   await Category.bulkCreate(categories, {
     updateOnDuplicate: ['name', 'description'],

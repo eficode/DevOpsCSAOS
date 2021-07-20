@@ -165,9 +165,8 @@ answersRouter.post('/emailsubmit', async (req, res) => {
 
     if (process.env.NODE_ENV === 'production') {
       try {
-        // Getting location passed from outside iframe proved to be tricky so the production URL is static for now.
-        const baseURL =
-          'https://www.eficode.com/devops-self-assesment-tool-test-page'
+        // Getting location passed from outside iframe proved to be tricky so the production URL is passed from env in heroku.
+        const baseURL = process.env.BASE_URL_FOR_EMAILS
         const group_parameter = groupId || createdGroupId
         const user_parameter = userToken
         const group_invite_link = group_parameter

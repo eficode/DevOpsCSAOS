@@ -280,8 +280,8 @@ const getFullResults = async (user_answers, surveyId) => {
     })
 
     return {
-      userPoints: userScores[key],
-      maxPoints: maxScores[key],
+      userPoints: 10 + userScores[key],
+      maxPoints: maxScores[key] * 2,
       name: key,
       id: fetchedCategory.id,
       text: await findCategoryResultTextMatchingUserResult(
@@ -298,8 +298,8 @@ const getFullResults = async (user_answers, surveyId) => {
   return {
     surveyResult: {
       text: surveyResultText,
-      userPoints: newUserScore,
-      maxPoints: newMaxScore,
+      userPoints: 60 + newUserScore,
+      maxPoints: newMaxScore * 2,
     },
     categoryResults: finalCategoryResults,
   }
@@ -345,8 +345,8 @@ const getSummaryOfResults = async (user_answers, surveyId) => {
   return {
     surveyResult: {
       text: surveyResultText,
-      userPoints: newUserScore,
-      maxPoints: newMaxScore,
+      userPoints: 60 + newUserScore,
+      maxPoints: newMaxScore * 2,
     },
     categories: listOfCategories,
     userBestInCategory: highestCategory,

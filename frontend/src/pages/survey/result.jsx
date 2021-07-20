@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useStore } from '../../store'
 import { ContentAnimationWrapper } from '../../components/contentAnimationWrapper'
 import ShareResultsGroup from '../../components/shareResultsGroup'
 import GetDetailedResultsForm from '../../components/getDetailedResultsForm'
-import { getIndustries } from '../../services/routes'
+import { getBaseUrl, getIndustries } from '../../services/routes'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
@@ -63,12 +63,16 @@ const Home = () => {
   const store = useStore()
   const theme = useTheme()
   const classes = useStyles(theme)
+  const [baseUrl, setBaseUrl] = useState('')
 
   let maxPoints, userPoints, text, userBestInCategory, userWorstInCategory
   let categories = []
   let industries = []
+  
 
   useEffect(async () => {
+    const fetchedUrl = await getBaseUrl()
+    setBaseUrl(fetchedUrl)
     if (store.industries.length === 0) {
       try {
         const response = await getIndustries()
@@ -111,9 +115,6 @@ const Home = () => {
       <Typography variant="h5" className={classes.title}>
         DevOps Self Assessment
       </Typography>
-      <Typography variant="subtitle1">
-        Assess your DevOps cababilities here, lorem ipsum
-      </Typography>
       <Grid container className={classes.contentRow}>
         <Grid item md={2} xl={1} className={classes.image}>
           <img src="/leftside.png" width="100%" alt="Left banner" />
@@ -146,11 +147,13 @@ const Home = () => {
                 your skills. You can also compare your results with others in
                 your industry or in the selected reference group.
               </Typography>
+              {baseUrl === '' ? null :
               <ShareResultsGroup
                 text={text}
                 userPoints={userPoints}
                 maxPoints={maxPoints}
-              />
+                baseUrl={baseUrl}
+              />}
               <GetDetailedResultsForm industries={industries} />
             </ContentAnimationWrapper>
           </Paper>
