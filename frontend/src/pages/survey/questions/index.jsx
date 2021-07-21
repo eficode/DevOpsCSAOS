@@ -6,7 +6,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import LastPageIcon from '@material-ui/icons/LastPage'
 import DoneIcon from '@material-ui/icons/Done'
 import { useTheme, makeStyles } from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
+import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
@@ -18,7 +18,6 @@ import { useRouter, withRouter } from '../../../components/staticRouting'
 import StyledLink from '../../../components/link'
 import NavigationGroup from '../../../components/navigationGroup'
 import { allQuestionsAnswered, countOfAnsweredQuestions } from '../../../utils'
-import Heading from '../../../components/heading'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -41,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
+    margin: '4px',
   },
   content: {
     justifyContent: 'center',
@@ -49,6 +49,21 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  heading: {
+    fontFamily: 'Montserrat',
+    fontSize: '28px',
+    textAlign: 'center',
+    fontWeight: '600',
+  },
+  text: {
+    textAlign: 'center',
+    fontFamily: 'Montserrat',
+    marginTop: '1vh',
+    marginBottom: '5vh',
+    [theme.breakpoints.down('sm')]: {
+      margin: '1vh',
+    },
+  }
 }))
 
 const SurveyPage = () => {
@@ -140,10 +155,11 @@ const SurveyPage = () => {
             <Head>
               <title>DevOps Capability Survey</title>
             </Head>
-            <Heading component="h1" variant="h5">
-              DevOps Self Assessment
-            </Heading>
-            <Typography variant="subtitle1">
+            <Typography variant="h5" className={classes.heading}>
+              DevOps self-assessment
+            </Typography>
+
+            <Typography variant="subtitle1" className={classes.text}>
               Answer these {store.questions.length} questions to receive
               feedback on your DevOps capabilities.
             </Typography>
@@ -154,7 +170,7 @@ const SurveyPage = () => {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box>
-                <Card variant="elevation" className={classes.card}>
+                <Paper className={classes.card}>
                   <Grid container item spacing={4} className={classes.rowGrid}>
                     <Grid item>
                       <ContentAnimationWrapper>
@@ -211,7 +227,7 @@ const SurveyPage = () => {
                       </NavigationGroup>
                     </Grid>
                   </Grid>
-                </Card>
+                </Paper>
               </Box>
             </Grid>
             <Grid item md={2} className={classes.image}>

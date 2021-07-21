@@ -13,7 +13,7 @@ const StyledBaseLink = styled(Button)`
   font-size: 12px;
   text-decoration: none;
   text-align: center;
-  border-radius: 1px;
+  border-radius: 6px;
   border-width: 0px;
   margin: 1%;
   padding: 1%;
