@@ -48,7 +48,7 @@ describe('Question rendering', () => {
         <SurveyPage />
       </ThemeWrapper>,
     )
-    expect(screen.getByText('DevOps Self Assessment')).toBeInTheDocument()
+    expect(screen.getByText('DevOps self-assessment')).toBeInTheDocument()
   })
 
   it('First page contains first two questions', () => {

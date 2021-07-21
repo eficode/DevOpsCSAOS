@@ -11,23 +11,24 @@ import { useTheme, makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 import StyledButton from '../../../components/button'
 import { sendAnswers } from '../../../services/routes'
 import { allQuestionsAnswered } from '../../../utils'
 import StyledLink from '../../../components/link'
-import Heading from '../../../components/heading'
 
 const QuestionAnswerWrapper = styled.article`
   margin: 1rem 0;
   font-family: Montserrat;
-  font-weight: bold;
-  text-align: center;
+  font-weight: normal;
+  text-align: left;
   color: ${({ theme }) => theme.colors.blueDianne};
   span {
-    display: inline-block;
+    display: flex;
     margin: 0.4rem 0;
-    font-family: Merriweather;
-    font-weight: normal;
+    font-family: Montserrat;
+    font-weight: bold;
+    text-align: center !important;
     font-size: 16px;
     color: black;
   }
@@ -71,8 +72,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   heading: {
-    paddingTop: '2%',
-    height: '90px',
+    fontFamily: 'Montserrat',
+    fontSize: '1.1rem',
+    textAlign: 'center',
+    fontWeight: '600',
   },
   content: {
     justifyContent: 'center',
@@ -146,9 +149,9 @@ const Summary = () => {
           <Grid item xs={12} md={7} xl={5}>
             <Paper className={classes.paper}>
               <ContentAnimationWrapper>
-                <Heading component="h1" variant="h6">
+                <Typography variant="h6" className={classes.heading}>
                   Here are your current answers
-                </Heading>
+                </Typography>
                 <br />
                 {questions &&
                   questions.map((question) => {
@@ -168,7 +171,7 @@ const Summary = () => {
                       answerText = `You answered: ${selectedAnswerText}`
                     }
 
-                    const QuestionText = `${question.text}`
+                    const QuestionText = `${question.id}. ${question.text}`
 
                     return (
                       <QuestionAnswerWrapper key={question.id}>
@@ -177,7 +180,11 @@ const Summary = () => {
                         </Link>
                         <br />
                         <span
-                          style={!answeredQuestion ? { color: '#ff6600' } : {}}
+                          style={
+                            !answeredQuestion
+                              ? { color: '#ff6600', textAlign: 'center' }
+                              : { textAlign: 'center' }
+                          }
                         >
                           {answerText}
                         </span>

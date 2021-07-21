@@ -52,7 +52,7 @@ describe('Answer summary listing', () => {
     )
 
     questions.forEach((q) => {
-      expect(screen.getByText(q.text)).toBeInTheDocument()
+      expect(screen.getByText(`${q.id}. ${q.text}`)).toBeInTheDocument()
     })
   })
 
@@ -69,23 +69,23 @@ describe('Answer summary listing', () => {
       })
     })
     
-    expect(screen.getByRole('link', { name: questions[0].text }).closest('article')).toHaveTextContent(
+    expect(screen.getByRole('link', { name: `1. ${questions[0].text}` }).closest('article')).toHaveTextContent(
       'You answered: Strongly agree',
     )
 
-    expect(screen.getByRole('link', { name: questions[1].text }).closest('article')).toHaveTextContent(
+    expect(screen.getByRole('link', { name: `2. ${questions[1].text}`}).closest('article')).toHaveTextContent(
       'You answered: En tiiä ehkä huomenna',
     )
 
-    expect(screen.getByRole('link', { name: questions[2].text }).closest('article')).toHaveTextContent(
+    expect(screen.getByRole('link', { name: `3. ${questions[2].text}` }).closest('article')).toHaveTextContent(
       "You haven't answered this question.",
     )
 
-    expect(screen.getByRole('link', { name: questions[3].text }).closest('article')).toHaveTextContent(
+    expect(screen.getByRole('link', { name: `4. ${questions[3].text}` }).closest('article')).toHaveTextContent(
       'You answered: Jooooo',
     )
 
-    expect(screen.getByRole('link', { name: questions[4].text }).closest('article')).toHaveTextContent(
+    expect(screen.getByRole('link', { name: `5. ${questions[4].text}` }).closest('article')).toHaveTextContent(
       'You answered: Yes',
     )
 

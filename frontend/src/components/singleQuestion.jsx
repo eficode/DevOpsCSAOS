@@ -24,6 +24,15 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     paddingTop: '2%',
     height: '90px',
+    fontFamily: 'Montserrat',
+  },
+  text: {
+    fontFamily: 'Montserrat',
+    lineHeight: '1.2',
+  },
+  indicator: {
+    fontFamily: 'Montserrat',
+    textAlign: 'right',
   },
 }))
 
@@ -41,10 +50,10 @@ const SingleQuestion = ({ question, onOptionClick, total }) => {
     <div>
       <Grid container spacing={2} className={classes.heading}>
         <Grid item xs={10}>
-          <Typography variant="h6">{question.text}</Typography>
+          <Typography variant="h6" className={classes.text}>{question.text} </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Typography variant="h6">
+          <Typography variant="h6" className={classes.indicator}>
             {question.id}/{total}
           </Typography>
         </Grid>
