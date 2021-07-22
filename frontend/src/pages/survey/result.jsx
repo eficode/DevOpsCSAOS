@@ -57,6 +57,15 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '1.6',
     fontSize: '16px',
   },
+  categoryWithLowScore: {
+    color: "red",
+    fontWeight: "bold"
+  },
+  categoryWithHighScore: {
+    color: "green",
+    fontWeight: "bold"
+  }
+
 }))
 
 const Home = () => {
@@ -104,6 +113,7 @@ const Home = () => {
   }
 
   const listOfCategories = convertArrayOfCategoriesToString()
+  console.log("list of categories " + listOfCategories);
 
   return !store.industries.length === 0 ? (
     <div>Loading your results</div>
@@ -136,7 +146,31 @@ const Home = () => {
                 className={classes.resultText}
                 data-testid="summarytext"
               >
-                The tool assesses your DevOps capabilities in different
+                <b> Your DevOps could be improved!</b>
+
+                We have assessed your capabilities in the following categories,
+                 and based on the answers have made the following assessment:
+                <ul>
+                  {categories.map(category => (
+                    <li> 
+                      {category} {category===userBestInCategory? 
+                        <span className={classes.categoryWithHighScore}>: Highest Score</span>
+                         :category ===userWorstInCategory? 
+                        <span className={classes.categoryWithLowScore}>: Lowest Score </span>: null}
+                    </li>
+                  )) }
+
+                </ul>
+                <br />
+                <span>
+                    <strong> How can you improve? </strong> <br /><br />
+                    Fill in the form below to get more detailed results by email including suggestions on how to improve your skills. 
+                    You can also compare your results with others in your industry or in the selected reference group.
+
+
+                </span>
+
+                {/* The tool assesses your DevOps capabilities in different
                 categories based on your answers. We have assessed your
                 capabilities in categories <strong>{listOfCategories}</strong>.
                 Your highest score was in the category
@@ -145,7 +179,7 @@ const Home = () => {
                 <strong> {userWorstInCategory}</strong>. Fill in the form below
                 to get your detailed results by email and see how to improve
                 your skills. You can also compare your results with others in
-                your industry or in the selected reference group.
+                your industry or in the selected reference group. */}
               </Typography>
               {baseUrl === '' ? null :
               <ShareResultsGroup
