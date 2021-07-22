@@ -38,24 +38,46 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   score: {
-    fontFamily: 'Merriweather',
+    fontFamily: 'Montserrat',
     fontWeight: 'bold',
   },
   title: {
-    fontFamily: 'Merriweather',
+    fontFamily: 'Montserrat',
     fontWeight: '700',
     paddingBottom: '15px',
   },
   result: {
-    fontFamily: 'Merriweather',
+    fontFamily: 'Montserrat',
     fontWeight: '300',
   },
   resultText: {
-    fontFamily: 'Merriweather',
-    textAlign: 'center',
+    fontFamily: 'Montserrat',
+    textAlign: 'left !important',
     padding: '15px 0 30px 0',
-    lineHeight: '1.6',
-    fontSize: '16px',
+    lineHeight: '1.5 !important',
+    fontSize: '0.9rem !important',
+  },
+  categoryList: {
+    fontFamily: 'Montserrat',
+    textAlign: 'left',
+    marginLeft: '10%',
+    marginTop: '2%',
+    marginBottom: '2%',
+    fontSize: '0.8rem',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.7rem',
+      marginLeft: '6%',
+    },
+  },
+  categoryWithLowScore: {
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: '0.7rem',
+  },
+  categoryWithHighScore: {
+    color: 'green',
+    fontWeight: 'bold',
+    fontSize: '0.7rem',
   },
 }))
 
@@ -68,7 +90,6 @@ const Home = () => {
   let maxPoints, userPoints, text, userBestInCategory, userWorstInCategory
   let categories = []
   let industries = []
-  
 
   useEffect(async () => {
     const fetchedUrl = await getBaseUrl()
@@ -104,8 +125,9 @@ const Home = () => {
   }
 
   const listOfCategories = convertArrayOfCategoriesToString()
+  console.log('list of categories ' + listOfCategories)
 
-  return !store.industries.length === 0 ? (
+  return !industries.length === 0 ? (
     <div>Loading your results</div>
   ) : (
     <>
@@ -136,24 +158,53 @@ const Home = () => {
                 className={classes.resultText}
                 data-testid="summarytext"
               >
-                The tool assesses your DevOps capabilities in different
-                categories based on your answers. We have assessed your
-                capabilities in categories <strong>{listOfCategories}</strong>.
-                Your highest score was in the category
-                <strong> {userBestInCategory}</strong>, whereas you scored
-                lowest in
-                <strong> {userWorstInCategory}</strong>. Fill in the form below
-                to get your detailed results by email and see how to improve
-                your skills. You can also compare your results with others in
-                your industry or in the selected reference group.
+                We have assessed your capabilities in the following categories,
+                and based on the answers have made the following assessment:
               </Typography>
-              {baseUrl === '' ? null :
-              <ShareResultsGroup
-                text={text}
-                userPoints={userPoints}
-                maxPoints={maxPoints}
-                baseUrl={baseUrl}
-              />}
+              <ul data-testid="category-list" className={classes.categoryList}>
+                {categories.map((category) => (
+                  <li key={category}>
+                    {category}
+                    {category === userBestInCategory ? (
+                      <>
+                        <span> - </span>{' '}
+                        <span className={classes.categoryWithHighScore}>
+                          Highest Score
+                        </span>
+                      </>
+                    ) : category === userWorstInCategory ? (
+                      <>
+                        <span> - </span>
+                        <span className={classes.categoryWithLowScore}>
+                          Lowest Score
+                        </span>
+                      </>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+              <Typography
+                variant="body1"
+                className={classes.resultText}
+                data-testid="summarytext"
+              >
+                <strong> How can you improve? </strong> <br />
+                <br />
+                Fill in the form below to get more detailed results by email
+                including suggestions on how to improve your skills.
+                <br />
+                <br />
+                You can also compare your results with others in your industry
+                or in the selected reference group.
+              </Typography>
+              {baseUrl === '' ? null : (
+                <ShareResultsGroup
+                  text={text}
+                  userPoints={userPoints}
+                  maxPoints={maxPoints}
+                  baseUrl={baseUrl}
+                />
+              )}
               <GetDetailedResultsForm industries={industries} />
             </ContentAnimationWrapper>
           </Paper>

@@ -8,7 +8,7 @@ ${HOST}           localhost
 ${PORT}           3000
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run, headlessfirefox to run headless
-${BROWSER}                headlesschrome
+${BROWSER}                chrome
 ${MAIN_URL}               http://${SERVER}
 ${VALID_EMAIL}            test2222@test.com
 
@@ -48,7 +48,7 @@ Result Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/result
 
 Privacy Policy Page Should Be Open
-    Location Should Contain  ${MAIN_URL}/privacy/
+    Location Should Contain  https://www.eficode.com/privacy-policy
 
 Click get started button
     Click Element    //*[contains(text(), '${START_SURVEY}')]
@@ -75,8 +75,13 @@ Click go to results
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
 
 Click privacy policy link and wait
+    ${Current_window}        Get Locations
     Click Element   //*[contains(text(), '${TO_PRIVACY_POLICY}')]
-    Wait Until Location Contains    ${MAIN_URL}/privacy/
+    Sleep   2s
+    ${New_Windows_list}      Get Locations
+    Should Not Be Equal      ${Current_window}    ${New_Windows_list}
+    Should Contain    ${New_Windows_list}    https://www.eficode.com/privacy-policy    case_insensitive=yes
+
 
 Click back to results link and wait
     Click Element   //*[contains(text(), '${BACK_TO_SURVEY}')]

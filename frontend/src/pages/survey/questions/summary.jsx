@@ -29,15 +29,17 @@ const QuestionAnswerWrapper = styled.article`
     font-family: Montserrat;
     font-weight: bold;
     text-align: center !important;
-    font-size: 16px;
+    font-size: 0.9rem;
     color: black;
   }
   a {
     text-decoration: none;
     color: ${({ theme }) => theme.colors.blueDianne};
+    font-size: 0.9rem;
   }
   a:visited {
     color: ${({ theme }) => theme.colors.blueDianne};
+    font-size: 0.9rem;
   }
 `
 
@@ -80,6 +82,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  answer: {
+    fontSize: '0.8rem !important',
   },
 }))
 
@@ -163,7 +168,7 @@ const Summary = () => {
 
                     if (!currentAnswerId) {
                       answeredQuestion = false
-                      answerText = "You haven't answered this question."
+                      answerText = "Click the question to answer."
                     } else {
                       const selectedAnswerText = question.Question_answers.find(
                         (a) => a.id === currentAnswerId
@@ -179,15 +184,16 @@ const Summary = () => {
                           {QuestionText}
                         </Link>
                         <br />
-                        <span
+                        <span className={classes.answer}
                           style={
                             !answeredQuestion
-                              ? { color: '#ff6600', textAlign: 'center' }
-                              : { textAlign: 'center' }
+                              ? { color: '#ff6600'}
+                              : {}
                           }
                         >
                           {answerText}
                         </span>
+
                       </QuestionAnswerWrapper>
                     )
                   })}
