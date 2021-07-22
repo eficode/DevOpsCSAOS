@@ -18,13 +18,13 @@ const FormBackGround = styled.div`
   padding: 15px;
   background: #f0f0ec;
   border-radius: 20px;
+  font-family: Montserrat !important;
 `
 
 const FormTitle = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Merriweather;
-  margin: 10px;
-  padding-top: ${(props) => (props.noPaddingTop ? '0px' : '30px')};
+  font-family: Montserrat;
+  padding-top: ${(props) => (props.noPaddingTop ? '0px' : '1rem')};
 `
 
 const DetailsForm = styled.form`
@@ -186,8 +186,11 @@ const GetDetailedResultsForm = ({ industries }) => {
               }}
             />
             <CheckBoxText>
-              Agree to the{'\u00A0'}
-              <Link href="/privacy/">Privacy policy</Link>
+              In order to provide you the content requested, we need to store
+              and process your personal data. If you consent to us storing your
+              personal data for this purpose, please tick this checkbox.
+              {'\u00A0'}
+              <a href="https://www.eficode.com/privacy-policy/" target="_blank">Privacy policy</a>
             </CheckBoxText>
           </CheckboxContainer>
           {store.groupId === '' && (

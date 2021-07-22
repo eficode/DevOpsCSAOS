@@ -48,7 +48,7 @@ Result Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/result
 
 Privacy Policy Page Should Be Open
-    Location Should Contain  ${MAIN_URL}/privacy/
+    Location Should Contain  https://www.eficode.com/privacy-policy
 
 Click get started button
     Click Element    //*[contains(text(), '${START_SURVEY}')]
@@ -75,8 +75,11 @@ Click go to results
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
 
 Click privacy policy link and wait
+    ${Current_window}        Get Window Handles
     Click Element   //*[contains(text(), '${TO_PRIVACY_POLICY}')]
-    Wait Until Location Contains    ${MAIN_URL}/privacy/
+    ${New_Windows_list}      Get Window Handles
+    Should Not Be Equal      ${Current_window}    ${New_Windows_list}
+    Switch Window    NEW
 
 Click back to results link and wait
     Click Element   //*[contains(text(), '${BACK_TO_SURVEY}')]

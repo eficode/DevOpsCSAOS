@@ -78,7 +78,7 @@ describe('Answer summary listing', () => {
     )
 
     expect(screen.getByRole('link', { name: `3. ${questions[2].text}` }).closest('article')).toHaveTextContent(
-      "You haven't answered this question.",
+      "Click the question to answer.",
     )
 
     expect(screen.getByRole('link', { name: `4. ${questions[3].text}` }).closest('article')).toHaveTextContent(
