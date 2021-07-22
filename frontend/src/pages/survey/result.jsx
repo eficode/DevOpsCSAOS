@@ -151,7 +151,7 @@ const Home = () => {
                 We have assessed your capabilities in the following categories, and based on the answers yous have made the following assessment:
                 <ul>
                   {categories.map(category => (
-                    <li> 
+                    <li key={category}> 
                       {category} {category===userBestInCategory? 
                         <span className={classes.categoryWithHighScore}>: Highest Score</span>
                          :category ===userWorstInCategory? 

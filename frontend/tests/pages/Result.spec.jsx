@@ -105,11 +105,11 @@ describe('Top of page contains survey points and summary text of result', () => 
       </ThemeWrapper>,
     )
     expect(screen.getByTestId('summarytext')).toHaveTextContent(
-      'Your highest score was in the category',
+      'Highest Score',
     )
 
     expect(screen.getByTestId('summarytext')).toHaveTextContent(
-      'whereas you scored lowest in',
+      'Lowest Score',
     )
   })
 })
