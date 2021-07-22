@@ -75,11 +75,12 @@ Click go to results
     Click Element   //*[contains(text(), '${GO_TO_RESULTS}')]
 
 Click privacy policy link and wait
-    ${Current_window}        Get Window Handles
+    ${Current_window}        Get Locations
     Click Element   //*[contains(text(), '${TO_PRIVACY_POLICY}')]
-    ${New_Windows_list}      Get Window Handles
+    ${New_Windows_list}      Get Locations
     Should Not Be Equal      ${Current_window}    ${New_Windows_list}
-    Switch Window    NEW
+    Should Contain    ${New_Windows_list}    https://www.eficode.com/privacy-policy    case_insensitive=yes
+
 
 Click back to results link and wait
     Click Element   //*[contains(text(), '${BACK_TO_SURVEY}')]

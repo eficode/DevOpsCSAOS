@@ -11,7 +11,6 @@ Clicking Link To Privacy Policy Leads To Privacy Policy Page With Link Back To R
   [Setup]       Seed Database With Test Data
   Complete survey and submit answers
   Click Privacy policy link and wait
-  Privacy Policy Page Should Be Open
   [Teardown]    Close Application
 
 Alert Is Shown If User Has Not Agreed To Privacy Policy When Submitting Email
