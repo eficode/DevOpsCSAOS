@@ -146,10 +146,9 @@ const Home = () => {
                 className={classes.resultText}
                 data-testid="summarytext"
               >
-                <b> Your DevOps could be improved!</b>
+                <b> Your DevOps could be improved!</b> <br/>
 
-                We have assessed your capabilities in the following categories,
-                 and based on the answers have made the following assessment:
+                We have assessed your capabilities in the following categories, and based on the answers yous have made the following assessment:
                 <ul>
                   {categories.map(category => (
                     <li> 
@@ -166,8 +165,6 @@ const Home = () => {
                     <strong> How can you improve? </strong> <br /><br />
                     Fill in the form below to get more detailed results by email including suggestions on how to improve your skills. 
                     You can also compare your results with others in your industry or in the selected reference group.
-
-
                 </span>
 
                 {/* The tool assesses your DevOps capabilities in different
