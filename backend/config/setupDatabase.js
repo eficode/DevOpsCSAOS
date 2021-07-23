@@ -70,14 +70,18 @@ const initDatabase = async () => {
     await getJSONFiles()
   const answers = await generateAnswerData(questions.length)
 
-  // await sequelize.sync({ force: true })
+  await Survey_result.sync({ force: true })
+  await Category_result.sync({ force: true })
+  await Industry.sync({ force: true })
   await sequelize.sync({ alter: true })
   await Survey.bulkCreate(surveys, {
     updateOnDuplicate: ['id'],
   })
+
   await Survey_result.bulkCreate(survey_results, {
     updateOnDuplicate: ['text'],
   })
+
   await Category.bulkCreate(categories, {
     updateOnDuplicate: ['name', 'description'],
   })
@@ -87,6 +91,7 @@ const initDatabase = async () => {
   await Question.bulkCreate(questions, {
     updateOnDuplicate: ['text', 'category_weights'],
   })
+
   await Question_answer.bulkCreate(answers, {
     updateOnDuplicate: ['text'],
   })
