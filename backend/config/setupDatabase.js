@@ -70,9 +70,6 @@ const initDatabase = async () => {
     await getJSONFiles()
   const answers = await generateAnswerData(questions.length)
 
-  await Survey_result.sync({ force: true })
-  await Category_result.sync({ force: true })
-  await Industry.sync({ force: true })
   await sequelize.sync({ alter: true })
   await Survey.bulkCreate(surveys, {
     updateOnDuplicate: ['id'],
