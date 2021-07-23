@@ -114,7 +114,6 @@ const Home = () => {
     industries = store.industries
   }
 
-
   return !industries.length === 0 ? (
     <div>Loading your results</div>
   ) : (
@@ -123,7 +122,7 @@ const Home = () => {
         <title>DevOps Capability Survey</title>
       </Head>
       <Typography variant="h5" className={classes.title}>
-        DevOps Self Assessment
+        DevOps self-assessment
       </Typography>
       <Grid container className={classes.contentRow}>
         <Grid item md={2} xl={1} className={classes.image}>
@@ -146,8 +145,7 @@ const Home = () => {
                 className={classes.resultText}
                 data-testid="summarytext"
               >
-                We have assessed your capabilities in the following categories,
-                and based on the answers have made the following assessment:
+                We have Assessed your capabilities in the following categories:
               </Typography>
               <ul data-testid="category-list" className={classes.categoryList}>
                 {categories.map((category) => (

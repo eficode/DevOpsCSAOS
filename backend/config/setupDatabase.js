@@ -74,6 +74,9 @@ const initDatabase = async () => {
   await Survey.bulkCreate(surveys, {
     updateOnDuplicate: ['id'],
   })
+  await Industry.bulkCreate(industries, {
+    updateOnDuplicate: ['name'],
+  })
 
   await Survey_result.bulkCreate(survey_results, {
     updateOnDuplicate: ['text'],
@@ -92,9 +95,7 @@ const initDatabase = async () => {
   await Question_answer.bulkCreate(answers, {
     updateOnDuplicate: ['text'],
   })
-  await Industry.bulkCreate(industries, {
-    updateOnDuplicate: ['name'],
-  })
+
   await Survey_user_group.bulkCreate(survey_user_groups, {
     updateOnDuplicate: ['id'],
   })
