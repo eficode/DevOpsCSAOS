@@ -1,15 +1,18 @@
 [
     {
+      "id": 1,
       "surveyId": 1,
       "cutoff_from_maxpoints": 0.5,
-      "text": "Your DevOps capabilities could be improved."
+      "text": "We found areas where your DevOps capabilities could be improved."
     },
     {
+      "id": 2,
       "surveyId": 1,
       "cutoff_from_maxpoints": 1.0,
       "text": "You have great DevOps capabilities."
     },
     {
+      "id": 3,
       "surveyId": 1,
       "cutoff_from_maxpoints": 0.7,
       "text": "Your DevOps capabilities have room for improvement."

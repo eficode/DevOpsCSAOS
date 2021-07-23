@@ -114,18 +114,6 @@ const Home = () => {
     industries = store.industries
   }
 
-  const convertArrayOfCategoriesToString = () => {
-    let str = `${categories[0]}`
-    categories.slice(1, categories.length - 1).forEach((category) => {
-      str += `, ${category}`
-    })
-    str += ` and ${categories[categories.length - 1]}`
-
-    return str
-  }
-
-  const listOfCategories = convertArrayOfCategoriesToString()
-  console.log('list of categories ' + listOfCategories)
 
   return !industries.length === 0 ? (
     <div>Loading your results</div>
@@ -188,7 +176,7 @@ const Home = () => {
                 className={classes.resultText}
                 data-testid="summarytext"
               >
-                <strong> How can you improve? </strong> <br />
+                <strong> Want more detailed results? </strong> <br />
                 <br />
                 Fill in the form below to get more detailed results by email
                 including suggestions on how to improve your skills.
