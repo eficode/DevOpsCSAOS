@@ -77,7 +77,7 @@ Click go to results
 Click privacy policy link and wait
     ${Current_window}        Get Locations
     Click Element   //*[contains(text(), '${TO_PRIVACY_POLICY}')]
-    Sleep   2s
+    Sleep   3s
     ${New_Windows_list}      Get Locations
     Should Not Be Equal      ${Current_window}    ${New_Windows_list}
     Should Contain    ${New_Windows_list}    https://www.eficode.com/privacy-policy    case_insensitive=yes
