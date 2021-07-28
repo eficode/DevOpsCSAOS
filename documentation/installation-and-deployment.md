@@ -84,7 +84,9 @@ docker build --build-arg API_URL=URL_OF_THE_SERVER_HERE
 
 ### Heroku Deployment
 
-The application has a github action which automatically performs unit test, robot test and deployment to heroku by using HEROKU_API_KEY whenever a push to main branch happens. During deployment to Heroku, the Backend in Heroku accesses a bucket in Amazon S3 with the name defined in environment variabl “AWS_BUCKET” using two keys: “AWS_SECRET_KEY” and “AWS_ACCESS_KEY”. Using this access, the backend gets the JSON files to populate the POSTGRES database.
+The application has a github action which automatically performs unit test, robot test and deployment to heroku by using HEROKU_API_KEY whenever a push to main branch happens. During deployment to Heroku, the Backend in Heroku accesses a bucket in Amazon S3 with the name defined in environment variabl “AWS_BUCKET” using two keys: “AWS_SECRET_KEY” and “AWS_ACCESS_KEY”. Using this access, the backend gets the JSON files to populate the POSTGRES database. The process is illustrated in the following image:
+
+![Heroku Deployment Model](./assets/heroku_deployment_model.png).)
 
 ### AWS S3 instance
 
