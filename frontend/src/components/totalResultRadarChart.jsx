@@ -7,6 +7,7 @@ import {
   PolarAngleAxis,
   ResponsiveContainer,
   Tooltip,
+  Text,
 } from 'recharts'
 import styled from 'styled-components'
 
@@ -21,24 +22,34 @@ const CustomTooltip = ({ data, active, payload, label }) => {
     return (
       <div
         className="custom-tooltip"
-        style={{ backgroundColor: 'white', border: 'solid 1.5px', fontSize: '13px' }}
+        style={{
+          backgroundColor: 'white',
+          border: 'solid 1.5px',
+          fontSize: '13px',
+        }}
         data-testid="tooltip"
       >
         <p className="category">
           <strong>{label}</strong>
         </p>
-        <p className="you">Your points: {Math.round(payload[0].payload.userPoints)}</p>
+        <p className="you">
+          Your points: {Math.round(payload[0].payload.userPoints)}
+        </p>
         {data[0].groupAverage && (
           <p className="group">
-            Group average: {Math.round(payload[0].payload.groupAverage.toFixed(1))}
+            Group average:{' '}
+            {Math.round(payload[0].payload.groupAverage.toFixed(1))}
           </p>
         )}
         {data[0].industryAverage && (
           <p className="industry">
-            Industry average: {Math.round(payload[0].payload.industryAverage.toFixed(1))}
+            Industry average:{' '}
+            {Math.round(payload[0].payload.industryAverage.toFixed(1))}
           </p>
         )}
-        <p className="max">Max points: {Math.round(payload[0].payload.maxPoints)}</p>
+        <p className="max">
+          Max points: {Math.round(payload[0].payload.maxPoints)}
+        </p>
       </div>
     )
   }
@@ -46,18 +57,34 @@ const CustomTooltip = ({ data, active, payload, label }) => {
   return null
 }
 
+const CustomizedAxisTick = (props) => {
+  const { x, y, payload, cy, cx } = props
+  return (
+    <Text
+      x={x > cx ? x + 30 : x < cx ? x - 30 : x}
+      y={y > cy ? y + 20 : y < cy ? y - 20 : y}
+      width={100}
+      textAnchor="middle"
+      verticalAnchor="middle"
+      fontSize="0.6rem"
+    >
+      {payload.value}
+    </Text>
+  )
+}
+
 const TotalResultRadarChart = ({ data }) => (
   <>
     <ResultsTitle>Compare your results</ResultsTitle>
-    <ResponsiveContainer id="RadarChartContainer" width="100%" height={450}>
-      <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
+    <ResponsiveContainer id="RadarChartContainer" width="100%" height={500}>
+      <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
         <Tooltip
           cursor={{ fill: 'transparent' }}
           content={<CustomTooltip />}
           data={data}
         />
         <PolarGrid />
-        <PolarAngleAxis dataKey="name" fontSize='13px' />
+        <PolarAngleAxis dataKey="name" tick={<CustomizedAxisTick />} />
 
         <Radar
           name="Your points"
@@ -87,7 +114,7 @@ const TotalResultRadarChart = ({ data }) => (
           />
         )}
 
-        <Legend />
+        <Legend fontSize="0.8rem" />
       </RadarChart>
     </ResponsiveContainer>
   </>
