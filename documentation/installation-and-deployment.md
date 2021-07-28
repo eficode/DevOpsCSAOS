@@ -34,11 +34,6 @@ change superuser password (if necessary):
 postgres=# ALTER USER postgres WITH PASSWORD newpassword;
 ```
 
-### AWS S3 instance
-
-This application uses AWS S3 to store the json files. In order to access these json files, you need to create a bucket, access key and secret key which are identified by the environment variables AWS_BUCKET, AWS_ACCESS_KEY, and AWS_SECRET_KEY.
-
-
 ### Hubspot
 
 This application uses Hubspot for sending result email to users. In your Hubspot account. In `Contacts > Actions > Edit properties` create properties called `Result Link For User` and `Group Invite Link`. 
@@ -86,6 +81,15 @@ The dockerfile expects to receive URL of the backend as build argument. Meaning 
 ```
 docker build --build-arg API_URL=URL_OF_THE_SERVER_HERE
 ```
+
+### Heroku Deployment
+
+The application has a github action which automatically performs unit test, robot test and deployment to heroku by using HEROKU_API_KEY whenever a push to main branch happens. During deployment to Heroku, the Backend in Heroku accesses a bucket in Amazon S3 with the name defined in environment variabl “AWS_BUCKET” using two keys: “AWS_SECRET_KEY” and “AWS_ACCESS_KEY”. Using this access, the backend gets the JSON files to populate the POSTGRES database.
+
+### AWS S3 instance
+
+This application uses AWS S3 to store the json files. In order to access these json files, you need to create a bucket, access key and secret key which are identified by the environment variables AWS_BUCKET, AWS_ACCESS_KEY, and AWS_SECRET_KEY.
+
 
 ### Environment variables needed in production environment
 
