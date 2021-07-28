@@ -13,8 +13,8 @@ import styled from 'styled-components'
 
 const ResultsTitle = styled.h2`
   color: ${({ theme }) => theme.colors.blueDianne};
-  font-family: Merriweather;
-  margin: 60px 0 10px 0;
+  font-family: Montserrat;
+  margin: 30px 0 10px 0;
 `
 
 const CustomTooltip = ({ data, active, payload, label }) => {
