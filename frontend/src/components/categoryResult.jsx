@@ -11,7 +11,7 @@ export const CategoryTitle = styled.h3`
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    fontFamily: 'Merriweather',
+    fontFamily: 'Montserrat',
     lineHeight: '2',
     padding: '3%',
     width: '50%',
@@ -24,6 +24,15 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
   },
+  category: {
+    fontFamily: 'Montserrat',
+  },
+  score: {
+    fontFamily: 'Montserrat',
+  },
+  text: {
+    fontFamily: 'Montserrat',
+  },
 }))
 
 const CategoryResult = ({
@@ -32,22 +41,20 @@ const CategoryResult = ({
   category,
   description,
   resultText,
-  index,
-  renderMobileLayout,
 }) => {
   const theme = useTheme()
   const classes = useStyles(theme)
   return (
     <Grid container className={classes.container}>
       <Grid item className={classes.content}>
-        <Typography variant="h5">
+        <Typography variant="h5" className={classes.category}>
           {category}
           {'\u00A0'}
         </Typography>
-        <Typography variant="h5">
+        <Typography variant="h5" className={classes.score}>
           {userResult} / {maxResult}
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" className={classes.text}>
           <strong>{description}</strong> {resultText}
         </Typography>
       </Grid>

@@ -43,17 +43,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   score: {
-    fontFamily: 'Merriweather',
+    fontFamily: 'Montserrat',
     fontWeight: 'bold',
   },
   title: {
-    fontFamily: 'Merriweather',
+    fontFamily: 'Montserrat',
     fontWeight: '700',
-    paddingBottom: '15px',
+    paddingBottom: '6px',
   },
   result: {
-    fontFamily: 'Merriweather',
+    fontFamily: 'Montserrat',
     fontWeight: '300',
+    paddingBottom: '10px',
   },
   categoryContainer: {
     display: 'flex',
