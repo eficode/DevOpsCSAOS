@@ -86,14 +86,14 @@ const initDatabase = async () => {
     updateOnDuplicate: ['name', 'description'],
   })
   await Category_result.bulkCreate(category_results, {
-    updateOnDuplicate: ['text'],
+    updateOnDuplicate: ['text', 'categoryId', 'cutoff_from_maxpoints'],
   })
   await Question.bulkCreate(questions, {
     updateOnDuplicate: ['text', 'category_weights'],
   })
 
   await Question_answer.bulkCreate(answers, {
-    updateOnDuplicate: ['text'],
+    updateOnDuplicate: ['text', 'points', 'questionId'],
   })
 
   await Survey_user_group.bulkCreate(survey_user_groups, {
