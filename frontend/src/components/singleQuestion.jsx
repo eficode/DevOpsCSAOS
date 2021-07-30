@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     paddingTop: '2%',
+    paddingLeft: '1%',
+    paddingRight: '1%',
     height: '90px',
     fontFamily: 'Montserrat',
   },

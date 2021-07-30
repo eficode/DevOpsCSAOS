@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       margin: '1vh',
     },
-  }
+  },
 }))
 
 const SurveyPage = () => {

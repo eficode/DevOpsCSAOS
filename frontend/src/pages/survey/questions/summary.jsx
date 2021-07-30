@@ -198,7 +198,7 @@ const Summary = () => {
                     )
                   })}
               </ContentAnimationWrapper>
-              <StyledLink type="secondary" href={lastQuestionHref}>
+              <StyledLink type="tertiary" href={lastQuestionHref}>
                 Back to survey
               </StyledLink>
               <StyledButton type="submit" onClick={handleSubmit}>
