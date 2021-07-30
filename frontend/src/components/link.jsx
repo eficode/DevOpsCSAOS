@@ -35,6 +35,7 @@ const StyledPrimaryLink = styled(StyledBaseLink)`
   background-color: ${({ theme }) => theme.colors.gold};
   color: ${({ theme }) => theme.colors.blueDianne};
   float: right;
+  padding-left: 2%;
   &:hover {
     background-color: ${({ theme }) => theme.colors.amber};
   }
@@ -43,6 +44,7 @@ const StyledPrimaryLink = styled(StyledBaseLink)`
 const StyledSecondaryLink = styled(StyledBaseLink)`
   background-color: white;
   color: ${({ theme }) => theme.colors.blueDianne};
+  padding-right: 2%;
   &:hover {
     background-color: ${({ theme }) => theme.colors.whiteSmoke};
   }

@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       margin: '1vh',
     },
-  }
+  },
 }))
 
 const SurveyPage = () => {
@@ -190,7 +190,7 @@ const SurveyPage = () => {
                             passHref
                             type="secondary"
                           >
-                            <ChevronLeftIcon /> Previous{'\u00A0'}
+                            <ChevronLeftIcon /> Previous
                           </StyledLink>
                         ) : (
                           <div />
@@ -202,7 +202,7 @@ const SurveyPage = () => {
                             passHref
                             type="tertiary"
                           >
-                            {'\u00A0'}To summary <LastPageIcon fontSize="small" />
+                            To summary <LastPageIcon fontSize="small" />
                           </StyledLink>
                         ) : (
                           <></>
@@ -213,7 +213,7 @@ const SurveyPage = () => {
                             passHref
                             type="primary"
                           >
-                            {'\u00A0'}Next <ChevronRightIcon />
+                            Next <ChevronRightIcon />
                           </StyledLink>
                         ) : (
                           <StyledLink
