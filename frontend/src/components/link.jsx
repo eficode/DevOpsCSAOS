@@ -43,7 +43,6 @@ const StyledPrimaryLink = styled(StyledBaseLink)`
 const StyledSecondaryLink = styled(StyledBaseLink)`
   background-color: white;
   color: ${({ theme }) => theme.colors.blueDianne};
-  
   &:hover {
     background-color: ${({ theme }) => theme.colors.whiteSmoke};
   }

@@ -190,7 +190,7 @@ const SurveyPage = () => {
                             passHref
                             type="secondary"
                           >
-                            <ChevronLeftIcon /> Previous
+                            <ChevronLeftIcon /> Previous{'\u00A0'}
                           </StyledLink>
                         ) : (
                           <div />
@@ -202,7 +202,7 @@ const SurveyPage = () => {
                             passHref
                             type="tertiary"
                           >
-                            To summary <LastPageIcon fontSize="small" />
+                            {'\u00A0'}To summary <LastPageIcon fontSize="small" />
                           </StyledLink>
                         ) : (
                           <></>
@@ -213,7 +213,7 @@ const SurveyPage = () => {
                             passHref
                             type="primary"
                           >
-                            Next <ChevronRightIcon />
+                            {'\u00A0'}Next <ChevronRightIcon />
                           </StyledLink>
                         ) : (
                           <StyledLink
