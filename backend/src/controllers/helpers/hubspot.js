@@ -22,11 +22,11 @@ const SendHubspotMessage = async (
   //  Hubspot properties cant have whitespace or capitals, formatting needed for hubspot
   // comma and whitespace are converted to _ internally in hubspot
   const formattedPairs = userQuestionAnswerPairs.map((item) => ({
-    [item.question.replace(/\./g, '')
-    .replace(/\s+/g, '_')
-    .replace(/,/g, '_')
-    .toLowerCase()]:
-      item.answer,
+    [item.question
+      .replace(/\./g, '')
+      .replace(/\s+/g, '_')
+      .replace(/,/g, '_')
+      .toLowerCase()]: item.answer,
   }))
 
   const questionAnswerProperties = Object.assign({}, ...formattedPairs)
