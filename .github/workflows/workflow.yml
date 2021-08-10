@@ -118,7 +118,7 @@ jobs:
         run: docker ps -a
       - name: Run robot tests
         working-directory: ./end-to-end-tests
-        run: robot --variable SERVER:www.eficode.com/devops-self-assesment-tool-test-page --variable BROWSER:chrome --include staging tests
+        run: robot --variable SERVER:www.eficode.com/devops-self-assesment-tool-test-page --variable BROWSER:firefox --include staging tests
   # accessibility test
 
   deploy_to_production:
