@@ -122,7 +122,7 @@ jobs:
   # accessibility test
 
   deploy_to_production:
-    if: github.ref == 'refs/head/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
