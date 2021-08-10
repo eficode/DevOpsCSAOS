@@ -1,9 +1,10 @@
 *** Settings ***
 Documentation   For testing survey
-Resource        ../resources/db_resource.robot
-Resource        ../resources/url_navigation_resource.robot
-Resource        ../resources/survey_resource.robot
-Resource        ../resources/result_resource.robot
+Resource        ../resources/local/db_resource.robot
+Resource        ../resources/local/url_navigation_resource.robot
+Resource        ../resources/local/survey_resource.robot
+Resource        ../resources/local/result_resource.robot
+Force Tags    Local
 
 *** Test Cases ***
 
@@ -18,7 +19,7 @@ Alert Is Shown If User Has Not Agreed To Privacy Policy When Submitting Email
   Complete survey and submit answers
   Submit email
   Click submit
-  Alert Should Be Present
+  Page Should Contain Element   //*[contains(text(), 'Please accept the privacy policy before submitting your email.')]
   [Teardown]    Close Application
 
 User Is Notified When Email Submit Is Successful
@@ -35,6 +36,6 @@ Alert Is Shown If User Has Entered Invalid Email And Clicks Submit
   Submit invalid email
   Check privacy box
   Click submit
-  Alert Should Be Present
+  Page Should Contain Element   //*[contains(text(), 'Please enter a valid email.')]
   [Teardown]    Close Application
 

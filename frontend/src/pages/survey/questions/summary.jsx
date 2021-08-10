@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -86,11 +86,22 @@ const useStyles = makeStyles((theme) => ({
   answer: {
     fontSize: '0.8rem !important',
   },
+  text: {
+    textAlign: 'center',
+    fontFamily: 'Montserrat',
+    marginTop: '1vh',
+    fontWeight: 'bold',
+    color: '#ff6600',
+    [theme.breakpoints.down('sm')]: {
+      margin: '1vh',
+    },
+  },
 }))
 
 const Summary = () => {
   const selections = useStore((state) => state.selections)
   const questions = useStore((state) => state.questions)
+  const [displayAlert, setDisplayAlert] = useState(false)
   const store = useStore()
   const router = useRouter()
   const theme = useTheme()
@@ -104,7 +115,8 @@ const Summary = () => {
   const handleSubmit = async () => {
     if (!allQuestionsAnswered(store.selections)) {
       // eslint-disable-next-line no-undef
-      alert('Please answer all of the questions to proceed')
+      setDisplayAlert(true)
+      // alert('Please answer all of the questions to proceed')
       return
     }
 
@@ -204,6 +216,9 @@ const Summary = () => {
               <StyledButton type="submit" onClick={handleSubmit}>
                 Submit answers
               </StyledButton>
+              {displayAlert ? <Typography variant="subtitle1" className={classes.text}>
+              Please answer all questions to continue.
+            </Typography> : null}
             </Paper>
           </Grid>
           <Grid item md xl={1} className={classes.image}>
