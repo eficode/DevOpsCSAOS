@@ -55,7 +55,9 @@ jobs:
 
   
   end-to-end-tests:
-    if: github.ref != 'refs/heads/main' || github.ref != 'refs/heads/staging'
+    if: |
+      github.ref != 'refs/heads/main' || 
+      github.ref != 'refs/heads/staging'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -115,7 +117,7 @@ jobs:
       - name: Check running containers
         run: docker ps -a
       - name: Run robot tests
-        working-directory: ./end-to-end-staging-tests
+        working-directory: ./end-to-end-tests
         run: robot --variable BROWSER:headlessfirefox --include staging tests
   # accessibility test
 
