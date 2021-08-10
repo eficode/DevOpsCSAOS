@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation   For testing survey
-Resource        ../resources/db_resource.robot
-Resource        ../resources/url_navigation_resource.robot
-Resource        ../resources/survey_resource.robot
+Resource        ../resources/local/db_resource.robot
+Resource        ../resources/local/url_navigation_resource.robot
+Resource        ../resources/local/survey_resource.robot
+Force Tags    Local
 
 *** Test Cases ***
 
@@ -34,7 +35,7 @@ Alert Is Shown Instead Of Result Page When There Are Unanswered Questions
   [Setup]       Seed Database With Test Data
   Open survey and answer some questions
   Click go to results
-  Alert Should Be Present
+  Page Should Contain Element   //*[contains(text(), 'Please answer all questions to continue.')]
   [Teardown]    Close Application
 
 User Is Auto-redirected To Next Page When All Questions On Page Are Answered
