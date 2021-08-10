@@ -27,9 +27,7 @@ ${EMAIL_COMPLETE}       Thank you
 Open Browser To Main Page
     Open Browser    ${MAIN_URL}/    ${BROWSER}
     Wait Until Location Contains    ${SERVER}
-    Click Element    //*[contains(text(), 'Accept')]
-    Select Frame    id:assessmentFrame
-    Current Frame Should Contain   DevOps self-assessment
+    Wait Until Page Contains Element    //*[contains(text(), 'DevOps self-assessment')]
 
 
 Privacy Policy Page Should Be Open

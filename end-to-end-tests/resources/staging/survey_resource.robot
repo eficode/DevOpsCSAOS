@@ -23,6 +23,7 @@ Close Application
 
 Select option 
     [Arguments]   ${option_id}
+    Wait Until Page Contains Element    id:${option_id}
     Click Element	 id:${option_id}
     Sleep    0.4s
 
@@ -47,11 +48,7 @@ Answer some questions
         ${counter}=   Evaluate   ${counter} + 2
         Exit For Loop If    ${index} == 7
     END
-    Current Frame Should Contain   Here are your current answers
-    # Sleep    0.5s
-    # Unselect Frame
-    # Click Element    //*[contains(text(), '${GO_TO_RESULTS}')]
-    
+    Current Frame Should Contain   Here are your current answers   
 
 Summary Page Should Contain Selected Answers
     [Arguments]  @{ANSWERS_IN_SUMMARY}
