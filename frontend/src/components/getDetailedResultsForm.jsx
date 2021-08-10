@@ -3,8 +3,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isEmail } from 'validator'
-import Link from 'next/link'
+import { useTheme, makeStyles } from '@material-ui/core/styles'
 import Checkbox from '@material-ui/core/Checkbox'
+import Typography from '@material-ui/core/Typography'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
 import Button from './button'
@@ -94,9 +95,26 @@ const Info = styled.div`
     left: 33%;
   }
 `
+
+const useStyles = makeStyles((theme) => ({
+  text: {
+    textAlign: 'center',
+    fontFamily: 'Montserrat',
+    marginTop: '1vh',
+    fontWeight: 'bold',
+    color: '#ff6600',
+    [theme.breakpoints.down('sm')]: {
+      margin: '1vh',
+    },
+  },
+}))
+
+
 const StyledIcon = styled(InfoOutlinedIcon)``
 
 const GetDetailedResultsForm = ({ industries }) => {
+  const theme = useTheme()
+  const classes = useStyles(theme)
   const store = useStore()
   const [emailInput, setEmailInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -105,12 +123,15 @@ const GetDetailedResultsForm = ({ industries }) => {
     agreeToPrivacyPolicyChecked,
     setAgreeToPrivacyPolicyChecked,
   ] = useState(false)
+  const [emailDisplayAlert, setEmailDisplayAlert] = useState(false)
+  const [privacyDisplayAlert, setPrivacyDisplayAlert] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
   const [selectedIndustry, setSelectedIndustry] = useState(0)
 
   const handleEmailChange = (event) => {
     event.preventDefault()
     setEmailInput(event.target.value)
+    setEmailDisplayAlert(false)
   }
 
   const handleSubmit = async (event) => {
@@ -118,12 +139,14 @@ const GetDetailedResultsForm = ({ industries }) => {
 
     if (!isEmail(emailInput)) {
       // eslint-disable-next-line no-undef
-      alert('Please provide a valid email address')
+      // alert('Please provide a valid email address')
+      setEmailDisplayAlert(true)
       return
     }
     if (!agreeToPrivacyPolicyChecked) {
       // eslint-disable-next-line no-undef
-      alert('You need to agree to the privacy policy')
+      // alert('You need to agree to the privacy policy')
+      setPrivacyDisplayAlert(true)
       return
     }
 
@@ -146,6 +169,7 @@ const GetDetailedResultsForm = ({ industries }) => {
 
   const handleAgreeToPolicyChange = (event) => {
     setAgreeToPrivacyPolicyChecked(event.target.checked)
+    setPrivacyDisplayAlert(false)
   }
 
   if (submitted) {
@@ -169,7 +193,6 @@ const GetDetailedResultsForm = ({ industries }) => {
             placeholder="Email"
             value={emailInput}
             onChange={handleEmailChange}
-            required
           />
           <IndustrySelector
             industries={industries}
@@ -225,6 +248,12 @@ const GetDetailedResultsForm = ({ industries }) => {
         <Button id="submit-email-button" type="submit">
           Submit
         </Button>
+        {emailDisplayAlert ? <Typography variant="subtitle1" className={classes.text}>
+              Please enter a valid email.
+            </Typography> : null}
+        {privacyDisplayAlert ? <Typography variant="subtitle1" className={classes.text}>
+              Please accept the privacy policy before submitting your email.
+            </Typography> : null}
       </DetailsForm>
     </FormBackGround>
   )

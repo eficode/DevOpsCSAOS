@@ -71,7 +71,7 @@ jobs:
         run: docker ps -a
       - name: Run robot tests
         working-directory: ./end-to-end-tests
-        run: robot --variable DB_CONFIG_FILE:resources/compose.cfg --variable BROWSER:headlessfirefox tests
+        run: robot --variable DB_CONFIG_FILE:resources/compose.cfg --variable BROWSER:headlessfirefox --include local tests
 
   deploy_to_staging:
     if: github.ref == 'refs/heads/main'

@@ -112,13 +112,12 @@ describe('Sending answers', () => {
       })
     })
 
-    global.alert = jest.fn()
+
 
     const button = screen.getByRole('button', { name: 'Submit answers' })
+    expect(screen.queryByText('Please answer all questions to continue.')).not.toBeInTheDocument()
     userEvent.click(button)
-    expect(global.alert).toHaveBeenCalledTimes(1)
-    userEvent.click(button)
-    expect(global.alert).toHaveBeenCalledTimes(2)
+    expect(screen.queryByText('Please answer all questions to continue.')).toBeInTheDocument()
   })
 
   it('Able to send answers after all questions answered', () => {
