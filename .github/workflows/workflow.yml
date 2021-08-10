@@ -95,7 +95,7 @@ jobs:
           docker_build_args: |
             API_URL
         env:
-          SECRET_FOR_TOKEN: ${{secrets.SECRET_FOR_TOKEN}}
+          API_URL: ${{secrets.STAGING_API_URL}}
 
 
 
