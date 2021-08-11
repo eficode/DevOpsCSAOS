@@ -98,7 +98,19 @@ jobs:
         env:
           API_URL: ${{secrets.STAGING_API_URL}}
 
-
+  lighthouse:
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    needs: deploy_to_staging
+    steps:
+      - uses: actions/checkout@v2
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v8
+        with:
+          urls: |
+            https://${{secrets.STAGING_URL}}
+            https://${{secrets.STAGING_URL}}/survey/questions/?id=1/
+            https://${{secrets.STAGING_URL}}/survey/questions/summary/
 
   end-to-end-staging-tests:
     if: github.ref == 'refs/heads/staging'
@@ -118,7 +130,7 @@ jobs:
         run: docker ps -a
       - name: Run robot tests
         working-directory: ./end-to-end-tests
-        run: robot --variable SERVER:www.eficode.com/devops-self-assesment-tool-test-page --variable BROWSER:firefox --include staging tests
+        run: robot --variable SERVER:${{secrets.STAGING_URL}} --variable BROWSER:headlessfirefox --include staging tests
   # accessibility test
 
   deploy_to_production:

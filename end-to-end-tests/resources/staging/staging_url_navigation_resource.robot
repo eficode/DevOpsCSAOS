@@ -8,7 +8,7 @@ ${HOST}           localhost
 ${PORT}           3000
 ${SERVER}         ${HOST}:${PORT}
 # Change browser to firefox to see test run, headlessfirefox to run headless
-${BROWSER}                chrome
+${BROWSER}                headlesschrome
 ${MAIN_URL}               https://${SERVER}
 ${VALID_EMAIL}            test2222@test.com
 
@@ -29,10 +29,8 @@ Open Browser To Main Page
     Wait Until Location Contains    ${SERVER}
     Wait Until Page Contains Element    //*[contains(text(), 'DevOps self-assessment')]
 
-
 Privacy Policy Page Should Be Open
     Location Should Contain  https://www.eficode.com/privacy-policy
-
 
 Click next button
     [Arguments]   ${next_page_id}

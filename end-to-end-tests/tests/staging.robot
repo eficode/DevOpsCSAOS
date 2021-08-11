@@ -19,13 +19,24 @@ Answering all questions leads user to summary page
 Answering only some questions gives user an alert
     Open Browser To Main Page
     Answer some questions
+    Click go to results
+    Page Should Contain Element   //*[contains(text(), 'Please answer all questions to continue.')]
     [Teardown]    Close Application
 
-# Alert Is Shown If User Has Entered Invalid Email And Clicks Submit
-#   Complete survey and submit answers
-#   Submit invalid email
-#   Check privacy box
-#   Click submit
-#   Alert Should Be Present
-#   [Teardown]    Close Application
+Alert Is Shown If User Has Entered Invalid Email And Clicks Submit
+  Open Browser To Main Page
+  Answer all questions
+  Click go to results and wait
+  Click submit
+  Page Should Contain Element   //*[contains(text(), 'Please enter a valid email.')]
+  [Teardown]    Close Application
+
+Alert Is Shown If User Has Not Agreed To Privacy Policy When Submitting Email
+  Open Browser To Main Page
+  Answer all questions
+  Click go to results and wait
+  Submit email
+  Click submit
+  Page Should Contain Element   //*[contains(text(), 'Please accept the privacy policy before submitting your email.')]
+  [Teardown]    Close Application
 
