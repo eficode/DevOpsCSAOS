@@ -19,5 +19,4 @@ jobs:
         run: docker ps -a
       - name: Run robot tests
         working-directory: ./end-to-end-tests
-        run: robot --variable SERVER:${{secrets.PRODUCTION_URL}} --variable BROWSER:headlessfirefox --include staging tests
-  
+        run: robot --variable SERVER:${{secrets.PRODUCTION_URL}} --variable BROWSER:headlessfirefox -t "Staging server is up and front page on test url is reachable" tests/staging.robot
