@@ -90,7 +90,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: 'devops-csaos-test'
+          heroku_app_name: ${{secrets.STAGING_HEROKU_APP_NAME}}
           heroku_email: ${{secrets.PROJECT_EMAIL}}
           usedocker: true
           docker_build_args: |
@@ -141,7 +141,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: 'devops-csaos'
+          heroku_app_name: ${{secrets.PRODUCTION_HEROKU_APP_NAME}}
           heroku_email: ${{secrets.PROJECT_EMAIL}}
           usedocker: true
         env:
