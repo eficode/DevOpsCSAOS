@@ -92,15 +92,6 @@ const Home = () => {
   let industries = []
 
   useEffect(async () => {
-    try {
-      window.scroll({
-        top: 50,
-        left: 0,
-        behavior: 'smooth',
-      });
-    } catch (error) {
-      window.scrollTo(0, 50);
-    }
     const fetchedUrl = await getBaseUrl()
     setBaseUrl(fetchedUrl)
     if (store.industries.length === 0) {
