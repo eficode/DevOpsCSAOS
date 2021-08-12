@@ -10,13 +10,15 @@ questionsRouter.get('/:surveyId', async (req, res) => {
         {
           model: Question_answer,
           attributes: ['id', 'text'],
-          order: [['id', 'ASC']],
         },
       ],
       where: {
         surveyId: surveyId,
       },
-      order: [['id', 'ASC']],
+      order: [
+        ['id', 'ASC'],
+        [Question_answer, 'id', 'ASC'],
+      ],
     })
     return res.status(200).json(questions)
   } catch (e) {

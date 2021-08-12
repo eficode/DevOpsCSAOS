@@ -37,6 +37,7 @@ const SendHubspotMessage = async (
       email: email,
       group_invite_link: group_invite_link,
       result_link_for_user: user_results_link,
+      last_devops_assessment_survey_submission: new Date().toString(),
     },
   }
 
