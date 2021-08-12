@@ -35,7 +35,7 @@ Answer all questions
         ${counter}=   Evaluate   ${counter} + 1
         Exit For Loop If    ${index} == 15
     END
-    Current Frame Should Contain   Here are your current answers
+    Page Should Contain   Here are your current answers
 
 
 Answer some questions
@@ -48,7 +48,7 @@ Answer some questions
         ${counter}=   Evaluate   ${counter} + 2
         Exit For Loop If    ${index} == 7
     END
-    Current Frame Should Contain   Here are your current answers   
+    Page Should Contain   Here are your current answers   
 
 Summary Page Should Contain Selected Answers
     [Arguments]  @{ANSWERS_IN_SUMMARY}
