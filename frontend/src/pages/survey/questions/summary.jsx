@@ -119,15 +119,7 @@ const Summary = () => {
       // alert('Please answer all of the questions to proceed')
       return
     }
-    try {
-      window.scroll({
-        top: 100,
-        left: 0,
-        behavior: 'smooth',
-      })
-    } catch (error) {
-      window.scrollTo(0, 100)
-    }
+    window.parent.document.body.scrollTop(0);
     const surveyId = 1
 
     const groupId = store.groupId === '' ? undefined : store.groupId
