@@ -162,8 +162,8 @@ const GetDetailedResultsForm = ({ industries }) => {
       store.userQuestionAnswerPairs
     )
     setSubmitted(true)
-    window.parent.document.body.scrollTop(0);
   }
+  window.parent.postMessage('Email submission button clicked', '*');
   const handleCreateGroupChange = (event) => {
     setCreateGroupChecked(event.target.checked)
   }

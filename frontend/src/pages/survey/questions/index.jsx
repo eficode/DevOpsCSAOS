@@ -85,6 +85,7 @@ const SurveyPage = () => {
   const { visitedSummary } = store
 
   useEffect(() => {
+    window.parent.postMessage('Arrived to question page', '*')
     ;(async () => {
       if (store.questions.length === 0) {
         try {
