@@ -114,11 +114,9 @@ const Summary = () => {
   }, [])
 
   const handleSubmit = async () => {
-    window.parent.postMessage('Arrived to summary page', '*')
     if (!allQuestionsAnswered(store.selections)) {
       // eslint-disable-next-line no-undef
       setDisplayAlert(true)
-      // alert('Please answer all of the questions to proceed')
       return
     }
     const surveyId = 1
