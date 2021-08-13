@@ -163,6 +163,7 @@ const GetDetailedResultsForm = ({ industries }) => {
     )
     setSubmitted(true)
   }
+  window.parent.postMessage('Email submission button clicked', '*');
   const handleCreateGroupChange = (event) => {
     setCreateGroupChecked(event.target.checked)
   }
