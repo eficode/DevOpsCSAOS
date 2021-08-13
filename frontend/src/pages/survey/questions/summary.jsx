@@ -113,6 +113,7 @@ const Summary = () => {
   }, [])
 
   const handleSubmit = async () => {
+    window.parent.postMessage('Arrived to summary page', '*')
     if (!allQuestionsAnswered(store.selections)) {
       // eslint-disable-next-line no-undef
       setDisplayAlert(true)
@@ -145,6 +146,7 @@ const Summary = () => {
       store.setResults(response.results)
       store.setUserToken(response.token)
       router.push('/survey/result')
+      window.parent.postMessage('Result button clicked', '*')
     } catch (e) {
       // eslint-disable-next-line no-undef
       alert(`Something went wrong while submitting answers: ${e.message}`)

@@ -92,6 +92,7 @@ const Home = () => {
   let industries = []
 
   useEffect(async () => {
+    window.parent.postMessage('Arrived to result page', '*')
     const fetchedUrl = await getBaseUrl()
     setBaseUrl(fetchedUrl)
     if (store.industries.length === 0) {
