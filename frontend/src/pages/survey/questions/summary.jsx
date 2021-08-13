@@ -110,6 +110,7 @@ const Summary = () => {
 
   useEffect(() => {
     store.setVisitedSummary(true)
+    window.parent.postMessage('Arrived to summary page', '*')
   }, [])
 
   const handleSubmit = async () => {
@@ -118,15 +119,6 @@ const Summary = () => {
       setDisplayAlert(true)
       // alert('Please answer all of the questions to proceed')
       return
-    }
-    try {
-      window.scroll({
-        top: 100,
-        left: 0,
-        behavior: 'smooth',
-      })
-    } catch (error) {
-      window.scrollTo(0, 100)
     }
     const surveyId = 1
 
@@ -152,7 +144,9 @@ const Summary = () => {
       )
       store.setResults(response.results)
       store.setUserToken(response.token)
+      window.parent.postMessage('Summary page button clicked', '*')
       router.push('/survey/result')
+
     } catch (e) {
       // eslint-disable-next-line no-undef
       alert(`Something went wrong while submitting answers: ${e.message}`)

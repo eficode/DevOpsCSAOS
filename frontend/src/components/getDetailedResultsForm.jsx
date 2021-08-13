@@ -162,16 +162,8 @@ const GetDetailedResultsForm = ({ industries }) => {
       store.userQuestionAnswerPairs
     )
     setSubmitted(true)
-    try {
-      window.scroll({
-        top: 150,
-        left: 0,
-        behavior: 'smooth',
-      })
-    } catch (error) {
-      window.scrollTo(0, 150)
-    }
   }
+  window.parent.postMessage('Email submission button clicked', '*');
   const handleCreateGroupChange = (event) => {
     setCreateGroupChecked(event.target.checked)
   }
