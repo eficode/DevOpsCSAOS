@@ -2,7 +2,6 @@
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
-import { SummaryAndScorePageWrapper } from '../../components/shared/SummaryAndScorePageWrapper'
 
 import Link from '../../components/link'
 import CategoryResult from '../../components/categoryResult'
@@ -71,7 +70,7 @@ const Home = () => {
   const classes = useStyles(theme)
 
   useEffect(() => {
-    window.parent.postMessage('Arrived to total-result page', '*')
+    window.parent.postMessage(document.body.scrollHeight + 100, '*')
     if (process.env.NODE_ENV === 'test') {
       setFullResultsLoaded(true)
     }

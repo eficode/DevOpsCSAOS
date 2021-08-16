@@ -85,7 +85,7 @@ const SurveyPage = () => {
   const { visitedSummary } = store
 
   useEffect(() => {
-    window.parent.postMessage('Arrived to question page', '*')
+    window.parent.postMessage(document.body.scrollHeight + 100, '*')
     ;(async () => {
       if (store.questions.length === 0) {
         try {
