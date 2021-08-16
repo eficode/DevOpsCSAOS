@@ -85,7 +85,11 @@ const SurveyPage = () => {
   const { visitedSummary } = store
 
   useEffect(() => {
-    window.parent.postMessage(document.body.scrollHeight + 100, '*')
+    const resizeObserver = new ResizeObserver(entries => 
+      window.parent.postMessage(entries[0].target.clientHeight + 100, '*')
+    )
+
+    resizeObserver.observe(document.body)
     ;(async () => {
       if (store.questions.length === 0) {
         try {
