@@ -71,6 +71,7 @@ const Home = () => {
   const classes = useStyles(theme)
 
   useEffect(() => {
+    window.parent.postMessage('Arrived to total-result page', '*')
     if (process.env.NODE_ENV === 'test') {
       setFullResultsLoaded(true)
     }
