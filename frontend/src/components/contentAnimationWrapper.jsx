@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
  * https://www.framer.com/api/motion/types/
  *  */
 
-const duration = 0.3
-const delay = 0.1
+const duration = 0.25
+const delay = 0.05
 
 const variants = {
   initial: {

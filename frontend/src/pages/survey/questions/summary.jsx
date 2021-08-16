@@ -110,7 +110,7 @@ const Summary = () => {
 
   useEffect(() => {
     store.setVisitedSummary(true)
-    window.parent.postMessage('Arrived to summary page', '*')
+    window.parent.postMessage(document.body.scrollHeight + 100, '*')
   }, [])
 
   const handleSubmit = async () => {
@@ -144,7 +144,6 @@ const Summary = () => {
       store.setResults(response.results)
       store.setUserToken(response.token)
       router.push('/survey/result')
-      window.parent.postMessage('Result button clicked', '*')
       
     } catch (e) {
       // eslint-disable-next-line no-undef
