@@ -92,7 +92,7 @@ const Home = () => {
   let industries = []
 
   useEffect(async () => {
-    window.parent.postMessage(document.body.scrollHeight + 100, '*')
+
     const fetchedUrl = await getBaseUrl()
     setBaseUrl(fetchedUrl)
     if (store.industries.length === 0) {

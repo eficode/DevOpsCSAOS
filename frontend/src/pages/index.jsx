@@ -39,6 +39,12 @@ const Home = () => {
   useEffect(async () => {
       store.resetVersion()
       // eslint-disable-next-line no-undef
+      const resizeObserver = new ResizeObserver((entries) => { 
+        window.parent.postMessage(entries[0].target.clientHeight + 200, '*')
+        console.log('from index',entries[0].target.clientHeight)
+      })
+  
+      resizeObserver.observe(document.body)
       const url = new URLSearchParams(window.location.search)
       const version = url.get('version')
       const groupId = url.get('groupid')
