@@ -92,7 +92,6 @@ const Home = () => {
   let industries = []
 
   useEffect(async () => {
-
     const fetchedUrl = await getBaseUrl()
     setBaseUrl(fetchedUrl)
     if (store.industries.length === 0) {

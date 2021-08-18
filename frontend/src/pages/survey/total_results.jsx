@@ -70,7 +70,6 @@ const Home = () => {
   const classes = useStyles(theme)
 
   useEffect(() => {
-
     if (process.env.NODE_ENV === 'test') {
       setFullResultsLoaded(true)
     }

@@ -41,7 +41,6 @@ const Home = () => {
       // eslint-disable-next-line no-undef
       const resizeObserver = new ResizeObserver((entries) => { 
         window.parent.postMessage(entries[0].target.clientHeight + 200, '*')
-        console.log('from index',entries[0].target.clientHeight)
       })
   
       resizeObserver.observe(document.body)
