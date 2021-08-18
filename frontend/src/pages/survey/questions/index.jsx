@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '12px',
   },
   rowGrid: {
-    minHeight: '400px',
+    minHeight: '550px',
     [theme.breakpoints.down('sm')]: {
       minHeight: '510px',
       minWidth: '0px',
@@ -85,7 +85,7 @@ const SurveyPage = () => {
   const { visitedSummary } = store
 
   useEffect(() => {
-    window.parent.postMessage(document.body.scrollHeight + 100, '*')
+    
     ;(async () => {
       if (store.questions.length === 0) {
         try {

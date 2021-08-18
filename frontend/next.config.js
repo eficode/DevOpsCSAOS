@@ -4,7 +4,5 @@ module.exports = {
     PORT: process.env.PORT,
   },
   trailingSlash: true,
-  future: {
-    webpack5: true,
-  },
+  webpack5: true,
 }

@@ -70,7 +70,6 @@ const Home = () => {
   const classes = useStyles(theme)
 
   useEffect(() => {
-    window.parent.postMessage(document.body.scrollHeight + 100, '*')
     if (process.env.NODE_ENV === 'test') {
       setFullResultsLoaded(true)
     }

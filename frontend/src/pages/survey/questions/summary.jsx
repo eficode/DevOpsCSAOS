@@ -110,7 +110,6 @@ const Summary = () => {
 
   useEffect(() => {
     store.setVisitedSummary(true)
-    window.parent.postMessage(document.body.scrollHeight + 100, '*')
   }, [])
 
   const handleSubmit = async () => {
