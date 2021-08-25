@@ -7,7 +7,7 @@ const {
   Survey_user_group,
   Industry,
 } = require('../../models')
-const { SendHubspotMessage } = require('./helpers/hubspot')
+const { SendHubspotMessage } = require('./helpers/sendAnswersToHubspot')
 const { verifyUserAnswers, getSummaryOfResults } = require('./helpers/answers')
 
 const saveAnswersToDatabase = async (answers, userId) => {

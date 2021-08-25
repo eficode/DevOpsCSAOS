@@ -10,7 +10,7 @@ const app = require('../../src/app.js')
 const resultsEndpoint = '/api/results'
 const submitAnswersEndpoint = '/api/answers'
 const submitEmailEndpoint = '/api/answers/emailsubmit'
-jest.mock('../../src/controllers/helpers/hubspot')
+jest.mock('../../src/controllers/helpers/sendAnswersToHubspot')
 
 const survey1TestAnswers = [1, 7] // points: culture points -3 & -1.5
 const survey1TestAnswers2 = [5, 10] // points: culture points 3 & 3

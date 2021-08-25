@@ -1,11 +1,11 @@
 const generateAnswerData = (question_amount) => {
   const json_file = []
   const possible_values = [
-    'Strongly Disagree',
+    'Strongly disagree',
     'Disagree',
-    'I do not know',
+    'Do not disagree or agree',
     'Agree',
-    'Strongly Agree',
+    'Strongly agree',
   ]
   let counter = 1
   for (let i = 0; i < question_amount; i += 1) {
