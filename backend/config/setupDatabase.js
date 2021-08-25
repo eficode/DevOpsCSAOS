@@ -72,7 +72,7 @@ const initDatabase = async () => {
 
   await sequelize.sync({ alter: true })
   await Survey.bulkCreate(surveys, {
-    updateOnDuplicate: ['id'],
+    updateOnDuplicate: ['name'],
   })
   await Industry.bulkCreate(industries, {
     updateOnDuplicate: ['name'],
@@ -97,7 +97,7 @@ const initDatabase = async () => {
   })
 
   await Survey_user_group.bulkCreate(survey_user_groups, {
-    updateOnDuplicate: ['id'],
+    updateOnDuplicate: ['group_name'],
   })
 }
 

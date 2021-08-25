@@ -8,6 +8,7 @@ assert(PORT)
 console.log(PORT)
 
 const { initDatabase } = require('./config/setupDatabase')
+const { updateHubspotProperties } = require('./src/controllers/helpers/updateHubspotProperties')
 
 const port = PORT
 app.listen(port, async () => {
@@ -17,6 +18,10 @@ app.listen(port, async () => {
   } else {
     await initDatabase()
     console.log('database initialized')
+  }
+
+  if (NODE_ENV === 'production') {
+    await updateHubspotProperties()
   }
 
   console.log(`'Server up on http://localhost:${PORT}`)
