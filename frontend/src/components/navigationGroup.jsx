@@ -8,6 +8,7 @@ const NavWrapper = styled.nav`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1%;
+  margin-top: 7%;
   width: 100% !important;
   
 `

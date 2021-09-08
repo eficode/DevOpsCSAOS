@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0',
     padding: '3%',
     borderRadius: '12px',
+    backgroundColor: '#F0F0EC',
   },
   contentRow: {
     alignItems: 'center',

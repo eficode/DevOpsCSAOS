@@ -1,12 +1,15 @@
 import React from 'react'
-import { makeStyles ,
+import {
+  makeStyles,
   createMuiTheme,
   responsiveFontSizes,
 } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import Typography from '@material-ui/core/Typography'
-import Option from './option'
 import { useStore } from '../store'
 
 const useStyles = makeStyles((theme) => ({
@@ -21,20 +24,61 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '0%',
     },
   },
-  heading: {
-    paddingTop: '2%',
-    paddingLeft: '1%',
-    paddingRight: '1%',
-    height: '90px',
+  radioButtonGroup: {
+    width: 'auto',
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flexDirection: 'row',
+    textAlign: 'center',
+    justifyContent: 'center',
+    padding: '0.15rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      display: 'flex',
+      marginTop: '10%',
+      textAlign: 'center',
+      float: 'left',
+      alignContent: 'center',
+      flexDirection: 'column',
+      flexWrap: 'wrap',
+      padding: '0.15rem',
+    },
+  },
+  radio: {
+    color: '#1E3944',
+    '&$checked': {
+      color: '#FFD700',
+      '&:hover': {
+        backgroundColor: '#ffd70040',
+      },
+    },
+    '&:hover': {
+      backgroundColor: '#ffd70040',
+    },
+  },
+  checked: {},
+  radioTextLabel: {
     fontFamily: 'Montserrat',
+    padding: '0.15rem !important',
   },
   text: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'Open Serif, Roboto, serif',
     lineHeight: '1.2',
+    textAlign: 'left',
+    padding: '1.2vh',
   },
-  indicator: {
-    fontFamily: 'Montserrat',
-    textAlign: 'right',
+  singleOption: {
+    padding: '0px',
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: '5px',
+      paddingBottom: '5px',
+    },
+  },
+  questionContainer: {
+    minHeight: '250px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   },
 }))
 
@@ -48,36 +92,41 @@ const SingleQuestion = ({ question, onOptionClick, total }) => {
     (s) => s.questionId === question.id
   ).answerId
 
+  const screenSizeIsRegular = useMediaQuery(theme.breakpoints.up('md'))
+
   return (
-    <div>
-      <Grid container spacing={2} className={classes.heading}>
-        <Grid item xs={10}>
-          <Typography variant="h6" className={classes.text}>{question.text} </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="h6" className={classes.indicator}>
-            {question.id}/{total}
-          </Typography>
-        </Grid>
-      </Grid>
-      <br />
-      <Grid
-        container
-        className={classes.options}
-        justify="space-evenly"
-        spacing={2}
+    <div className={classes.questionContainer}>
+      <Typography variant="h6" className={classes.text}>
+        {question.text}
+      </Typography>
+      <RadioGroup
+        size="small"
+        aria-label="answer options"
+        name="answer options"
+        defaultValue="top"
+        className={classes.radioButtonGroup}
       >
         {question.Question_answers.map((answer) => (
-          <Grid item xs={12} sm={7} key={answer.id}>
-            <Option
-              id={answer.id}
-              selected={answer.id === currentSelection}
-              label={answer.text}
-              onClick={() => onOptionClick(question.id, answer.id)}
-            />
-          </Grid>
+          <FormControlLabel
+            className={classes.singleOption}
+            key={answer.id}
+            value={answer.text}
+            control={
+              <Radio
+                checked={answer.id === currentSelection}
+                classes={{ root: classes.radio, checked: classes.checked }}
+                onClick={() => onOptionClick(question.id, answer.id)}
+              />
+            }
+            label={
+              <Typography variant="body2" className={classes.radioTextLabel}>
+                {answer.text}
+              </Typography>
+            }
+            labelPlacement={screenSizeIsRegular === true ? 'top' : 'end'}
+          />
         ))}
-      </Grid>
+      </RadioGroup>
     </div>
   )
 }

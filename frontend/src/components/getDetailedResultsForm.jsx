@@ -109,7 +109,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-
 const StyledIcon = styled(InfoOutlinedIcon)``
 
 const GetDetailedResultsForm = ({ industries }) => {
@@ -163,7 +162,7 @@ const GetDetailedResultsForm = ({ industries }) => {
     )
     setSubmitted(true)
   }
-  
+
   const handleCreateGroupChange = (event) => {
     setCreateGroupChecked(event.target.checked)
   }
@@ -214,7 +213,9 @@ const GetDetailedResultsForm = ({ industries }) => {
               and process your personal data. If you consent to us storing your
               personal data for this purpose, please tick this checkbox.
               {'\u00A0'}
-              <a href="https://www.eficode.com/privacy-policy/" target="_blank">Privacy policy</a>
+              <a href="https://www.eficode.com/privacy-policy/" target="_blank">
+                Privacy policy
+              </a>
             </CheckBoxText>
           </CheckboxContainer>
           {store.groupId === '' && (
@@ -228,7 +229,7 @@ const GetDetailedResultsForm = ({ industries }) => {
                 }}
               />
               <CheckBoxText>
-                Create a group to compare results with
+                Let me share and compare my results with my colleagues
               </CheckBoxText>
               <StyledIconButton
                 aria-label="info"
@@ -238,10 +239,9 @@ const GetDetailedResultsForm = ({ industries }) => {
                 <StyledIcon style={{ fontSize: 20 }} />
               </StyledIconButton>
               <Info open={infoOpen}>
-                By checking this box, you will be given a group link that you
-                can share with your friends. You will be able to compare your
-                results to the group average after your friends have taken the
-                survey.{' '}
+                By checking this box you will be given a link that you can share
+                with your colleagues. Once they have taken the survey, you can
+                compare the results with the group.{' '}
               </Info>
             </CheckboxContainer>
           )}
@@ -249,12 +249,16 @@ const GetDetailedResultsForm = ({ industries }) => {
         <Button id="submit-email-button" type="submit">
           Submit
         </Button>
-        {emailDisplayAlert ? <Typography variant="subtitle1" className={classes.text}>
-              Please enter a valid email.
-            </Typography> : null}
-        {privacyDisplayAlert ? <Typography variant="subtitle1" className={classes.text}>
-              Please accept the privacy policy before submitting your email.
-            </Typography> : null}
+        {emailDisplayAlert ? (
+          <Typography variant="subtitle1" className={classes.text}>
+            Please enter a valid email.
+          </Typography>
+        ) : null}
+        {privacyDisplayAlert ? (
+          <Typography variant="subtitle1" className={classes.text}>
+            Please accept the privacy policy before submitting your email.
+          </Typography>
+        ) : null}
       </DetailsForm>
     </FormBackGround>
   )

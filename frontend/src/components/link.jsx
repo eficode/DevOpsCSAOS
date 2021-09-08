@@ -21,11 +21,7 @@ const StyledBaseLink = styled(Button)`
   text-transform: none;
   size: small;
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
-    height: 6vw;
-    padding: 2vw;
-    margin: 1vw;
-  }
+  
 `
 
 /**

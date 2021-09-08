@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0',
     padding: '10%',
     borderRadius: '12px',
+    backgroundColor: '#F0F0EC',
   },
   span: {
     display: 'inline-block',
