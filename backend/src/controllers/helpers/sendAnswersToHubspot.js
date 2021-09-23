@@ -41,7 +41,7 @@ const SendHubspotMessage = async (
       result_link_for_user: user_results_link,
       last_devops_assessment_survey_submission: new Date().toString(),
       what_challenge_do_you_want_to_solve_: userChallenge,
-      what_is_your_role_in_the_company_: userRole
+      what_is_your_role_in_the_company_: userRole,
     },
   }
 

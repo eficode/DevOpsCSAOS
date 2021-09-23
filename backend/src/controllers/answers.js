@@ -8,7 +8,7 @@ const {
   Industry,
 } = require('../../models')
 const { SendHubspotMessage } = require('./helpers/sendAnswersToHubspot')
-const { verifyUserAnswers, getSummaryOfResults, getFullResults } = require('./helpers/answers')
+const { verifyUserAnswers, getFullResults } = require('./helpers/answers')
 const getIndustryAverage = require('./helpers/industryAverage')
 
 const saveAnswersToDatabase = async (answers, userId) => {
@@ -62,7 +62,6 @@ answersRouter.post('/', async (req, res) => {
     })
   }
 
-
   let results = await getFullResults(answers, surveyId)
   let userInDb
   try {
@@ -70,15 +69,15 @@ answersRouter.post('/', async (req, res) => {
       ? await User.create({
           groupId: survey_user_group.id,
         })
-      : await User.create({industryId: industryId || null})
-      await saveAnswersToDatabase(answers, userInDb.id)
+      : await User.create({ industryId: industryId || null })
+    await saveAnswersToDatabase(answers, userInDb.id)
   } catch (err) {
     console.log(err)
     return res.status(500).json({
       message: 'Saving user failed',
     })
   }
-  
+
   if (industryId) {
     const industryAveragesByCategory = await getIndustryAverage(
       industryId,
@@ -126,9 +125,9 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     industryId,
     userQuestionAnswerPairs,
     userRole,
-    userChallenge
+    userChallenge,
   } = req.body
-  console.log('received send')
+
   try {
     // request body validation
 
@@ -138,13 +137,13 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       })
     }
 
-    if(!userRole) {
+    if (!userRole) {
       return res.status(400).json({
         message: 'User role is required',
       })
     }
 
-    if(!userChallenge) {
+    if (!userChallenge) {
       return res.status(400).json({
         message: 'Challenge selection is required',
       })
@@ -205,7 +204,6 @@ answersRouter.post('/emailsubmit', async (req, res) => {
 
     if (process.env.NODE_ENV === 'production') {
       try {
-       
         const baseURL = process.env.BASE_URL_FOR_EMAILS
         const group_parameter = groupId || createdGroupId
         const user_parameter = userToken

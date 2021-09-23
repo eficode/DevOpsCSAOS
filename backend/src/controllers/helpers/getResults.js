@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-const { keyBy } = require('lodash')
 const Sequelize = require('sequelize')
 const {
   Question,
@@ -280,7 +279,6 @@ const getFullResults = async (user_answers, surveyId) => {
       raw: true,
     })
 
-
     return {
       userPoints: maxScores[key] + userScores[key],
       maxPoints: maxScores[key] * 2,
@@ -314,7 +312,6 @@ const getFullResults = async (user_answers, surveyId) => {
       highestCategory = key
     }
   })
-
 
   return {
     surveyResult: {
@@ -350,7 +347,7 @@ const getSummaryOfResults = async (user_answers, surveyId) => {
   let lowestCategory = keys[0]
   let highestCategory = keys[1]
 
-  let categoryResults = Object.assign({}, userScores)
+  const categoryResults = { ...userScores }
 
   keys.forEach((key) => {
     if (

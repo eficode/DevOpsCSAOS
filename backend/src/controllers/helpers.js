@@ -1,13 +1,15 @@
 const helperRouter = require('express').Router()
 const { getRolesFromHubspot } = require('./helpers/getRolesFromHubspot')
-const { getChallengesFromHubspot } = require('./helpers/getChallengesFromHubspot')
+const {
+  getChallengesFromHubspot,
+} = require('./helpers/getChallengesFromHubspot')
 
 helperRouter.get('/get-roles-and-challenges', async (req, res) => {
   try {
     const roles = await getRolesFromHubspot()
     const challenges = await getChallengesFromHubspot()
 
-    return res.status(200).json({roles: roles, challenges: challenges})
+    return res.status(200).json({ roles: roles, challenges: challenges })
   } catch (e) {
     return res.status(500).json({ error: 'Unable to return location URL' })
   }
