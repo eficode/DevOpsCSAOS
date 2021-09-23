@@ -181,7 +181,7 @@ const Home = () => {
           <Grid item md={2} className={classes.image}>
             <img src="/leftside.png" width="100%" alt="Left banner" />
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={6}>
             <Paper>
               <Grid item className={classes.card}>
                 <ContentAnimationWrapper>

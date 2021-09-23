@@ -98,6 +98,13 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     fontSize: '0.7rem',
   },
+  logoBox: {
+    textAlign: 'center',
+    marginTop: '4vh',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '1vh',
+    },
+  }
 }))
 
 const Home = () => {
@@ -209,7 +216,7 @@ const Home = () => {
             </ul>
             <TotalResultRadarChart data={percentages} />
           </Grid>
-          <Grid item xs={12} md={5} xl={5}>
+          <Grid item xs={12} md={6} xl={5}>
             {showSubmitSellText ? (
               <Typography
                 variant="body1"
@@ -243,7 +250,7 @@ const Home = () => {
           </Grid>
         </Paper>
       </Grid>
-      <Box textAlign="center" marginTop="10vh">
+      <Box className={classes.logoBox}>
         <img src="/logo.png" alt="Logo" width={120} height={90} />
       </Box>
     </>

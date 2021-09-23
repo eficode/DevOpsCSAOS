@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   warningMessageBox: {
-    minHeight: '9vh',
+    minHeight: '1vh',
   },
 }))
 
@@ -187,6 +187,7 @@ const GetDetailedResultsForm = ({
     )
     setSubmitted(true)
     setShowSubmitSellText(false)
+    store.cleanStore()
   }
   const handleRoleSelectChange = () => {
     setRoleDisplayAlert(false)

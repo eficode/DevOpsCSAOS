@@ -80,23 +80,32 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translate(-50%, 0)',
   },
   warningText: {
-    marginBottom: '-5.5%',
+    position: 'absolute',
+    left: '50%',
+    transform: 'translate(-50%, 0)',
     textAlign: 'center',
     fontFamily: 'Montserrat',
-    marginTop: '1vh',
     color: '#ff6600',
     [theme.breakpoints.down('sm')]: {
       margin: '1vh',
     },
   },
   allAnsweredText: {
-    marginBottom: '-5.5%',
+    position: 'absolute',
+    left: '50%',
+    transform: 'translate(-50%, 0)',
     textAlign: 'center',
     fontFamily: 'Montserrat',
-    marginTop: '1vh',
     color: 'green',
     [theme.breakpoints.down('sm')]: {
       margin: '1vh',
+    },
+  },
+  messageBox: {
+    minHeight: '2vh',
+    paddingTop: '3vh',
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: '0',
     },
   },
 }))
@@ -249,7 +258,7 @@ const SurveyPage = () => {
           <Grid item md={2} className={classes.image}>
             <img src="/leftside.png" width="100%" alt="Left banner" />
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={6}>
             <Box>
               <Paper className={classes.card}>
                 <Grid item>
@@ -266,24 +275,25 @@ const SurveyPage = () => {
                       ))}
                   </ContentAnimationWrapper>
                 </Grid>
-                {unansweredAlert ? (
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.warningText}
-                  >
-                    Please answer all questions to continue.
-                  </Typography>
-                ) : null}
-                {allAnsweredAlert ? (
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.allAnsweredText}
-                  >
-                    All questions answered, submit to finalize and see your
-                    results.
-                  </Typography>
-                ) : null}
-
+                <div className={classes.messageBox}>
+                  {unansweredAlert ? (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.warningText}
+                    >
+                      Please answer all questions to continue.
+                    </Typography>
+                  ) : null}
+                  {allAnsweredAlert ? (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.allAnsweredText}
+                    >
+                      All questions answered, submit to finalize and see your
+                      results.
+                    </Typography>
+                  ) : null}
+                </div>
                 <NavigationGroup>
                   {!isFirstPage ? (
                     <StyledLink

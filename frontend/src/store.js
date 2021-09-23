@@ -27,7 +27,6 @@ const initialUserSelectedIndustry = ''
 const initialUserSelectedRole = ''
 const initialUserSelectedChallenge = ''
 
-
 export const divideQuestions = (questions, featureToggleSwitch) => {
   const initialSelectionsWithQuestionIds = []
   questions.forEach((q) => {
@@ -81,6 +80,16 @@ const store = (set) => ({
       questionGroups: chunkedQuestions,
     }))
   },
+  cleanStore: () =>
+    set(() => ({
+      questions: initialQuestions,
+      selections: initialSelections,
+      userSelectedIndustry: initialUserSelectedIndustry,
+      userSelectedRole: initialUserSelectedRole,
+      userSelectedChallenge: initialUserSelectedChallenge,
+      visitedSummary: false,
+      groupId: '',
+    })),
   clear: () =>
     set(() => ({
       questions: [],
@@ -109,10 +118,13 @@ const store = (set) => ({
   setGroupId: (value) => set(() => ({ groupId: value })),
   setUserToken: (value) => set(() => ({ userToken: value })),
   setIndustries: (industries) => set(() => ({ industries })),
-  setUserQuestionAnswerPairs: (value) => set(() => ({ userQuestionAnswerPairs: value })),
-  setUserSelectedIndustry: (value) => set(() => ({userSelectedIndustry: value })),
-  setUserSelectedRole: (value) => set(() => ({userSelectedRole: value })),
-  setUserSelectedChallenge: (value) => set(() => ({userSelectedChallenge: value })),
+  setUserQuestionAnswerPairs: (value) =>
+    set(() => ({ userQuestionAnswerPairs: value })),
+  setUserSelectedIndustry: (value) =>
+    set(() => ({ userSelectedIndustry: value })),
+  setUserSelectedRole: (value) => set(() => ({ userSelectedRole: value })),
+  setUserSelectedChallenge: (value) =>
+    set(() => ({ userSelectedChallenge: value })),
 })
 
 export const useStore = create(
