@@ -22,15 +22,15 @@ const ShareResultsGroup = ({ text, userPoints, maxPoints, baseUrl }) => {
   return (
     <ShareButtonGrouper>
       <LinkedinShareButton url={baseUrl}>
-        <LinkedinIcon size={42} round />
+        <LinkedinIcon size={35} round />
       </LinkedinShareButton>
 
       <TwitterShareButton title={headerToShare} url={baseUrl}>
-        <TwitterIcon size={42} round />
+        <TwitterIcon size={35} round />
       </TwitterShareButton>
 
       <FacebookShareButton quote={headerToShare} url={baseUrl}>
-        <FacebookIcon size={42} round />
+        <FacebookIcon size={35} round />
       </FacebookShareButton>
     </ShareButtonGrouper>
   )

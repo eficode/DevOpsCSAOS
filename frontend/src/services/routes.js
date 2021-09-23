@@ -41,7 +41,12 @@ export const checkGroupId = async (groupId) => {
 }
 
 export const getBaseUrl = async () => {
-  const response = await axios.get(`${API_URL}/get-location`)
+  const response = await axios.get(`${API_URL}/helpers/get-location`)
+  return response.data
+}
+
+export const getRolesAndChallenges = async () => {
+  const response = await axios.get(`${API_URL}/helpers/get-roles-and-challenges`)
   return response.data
 }
 

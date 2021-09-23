@@ -8,7 +8,7 @@ const {
   Industry,
 } = require('../../models')
 const { SendHubspotMessage } = require('./helpers/sendAnswersToHubspot')
-const { verifyUserAnswers, getSummaryOfResults } = require('./helpers/answers')
+const { verifyUserAnswers, getSummaryOfResults, getFullResults } = require('./helpers/answers')
 
 const saveAnswersToDatabase = async (answers, userId) => {
   const answersToQuestions = answers.map((answer) => ({
@@ -61,7 +61,11 @@ answersRouter.post('/', async (req, res) => {
     })
   }
 
-  const results = await getSummaryOfResults(answers, surveyId)
+
+  const results = await getFullResults(answers, surveyId)
+
+  // console.log('results', results)
+  // console.log('newResults', newResults)
 
   try {
     const userInDb = survey_user_group
@@ -163,8 +167,10 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       await user.save()
     }
 
+    console.log(roles, challenges)
     if (process.env.NODE_ENV === 'production') {
       try {
+       
         const baseURL = process.env.BASE_URL_FOR_EMAILS
         const group_parameter = groupId || createdGroupId
         const user_parameter = userToken

@@ -58,10 +58,16 @@ const useStyles = makeStyles((theme) => ({
   },
   checked: {},
   radioTextLabel: {
+    color: '#1E3944',
     fontFamily: 'Montserrat',
+    fontSize: '0.65rem !important',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.9rem !important',
+    },
     padding: '0.15rem !important',
   },
   text: {
+    color: '#1E3944',
     fontFamily: 'Open Serif, Roboto, serif',
     lineHeight: '1.2',
     textAlign: 'left',
@@ -75,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   questionContainer: {
-    minHeight: '250px',
+    minHeight: '200px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between'
@@ -113,6 +119,7 @@ const SingleQuestion = ({ question, onOptionClick, total }) => {
             value={answer.text}
             control={
               <Radio
+                size='small'
                 checked={answer.id === currentSelection}
                 classes={{ root: classes.radio, checked: classes.checked }}
                 onClick={() => onOptionClick(question.id, answer.id)}

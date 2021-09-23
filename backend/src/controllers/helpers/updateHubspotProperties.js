@@ -29,6 +29,7 @@ const updateHubspotProperties = async () => {
 
   // Hubspot properties cant have whitespace or capitals and they have maximum length of 100
   // comma and whitespace are converted to _ internally in hubspot
+
   const formattedQuestionNames = questions.map((item) => ({
     [item.text
       .substring(0, 100)
@@ -70,6 +71,52 @@ const updateHubspotProperties = async () => {
       console.log(`property '${propertyCreate.label}' already existed`)
     }
   })
+}
+
+const getRolesFromHubspot = async () => {
+  const hubspotClient = new hubspot.Client({
+    apiKey: process.env.HUBSPOT_API_KEY,
+  })
+  console.log('fetch roles')
+  const objectType = 'Contact'
+  const propertyName = 'what_is_your_role_in_the_company_'
+  const archived = false
+  try {
+    const apiResponse = await hubspotClient.crm.properties.coreApi.getByName(
+      objectType,
+      propertyName,
+      archived
+    )
+    console.log(JSON.stringify(apiResponse.body, null, 2))
+    return apiResponse
+  } catch (e) {
+    e.message === 'HTTP request failed'
+      ? console.error(JSON.stringify(e.response, null, 2))
+      : console.error(e)
+  }
+}
+
+const getChallengesFromHubspot = async () => {
+  const hubspotClient = new hubspot.Client({
+    apiKey: process.env.HUBSPOT_API_KEY,
+  })
+  console.log('fetch challenges')
+  const objectType = 'Contact'
+  const propertyName = 'what_challenge_do_you_want_to_solve_'
+  const archived = false
+  try {
+    const apiResponse = await hubspotClient.crm.properties.coreApi.getByName(
+      objectType,
+      propertyName,
+      archived
+    )
+    console.log(JSON.stringify(apiResponse.body, null, 2))
+    return apiResponse
+  } catch (e) {
+    e.message === 'HTTP request failed'
+      ? console.error(JSON.stringify(e.response, null, 2))
+      : console.error(e)
+  }
 }
 
 module.exports = { updateHubspotProperties }

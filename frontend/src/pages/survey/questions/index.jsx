@@ -12,11 +12,9 @@ import {
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { useStore } from '../../../store'
 import { ContentAnimationWrapper } from '../../../components/contentAnimationWrapper'
-import QuestionGrouper from '../../../components/questionGrouper'
 import SingleQuestion from '../../../components/singleQuestion'
 import { getAllQuestions } from '../../../services/routes'
 import { useRouter, withRouter } from '../../../components/staticRouting'
@@ -58,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   heading: {
+    color: '#1E3944',
     fontFamily: 'Montserrat',
     fontSize: '1.6rem',
     textAlign: 'center',
@@ -65,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '5%',
   },
   text: {
+    color: '#1E3944',
     textAlign: 'center',
     fontFamily: 'Montserrat',
     marginTop: '1vh',
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translate(-50%, 0)',
   },
   warningText: {
-    marginBottom: '-4.5%',
+    marginBottom: '-5.5%',
     textAlign: 'center',
     fontFamily: 'Montserrat',
     marginTop: '1vh',
@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   allAnsweredText: {
-    marginBottom: '-4.5%',
+    marginBottom: '-5.5%',
     textAlign: 'center',
     fontFamily: 'Montserrat',
     marginTop: '1vh',
@@ -233,7 +233,6 @@ const SurveyPage = () => {
   const answeredQuestionsCount = countOfAnsweredQuestions(store.selections)
 
   return (
-    <>
       <div className={classes.content}>
         <Grid
           container
@@ -258,7 +257,7 @@ const SurveyPage = () => {
             <Grid item md={2} className={classes.image}>
               <img src="/leftside.png" width="100%" alt="Left banner" />
             </Grid>
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={5}>
               <Box>
                 <Paper className={classes.card}>
                   <Grid item>
@@ -343,7 +342,6 @@ const SurveyPage = () => {
           </Box>
         </Grid>
       </div>
-    </>
   )
 }
 

@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+const { keyBy } = require('lodash')
 const Sequelize = require('sequelize')
 const {
   Question,
@@ -279,8 +280,9 @@ const getFullResults = async (user_answers, surveyId) => {
       raw: true,
     })
 
+
     return {
-      userPoints: 10 + userScores[key],
+      userPoints: maxScores[key] + userScores[key],
       maxPoints: maxScores[key] * 2,
       name: key,
       id: fetchedCategory.id,
@@ -295,11 +297,32 @@ const getFullResults = async (user_answers, surveyId) => {
 
   const finalCategoryResults = await Promise.all(newCategoryResults)
 
+  let lowestCategory = keys[0]
+  let highestCategory = keys[1]
+
+  keys.forEach((key) => {
+    if (
+      userScores[key] / maxScores[key] <
+      userScores[lowestCategory] / maxScores[lowestCategory]
+    ) {
+      lowestCategory = key
+    }
+    if (
+      userScores[key] / maxScores[key] >
+      userScores[highestCategory] / maxScores[highestCategory]
+    ) {
+      highestCategory = key
+    }
+  })
+
+
   return {
     surveyResult: {
       text: surveyResultText,
-      userPoints: 60 + newUserScore,
+      userPoints: newMaxScore + newUserScore,
       maxPoints: newMaxScore * 2,
+      userBestInCategory: highestCategory,
+      userWorstInCategory: lowestCategory,
     },
     categoryResults: finalCategoryResults,
   }
@@ -327,6 +350,8 @@ const getSummaryOfResults = async (user_answers, surveyId) => {
   let lowestCategory = keys[0]
   let highestCategory = keys[1]
 
+  let categoryResults = Object.assign({}, userScores)
+
   keys.forEach((key) => {
     if (
       userScores[key] / maxScores[key] <
@@ -342,15 +367,25 @@ const getSummaryOfResults = async (user_answers, surveyId) => {
     }
   })
 
+  keys.forEach((key) => {
+    categoryResults[key] = {
+      userScore: userScores[key] + maxScores[key],
+      maxScore: maxScores[key] * 2,
+    }
+  })
+
+  // console.log('categoryResults', categoryResults)
+
   return {
     surveyResult: {
       text: surveyResultText,
-      userPoints: 60 + newUserScore,
+      userPoints: newUserScore + newMaxScore,
       maxPoints: newMaxScore * 2,
     },
     categories: listOfCategories,
     userBestInCategory: highestCategory,
     userWorstInCategory: lowestCategory,
+    categoryResults: categoryResults,
   }
 }
 

@@ -21,7 +21,7 @@ const usersRouter = require('./controllers/users')
 const answersRouter = require('./controllers/answers')
 const industryRouter = require('./controllers/industry')
 const resultsRouter = require('./controllers/results')
-const locationRouter = require('./controllers/baseUrl')
+const helperRouter = require('./controllers/helpers')
 
 app.use('/api/user-groups', userGroupRouter)
 app.use('/api/questions', questionsRouter)
@@ -29,7 +29,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/answers', answersRouter)
 app.use('/api/industries', industryRouter)
 app.use('/api/results', resultsRouter)
-app.use('/api/get-location', locationRouter)
+app.use('/api/helpers', helperRouter)
 
 if (process.env.NODE_ENV === 'production') {
   // serve the frontend static build

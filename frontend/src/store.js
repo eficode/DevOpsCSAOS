@@ -23,6 +23,10 @@ const initialFeatureToggleSwitch = 'A'
 const initialGroupId = ''
 const initialToken = ''
 const initialIndustries = []
+const initialUserSelectedIndustry = ''
+const initialUserSelectedRole = ''
+const initialUserSelectedChallenge = ''
+
 
 export const divideQuestions = (questions, featureToggleSwitch) => {
   const initialSelectionsWithQuestionIds = []
@@ -60,6 +64,9 @@ const store = (set) => ({
   groupId: initialGroupId,
   userToken: initialToken,
   industries: initialIndustries,
+  userSelectedIndustry: initialUserSelectedIndustry,
+  userSelectedRole: initialUserSelectedRole,
+  userSelectedChallenge: initialUserSelectedChallenge,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions, featureToggleSwitch) => {
@@ -103,6 +110,9 @@ const store = (set) => ({
   setUserToken: (value) => set(() => ({ userToken: value })),
   setIndustries: (industries) => set(() => ({ industries })),
   setUserQuestionAnswerPairs: (value) => set(() => ({ userQuestionAnswerPairs: value })),
+  setUserSelectedIndustry: (value) => set(() => ({userSelectedIndustry: value })),
+  setUserSelectedRole: (value) => set(() => ({userSelectedRole: value })),
+  setUserSelectedChallenge: (value) => set(() => ({userSelectedChallenge: value })),
 })
 
 export const useStore = create(

@@ -1,33 +1,58 @@
 import React from 'react'
-import styled from 'styled-components'
+import {
+  RadialBarChart,
+  PolarAngleAxis,
+  RadialBar,
+  ResponsiveContainer,
+} from 'recharts'
+import Typography from '@material-ui/core/Typography'
 
-export const ResultCircle = styled.article`
-  display: grid;
-  place-items: center;
+const TotalResult = ({ userResult, maxResult }) => {
+  const percentage = (userResult / maxResult) * 100
+  const data = [{ name: 'totalScore', value: percentage }]
 
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  font-size: 32px;
-  font-family: Montserrat;
-  font-weight: bold;
-  background: ${({ theme }) => theme.colors.gold};
-  text-align: center;
-  position: relative;
-  margin-bottom: 30px;
+  const circleSize = 220
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints[1]}) {
-    width: 180px;
-    height: 180px;
-  }
-`
-
-const TotalResult = ({ userResult, maxResult }) => (
-  <ResultCircle>
-    {userResult}
-    /
-    {maxResult}
-  </ResultCircle>
-)
+  return (
+    <ResponsiveContainer width='100%' height={250}>
+      <RadialBarChart
+        width={circleSize}
+        height={circleSize}
+        cx={circleSize / 2}
+        cy={circleSize / 2}
+        innerRadius={96}
+        outerRadius={144}
+        barSize={20}
+        data={data}
+        startAngle={90}
+        endAngle={-270}
+      >
+        <PolarAngleAxis
+          type="number"
+          domain={[0, 100]}
+          angleAxisId={0}
+          tick={false}
+        />
+        <RadialBar
+          background
+          clockWise
+          dataKey="value"
+          fill='#76b500'
+          fillOpacity={0.4}
+        />
+        <text
+          x={circleSize / 2}
+          y={circleSize / 2}
+          width={20}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          className="progress-label"
+        >
+              You got {percentage}% of points
+        </text>
+      </RadialBarChart>
+    </ResponsiveContainer>
+  )
+}
 
 export default TotalResult

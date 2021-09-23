@@ -1,49 +1,22 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import styled from 'styled-components'
 import { useRouter, withRouter } from '../components/staticRouting'
 import { checkGroupId } from '../services/routes'
 import { useStore } from '../store'
-import { SummaryAndScorePageWrapper} from '../components/shared/SummaryAndScorePageWrapper'
 import {
   useTheme,
   makeStyles,
   responsiveFontSizes,
 } from '@material-ui/core/styles'
-import Link from '../components/link'
-import Heading from '../components/heading'
+import StyledButton from '../components/button'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
-import QuestionGrouper from '../components/questionGrouper'
-import SingleQuestion from '../components/singleQuestion'
-
-import StyledLink from '../components/link'
-import NavigationGroup from '../components/navigationGroup'
-import { allQuestionsAnswered, countOfAnsweredQuestions } from '../utils'
-import StyledButton from '../components/button'
-import { sendAnswers } from '../services/routes'
-
-const Section = styled.section`
-  background-color: #fff;
-  display: grid;
-  place-items: center;
-`
-
-const ErrorMessage = styled.div`
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.brandyPunch};
-  padding: 20px;
-  width: 80%;
-  font-size: 12px;
-  color: #fff;
-  margin-top: 20px;
-  line-height: 1.6;
-`
+import StartingPageForm from '../components/startingPageForm'
+import { getBaseUrl, getIndustries, getAllQuestions } from '../services/routes'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -52,16 +25,17 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     borderRadius: '12px',
     backgroundColor: '#F0F0EC',
+    minHeight: '450px',
+    textAlign: 'center',
+    alignContent: 'center',
   },
-  rowGrid: {
-    minHeight: '540px',
-    [theme.breakpoints.down('sm')]: {
-      minHeight: '540px',
-      minWidth: '0px',
-    },
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+  contentRow: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    float: 'none !important',
+    paddingLeft: '1% !important',
   },
   image: {
     [theme.breakpoints.down('sm')]: {
@@ -78,15 +52,31 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontWeight: '600',
     marginBottom: '5%',
+    color: '#1E3944'
   },
   text: {
     textAlign: 'center',
     fontFamily: 'Montserrat',
+    color: '#1E3944',
     marginTop: '1vh',
-    marginBottom: '5vh',
+    marginBottom: '1vh',
+    fontSize: '0.8rem',
     [theme.breakpoints.down('sm')]: {
       margin: '1vh',
     },
+  },
+  errorMessage: {
+    fontFamily: 'Montserrat',
+    borderRadius: '10px',
+    backgroundColor: '#DD7F2F',
+    padding: '10px',
+    width: '100%',
+    fontSize: '0.8rem',
+    color: '#1E3944',
+    marginTop: '20px',
+    lineHeight: '1.4',
+    justifyContent: 'center',
+    justifySelf: 'center'
   },
 }))
 
@@ -98,84 +88,146 @@ const Home = () => {
   const classes = useStyles(theme)
   const [showGroupIdInvalidText, setShowGroupIdInvalidText] = useState(false)
   const [userGroupValid, setUserGroupValid] = useState(-1)
-
+  const [baseUrl, setBaseUrl] = useState('')
 
   // Redirect user to first question if user has no / or a valid group-parameter
   // Display landing page with information in case of invalid group-parameter
   // Redirect user to total results page if user token is present
   useEffect(async () => {
-      store.resetVersion()
-      // eslint-disable-next-line no-undef
-      const resizeObserver = new ResizeObserver((entries) => { 
-        window.parent.postMessage(entries[0].target.clientHeight + 200, '*')
-      })
-  
-      resizeObserver.observe(document.body)
-      const url = new URLSearchParams(window.location.search)
-      const version = url.get('version')
-      const groupId = url.get('groupid')
-      const user = url.get('user')
-      if (user) {
-        router.push(`/survey/total_results/?user=${user}`)
-        return
-      }
-      if (version) {
-        store.setFeatureToggleSwitch(version)
-      }
-      if (groupId) {
-        const { result: isValidGroupId } = await checkGroupId(groupId)
-        if (isValidGroupId) {
-          store.setGroupId(groupId)
-          setUserGroupValid(1)
-        } else {
-          setShowGroupIdInvalidText(true)
-          setUserGroupValid(0)
-        }
-      } else {
+    // store.resetVersion()
+    // eslint-disable-next-line no-undef
+    const resizeObserver = new ResizeObserver((entries) => {
+      window.parent.postMessage(entries[0].target.clientHeight + 200, '*')
+    })
+
+    resizeObserver.observe(document.body)
+    const url = new URLSearchParams(window.location.search)
+    const version = url.get('version')
+    const groupId = url.get('groupid')
+    const user = url.get('user')
+    if (user) {
+      router.push(`/survey/total_results/?user=${user}`)
+      return
+    }
+    if (version) {
+      store.setFeatureToggleSwitch(version)
+    }
+    if (groupId) {
+      const { result: isValidGroupId } = await checkGroupId(groupId)
+      if (isValidGroupId) {
+        store.setGroupId(groupId)
         setUserGroupValid(1)
+      } else {
+        setShowGroupIdInvalidText(true)
+        setUserGroupValid(0)
       }
+    } else {
+      setUserGroupValid(1)
+    }
   }, [])
+
   useEffect(() => {
-    if(userGroupValid === 1) {
-      router.push('/survey/questions/?id=1')
+    ;(async () => {
+      if (store.questions.length === 0) {
+        try {
+          const surveyId = 1
+          const response = await getAllQuestions(surveyId)
+
+          store.setQuestions(response, store.featureToggleSwitch)
+        } catch (error) {
+          console.error(error)
+        }
       }
-  }, [userGroupValid])
+    })()
+  }, [])
 
+  useEffect(async () => {
+    const fetchedUrl = await getBaseUrl()
+    setBaseUrl(fetchedUrl)
+    if (store.industries.length === 0) {
+      try {
+        const response = await getIndustries()
+        store.setIndustries(response)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }, [])
 
-  return (userGroupValid === 1 ||
-    userGroupValid === -1 ? null :
-      <>
-      <Head>
-        <title>DevOps Capability Survey</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      <SummaryAndScorePageWrapper>
-          <Heading component="h1" variant="h5">
-            DevOps Assessment Tool
-          </Heading>
-          <Section>
-            <p>Welcome!</p>
-            <p>Test your DevOps capabilities here.</p>
-            <Link href="/survey/questions/?id=1" type="primary">
-              Get started
-            </Link>
-            {showGroupIdInvalidText && (
-              <ErrorMessage>
-                Group id found with the URL is invalid. <br />
-                You can still complete the survey, but the results won&#39;t be
-                added to the group.
-              </ErrorMessage>
-            )}
-          </Section>
-      </SummaryAndScorePageWrapper> 
-      </>
+  const handleClick = () => {
+    router.push('/survey/questions/?id=1', null, {
+      shallow: true,
+    })
+  }
+
+  return store.industries.length === 0 &&
+    store.questions.length === 0 ? null : (
+      <Grid
+        container
+        direction="column"
+        alignContent="center"
+        alignItems="center"
+        className={classes.content}
+      >
+        <Grid item>
+          <Head>
+            <title>DevOps Capability Survey</title>
+          </Head>
+          <Typography variant="h5" className={classes.heading}>
+            DevOps self-assessment
+          </Typography>
+        </Grid>
+        <Grid container item className={classes.contentRow}>
+          <Grid item md={2} className={classes.image}>
+            <img src="/leftside.png" width="100%" alt="Left banner" />
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Paper>
+              <Grid item className={classes.card}>
+                <ContentAnimationWrapper>
+                  <Typography variant="h6" className={classes.heading}>
+                    Welcome! <br />
+                    Are you doing DevOps right?
+                  </Typography>
+
+                  <Typography variant="body1" className={classes.text}>
+                    Answer the following {store.questions.length} questions to
+                    receive feedback on your DevOps practices and capabilities.
+                  </Typography>
+
+                  <StartingPageForm industries={store.industries}/>
+
+                  <Typography variant="body1" className={classes.text}>
+                    Before answering the assessment, choose the industry you
+                    work in to include industry wide averages to compare with
+                    your personal result.
+                  </Typography>
+                  <StyledButton type="submit" onClick={handleClick}>
+                    Get Started
+                  </StyledButton>
+                  {showGroupIdInvalidText && (
+                    <Typography
+                      variant="subtitle1"
+                      className={classes.errorMessage}
+                    >
+                      Group id found with the URL is invalid. <br />
+                      You can still complete the survey, but the results
+                      won&#39;t be added to the group.
+                    </Typography>
+                  )}
+                </ContentAnimationWrapper>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item md={2} className={classes.image}>
+            <img src="/rightside.png" width="100%" alt="Right banner" />
+          </Grid>
+        </Grid>
+        <Box textAlign="center" marginTop="20px">
+          <img src="/logo.png" alt="Logo" width={120} height={90} />
+        </Box>
+      </Grid>
   )
-
-  
-  
-  
 }
-
-
 
 export default Home

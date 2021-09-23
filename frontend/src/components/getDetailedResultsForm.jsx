@@ -10,13 +10,13 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
 import Button from './button'
 import IndustrySelector from './industrySelector'
+import ChallengeSelector from './challengeSelector'
+import RoleSelector from './roleSelector'
 import { useStore } from '../store'
 import { submitEmail } from '../services/routes'
 
 const FormBackGround = styled.div`
   width: 100%;
-  margin-top: 30px;
-  padding: 15px;
   background: #f0f0ec;
   border-radius: 20px;
   font-family: Montserrat !important;
@@ -32,7 +32,7 @@ const DetailsForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 0 50px 0;
+  margin: 6vh 0 6vh 0;
 `
 
 const DetailsInput = styled.input`
@@ -77,7 +77,7 @@ const StyledIconButton = styled(IconButton)`
 `
 
 const CheckBoxText = styled.label`
-  font-size: 13px;
+  font-size: 0.7rem;
 `
 
 const Info = styled.div`
@@ -100,7 +100,8 @@ const useStyles = makeStyles((theme) => ({
   text: {
     textAlign: 'center',
     fontFamily: 'Montserrat',
-    marginTop: '1vh',
+    fontSize: '0.7rem',
+    marginBottom: '-3vh',
     fontWeight: 'bold',
     color: '#ff6600',
     [theme.breakpoints.down('sm')]: {
@@ -111,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledIcon = styled(InfoOutlinedIcon)``
 
-const GetDetailedResultsForm = ({ industries }) => {
+const GetDetailedResultsForm = ({ industries, roles, challenges }) => {
   const theme = useTheme()
   const classes = useStyles(theme)
   const store = useStore()
@@ -126,6 +127,8 @@ const GetDetailedResultsForm = ({ industries }) => {
   const [privacyDisplayAlert, setPrivacyDisplayAlert] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
   const [selectedIndustry, setSelectedIndustry] = useState(0)
+  const [selectedRole, setSelectedRole] = useState(0)
+  const [selectedChallenge, setSelectedChallenge] = useState(0)
 
   const handleEmailChange = (event) => {
     event.preventDefault()
@@ -184,7 +187,6 @@ const GetDetailedResultsForm = ({ industries }) => {
 
   return (
     <FormBackGround onClick={() => infoOpen && setInfoOpen(false)}>
-      <FormTitle>Get more detailed results</FormTitle>
       <DetailsForm id="email-input-field" onSubmit={handleSubmit}>
         <FieldWrapper>
           <DetailsInput
@@ -198,6 +200,16 @@ const GetDetailedResultsForm = ({ industries }) => {
             industries={industries}
             selectedIndustry={selectedIndustry}
             setSelectedIndustry={setSelectedIndustry}
+          />
+         <RoleSelector
+            roles={roles}
+            selectedRole={selectedRole}
+            setSelectedRole={setSelectedRole}
+          />
+          <ChallengeSelector
+            challenges={challenges}
+            selectedChallenge={selectedChallenge}
+            setSelectedChallenge={setSelectedChallenge}
           />
           <CheckboxContainer>
             <StyledCheckbox
@@ -250,12 +262,12 @@ const GetDetailedResultsForm = ({ industries }) => {
           Submit
         </Button>
         {emailDisplayAlert ? (
-          <Typography variant="subtitle1" className={classes.text}>
+          <Typography variant="body" className={classes.text}>
             Please enter a valid email.
           </Typography>
         ) : null}
         {privacyDisplayAlert ? (
-          <Typography variant="subtitle1" className={classes.text}>
+          <Typography variant="body" className={classes.text}>
             Please accept the privacy policy before submitting your email.
           </Typography>
         ) : null}
