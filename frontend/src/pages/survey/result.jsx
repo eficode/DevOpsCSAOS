@@ -16,7 +16,6 @@ import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { useTheme, makeStyles } from '@material-ui/core/styles'
-import { sortedIndex } from 'lodash'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -172,11 +171,6 @@ const Home = () => {
         <Paper className={classes.paper}>
           {' '}
           <Grid item xs={12} md={6} xl={5}>
-            {/* <Typography variant="h5" className={classes.title}>
-              Your Results
-            </Typography> */}
-            {/* <TotalResult userResult={userPoints} maxResult={maxPoints}/> */}
-
             <Typography variant="h6" className={classes.result}>
               {text}
             </Typography>

@@ -37,17 +37,11 @@ const useStyles = makeStyles((theme) => ({
 const StartingPageForm = ({ industries }) => {
   const theme = useTheme()
   const classes = useStyles(theme)
-  const store = useStore()
   const [selectedIndustry, setSelectedIndustry] = useState(0)
-
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    const industryId = selectedIndustry === 0 ? undefined : selectedIndustry
-  }
 
   return (
     <div className={classes.formBackground}>
-      <div id="industry-selection-field" onSubmit={handleSubmit} className={classes.selectionForm}>
+      <div id="industry-selection-field"  className={classes.selectionForm}>
           <IndustrySelector
             industries={industries}
             selectedIndustry={selectedIndustry}
