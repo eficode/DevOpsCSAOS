@@ -223,7 +223,7 @@ const Home = () => {
             <img src="/rightside.png" width="100%" alt="Right banner" />
           </Grid>
         </Grid>
-        <Box textAlign="center" marginTop="20px">
+        <Box textAlign="center" marginTop="10vh">
           <img src="/logo.png" alt="Logo" width={120} height={90} />
         </Box>
       </Grid>

@@ -35,6 +35,7 @@ const DetailsForm = styled.form`
 `
 
 const DetailsInput = styled.input`
+  text-align: center;
   background-color: white;
   font-family: Montserrat;
   padding: 10px 20px;
@@ -84,7 +85,7 @@ const Info = styled.div`
   width: 200px;
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
   position: absolute;
-  left: 63%;
+  left: 55%;
   z-index: 1;
   font-size: 12px;
   padding: 15px;
@@ -100,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontFamily: 'Montserrat',
     fontSize: '0.7rem',
+    marginTop: '1vh',
     marginBottom: '-3vh',
     fontWeight: 'bold',
     color: '#ff6600',
@@ -107,11 +109,18 @@ const useStyles = makeStyles((theme) => ({
       margin: '1vh',
     },
   },
+  warningMessageBox: {
+    minHeight: '9vh',
+  },
 }))
 
 const StyledIcon = styled(InfoOutlinedIcon)``
 
-const GetDetailedResultsForm = ({ roles, challenges }) => {
+const GetDetailedResultsForm = ({
+  roles,
+  challenges,
+  setShowSubmitSellText,
+}) => {
   const theme = useTheme()
   const classes = useStyles(theme)
   const store = useStore()
@@ -134,6 +143,8 @@ const GetDetailedResultsForm = ({ roles, challenges }) => {
     event.preventDefault()
     setEmailInput(event.target.value)
     setEmailDisplayAlert(false)
+    setRoleDisplayAlert(false)
+    setChallengeDisplayAlert(false)
   }
 
   const handleSubmit = async (event) => {
@@ -162,7 +173,8 @@ const GetDetailedResultsForm = ({ roles, challenges }) => {
     const groupId = store.groupId === '' ? undefined : store.groupId
     const userRole = store.userSelectedRole
     const userChallenge = store.userSelectedChallenge
-    const industryId = store.userSelectedIndustry === '' ? undefined : store.userSelectedIndustry
+    const industryId =
+      store.userSelectedIndustry === '' ? undefined : store.userSelectedIndustry
     await submitEmail(
       store.userToken,
       emailInput,
@@ -172,9 +184,9 @@ const GetDetailedResultsForm = ({ roles, challenges }) => {
       store.userQuestionAnswerPairs,
       userRole,
       userChallenge
-      
     )
     setSubmitted(true)
+    setShowSubmitSellText(false)
   }
   const handleRoleSelectChange = () => {
     setRoleDisplayAlert(false)
@@ -193,6 +205,8 @@ const GetDetailedResultsForm = ({ roles, challenges }) => {
   const handleAgreeToPolicyChange = (event) => {
     setAgreeToPrivacyPolicyChecked(event.target.checked)
     setPrivacyDisplayAlert(false)
+    setRoleDisplayAlert(false)
+    setChallengeDisplayAlert(false)
   }
 
   if (submitted) {
@@ -216,7 +230,7 @@ const GetDetailedResultsForm = ({ roles, challenges }) => {
             value={emailInput}
             onChange={handleEmailChange}
           />
-         <RoleSelector
+          <RoleSelector
             roles={roles}
             selectedRole={selectedRole}
             setSelectedRole={setSelectedRole}
@@ -278,26 +292,28 @@ const GetDetailedResultsForm = ({ roles, challenges }) => {
         <Button id="submit-email-button" type="submit">
           Submit
         </Button>
-        {emailDisplayAlert ? (
-          <Typography variant="body" className={classes.text}>
-            Please enter a valid email.
-          </Typography>
-        ) : null}
-        {roleDisplayAlert ? (
-          <Typography variant="body" className={classes.text}>
-            Please select your role in your organization.
-          </Typography>
-        ) : null}
-        {challengeDisplayAlert ? (
-          <Typography variant="body" className={classes.text}>
-            Please select a challenge you are trying to solve.
-          </Typography>
-        ) : null}
-        {privacyDisplayAlert ? (
-          <Typography variant="body" className={classes.text}>
-            Please accept the privacy policy before submitting your email.
-          </Typography>
-        ) : null}
+        <div className={classes.warningMessageBox}>
+          {emailDisplayAlert ? (
+            <Typography variant="body1" className={classes.text}>
+              Please enter a valid email.
+            </Typography>
+          ) : null}
+          {roleDisplayAlert ? (
+            <Typography variant="body1" className={classes.text}>
+              Please select your role in your organization.
+            </Typography>
+          ) : null}
+          {challengeDisplayAlert ? (
+            <Typography variant="body1" className={classes.text}>
+              Please select a challenge you are trying to solve.
+            </Typography>
+          ) : null}
+          {privacyDisplayAlert ? (
+            <Typography variant="body1" className={classes.text}>
+              Please accept the privacy policy before submitting your email.
+            </Typography>
+          ) : null}
+        </div>
       </DetailsForm>
     </FormBackGround>
   )

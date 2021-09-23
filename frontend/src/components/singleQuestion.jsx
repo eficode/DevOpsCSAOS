@@ -119,7 +119,7 @@ const SingleQuestion = ({ question, onOptionClick, total }) => {
             value={answer.text}
             control={
               <Radio
-                size='small'
+                size='medium'
                 checked={answer.id === currentSelection}
                 classes={{ root: classes.radio, checked: classes.checked }}
                 onClick={() => onOptionClick(question.id, answer.id)}

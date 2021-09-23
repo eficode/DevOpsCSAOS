@@ -16,12 +16,12 @@ const useStyles = makeStyles((theme) => ({
   selection: {
     fontFamily: 'Montserrat',
     fontSize: '0.75rem',
-    paddingLeft: '15px',
     backgroundColor: 'white',
   },
   item: {
     fontFamily: 'Montserrat',
     fontSize: '0.75rem',
+    justifyContent: 'center',
   },
 }))
 

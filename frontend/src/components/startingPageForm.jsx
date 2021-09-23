@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     margin: '10px 0 10px 0',
     justifyContent: 'flex-start',
-    padding: '0 10%',
+    padding: '0 14%',
   },
 }))
 
@@ -53,7 +53,6 @@ const StartingPageForm = ({ industries }) => {
             selectedIndustry={selectedIndustry}
             setSelectedIndustry={setSelectedIndustry}
           />
-
       </div>
     </div>
   )

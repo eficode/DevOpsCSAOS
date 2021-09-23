@@ -58,7 +58,8 @@ const useStyles = makeStyles((theme) => ({
   },
   score: {
     fontFamily: 'Montserrat',
-    fontWeight: 'bold',
+    textDecoration: 'underline',
+    margin: '1%',
   },
   title: {
     color: '#1E3944',
@@ -68,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   result: {
     fontFamily: 'Montserrat',
-    fontWeight: '300',
+    margin: '1%',
   },
   resultText: {
     fontFamily: 'Montserrat',
@@ -108,6 +109,7 @@ const Home = () => {
   const [baseUrl, setBaseUrl] = useState('')
   const [rolesAndChallenges, setRolesAndChallenges] = useState([])
   const [fullResultsLoaded, setFullResultsLoaded] = useState(false)
+  const [showSubmitSellText, setShowSubmitSellText] = useState(true)
 
   let maxPoints,
     userPoints,
@@ -117,19 +119,16 @@ const Home = () => {
     categoryResults,
     roles,
     challenges
-  let industries = []
 
   useEffect(async () => {
     const fetchedUrl = await getBaseUrl()
     setBaseUrl(fetchedUrl)
     setRolesAndChallenges(await getRolesAndChallenges())
-    
-    if (store.industries.length === 0 || !fullResultsLoaded) {
+
+    if (!fullResultsLoaded) {
       try {
         const fullResults = await getFullResults(store.userToken)
         store.setDetailedResults(fullResults)
-        const response = await getIndustries()
-        store.setIndustries(response)
         setFullResultsLoaded(true)
       } catch (error) {
         console.error(error)
@@ -143,7 +142,6 @@ const Home = () => {
     text = store.detailedResults.surveyResult.text
     userBestInCategory = store.detailedResults.surveyResult.userBestInCategory
     userWorstInCategory = store.detailedResults.surveyResult.userWorstInCategory
-    industries = store.industries
     roles = rolesAndChallenges.roles
     challenges = rolesAndChallenges.challenges
     categoryResults = store.detailedResults.categoryResults
@@ -178,24 +176,25 @@ const Home = () => {
               Your Results
             </Typography> */}
             {/* <TotalResult userResult={userPoints} maxResult={maxPoints}/> */}
-            
+
             <Typography variant="h6" className={classes.result}>
               {text}
             </Typography>
-            <Typography variant="h5" className={classes.result}>
-             You got {Math.round(userPoints)} out of {Math.round(maxPoints)} total points.
+            <Typography variant="h6" className={classes.score}>
+              You got {Math.round(userPoints)} out of {Math.round(maxPoints)}{' '}
+              total points.
             </Typography>
             <Typography
               variant="body1"
               className={classes.resultText}
               data-testid="summarytext"
             >
-              We have Assessed your capabilities in the following categories:
+              The assessment and score consist of these categories:
             </Typography>
             <ul data-testid="category-list" className={classes.categoryList}>
               {categoryResults.map((category) => (
                 <li key={category.name}>
-                  {category.name} -{' '}
+                  {category.name}   {' '}
                   {category.userPoints + ' / ' + category.maxPoints} points
                   {category.name === userBestInCategory ? (
                     <>
@@ -218,20 +217,22 @@ const Home = () => {
             <TotalResultRadarChart data={percentages} />
           </Grid>
           <Grid item xs={12} md={5} xl={5}>
-            <Typography
-              variant="body1"
-              className={classes.resultText}
-              data-testid="summarytext"
-            >
-              <strong> Want more detailed results? </strong> <br />
-              <br />
-              Fill in the form below to get more detailed results by email
-              including suggestions on how to improve your skills.
-              <br />
-              <br />
-              You can also compare your results with others in your industry or
-              in the selected reference group.
-            </Typography>
+            {showSubmitSellText ? (
+              <Typography
+                variant="body1"
+                className={classes.resultText}
+                data-testid="summarytext"
+              >
+                <strong> Want more detailed results? </strong> <br />
+                <br />
+                Fill in the form below to get more detailed results by email
+                including suggestions on how to improve your skills.
+                <br />
+                <br />
+                You can also compare your results with others in your industry
+                or in the selected reference group.
+              </Typography>
+            ) : null}
             {baseUrl === '' ? null : (
               <ShareResultsGroup
                 text={text}
@@ -240,15 +241,16 @@ const Home = () => {
                 baseUrl={baseUrl}
               />
             )}
+
             <GetDetailedResultsForm
-              industries={industries}
               roles={roles}
               challenges={challenges}
+              setShowSubmitSellText={setShowSubmitSellText}
             />
           </Grid>
         </Paper>
       </Grid>
-      <Box textAlign="center" marginTop="20px">
+      <Box textAlign="center" marginTop="10vh">
         <img src="/logo.png" alt="Logo" width={120} height={90} />
       </Box>
     </>
