@@ -1,11 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
-import {
-  MenuItem,
-  FormControl,
-  Select,
-} from '@material-ui/core'
+import { MenuItem, FormControl, Select } from '@material-ui/core'
+import { useStore } from '../store'
+import { useTheme, makeStyles } from '@material-ui/core/styles'
 
+const useStyles = makeStyles((theme) => ({
+  form: {
+    backgroundColor: 'white',
+    fontFamily: 'Montserrat',
+    borderRadius: '10px',
+    borderWidth: '0px',
+    padding: '4.5px 5px',
+    marginBottom: '10px',
+    minWidth: '100%',
+  },
+  selection: {
+    fontFamily: 'Montserrat',
+    fontSize: '0.75rem',
+    paddingLeft: '15px',
+    backgroundColor: 'white',
+  },
+  item: {
+    fontFamily: 'Montserrat',
+    fontSize: '0.75rem',
+  },
+}))
 
 const StyledFormControl = styled(FormControl)`
   background-color: white;
@@ -32,11 +51,18 @@ const StyledMenuItem = styled(MenuItem)`
   font-size: 0.65rem;
 `
 
-const ChallengeSelector = ({ challenges, selectedChallenge, setSelectedChallenge }) => {
+const ChallengeSelector = ({ challenges, selectedChallenge, setSelectedChallenge, displayAlert }) => {
+  const store = useStore()
+  const theme = useTheme()
+  const classes = useStyles(theme)
 
   const handleChange = (event) => {
     event.preventDefault()
+    displayAlert()
     setSelectedChallenge(event.target.value)
+    event.target.value === 0
+      ? store.setUserSelectedChallenge('')
+      : store.setUserSelectedChallenge(event.target.value)
   }
 
   return (

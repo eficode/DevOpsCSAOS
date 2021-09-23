@@ -9,6 +9,7 @@ const {
 } = require('../../models')
 const { SendHubspotMessage } = require('./helpers/sendAnswersToHubspot')
 const { verifyUserAnswers, getSummaryOfResults, getFullResults } = require('./helpers/answers')
+const getIndustryAverage = require('./helpers/industryAverage')
 
 const saveAnswersToDatabase = async (answers, userId) => {
   const answersToQuestions = answers.map((answer) => ({
@@ -20,7 +21,7 @@ const saveAnswersToDatabase = async (answers, userId) => {
 }
 
 answersRouter.post('/', async (req, res) => {
-  const { answers, surveyId, groupId } = req.body
+  const { answers, surveyId, groupId, industryId } = req.body
   const survey = await Survey.findOne({
     where: { id: surveyId },
   })
@@ -62,25 +63,46 @@ answersRouter.post('/', async (req, res) => {
   }
 
 
-  const results = await getFullResults(answers, surveyId)
+  let results = await getFullResults(answers, surveyId)
+  let userInDb
+  try {
+    userInDb = survey_user_group
+      ? await User.create({
+          groupId: survey_user_group.id,
+        })
+      : await User.create({industryId: industryId || null})
+      await saveAnswersToDatabase(answers, userInDb.id)
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      message: 'Saving user failed',
+    })
+  }
+  
+  if (industryId) {
+    const industryAveragesByCategory = await getIndustryAverage(
+      industryId,
+      surveyId
+    )
+    results = {
+      ...results,
+      categoryResults: results.categoryResults.map((c, index) => ({
+        industryAverage: industryAveragesByCategory[index].industryAverage,
+        ...c,
+      })),
+    }
+  }
 
   // console.log('results', results)
   // console.log('newResults', newResults)
 
   try {
-    const userInDb = survey_user_group
-      ? await User.create({
-          groupId: survey_user_group.id,
-        })
-      : await User.create({})
-
-    await saveAnswersToDatabase(answers, userInDb.id)
     const token = jwt.sign(userInDb.id, process.env.SECRET_FOR_TOKEN)
     return res.status(200).json({ token, results: results })
   } catch (err) {
     console.log(err)
     return res.status(500).json({
-      message: 'Saving answers failed',
+      message: 'Transforming to token failed',
     })
   }
 })
@@ -103,14 +125,28 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     groupId,
     industryId,
     userQuestionAnswerPairs,
+    userRole,
+    userChallenge
   } = req.body
-
+  console.log('received send')
   try {
     // request body validation
 
     if (!email || !token || !surveyId) {
       return res.status(400).json({
         message: 'Email, token and survey id are required for submit',
+      })
+    }
+
+    if(!userRole) {
+      return res.status(400).json({
+        message: 'User role is required',
+      })
+    }
+
+    if(!userChallenge) {
+      return res.status(400).json({
+        message: 'Challenge selection is required',
       })
     }
 
@@ -167,7 +203,6 @@ answersRouter.post('/emailsubmit', async (req, res) => {
       await user.save()
     }
 
-    console.log(roles, challenges)
     if (process.env.NODE_ENV === 'production') {
       try {
        
@@ -184,7 +219,9 @@ answersRouter.post('/emailsubmit', async (req, res) => {
           email,
           group_invite_link,
           user_results_link,
-          userQuestionAnswerPairs
+          userQuestionAnswerPairs,
+          userRole,
+          userChallenge
         )
       } catch (error) {
         return res.status(500).json({

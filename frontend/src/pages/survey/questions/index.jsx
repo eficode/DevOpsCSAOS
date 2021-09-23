@@ -164,11 +164,12 @@ const SurveyPage = () => {
     store.setUserQuestionAnswerPairs(userQuestionAnswerPairs)
 
     try {
+      const industryId = store.userSelectedIndustry
       const response = await sendAnswers(
         answersForBackend,
         surveyId,
         groupId,
-        selections
+        industryId
       )
       store.setResults(response.results)
       store.setUserToken(response.token)
@@ -201,8 +202,6 @@ const SurveyPage = () => {
       questionsToRender.map((q) => q.id).includes(s.questionId)
     )
 
-   
-
     if (allQuestionsAnswered(selectionsOfRenderedQuestions)) {
       isFinalPage
         ? null
@@ -219,11 +218,9 @@ const SurveyPage = () => {
       auto-redirect would be weird
     */
 
-    
     if (!store.visitedSummary) {
       redirectToNextPageIfCurrentPageCompleted(newSelections)
     }
-
   }
 
   if (!storeHasQuestions) {
@@ -233,115 +230,105 @@ const SurveyPage = () => {
   const answeredQuestionsCount = countOfAnsweredQuestions(store.selections)
 
   return (
-      <div className={classes.content}>
-        <Grid
-          container
-          direction="column"
-          alignContent="center"
-          alignItems="center"
-        >
-          <Grid item>
-            <Head>
-              <title>DevOps Capability Survey</title>
-            </Head>
-            <Typography variant="h5" className={classes.heading}>
-              DevOps self-assessment
-            </Typography>
-
-            {/* <Typography variant="subtitle1" className={classes.text}>
-              Answer these {store.questions.length} questions to receive
-              feedback on your DevOps capabilities.
-            </Typography> */}
-          </Grid>
-          <Grid container item className={classes.contentRow}>
-            <Grid item md={2} className={classes.image}>
-              <img src="/leftside.png" width="100%" alt="Left banner" />
-            </Grid>
-            <Grid item xs={12} md={5}>
-              <Box>
-                <Paper className={classes.card}>
-                  <Grid item>
-                    <ContentAnimationWrapper>
-                      {questionsToRender &&
-                        questionsToRender.map((question) => (
-                          <SingleQuestion
-                            key={question.id}
-                            question={question}
-                            onOptionClick={onOptionClick}
-                            answered={answeredQuestionsCount}
-                            total={store.questions.length}
-                          />
-                        ))}
-                    </ContentAnimationWrapper>
-                  </Grid>
-                  {unansweredAlert ? (
-                    <Typography
-                      variant="subtitle2"
-                      className={classes.warningText}
-                    >
-                      Please answer all questions to continue.
-                    </Typography>
-                  ) : null}
-                  {allAnsweredAlert ? (
-                    <Typography
-                      variant="subtitle2"
-                      className={classes.allAnsweredText}
-                    >
-                      All questions answered, submit to finalize and see your
-                      results.
-                    </Typography>
-                  ) : null}
-                  
-                    <NavigationGroup>
-                      {!isFirstPage ? (
-                        <StyledLink
-                          href={previousPageHref}
-                          passHref
-                          type="secondary"
-                        >
-                          <ChevronLeftIcon /> Previous
-                        </StyledLink>
-                      ) : (
-                        <StyledLink
-                          href={frontPageRef}
-                          passHref
-                          type="secondary"
-                        >
-                          <ChevronLeftIcon /> To Front Page
-                        </StyledLink>
-                      )}
-
-                      <Typography variant="h6" className={classes.indicator}>
-                        {pageId} / {store.questions.length}
-                      </Typography>
-
-                      {!isFinalPage ? (
-                        <StyledLink href={nextPageHref} passHref type="primary">
-                          Next <ChevronRightIcon />
-                        </StyledLink>
-                      ) : allQuestionsAnswered(store.selections) ? (
-                        <StyledButton type="submit" onClick={handleSubmit}>
-                          Submit <DoneIcon />
-                        </StyledButton>
-                      ) : (
-                        <StyledButton type="disabled" onClick={handleSubmit}>
-                          Submit <DoneIcon />
-                        </StyledButton>
-                      )}
-                    </NavigationGroup>
-                  
-                </Paper>
-              </Box>
-            </Grid>
-            <Grid item md={2} className={classes.image}>
-              <img src="/rightside.png" width="100%" alt="Right banner" />
-            </Grid>
-          </Grid>
-          <Box textAlign="center" marginTop="20px">
-            <img src="/logo.png" alt="Logo" width={120} height={90} />
-          </Box>
+    <div className={classes.content}>
+      <Grid
+        container
+        direction="column"
+        alignContent="center"
+        alignItems="center"
+      >
+        <Grid item>
+          <Head>
+            <title>DevOps Capability Survey</title>
+          </Head>
+          <Typography variant="h5" className={classes.heading}>
+            DevOps self-assessment
+          </Typography>
         </Grid>
-      </div>
+        <Grid container item className={classes.contentRow}>
+          <Grid item md={2} className={classes.image}>
+            <img src="/leftside.png" width="100%" alt="Left banner" />
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Box>
+              <Paper className={classes.card}>
+                <Grid item>
+                  <ContentAnimationWrapper>
+                    {questionsToRender &&
+                      questionsToRender.map((question) => (
+                        <SingleQuestion
+                          key={question.id}
+                          question={question}
+                          onOptionClick={onOptionClick}
+                          answered={answeredQuestionsCount}
+                          total={store.questions.length}
+                        />
+                      ))}
+                  </ContentAnimationWrapper>
+                </Grid>
+                {unansweredAlert ? (
+                  <Typography
+                    variant="subtitle2"
+                    className={classes.warningText}
+                  >
+                    Please answer all questions to continue.
+                  </Typography>
+                ) : null}
+                {allAnsweredAlert ? (
+                  <Typography
+                    variant="subtitle2"
+                    className={classes.allAnsweredText}
+                  >
+                    All questions answered, submit to finalize and see your
+                    results.
+                  </Typography>
+                ) : null}
+
+                <NavigationGroup>
+                  {!isFirstPage ? (
+                    <StyledLink
+                      href={previousPageHref}
+                      passHref
+                      type="secondary"
+                    >
+                      <ChevronLeftIcon /> Previous
+                    </StyledLink>
+                  ) : (
+                    <StyledLink href={frontPageRef} passHref type="secondary">
+                      <ChevronLeftIcon /> To Front Page
+                    </StyledLink>
+                  )}
+
+                  <Typography variant="h6" className={classes.indicator}>
+                    {pageId} / {store.questions.length}
+                  </Typography>
+
+                  {!isFinalPage ? (
+                    <StyledLink href={nextPageHref} passHref type="primary">
+                      Next <ChevronRightIcon />
+                    </StyledLink>
+                  ) : allQuestionsAnswered(store.selections) ? (
+                    <StyledButton type="submit" onClick={handleSubmit}>
+                      Submit <DoneIcon />
+                    </StyledButton>
+                  ) : (
+                    <StyledButton type="disabled" onClick={handleSubmit}>
+                      Submit <DoneIcon />
+                    </StyledButton>
+                  )}
+                </NavigationGroup>
+              </Paper>
+            </Box>
+          </Grid>
+          <Grid item md={2} className={classes.image}>
+            <img src="/rightside.png" width="100%" alt="Right banner" />
+          </Grid>
+        </Grid>
+        <Box textAlign="center" marginTop="20px">
+          <img src="/logo.png" alt="Logo" width={120} height={90} />
+        </Box>
+      </Grid>
+    </div>
   )
 }
 

@@ -21,7 +21,7 @@ const getIndustryAverage = async (industryId, surveyId) => {
       nest: true,
     })
   ).map((el) => el.get({ plain: true }))
-
+    console.log(usersInIndustry)
   const usersInIndustryResults = await Promise.all(
     usersInIndustry.map(async (user) => {
       const userLatestAnswersIds = await findUserLatestAnswersIds(user.id)

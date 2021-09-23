@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import IconButton from '@material-ui/core/IconButton'
 import Button from './button'
-import IndustrySelector from './industrySelector'
 import ChallengeSelector from './challengeSelector'
 import RoleSelector from './roleSelector'
 import { useStore } from '../store'
@@ -85,7 +84,7 @@ const Info = styled.div`
   width: 200px;
   background-color: ${({ theme }) => theme.colors.whiteSmoke};
   position: absolute;
-  left: 46%;
+  left: 63%;
   z-index: 1;
   font-size: 12px;
   padding: 15px;
@@ -112,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledIcon = styled(InfoOutlinedIcon)``
 
-const GetDetailedResultsForm = ({ industries, roles, challenges }) => {
+const GetDetailedResultsForm = ({ roles, challenges }) => {
   const theme = useTheme()
   const classes = useStyles(theme)
   const store = useStore()
@@ -124,9 +123,10 @@ const GetDetailedResultsForm = ({ industries, roles, challenges }) => {
     setAgreeToPrivacyPolicyChecked,
   ] = useState(false)
   const [emailDisplayAlert, setEmailDisplayAlert] = useState(false)
+  const [roleDisplayAlert, setRoleDisplayAlert] = useState(false)
+  const [challengeDisplayAlert, setChallengeDisplayAlert] = useState(false)
   const [privacyDisplayAlert, setPrivacyDisplayAlert] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
-  const [selectedIndustry, setSelectedIndustry] = useState(0)
   const [selectedRole, setSelectedRole] = useState(0)
   const [selectedChallenge, setSelectedChallenge] = useState(0)
 
@@ -140,30 +140,50 @@ const GetDetailedResultsForm = ({ industries, roles, challenges }) => {
     event.preventDefault()
 
     if (!isEmail(emailInput)) {
-      // eslint-disable-next-line no-undef
-      // alert('Please provide a valid email address')
       setEmailDisplayAlert(true)
       return
     }
+
+    if (!store.userSelectedRole) {
+      setRoleDisplayAlert(true)
+      return
+    }
+
+    if (!store.userSelectedChallenge) {
+      setChallengeDisplayAlert(true)
+      return
+    }
+
     if (!agreeToPrivacyPolicyChecked) {
-      // eslint-disable-next-line no-undef
-      // alert('You need to agree to the privacy policy')
       setPrivacyDisplayAlert(true)
       return
     }
 
     const groupId = store.groupId === '' ? undefined : store.groupId
-    const industryId = selectedIndustry === 0 ? undefined : selectedIndustry
-
+    const userRole = store.userSelectedRole
+    const userChallenge = store.userSelectedChallenge
+    const industryId = store.userSelectedIndustry === '' ? undefined : store.userSelectedIndustry
     await submitEmail(
       store.userToken,
       emailInput,
       createGroupChecked,
       groupId,
       industryId,
-      store.userQuestionAnswerPairs
+      store.userQuestionAnswerPairs,
+      userRole,
+      userChallenge
+      
     )
     setSubmitted(true)
+  }
+  const handleRoleSelectChange = () => {
+    setRoleDisplayAlert(false)
+    setChallengeDisplayAlert(false)
+  }
+
+  const handleChallengeSelectChange = () => {
+    setChallengeDisplayAlert(false)
+    setRoleDisplayAlert(false)
   }
 
   const handleCreateGroupChange = (event) => {
@@ -196,20 +216,17 @@ const GetDetailedResultsForm = ({ industries, roles, challenges }) => {
             value={emailInput}
             onChange={handleEmailChange}
           />
-          <IndustrySelector
-            industries={industries}
-            selectedIndustry={selectedIndustry}
-            setSelectedIndustry={setSelectedIndustry}
-          />
          <RoleSelector
             roles={roles}
             selectedRole={selectedRole}
             setSelectedRole={setSelectedRole}
+            displayAlert={handleRoleSelectChange}
           />
           <ChallengeSelector
             challenges={challenges}
             selectedChallenge={selectedChallenge}
             setSelectedChallenge={setSelectedChallenge}
+            displayAlert={handleChallengeSelectChange}
           />
           <CheckboxContainer>
             <StyledCheckbox
@@ -264,6 +281,16 @@ const GetDetailedResultsForm = ({ industries, roles, challenges }) => {
         {emailDisplayAlert ? (
           <Typography variant="body" className={classes.text}>
             Please enter a valid email.
+          </Typography>
+        ) : null}
+        {roleDisplayAlert ? (
+          <Typography variant="body" className={classes.text}>
+            Please select your role in your organization.
+          </Typography>
+        ) : null}
+        {challengeDisplayAlert ? (
+          <Typography variant="body" className={classes.text}>
+            Please select a challenge you are trying to solve.
           </Typography>
         ) : null}
         {privacyDisplayAlert ? (

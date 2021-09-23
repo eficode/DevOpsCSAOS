@@ -25,13 +25,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     textAlign: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '100%',
     margin: '0',
     padding: '3%',
     borderRadius: '12px',
     backgroundColor: '#F0F0EC',
     [theme.breakpoints.down('sm')]: {
+      padding: '1.5%',
       flexDirection: 'column',
       justifyContent: 'center',
     },
@@ -177,11 +178,12 @@ const Home = () => {
               Your Results
             </Typography> */}
             {/* <TotalResult userResult={userPoints} maxResult={maxPoints}/> */}
-            <Typography variant="h5" className={classes.score}>
-              {Math.round(userPoints)} / {Math.round(maxPoints)}
-            </Typography>
+            
             <Typography variant="h6" className={classes.result}>
               {text}
+            </Typography>
+            <Typography variant="h5" className={classes.result}>
+             You got {Math.round(userPoints)} out of {Math.round(maxPoints)} total points.
             </Typography>
             <Typography
               variant="body1"

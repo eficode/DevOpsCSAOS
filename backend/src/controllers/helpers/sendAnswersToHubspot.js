@@ -5,7 +5,9 @@ const SendHubspotMessage = async (
   email,
   group_invite_link,
   user_results_link,
-  userQuestionAnswerPairs
+  userQuestionAnswerPairs,
+  userRole,
+  userChallenge
 ) => {
   if (!email) {
     throw new Error('Email not provided.')
@@ -38,6 +40,8 @@ const SendHubspotMessage = async (
       group_invite_link: group_invite_link,
       result_link_for_user: user_results_link,
       last_devops_assessment_survey_submission: new Date().toString(),
+      what_challenge_do_you_want_to_solve_: userChallenge,
+      what_is_your_role_in_the_company_: userRole
     },
   }
 

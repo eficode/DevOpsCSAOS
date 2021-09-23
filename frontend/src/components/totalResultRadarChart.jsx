@@ -5,15 +5,18 @@ import {
   PolarGrid,
   Legend,
   PolarAngleAxis,
+  PolarRadiusAxis,
   ResponsiveContainer,
   Tooltip,
   Text,
 } from 'recharts'
 import styled from 'styled-components'
 
-const ResultsTitle = styled.h2`
+const ResultsTitle = styled.h3`
   color: ${({ theme }) => theme.colors.blueDianne};
   font-family: Montserrat;
+  font-size: 0.9rem;
+  font-weight: bold;
   margin: 30px 0 10px 0;
 `
 
@@ -85,7 +88,6 @@ const TotalResultRadarChart = ({ data }) => (
         />
         <PolarGrid />
         <PolarAngleAxis dataKey="name" tick={<CustomizedAxisTick />} />
-
         <Radar
           name="Your points"
           dataKey="userPerCentOutOfMax"
@@ -114,7 +116,7 @@ const TotalResultRadarChart = ({ data }) => (
           />
         )}
 
-        <Legend fontSize="0.8rem" />
+        <Legend verticalAlign='top' align='center' iconType={'diamond'} iconSize="18" wrapperStyle={{fontSize: '0.9rem', fontFamily: 'Montserrat'}} />
       </RadarChart>
     </ResponsiveContainer>
   </>
