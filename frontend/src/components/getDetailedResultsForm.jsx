@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledIcon = styled(InfoOutlinedIcon)``
 
-const GetDetailedResultsForm = ({ roles, challenges }) => {
+const GetDetailedResultsForm = ({ roles, challenges, setShowSubmitSellText }) => {
   const theme = useTheme()
   const classes = useStyles(theme)
   const store = useStore()
@@ -175,6 +175,7 @@ const GetDetailedResultsForm = ({ roles, challenges }) => {
       
     )
     setSubmitted(true)
+    setShowSubmitSellText(false)
   }
   const handleRoleSelectChange = () => {
     setRoleDisplayAlert(false)
