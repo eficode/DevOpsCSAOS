@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   score: {
     fontFamily: 'Montserrat',
     textDecoration: 'underline',
-    margin: '1%',
+    margin: '1%'
   },
   title: {
     color: '#1E3944',
@@ -211,6 +211,7 @@ const Home = () => {
             <TotalResultRadarChart data={percentages} />
           </Grid>
           <Grid item xs={12} md={5} xl={5}>
+<<<<<<< HEAD
             {showSubmitSellText ? (
               <Typography
                 variant="body1"
@@ -227,6 +228,8 @@ const Home = () => {
                 or in the selected reference group.
               </Typography>
             ) : null}
+=======
+>>>>>>> c32221bf06a05e04e129751b17c55b785f649242
             {baseUrl === '' ? null : (
               <ShareResultsGroup
                 text={text}
@@ -235,12 +238,33 @@ const Home = () => {
                 baseUrl={baseUrl}
               />
             )}
+<<<<<<< HEAD
 
             <GetDetailedResultsForm
               roles={roles}
               challenges={challenges}
               setShowSubmitSellText={setShowSubmitSellText}
             />
+=======
+            {showSubmitSellText ? (
+              <Typography
+                variant="body1"
+                className={classes.resultText}
+                data-testid="summarytext"
+              >
+                <strong> Want more detailed results? </strong> <br />
+                <br />
+                Fill in the form below to get more detailed results by email
+                including suggestions on how to improve your skills.
+                <br />
+                <br />
+                You can also compare your results with others in your industry
+                or in the selected reference group.
+              </Typography>
+            ) : null}
+
+            <GetDetailedResultsForm roles={roles} challenges={challenges} setShowSubmitSellText={setShowSubmitSellText}/>
+>>>>>>> c32221bf06a05e04e129751b17c55b785f649242
           </Grid>
         </Paper>
       </Grid>
