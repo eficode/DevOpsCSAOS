@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   score: {
     fontFamily: 'Montserrat',
-    textDecoration: 'underline',
+    fontWeight: 'bold',
     margin: '1%'
   },
   title: {
@@ -104,7 +104,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginTop: '1vh',
     },
-  }
+  },
+  submitAndShare: {
+    placeSelf: 'start',
+  },
+  placeholderDiv: {
+    paddingTop: '30%'
+  },
 }))
 
 const Home = () => {
@@ -181,9 +187,7 @@ const Home = () => {
               {text}
             </Typography>
             <Typography variant="h6" className={classes.score}>
-              You got {Math.round(userPoints)} out of {Math.round(maxPoints)}{' '}
-              total points.
-            </Typography>
+              Total score <br /> {Math.round(userPoints)} / {Math.round(maxPoints)} points</Typography>
             <Typography
               variant="body1"
               className={classes.resultText}
@@ -216,7 +220,7 @@ const Home = () => {
             </ul>
             <TotalResultRadarChart data={percentages} />
           </Grid>
-          <Grid item xs={12} md={6} xl={5}>
+          <Grid item xs={12} md={6} xl={5} className={classes.submitAndShare}>
             {showSubmitSellText ? (
               <Typography
                 variant="body1"
@@ -232,7 +236,7 @@ const Home = () => {
                 You can also compare your results with others in your industry
                 or in the selected reference group.
               </Typography>
-            ) : null}
+            ) : <div className={classes.placeholderDiv}></div>}
             {baseUrl === '' ? null : (
               <ShareResultsGroup
                 text={text}
