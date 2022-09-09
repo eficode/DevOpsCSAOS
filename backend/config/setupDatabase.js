@@ -66,14 +66,15 @@ const getJSONFiles = async () => {
   inserts seed data (testData copied from seed_database.sql)
 */
 const initDatabase = async () => {
+  await sequelize.sync({ alter: true })
+  await Survey.bulkCreate(surveys, {
+    updateOnDuplicate: ['name','title_text','survey_text'],
+  })
+
   const [questions, categories, survey_results, category_results, industries] =
     await getJSONFiles()
   const answers = await generateAnswerData(questions.length)
 
-  await sequelize.sync({ alter: true })
-  await Survey.bulkCreate(surveys, {
-    updateOnDuplicate: ['name'],
-  })
   await Industry.bulkCreate(industries, {
     updateOnDuplicate: ['name'],
   })

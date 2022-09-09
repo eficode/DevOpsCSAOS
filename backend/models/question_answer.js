@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Question_answer.init(
     {
       text: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notNull: { msg: 'Question answer must have text' },

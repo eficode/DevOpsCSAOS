@@ -104,6 +104,7 @@ const Home = () => {
     const url = new URLSearchParams(window.location.search)
     const version = url.get('version')
     const groupId = url.get('groupid')
+    const surveyParameter = url.get('survey')
     const user = url.get('user')
     if (user) {
       router.push(`/survey/total_results/?user=${user}`)
@@ -111,6 +112,9 @@ const Home = () => {
     }
     if (version) {
       store.setFeatureToggleSwitch(version)
+    }
+    if (surveyParameter) {
+      store.setSurvey(parseInt(surveyParameter))
     }
     if (groupId) {
       const { result: isValidGroupId } = await checkGroupId(groupId)
@@ -128,10 +132,11 @@ const Home = () => {
 
   useEffect(() => {
     ;(async () => {
-      if (store.questions.length === 0) {
+      const url = new URLSearchParams(window.location.search)
+      const surveyParameter = url.get('survey')
+      if (store.questions.length === 0 || store.surveyId != surveyParameter) {
         try {
-          const surveyId = 1
-          const response = await getAllQuestions(surveyId)
+          const response = await getAllQuestions(surveyParameter)
 
           store.setQuestions(response, store.featureToggleSwitch)
         } catch (error) {
@@ -161,7 +166,8 @@ const Home = () => {
   }
 
   return store.industries.length === 0 &&
-    store.questions.length === 0 ? null : (
+    store.questions.length === 0 &&
+    store.surveyId ? null : (
       <Grid
         container
         direction="column"

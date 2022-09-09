@@ -16,6 +16,7 @@ const optionsToPointsMap = {
   Disagree: 1,
   'Strongly disagree': 0,
 }
+const initialSurveyId = null
 const initialResults = undefined
 const initialQuestionGroups = []
 const initialVisitedSummary = false
@@ -56,6 +57,7 @@ const store = (set) => ({
   selections: initialSelections,
   questionGroups: initialQuestionGroups,
   optionsToPointsMap,
+  surveyId: initialSurveyId,
   results: initialResults,
   detailedResults: initialDetailedResults,
   visitedSummary: initialVisitedSummary,
@@ -87,6 +89,7 @@ const store = (set) => ({
       userSelectedIndustry: initialUserSelectedIndustry,
       userSelectedRole: initialUserSelectedRole,
       userSelectedChallenge: initialUserSelectedChallenge,
+      surveyId: initialSurveyId,
       visitedSummary: false,
       groupId: '',
     })),
@@ -118,6 +121,7 @@ const store = (set) => ({
   setGroupId: (value) => set(() => ({ groupId: value })),
   setUserToken: (value) => set(() => ({ userToken: value })),
   setIndustries: (industries) => set(() => ({ industries })),
+  setSurvey: (surveyId) => set(() => ({ surveyId })),
   setUserQuestionAnswerPairs: (value) =>
     set(() => ({ userQuestionAnswerPairs: value })),
   setUserSelectedIndustry: (value) =>

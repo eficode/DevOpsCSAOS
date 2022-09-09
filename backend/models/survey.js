@@ -22,6 +22,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: false,
       },
+      title_text: {
+        type: DataTypes.TEXT,
+      },
+      survey_text: {
+        type: DataTypes.TEXT,
+      },
     },
     {
       sequelize,

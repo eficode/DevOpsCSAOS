@@ -8,6 +8,7 @@ services:
       POSTGRES_USER: testUser
       POSTGRES_PASSWORD: password
       POSTGRES_DB: dev_db
+    command: ["postgres", "-c", "log_statement=all"]
     volumes:
       - dbdata:/var/lib/postgresql/data:Z
     ports:
