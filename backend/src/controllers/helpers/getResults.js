@@ -272,7 +272,7 @@ const getFullResults = async (user_answers, surveyId) => {
   const keys = Object.keys(userAndMaxResults.user)
   const newCategoryResults = await keys.map(async (key) => {
     const fetchedCategory = await Category.findOne({
-      attributes: ['id', 'description'],
+      attributes: ['id', 'description', 'content_links'],
       where: {
         name: key,
       },
@@ -290,6 +290,7 @@ const getFullResults = async (user_answers, surveyId) => {
         fetchedCategory.id
       ),
       description: fetchedCategory.description,
+      links: fetchedCategory.content_links,
     }
   })
 

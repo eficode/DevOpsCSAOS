@@ -183,6 +183,7 @@ const Home = () => {
                     description={result.description}
                     resultText={result.text}
                     index={index}
+                    links={result.links}
                   />
                 ))}
               </Grid>

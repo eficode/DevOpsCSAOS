@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
           max: 1,
           min: 0,
         },
-      },
+      }, 
     },
     {
       sequelize,

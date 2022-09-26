@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Grid from '@material-ui/core/Grid'
+import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
 import { useTheme, makeStyles } from '@material-ui/core/styles'
 
@@ -35,12 +36,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+
 const CategoryResult = ({
   userResult,
   maxResult,
   category,
   description,
   resultText,
+  links,
 }) => {
   const theme = useTheme()
   const classes = useStyles(theme)
@@ -56,7 +59,15 @@ const CategoryResult = ({
         </Typography>
         <Typography variant="body1" className={classes.text}>
           <strong>{description}</strong> {resultText}
+          { links && 
+          " Read more about our solutions and ideas:"
+        }
         </Typography>
+        {links?.map((link, index) => (
+           <Link href={link.url} target="_blank" rel="noopener" underline="none">
+           &nbsp; {index + 1}.&nbsp;{link.type}&nbsp;
+         </Link>
+        ))}
       </Grid>
     </Grid>
   )

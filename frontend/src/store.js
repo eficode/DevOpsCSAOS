@@ -16,7 +16,7 @@ const optionsToPointsMap = {
   Disagree: 1,
   'Strongly disagree': 0,
 }
-const initialSurveyId = null
+const initialSurveyId = 1
 const initialResults = undefined
 const initialQuestionGroups = []
 const initialVisitedSummary = false

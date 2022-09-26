@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: { msg: "Category description can't be empty" },
         },
       },
+      content_links: {
+        type: DataTypes.JSON,
+        allowNull: true,
+      },
     },
     {
       sequelize,

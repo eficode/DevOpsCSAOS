@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography'
 import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
 import StartingPageForm from '../components/startingPageForm'
 import { getBaseUrl, getIndustries, getAllQuestions } from '../services/routes'
+import { sortedIndex } from 'lodash'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -134,11 +135,13 @@ const Home = () => {
     ;(async () => {
       const url = new URLSearchParams(window.location.search)
       const surveyParameter = url.get('survey')
+      
       if (store.questions.length === 0 || store.surveyId != surveyParameter) {
+       
         try {
           const response = await getAllQuestions(surveyParameter)
-
           store.setQuestions(response, store.featureToggleSwitch)
+          store.setSurvey(surveyParameter)
         } catch (error) {
           console.error(error)
         }

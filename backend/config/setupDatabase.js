@@ -84,7 +84,7 @@ const initDatabase = async () => {
   })
 
   await Category.bulkCreate(categories, {
-    updateOnDuplicate: ['name', 'description'],
+    updateOnDuplicate: ['name', 'description', 'content_links'],
   })
   await Category_result.bulkCreate(category_results, {
     updateOnDuplicate: ['text', 'categoryId', 'cutoff_from_maxpoints'],
@@ -100,6 +100,7 @@ const initDatabase = async () => {
   await Survey_user_group.bulkCreate(survey_user_groups, {
     updateOnDuplicate: ['group_name'],
   })
+  
 }
 
 module.exports = { initDatabase }
