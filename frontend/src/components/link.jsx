@@ -103,6 +103,16 @@ const StyledLink = ({ children, type, href }) => {
     )
   }
 
+  if (type === 'content') {
+    return (
+      <Link scroll={false} href={href} passHref>
+        <StyledSecondaryLink variant="contained" component="a" target="_blank">
+          {children}
+        </StyledSecondaryLink>
+      </Link>
+    )
+  }
+
   console.warn('Check allowed link types')
 
   return <Link href={href}>{children}</Link>
