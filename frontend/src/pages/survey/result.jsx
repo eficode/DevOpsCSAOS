@@ -14,7 +14,12 @@ import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
+import { Lightbox } from "react-modal-image"
+import StyledButton from '../../components/button'
+
 import { useTheme, makeStyles } from '@material-ui/core/styles'
+import { Button } from '@material-ui/core'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -121,6 +126,7 @@ const Home = () => {
   const [rolesAndChallenges, setRolesAndChallenges] = useState([])
   const [fullResultsLoaded, setFullResultsLoaded] = useState(false)
   const [showSubmitSellText, setShowSubmitSellText] = useState(true)
+  const [showSampleReport, setShowSampleReport] = useState(false)
 
   let maxPoints,
     userPoints,
@@ -167,6 +173,14 @@ const Home = () => {
       maxPercentage: 1,
       ...category,
     }))
+  }
+
+  const showReport = () => {
+    setShowSampleReport(true)
+  }
+
+  const hideReport = () => {
+    setShowSampleReport(false)
   }
 
   return !fullResultsLoaded ? (
@@ -235,8 +249,20 @@ const Home = () => {
                 <br />
                 You can also compare your results with others in your industry
                 or in the selected reference group.
+                {classes.lightbox_container}
               </Typography>
             ) : <div className={classes.placeholderDiv}></div>}
+            <StyledButton type="submit" onClick={() => showReport()}>Show sample report</StyledButton>
+                { showSampleReport && (
+                        <Lightbox
+                          large={'/sample_report.png'}
+                          alt="Sample report"
+                          onClose={() => hideReport()}
+                        />
+                    )
+                  }
+                <br />
+                <br />
             {baseUrl === '' ? null : (
               <ShareResultsGroup
                 text={text}
