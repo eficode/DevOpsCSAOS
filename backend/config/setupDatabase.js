@@ -68,7 +68,7 @@ const getJSONFiles = async () => {
 const initDatabase = async () => {
   await sequelize.sync({ alter: true })
   await Survey.bulkCreate(surveys, {
-    updateOnDuplicate: ['name','title_text','survey_text'],
+    updateOnDuplicate: ['name','title_text','survey_text','survey_config'],
   })
 
   const [questions, categories, survey_results, category_results, industries] =
@@ -84,7 +84,7 @@ const initDatabase = async () => {
   })
 
   await Category.bulkCreate(categories, {
-    updateOnDuplicate: ['name', 'description', 'content_links'],
+    updateOnDuplicate: ['name', 'description', 'content_links', 'surveyId'],
   })
   await Category_result.bulkCreate(category_results, {
     updateOnDuplicate: ['text', 'categoryId', 'cutoff_from_maxpoints'],

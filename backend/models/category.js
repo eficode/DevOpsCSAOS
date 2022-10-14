@@ -8,8 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     // eslint-disable-next-line no-unused-vars
-    static associate(models) {
+    static associate({ Survey }) {
       // define association here
+      this.belongsTo(Survey, { foreignKey: 'surveyId' })
     }
   }
   Category.init(
@@ -32,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       content_links: {
         type: DataTypes.JSON,
+        allowNull: true,
+      },
+      surveyId: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
     },

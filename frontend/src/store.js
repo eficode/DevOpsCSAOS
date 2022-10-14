@@ -27,6 +27,9 @@ const initialIndustries = []
 const initialUserSelectedIndustry = ''
 const initialUserSelectedRole = ''
 const initialUserSelectedChallenge = ''
+const initialSurveyHeader = 'Self-assessment tool'
+const initialSurveyTitleText = 'Welcome to survey tool!'
+const initialSurveyFlavorText = 'on your practices.'
 
 export const divideQuestions = (questions, featureToggleSwitch) => {
   const initialSelectionsWithQuestionIds = []
@@ -68,6 +71,9 @@ const store = (set) => ({
   userSelectedIndustry: initialUserSelectedIndustry,
   userSelectedRole: initialUserSelectedRole,
   userSelectedChallenge: initialUserSelectedChallenge,
+  titleText: initialSurveyTitleText,
+  flavorText: initialSurveyFlavorText,
+  surveyHeader: initialSurveyHeader,
   setEmail: (email) => set(() => ({ email })),
   setSelections: (selections) => set(() => ({ selections })),
   setQuestions: (questions, featureToggleSwitch) => {
@@ -114,6 +120,8 @@ const store = (set) => ({
       groupId: '',
     })),
   setResults: (results) => set(() => ({ results })),
+  setSurveyData: (data) => set(() => ({titleText: data.title_text,
+    flavorText: data.survey_text, surveyHeader: data.name})),
   setDetailedResults: (detailedResults) => set(() => ({ detailedResults })),
   setVisitedSummary: (value) => set(() => ({ visitedSummary: value })),
   setFeatureToggleSwitch: (value) =>

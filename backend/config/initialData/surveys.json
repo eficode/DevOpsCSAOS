@@ -3,13 +3,15 @@
       "id": 1,
       "name": "Devops assessment",
       "title_text": "Are you doing DevOps right?",
-      "survey_text": "DevOps practices and capabilities"
+      "survey_text": "DevOps practices and capabilities.",
+      "survey_config":[]
     },
     {
       "id": 2,
       "name": "Agile maturity assessment",
       "title_text": "How well are you doing Agile?",
-      "survey_text": "agile process maturity"
+      "survey_text": "agile process maturity.",
+      "survey_config":[]
     },
     {
         "id": 3,

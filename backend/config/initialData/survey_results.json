@@ -16,6 +16,24 @@
       "surveyId": 1,
       "cutoff_from_maxpoints": 0.7,
       "text": "Your DevOps capabilities have room for improvement."
+    },
+    {
+      "id": 4,
+      "surveyId": 2,
+      "cutoff_from_maxpoints": 0.5,
+      "text": "We found areas where your Agile ways of working could be improved."
+    },
+    {
+      "id": 5,
+      "surveyId": 2,
+      "cutoff_from_maxpoints": 1.0,
+      "text": "You have great Agile ways of working."
+    },
+    {
+      "id": 6,
+      "surveyId": 2,
+      "cutoff_from_maxpoints": 0.7,
+      "text": "Your Agile ways of working have room for improvement."
     }
 
 ]

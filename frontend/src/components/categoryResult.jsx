@@ -62,8 +62,8 @@ const CategoryResult = ({
           " Read more about our solutions and ideas:"
         }
         </Typography>
-        {links?.map(link => (
-          <StyledLink href={link.url} passHref type="content">
+        {links?.map((link,i) => (
+          <StyledLink key={i} href={link.url} passHref type="content">
           {link.title}
           </StyledLink>
         ))}

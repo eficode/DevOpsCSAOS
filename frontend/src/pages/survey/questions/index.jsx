@@ -157,7 +157,7 @@ const SurveyPage = () => {
       }, 3000)
       return
     }
-    const surveyId = 1
+    const surveyId = store.surveyId
 
     const groupId = store.groupId === '' ? undefined : store.groupId
     const answersForBackend = store.selections.map(
@@ -248,10 +248,10 @@ const SurveyPage = () => {
       >
         <Grid item>
           <Head>
-            <title>DevOps Capability Survey</title>
+            <title>Self-assessment tool</title>
           </Head>
           <Typography variant="h5" className={classes.heading}>
-            DevOps self-assessment
+            {store.surveyHeader}
           </Typography>
         </Grid>
         <Grid container item className={classes.contentRow}>

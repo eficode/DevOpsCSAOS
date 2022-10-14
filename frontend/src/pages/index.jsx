@@ -16,7 +16,7 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { ContentAnimationWrapper } from '../components/contentAnimationWrapper'
 import StartingPageForm from '../components/startingPageForm'
-import { getBaseUrl, getIndustries, getAllQuestions } from '../services/routes'
+import { getBaseUrl, getIndustries, getAllQuestions, getSurveyData } from '../services/routes'
 import { sortedIndex } from 'lodash'
 
 const useStyles = makeStyles((theme) => ({
@@ -140,6 +140,8 @@ const Home = () => {
        
         try {
           const response = await getAllQuestions(surveyParameter)
+          const surveyData = await getSurveyData(surveyParameter)
+          store.setSurveyData(surveyData)
           store.setQuestions(response, store.featureToggleSwitch)
           store.setSurvey(surveyParameter)
         } catch (error) {
@@ -180,10 +182,10 @@ const Home = () => {
       >
         <Grid item>
           <Head>
-            <title>DevOps Capability Survey</title>
+            <title>Self-assessment tool</title>
           </Head>
           <Typography variant="h5" className={classes.heading}>
-            DevOps self-assessment
+            {store.surveyHeader}
           </Typography>
         </Grid>
         <Grid container item className={classes.contentRow}>
@@ -196,12 +198,12 @@ const Home = () => {
                 <ContentAnimationWrapper>
                   <Typography variant="h6" className={classes.heading}>
                     Welcome! <br />
-                    Are you doing DevOps right?
+                    {store.titleText}
                   </Typography>
 
                   <Typography variant="body1" className={classes.text}>
                     Answer the following {store.questions.length} questions to
-                    receive feedback on your DevOps practices and capabilities.
+                    receive feedback on your {store.flavorText}
                   </Typography>
 
                   <StartingPageForm industries={store.industries}/>

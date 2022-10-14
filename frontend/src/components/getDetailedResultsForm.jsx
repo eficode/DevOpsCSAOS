@@ -183,7 +183,8 @@ const GetDetailedResultsForm = ({
       industryId,
       store.userQuestionAnswerPairs,
       userRole,
-      userChallenge
+      userChallenge,
+      store.surveyId
     )
     setSubmitted(true)
     setShowSubmitSellText(false)

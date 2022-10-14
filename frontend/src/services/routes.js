@@ -13,6 +13,11 @@ export const sendAnswers = async (answers, surveyId, groupId, industryId) => {
   return response.data
 }
 
+export const getSurveyData= async (surveyId) => {
+  const response = await axios.get(`${API_URL}/surveys/${surveyId}`)
+  return response.data
+}
+
 export const getAllQuestions = async (surveyId) => {
   const response = await axios.get(`${API_URL}/questions/${surveyId}`)
   return response.data
@@ -58,9 +63,9 @@ export const submitEmail = async (
   industryId,
   userQuestionAnswerPairs,
   userRole,
-  userChallenge
+  userChallenge,
+  surveyId
 ) => {
-  const surveyId = 1
   const response = await axios.post(`${API_URL}/answers/emailsubmit`, {
     email,
     token,
@@ -70,7 +75,8 @@ export const submitEmail = async (
     industryId,
     userQuestionAnswerPairs,
     userRole,
-    userChallenge
+    userChallenge,
+    surveyId
   })
   return response.data
 }

@@ -155,7 +155,7 @@ const Summary = () => {
     <>
       <div>
         <Head>
-          <title>DevOps Capability Survey</title>
+          <title>Self-assessment tool</title>
         </Head>
 
         <Grid container direction="row" className={classes.content}>

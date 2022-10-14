@@ -188,7 +188,7 @@ const Home = () => {
   ) : (
     <>
       <Head>
-        <title>DevOps Capability Survey</title>
+        <title>Self-assessment tool</title>
       </Head>
       <Typography variant="h5" className={classes.title}>
         Your assessment results

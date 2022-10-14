@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
       survey_text: {
         type: DataTypes.TEXT,
       },
+      survey_config: {
+        type: DataTypes.JSON,
+        allowNull: true,
+      },
     },
     {
       sequelize,

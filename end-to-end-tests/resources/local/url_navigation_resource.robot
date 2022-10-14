@@ -29,7 +29,7 @@ Open Browser To Main Page
     Wait Until Location Contains    ${MAIN_URL}/survey/questions/?id=1
 
 Main Page Should Be Open
-    Title Should Be    DevOps Capability Survey
+    Title Should Be    Self-assessment tool
 
 Questions Page Should Be Open
     Location Should Contain  ${MAIN_URL}/survey/questions/?id=1

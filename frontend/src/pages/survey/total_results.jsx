@@ -111,7 +111,7 @@ const Home = () => {
     return (
       <>
         <Head>
-          <title>DevOps Capability Survey</title>
+          <title>Self-assessment tool</title>
         </Head>
         <Grid container direction="row" className={classes.contentRow}>
           <Grid item md={2}>
@@ -150,7 +150,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>DevOps Capability Survey</title>
+        <title>Self-assessment tool</title>
       </Head>
       <Grid container direction="row" className={classes.contentRow}>
         <Grid item md={2} className={classes.image}>
