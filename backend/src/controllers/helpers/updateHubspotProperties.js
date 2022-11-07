@@ -32,10 +32,15 @@ const updateHubspotProperties = async () => {
 
   const formattedQuestionNames = questions.map((item) => ({
     [item.text
-      .substring(0, 99)
+      .slice(0, 99)
       .replace(/\./g, '')
       .replace(/\s+/g, '_')
       .replace(/,/g, '_')
+      .replace(/[\(\)\”\“]/g, '')
+      .replace(/"/g, '')
+      .replace(/'/g, '')
+      .replace(/:/g, '')
+      .replace(/-/g, '_') 
       .toLowerCase()]: item.text,
     answerOptions: item.Question_answers.map((answer) => answer.text),
   }))
@@ -67,7 +72,7 @@ const updateHubspotProperties = async () => {
       )
       console.log(`property '${propertyCreate.label}' created`)
     } catch (error) {
-      // console.log('error', error.response.body.message)
+      //console.log('error', error.response.body.message)
       console.log(`property '${propertyCreate.label}' already existed`)
     }
   })

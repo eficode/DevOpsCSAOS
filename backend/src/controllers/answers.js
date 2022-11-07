@@ -222,6 +222,7 @@ answersRouter.post('/emailsubmit', async (req, res) => {
           userChallenge
         )
       } catch (error) {
+        console.log("Failed to sends data to hubspot")
         return res.status(500).json({
           message: 'Sending data to hubspot failed.',
         })

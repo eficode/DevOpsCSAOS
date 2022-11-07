@@ -29,7 +29,12 @@ const SendHubspotMessage = async (
       .replace(/\./g, '')
       .replace(/\s+/g, '_')
       .replace(/,/g, '_')
-      .toLowerCase()]: item.answer,
+      .replace(/[\(\)\”\“]/g, '')
+      .replace(/"/g, '')
+      .replace(/'/g, '')
+      .replace(/:/g, '')
+      .replace(/-/g, '_') 
+      .toLowerCase()]: item.text,
   }))
 
   const questionAnswerProperties = Object.assign({}, ...formattedPairs)
