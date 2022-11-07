@@ -32,7 +32,7 @@ const updateHubspotProperties = async () => {
 
   const formattedQuestionNames = questions.map((item) => ({
     [item.text
-      .substring(0, 100)
+      .substring(0, 99)
       .replace(/\./g, '')
       .replace(/\s+/g, '_')
       .replace(/,/g, '_')

@@ -70,7 +70,6 @@ export const submitEmail = async (
     email,
     token,
     createNewGroup,
-    surveyId,
     groupId,
     industryId,
     userQuestionAnswerPairs,

@@ -120,12 +120,12 @@ answersRouter.post('/emailsubmit', async (req, res) => {
     token,
     email,
     createNewGroup,
-    surveyId,
     groupId,
     industryId,
     userQuestionAnswerPairs,
     userRole,
     userChallenge,
+    surveyId
   } = req.body
 
   try {

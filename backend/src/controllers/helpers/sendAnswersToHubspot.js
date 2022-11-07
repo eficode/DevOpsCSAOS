@@ -25,6 +25,7 @@ const SendHubspotMessage = async (
   // comma and whitespace are converted to _ internally in hubspot
   const formattedPairs = userQuestionAnswerPairs.map((item) => ({
     [item.question
+      .slice(0, 99)
       .replace(/\./g, '')
       .replace(/\s+/g, '_')
       .replace(/,/g, '_')

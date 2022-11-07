@@ -113,6 +113,12 @@ const useStyles = makeStyles((theme) => ({
   submitAndShare: {
     placeSelf: 'start',
   },
+  submitTextTitle:{
+    textAlign: 'center',
+    marginBotom: '-1rem',
+    fontSize: '1.2rem',
+    fontFamily: 'Montserrat'
+  },
   placeholderDiv: {
     paddingTop: '30%'
   },
@@ -236,13 +242,19 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} md={6} xl={5} className={classes.submitAndShare}>
             {showSubmitSellText ? (
-              <Typography
-                variant="body1"
-                className={classes.resultText}
-                data-testid="summarytext"
-              >
+              <>
+                  <Typography
+                  variant="body1"
+                  className={classes.submitTextTitle}
+                  data-testid="submitTextTitle"
+                >
                 <strong> Want more detailed results? </strong> <br />
-                <br />
+                </Typography>
+                <Typography
+                  variant="body1"
+                  className={classes.resultText}
+                  data-testid="summarytext"
+                >
                 Fill in the form below to get more detailed results by email
                 including suggestions on how to improve your skills.
                 <br />
@@ -250,7 +262,7 @@ const Home = () => {
                 You can also compare your results with others in your industry
                 or in the selected reference group.
                 {classes.lightbox_container}
-              </Typography>
+              </Typography></>
             ) : <div className={classes.placeholderDiv}></div>}
             <StyledButton type="submit" onClick={() => showReport()}>Show sample report</StyledButton>
                 { showSampleReport && (
