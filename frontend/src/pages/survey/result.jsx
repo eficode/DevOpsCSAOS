@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   submitTextTitle:{
     textAlign: 'center',
     marginBotom: '-1rem',
-    fontSize: '1.2rem',
+    fontSize: '1.2rem !important',
     fontFamily: 'Montserrat'
   },
   placeholderDiv: {
@@ -248,7 +248,7 @@ const Home = () => {
                   className={classes.submitTextTitle}
                   data-testid="submitTextTitle"
                 >
-                <strong> Want more detailed results? </strong> <br />
+                <strong> Want more detailed results? </strong>
                 </Typography>
                 <Typography
                   variant="body1"
