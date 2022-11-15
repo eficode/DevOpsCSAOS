@@ -34,7 +34,7 @@ const SendHubspotMessage = async (
       .replace(/'/g, '')
       .replace(/:/g, '')
       .replace(/-/g, '_') 
-      .toLowerCase()]: item.text,
+      .toLowerCase()]: item.answer,
   }))
 
   const questionAnswerProperties = Object.assign({}, ...formattedPairs)
@@ -54,7 +54,7 @@ const SendHubspotMessage = async (
   try {
     return await hubspotClient.crm.contacts.basicApi.create(contactObj)
   } catch (error) {
-    // console.log(error)
+    //console.log(error)
     try {
       const filter = {
         propertyName: 'email',
@@ -75,9 +75,7 @@ const SendHubspotMessage = async (
       const result = await hubspotClient.crm.contacts.searchApi.doSearch(
         publicObjectSearchRequest
       )
-
-      const { id } = result.body.results[0]
-
+      const { id }  = result.body.results[0]
       return await hubspotClient.crm.contacts.basicApi.update(id, contactObj)
     } catch (innerError) {
       console.log(innerError)
