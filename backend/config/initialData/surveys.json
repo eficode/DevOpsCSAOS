@@ -1,22 +1,22 @@
 [
-    {
-      "id": 1,
-      "name": "Devops assessment",
-      "title_text": "Are you doing DevOps right?",
-      "survey_text": "DevOps practices and capabilities.",
-      "survey_config":[]
-    },
-    {
-      "id": 2,
-      "name": "Agile maturity assessment",
-      "title_text": "How Agile are you?",
-      "survey_text": "agile process maturity.",
-      "survey_config":[]
-    },
-    {
-        "id": 3,
-        "name": "test",
-        "title_text": "Test1",
-        "survey_text": "Test 2"
-    }
+  {
+    "id": 1,
+    "name": "DevOps assessment",
+    "title_text": "Are you doing DevOps right?",
+    "survey_text": "DevOps practices and capabilities.",
+    "survey_config":[]
+  },
+  {
+    "id": 2,
+    "name": "Agile maturity assessment",
+    "title_text": "How Agile are you?",
+    "survey_text": "agile process maturity.",
+    "survey_config":[]
+  },
+  {
+      "id": 3,
+      "name": "test",
+      "title_text": "Test1",
+      "survey_text": "Test 2"
+  }
 ]
