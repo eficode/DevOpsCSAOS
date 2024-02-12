@@ -98,7 +98,8 @@ const Home = () => {
     // store.resetVersion()
     // eslint-disable-next-line no-undef
     const resizeObserver = new ResizeObserver((entries) => {
-      window.parent.postMessage(entries[0].target.clientHeight + 200, '*')
+      const message = {height:entries[0].target.clientHeight + 200}
+      window.parent.postMessage(message, '*')
     })
 
     resizeObserver.observe(document.body)
@@ -165,6 +166,7 @@ const Home = () => {
   }, [])
 
   const handleClick = () => {
+    window.parent.postMessage('Started', '*')
     router.push('/survey/questions/?id=1', null, {
       shallow: true,
     })

@@ -143,6 +143,11 @@ const Summary = () => {
       )
       store.setResults(response.results)
       store.setUserToken(response.token)
+      const message = {
+        results: response.results,
+        notification: "Success"
+      };
+      window.parent.postMessage(message, '*')
       router.push('/survey/result')
       
     } catch (e) {
