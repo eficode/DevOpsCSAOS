@@ -153,6 +153,11 @@ const Home = () => {
         const fullResults = await getFullResults(store.userToken)
         store.setDetailedResults(fullResults)
         setFullResultsLoaded(true)
+        const message = {
+          results: store.detailedResults,
+          notification: "Success"
+        };
+        window.parent.postMessage(message, '*')
       } catch (error) {
         console.error(error)
       }
