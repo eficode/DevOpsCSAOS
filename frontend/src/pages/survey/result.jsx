@@ -153,11 +153,6 @@ const Home = () => {
         const fullResults = await getFullResults(store.userToken)
         store.setDetailedResults(fullResults)
         setFullResultsLoaded(true)
-        const message = {
-          results: store.detailedResults,
-          notification: "Success"
-        };
-        window.parent.postMessage(message, '*')
       } catch (error) {
         console.error(error)
       }
@@ -165,6 +160,11 @@ const Home = () => {
   }, [])
 
   if (store.industries.length !== 0 && fullResultsLoaded) {
+    const message = {
+      results: store.detailedResults,
+      notification: "Success"
+    }
+    window.parent.postMessage(message, '*')
     maxPoints = store.detailedResults.surveyResult.maxPoints
     userPoints = store.detailedResults.surveyResult.userPoints
     text = store.detailedResults.surveyResult.text
